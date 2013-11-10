@@ -25,19 +25,21 @@ if ball[ "init_file" ] == True:
 	
 	directory = directory.replace( "source/blends/", "" );
 	
-	directory = directory + "experiment_data/1/";
+	directory = directory + "experiments/1/data/";
 	
 	time_stamp = datetime.datetime.fromtimestamp( time.time( ) ).strftime( "%Y_%m_%d_%H_%M_%S" );
 	
-	milliseconds = str( int( round( time.time( ) * 1000 ) ) );
+	milliseconds_start = int( round( time.time( ) * 1000 ) );
 	
-	csv_file = open( directory + time_stamp + ".csv", "w" );
+	ball[ "msecs_start" ] = milliseconds_start;
 	
-	ball[ "file_path" ] = directory + time_stamp + ".csv";
+	ball[ "file_path" ] = directory + time_stamp + "." + ball[ "run_name" ] + "." + "csv"
 	
-	csv_file.write( "'milliseconds','x','y','z'\n" );
+	csv_file = open( ball[ "file_path" ], "w" );
 	
-	csv_file.write( "" + milliseconds + "," + str( ball.worldPosition.x ) + "," + str( ball.worldPosition.y ) + "," + str( ball.worldPosition.z ) + "\n" );
+	csv_file.write( "millisecond,x,y,z," + ball[ "run_name" ] + "\n" );
+	
+	csv_file.write( "" + str( 0 ) + "," + str( ball.worldPosition.x ) + "," + str( ball.worldPosition.y ) + "," + str( ball.worldPosition.z ) + "\n" );
 	
 	csv_file.close( );
 	
@@ -47,11 +49,12 @@ else:
 	
 	csv_file = open( ball[ "file_path" ], "a" );
 	
-	milliseconds = str( int( round( time.time( ) * 1000 ) ) );
+	milliseconds_delta = ( int( round( time.time( ) * 1000 ) ) ) - ball[ "msecs_start" ];
 
-	csv_file.write( "" + milliseconds + "," + str( ball.worldPosition.x ) + "," + str( ball.worldPosition.y ) + "," + str( ball.worldPosition.z ) + "\n" );
+	csv_file.write( "" + str( milliseconds_delta ) + "," + str( ball.worldPosition.x ) + "," + str( ball.worldPosition.y ) + "," + str( ball.worldPosition.z ) + "\n" );
 		
 	csv_file.close( );
-
-
-
+	
+	if ( milliseconds_delta >= 5000 ):
+		
+		bge.logic.endGame( );

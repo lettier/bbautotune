@@ -1,0 +1,124 @@
+David Lettier (C) 2013.
+
+http://www.lettier.com/
+
+Experiment 1:
+
+ - Purpose:
+
+   - To reduce the parameter space--to the physics engine--that the genetic algorithm will tune.
+
+ - Hypothesis: 
+
+   - Not all of the parameters to the physics engine are significantly influential over the simulation.
+
+ - Design:
+
+   - Pong like mock-up where the ball is hit to and fro with the paddle and is contained in a box like arena.
+   - A set of parameters, A, are selected and their settings are set to reasonable values that give way to realistic behavior of the ball.
+   - The first run (run 1) records the movements of the ball once per frame. This run's ball position (XYZ) at millisecond 0 to n will be compared with all other runs.
+   - Parameters from A are chosen one by one and tweaked. 
+   - With parameter p tweaked, a run is conducted and the ball's position is recorded once per frame and saved to a CSV file located in ./data.
+   - CSV file template:
+     - MSec,  X,  Y,  Z, Parameter-Name#Parameter,Value#
+         M0, X0, Y0, Z0
+         ...
+         Mn, Xn, Yn, Zn
+   - CSV file name template:
+     - Y_M_D_H_M_S.Parameter-Name#Parameter,Value#.csv
+   - After the run, with parameter p tweaked, p is set back to its standard value chosen before run 1 and parameter p+1 is chosen, tweaked, and a new run is conducted.
+   - Each run lasts five seconds.
+   - Each run's starting conditions are the same with exception of the tweaked parameter.
+   - Once all parameters in A are tweaked, all runs are compared to run 1 to determine each parameter's influence over the ball and thus over the physics engine.
+   - Parameters determined to have significant influence will be targeted by the genetic algorithm
+ 
+ - Parameters selected and their standard values for the ball:
+ 
+   - World:
+   
+     - Gravity: 9.8m/s^2
+     - Physics Steps:
+       - Max: 5
+       - Substeps: 1
+       - FPS: 60
+     - Logic Steps:
+       - Max: 5
+     - Physics Deactivation:
+       - Linear Threshold: 0.8
+       - Angular Threshold: 1.0
+       - Time: 2.0
+     - Occlusion Culling:
+       - Resolution: 128
+ 
+   - Material:
+ 
+     - Physics: True 
+       - Friction: 0.5
+       - Elasticity: 1.0
+       - Force Field:
+         - Force: 0.0
+         - Distance: 0.0
+         - Damping: 0.0
+         - Align to Normal: False
+
+   - Physics:
+ 
+     - Physics Type: Rigid Body
+     - Actor: True
+     - Ghost: False
+     - Use Material Force Field: False
+     - Rotate From Normal: False
+     - No Sleeping: False
+     - Attributes:
+       - Mass: 1.0
+       - Radius: 1m
+       - Form Factor: 0.4
+     - Anisotropic Friction: False
+       - x: N/A
+       - y: N/A
+       - z: N/A
+     - Velocity:
+       - Minimum: 0.0
+       - Maximum: 0.0
+     - Damping:
+       - Translation: 0.04
+       - Rotation: 0.1
+     - Lock Translation:
+       - x: False
+       - y: False
+       - z: False
+     - Lock Rotation:
+       - x: False
+       - y: False
+       - z: False
+     - Collision Group: 1
+     - Collision Mask: All
+     - Collision Bounds: True
+       - Bounds: Triangle Mesh
+       - Margin: 5cm
+       - Compound: False
+     - Create Obstacle: False
+       - Radius: N/A
+       
+   - Launch Forces:
+   
+     - Loc: 0.0, 0.0, 0.0, L: True
+     - Rot: 0.0, 0.0, 0.0, L: True
+     - Dynamic Object Settings:
+       - Force:            0.0, 0.0, 0.0, L: True
+       - Torque:           0.0, 0.0, 0.0, L: True
+       - Linear Velocity: 20.0, 0.0, 0.0, L: True, Ad: False
+       - Angular Velocity: 0.0, 0.0, 0.0, L: False
+     - Damping Frames: 0
+     
+   - Collision Forces:
+   
+     - Loc: 0.0, 0.0, 0.0, L: True
+     - Rot: 0.0, 0.0, 0.0, L: True
+     - Dynamic Object Settings:
+       - Force:            0.0, 0.0,  0.0, L: True
+       - Torque:           0.0, 0.0,  0.0, L: True
+       - Linear Velocity: 20.0, 0.0, 10.0, L: False, Ad: False
+       - Angular Velocity: 0.0, 0.0,  0.0, L: False
+     - Damping Frames: 0
+   
