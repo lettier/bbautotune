@@ -4,8 +4,6 @@ David Lettier (C) 2013.
 
 http://www.lettier.com/
 
-Blender 2.68
-
 This script plots the 3D path/trajectory of the ball.
 
 '''
