@@ -75,6 +75,7 @@ if ( user_input == "a" ):
 	ax.set_ylabel( "y-axis" );
 	ax.set_zlabel( "z-axis" );
 	
+	ax.view_init( 10, 180 + 45 );
 	
 	i = 0;
 	
@@ -372,6 +373,8 @@ else: # Plot one by one.
 	ax.set_xlabel( "x-axis" );
 	ax.set_ylabel( "y-axis" );
 	ax.set_zlabel( "z-axis" );
+	
+	ax.view_init( 10, 180 + 45 );
 	
 	# Check user input.
 	
