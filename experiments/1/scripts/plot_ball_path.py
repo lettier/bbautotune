@@ -46,7 +46,7 @@ for experiment_file in experiment_files:
 	
 	i += 1;
 	
-user_input = raw_input( "\nPlot which file ([q] to quit or [a] for all)?\n" );
+user_input = raw_input( "\nPlot which file ([q] to quit or [a] for all or [a1] to plot all with one)?\n" );
 
 # Quit?
 
@@ -54,23 +54,27 @@ if ( user_input[ 0 ] == "q" ):
 	
 	sys.exit( 0 );
 	
-# Generate plot setup.
+plot_all_with_one = False;
 
-matplotlib_colors = [ "b", "g", "r", "c", "m", "y", "k" ];
-matplotlib_colors_index = 0;
-
-fig = plt.figure( figsize = ( 5 * 3.13, 5 * 3.13 ) );
-fig.suptitle( "BBAutoTune", fontsize = 18 );
-
-ax = fig.gca( projection = "3d" );
-ax.set_title( "Parameter Influence" );
-ax.set_xlabel( "x-axis" );
-ax.set_ylabel( "y-axis" );
-ax.set_zlabel( "z-axis" );
 		
 # Plot all?
 		
-if ( user_input[ 0 ] == "a" ):
+if ( user_input == "a" ):
+	
+	# Generate plot setup.
+
+	matplotlib_colors = [ "b", "g", "r", "c", "m", "y", "k" ];
+	matplotlib_colors_index = 0;
+
+	fig = plt.figure( figsize = ( 5 * 3.13, 5 * 3.13 ) );
+	fig.suptitle( "BBAutoTune", fontsize = 18 );
+
+	ax = fig.gca( projection = "3d" );
+	ax.set_title( "Parameter Influence" );
+	ax.set_xlabel( "x-axis" );
+	ax.set_ylabel( "y-axis" );
+	ax.set_zlabel( "z-axis" );
+	
 	
 	i = 0;
 	
@@ -148,7 +152,226 @@ if ( user_input[ 0 ] == "a" ):
 		matplotlib_colors_index += 1;
 		matplotlib_colors_index = matplotlib_colors_index % len( matplotlib_colors );
 		
-else: # Plot one by one.	
+elif ( user_input == "a1" ):
+
+	plot_all_with_one = True;
+
+	user_input = raw_input( "\nWhich one to plot all with ([0], ..., [" + str( i - 1 ) + "])?\n" );
+	
+	# Check user_input.
+	
+	while ( True ):
+
+		try:
+
+			user_input = int( user_input );
+			
+			if ( user_input > ( i - 1 ) ):
+				
+				user_input = raw_input( "\nWhich one to plot all with ([0], ..., [" + str( i - 1 ) + "])?\n" );
+
+				continue;
+			
+			break;
+			
+		except:
+			
+			user_input = raw_input( "\nWhich one to plot all with ([0], ..., [" + str( i - 1 ) + "])?\n" );
+			
+			continue;	
+			
+	show_plots = raw_input( "\nShow plots ([y] for yes or [n] for no)?\n" );
+	
+	if ( show_plots[ 0 ] == "y" ):
+	
+		show_plots = True;
+			
+	matplotlib_colors = [ "b", "g", "r", "c", "m", "y", "k" ];
+	
+	for i in xrange( 0, len( experiment_files ) ):
+	
+		if i == user_input:
+		
+			continue;
+			
+		# User Input #########################################################
+			
+		matplotlib_colors_index = 0;
+			
+		fig = plt.figure( figsize = ( 5 * 3.13, 5 * 3.13 ) );
+		fig.suptitle( "BBAutoTune", fontsize = 18 );
+		
+		fig.canvas.set_window_title( "Figure " + str( i ) ); 
+
+		ax = fig.gca( projection = "3d" );
+		ax.set_title( "Parameter Influence" );
+		ax.set_xlabel( "x-axis" );
+		ax.set_ylabel( "y-axis" );
+		ax.set_zlabel( "z-axis" );
+		
+		ax.view_init( 10, 180 + 45 );
+
+		# Open files.
+
+		csv_file = None;
+
+		try:
+			
+			csv_file = open( directory + experiment_files[ user_input ], "r" );
+			
+		except:
+			
+			print( "File does not exist: [" + str( user_input ) + "] " + directory + experiment_files[ user_input ] );
+			
+			sys.exit( 1 );
+			
+		# Gather points.
+			
+		x_points = [ ];
+		y_points = [ ];
+		z_points = [ ];
+
+		titles = csv_file.readline( );
+
+		line = csv_file.readline( );
+
+		while ( line != "" ):
+			
+			line = line.rstrip( '\n' );
+			
+			line = line.rsplit( "," );
+			
+			x_points.append( float( line[ 1 ] ) );
+			y_points.append( float( line[ 2 ] ) );
+			z_points.append( float( line[ 3 ] ) );
+			
+			line = csv_file.readline( );
+			
+		# Create plot label.
+			
+		# Y_M_D_H_M_S.N-N#0,0#.csv
+		# 0           1       2
+
+		# N-N-N#0,0#
+		# 0 	   1   2
+
+		# 0,0
+		# 0 1
+
+		label = experiment_files[ user_input ].split( "." )[ 1 ];
+
+		parameter_name = " ".join( label.split( "#" )[ 0 ].split( "-" ) );
+
+		parameter_value = ".".join( label.split( "#" )[ 1 ].split( "," ) );
+
+		label = parameter_name + ": " + parameter_value;
+		
+		# Add points to plot.
+
+		ax.plot( x_points, y_points, z_points, matplotlib_colors[ matplotlib_colors_index ] + "o-", label = label );
+			
+		# Use next available color.
+
+		matplotlib_colors_index += 1;
+		matplotlib_colors_index = matplotlib_colors_index % len( matplotlib_colors );
+		
+		# i #########################################################
+		
+		# Open files.
+
+		csv_file = None;
+
+		try:
+			
+			csv_file = open( directory + experiment_files[ i ], "r" );
+			
+		except:
+			
+			print( "File does not exist: [" + str( user_input ) + "] " + directory + experiment_files[ i ] );
+			
+			sys.exit( 1 );
+			
+		# Gather points.
+			
+		x_points = [ ];
+		y_points = [ ];
+		z_points = [ ];
+
+		titles = csv_file.readline( );
+
+		line = csv_file.readline( );
+
+		while ( line != "" ):
+			
+			line = line.rstrip( '\n' );
+			
+			line = line.rsplit( "," );
+			
+			x_points.append( float( line[ 1 ] ) );
+			y_points.append( float( line[ 2 ] ) );
+			z_points.append( float( line[ 3 ] ) );
+			
+			line = csv_file.readline( );
+			
+		# Create plot label.
+			
+		# Y_M_D_H_M_S.N-N#0,0#.csv
+		# 0           1       2
+
+		# N-N-N#0,0#
+		# 0 	   1   2
+
+		# 0,0
+		# 0 1
+
+		label = experiment_files[ i ].split( "." )[ 1 ];
+
+		parameter_name = " ".join( label.split( "#" )[ 0 ].split( "-" ) );
+
+		parameter_value = ".".join( label.split( "#" )[ 1 ].split( "," ) );
+
+		label = parameter_name + ": " + parameter_value;
+		
+		# Add points to plot.
+
+		ax.plot( x_points, y_points, z_points, matplotlib_colors[ matplotlib_colors_index ] + "o-", label = label );
+
+		# Use next available color.
+
+		matplotlib_colors_index += 1;
+		matplotlib_colors_index = matplotlib_colors_index % len( matplotlib_colors );
+		
+		# Show plot(s).
+
+		ax.legend( );
+		plt.tight_layout( );
+		plt.subplots_adjust( left = 0.0, right = 1.0, top = 1.0, bottom = 0.0 );
+		
+		if ( show_plots ):
+		
+			plt.show( );
+			
+		else:
+		
+			print "Saving figure: " + "../figures/" + str( i ) + "_" + experiment_files[ i ].replace( ".csv", ".png" );
+	
+			plt.savefig( "../figures/" + str( i ) + "_" + experiment_files[ i ].replace( ".csv", ".png" ) );
+		
+else: # Plot one by one.
+
+	# Generate plot setup.
+
+	matplotlib_colors = [ "b", "g", "r", "c", "m", "y", "k" ];
+	matplotlib_colors_index = 0;
+
+	fig = plt.figure( figsize = ( 5 * 3.13, 5 * 3.13 ) );
+	fig.suptitle( "BBAutoTune", fontsize = 18 );
+
+	ax = fig.gca( projection = "3d" );
+	ax.set_title( "Parameter Influence" );
+	ax.set_xlabel( "x-axis" );
+	ax.set_ylabel( "y-axis" );
+	ax.set_zlabel( "z-axis" );
 	
 	# Check user input.
 	
@@ -373,10 +596,12 @@ else: # Plot one by one.
 		# Plot another file?
 		
 		user_input = raw_input( "\nPlot another file?\n[y] Yes.\n[n] No.\n" );
+		
+if ( not plot_all_with_one ):
 	
-# Show plot(s).
+	# Show plot(s).
 
-ax.legend( );
-plt.tight_layout( );
-plt.subplots_adjust( left = 0.0, right = 1.0, top = 1.0, bottom = 0.0 );
-plt.show( );
+	ax.legend( );
+	plt.tight_layout( );
+	plt.subplots_adjust( left = 0.0, right = 1.0, top = 1.0, bottom = 0.0 );
+	plt.show( );
