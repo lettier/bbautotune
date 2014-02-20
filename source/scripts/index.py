@@ -3,7 +3,7 @@
 import MySQLdb as mdb;
 import sys;
 
-db_connection = mdb.connect( 'localhost', '', '', 'bbautotune' );
+db_connection = mdb.connect( 'localhost', 'root', 'zxZXasqw12!@', 'bbautotune' );
 
 db_cursor = db_connection.cursor( );
 

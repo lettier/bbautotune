@@ -14,9 +14,19 @@ server_address          = ( "", 8000 );
 
 current_working_directory = os.getcwd( );
 
+print( current_working_directory );
+
 if ( current_working_directory.rsplit( "/", 1 )[ 1 ] == "blends" ):
 	
 	scripts_location = current_working_directory.rsplit( "/", 1 )[ 0 ] + "/scripts";
+	
+	os.chdir( scripts_location );
+
+	handler.cgi_directories = [ "/", "/" ];
+	
+elif ( current_working_directory.rsplit( "/", 1 )[ 1 ] == "source" ):
+	
+	scripts_location = current_working_directory + "/scripts";
 	
 	os.chdir( scripts_location );
 
