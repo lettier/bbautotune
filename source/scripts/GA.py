@@ -231,7 +231,6 @@ class GA( ):
 		max_generations                             = None,
 		crossover_probability                       = None,
 		mutation_probability                        = None,
-		number_of_genes_per_genome                  = None,
 		use_rank_fitness                            = None,
 		perform_crossover_and_mutation_sequentially = None,
 		number_of_elite                             = None,
@@ -245,11 +244,7 @@ class GA( ):
 		
 		# Number of generations to run until termination of the algorithm.
 		
-		self.max_generations = max_generations or 0;		
-	
-		# Amount of genes per genome.
-		
-		self.number_of_genes_per_genome = number_of_genes_per_genome or 0;	
+		self.max_generations = max_generations or 0;
 
 		# Use rank in selection?
 		
@@ -295,6 +290,10 @@ class GA( ):
 		
 		'''
 		
+		# The amount of genes per genome.
+		
+		self.number_of_genes_per_genome = 18;
+		
 		# This holds the entire population of genomes.
 		
 		self.population = [ ];
@@ -330,20 +329,6 @@ class GA( ):
 		# Current population makeup of randoms, crossovers, mutants, crossover mutants, and elites.
 
 		self.population_makeup = "";
-		
-		# Initialize population with genomes consisting of random
-		# genes and all fitness's set to zero.
-		
-		for i in range( self.population_size ):
-
-			self.population.append( Genome( ) );
-
-			for j in range( len( self.number_of_genes_per_genome ) ):
-				
-				# TODO: create random range values based on the gene/parameter index valid values
-				# as specified by the physics engine.
-				
-				self.population[ i ].genes.append( random.uniform( 0.0, 1.0 ) );
 		
 	def set_population_size( self, size = None ):
 		
@@ -524,6 +509,21 @@ class GA( ):
 				gene_string += "," + self.population[ i ].get_genes_as_string( );
 				
 			return gene_string;
+		
+	def create_randomized_population( self ):
+		
+		self.population = [ ];
+		
+		# Initialize population with genomes consisting of random
+		# genes and all fitness's set to zero.
+		
+		for i in range( self.population_size ):
+
+			self.population.append( Genome( ) );
+
+			for j in range( self.number_of_genes_per_genome ):
+				
+				self.population[ i ].genes.append( random.uniform( 0.0, 1.0 ) );
 	
 	def replace_population_genes( self, replacement_population_genes ):
 		
@@ -838,7 +838,7 @@ class GA( ):
 				temp_gene_value = copy.deepcopy( offspring.genes[ i ] );
 				
 				offspring.genes[ i ] = random.gauss( offspring.genes[ i ], self.mutation_probability );
-				offspring.genes[ i ] = get_clamped_value( offspring.genes[ i ], -1.0, 1.0 );
+				offspring.genes[ i ] = get_clamped_value( offspring.genes[ i ], 0.0, 1.0 );
 				
 				# Test if it was truly mutated.
 				
@@ -943,7 +943,7 @@ class GA( ):
 				
 				# TODO: clamp invalid.
 				
-				offspring_one.genes[ i ] = get_clamped_value( offspring_one.genes[ i ], -1.0, 1.0 );
+				offspring_one.genes[ i ] = get_clamped_value( offspring_one.genes[ i ], 0.0, 1.0 );
 				
 				# Test if it was truly mutated.
 				
@@ -979,7 +979,7 @@ class GA( ):
 				
 				# TODO: clamp invalid.
 				
-				offspring_two.genes[ i ] = get_clamped_value( offspring_two.genes[ i ], -1.0, 1.0 );
+				offspring_two.genes[ i ] = get_clamped_value( offspring_two.genes[ i ], 0.0, 1.0 );
 				
 				# Test if it was truly mutated.
 				
@@ -1367,7 +1367,7 @@ class GA( ):
 		
 		self.generation_number += 1;
 		
-	def populate_physics_engine_parameter( self, genome_genes ):
+	def populate_physics_engine_parameters( self, genome_genes ):
 		
 		assert len( genome_genes ) == self.number_of_genes_per_genome, "Cannot populate physics engine parameters.";
 
@@ -1425,12 +1425,16 @@ class GA( ):
 		
 		# Scale XYZ?
 		
+		'''
+		
 		scale = get_clamped_value( ( genome_genes[ 3 ] * INF ), 0.0, INF );
 		
 		bpy.data.objects[ front_wheel_l ].scale = [ scale, scale, scale ];
 		bpy.data.objects[ front_wheel_r ].scale = [ scale, scale, scale ];
 		bpy.data.objects[ back_wheel_l  ].scale = [ scale, scale, scale ];
 		bpy.data.objects[ back_wheel_r  ].scale = [ scale, scale, scale ];
+		
+		'''
 		
 		### MATERIAL
 		
@@ -1465,6 +1469,8 @@ class GA( ):
 		
 		# Type?
 		
+		'''
+		
 		PHYSICS_TYPES = [ "NO_COLLISION", "STATIC", "DYNAMIC", "RIGID_BODY", "SOFT_BODY", "OCCLUDE", "SENSOR", "NAVMESH", "CHARACTER" ];
 		
 		physics_type = get_clamped_value( math.floor( genome_genes[ 7 ] * ( len( PHYSICS_TYPES ) - 1 ) ), 0, len( PHYSICS_TYPES ) - 1 );
@@ -1476,7 +1482,11 @@ class GA( ):
 		bpy.data.objects[ back_wheel_l  ].game.physics_type = physics_type; 
 		bpy.data.objects[ back_wheel_r  ].game.physics_type = physics_type; 
 		
+		'''
+		
 		# Ghost?
+		
+		'''
 		
 		use_ghost = BOOLEANS[ round( genome_genes[ 8 ] ) ];
 		
@@ -1484,6 +1494,8 @@ class GA( ):
 		bpy.data.objects[ front_wheel_r ].game.use_ghost = use_ghost;
 		bpy.data.objects[ back_wheel_l  ].game.use_ghost = use_ghost;
 		bpy.data.objects[ back_wheel_r  ].game.use_ghost = use_ghost;
+		
+		'''
 		
 		# Mass.
 		
@@ -1590,9 +1602,29 @@ class GA( ):
 		
 		bpy.ops.view3d.game_start( );
 		
+'''
+
+The BBAutoTune object.
+
+'''
+
+class BBAutoTune( ):
+	
+	def __init__( self, ga ):
+		
+		self.ga = ga;
+		
 # Create the GA object.
 		
 ga = GA( );
+
+# Create the BBAutoTune object.
+
+bbautotune = BBAutoTune( ga );
+
+# Add the bbautotune object instance to Blender.
+
+bpy.bbautotune = bbautotune;
 
 # Switch to the game engine in Blender.
 
