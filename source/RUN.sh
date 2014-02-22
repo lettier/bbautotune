@@ -1,3 +1,3 @@
 #! /bin/bash
 
-blender -P "./scripts/GA.py"
+blender "./blends/BBAutoTune.blend" -P "./scripts/GA.py"

@@ -12,6 +12,7 @@ The main GA python file.
 
 import sys;
 import random;
+import math;
 import copy;
 import itertools;
 import subprocess;
@@ -1379,55 +1380,197 @@ class GA( ):
 		# bpy.data.objects["Cylinder"].game.mass = 10000.0;
 		# bpy.data.scenes["Scene"].game_settings.physics_gravity;
 		
+		# Blender's largest number called "inf".
+		# To find, set an appropriate field to a very large 
+		# number and then click on the field and copy the number.
+		# When clicking the field, the "inf" will turn numeric.
+		
+		INF = 340282346638528859811704183484516925440.0;
+		
+		BOOLEANS = [ False, True ];
+		
 		# Assumes the correct scene, wheel object, sensor, controller, and actuator names.
 		# These names were set by hand in the .blend file. If they are changed, Blender
 		# will throw an exception.
 		
+		scene          = "bbautotune";
+		front_wheel_l  = "robot_1_wheel_front_L";
+		front_wheel_r  = "robot_1_wheel_front_R";
+		back_wheel_l   = "robot_1_wheel_back_L";
+		back_wheel_r   = "robot_1_wheel_back_R";
+		wheel_material = "wheel";
+		actuator       = "torque";
+
 		### WORLD
 		
 		# Gravity.
 		
+		gravity = get_clamped_value( ( genome_genes[ 0 ] * 10000.0 ), 0.0, 10000.0 );
+		
+		bpy.data.scenes[ scene ].game_settings.physics_gravity = gravity;
+		
 		# Sub-steps.
 		
+		sub_steps = get_clamped_value( math.floor( ( genome_genes[ 1 ] * 49 ) + 1 ), 1, 50 );
+		
+		bpy.data.scenes[ scene ].game_settings.physics_step_sub = sub_steps;
+		
 		# FPS.
+		
+		fps = get_clamped_value( math.floor( ( genome_genes[ 2 ] * 9999 ) + 1 ), 1, 10000 );
+		
+		bpy.data.scenes[ scene ].game_settings.fps = fps;
 		
 		### Object 
 		
 		# Scale XYZ?
 		
+		scale = get_clamped_value( ( genome_genes[ 3 ] * INF ), 0.0, INF );
+		
+		bpy.data.objects[ front_wheel_l ].scale = [ scale, scale, scale ];
+		bpy.data.objects[ front_wheel_r ].scale = [ scale, scale, scale ];
+		bpy.data.objects[ back_wheel_l  ].scale = [ scale, scale, scale ];
+		bpy.data.objects[ back_wheel_r  ].scale = [ scale, scale, scale ];
+		
 		### MATERIAL
 		
 		# Use physics.
 		
+		use_material_physics = BOOLEANS[ round( genome_genes[ 4 ] ) ];
+		
+		bpy.data.objects[ front_wheel_l ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
+		bpy.data.objects[ front_wheel_r ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
+		bpy.data.objects[ back_wheel_l  ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
+		bpy.data.objects[ back_wheel_r  ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
+		
 		# Friction.
+		
+		material_friction = get_clamped_value( ( genome_genes[ 5 ] * 100.0 ), 0.0, 100.0 );
+		
+		bpy.data.objects[ front_wheel_l ].material_slots[ 0 ].material.physics.friction = material_friction;
+		bpy.data.objects[ front_wheel_r ].material_slots[ 0 ].material.physics.friction = material_friction;
+		bpy.data.objects[ back_wheel_l  ].material_slots[ 0 ].material.physics.friction = material_friction;
+		bpy.data.objects[ back_wheel_r  ].material_slots[ 0 ].material.physics.friction = material_friction;
 		
 		# Elasticity.
 		
+		material_elasticity = get_clamped_value( ( genome_genes[ 6 ] ), 0.0, 1.0 );
+		
+		bpy.data.objects[ front_wheel_l ].material_slots[ 0 ].material.physics.elasticity = material_elasticity;
+		bpy.data.objects[ front_wheel_r ].material_slots[ 0 ].material.physics.elasticity = material_elasticity;
+		bpy.data.objects[ back_wheel_l  ].material_slots[ 0 ].material.physics.elasticity = material_elasticity;
+		bpy.data.objects[ back_wheel_r  ].material_slots[ 0 ].material.physics.elasticity = material_elasticity;
+		
 		### PHYSICS
 		
-		# Type.
+		# Type?
+		
+		PHYSICS_TYPES = [ "NO_COLLISION", "STATIC", "DYNAMIC", "RIGID_BODY", "SOFT_BODY", "OCCLUDE", "SENSOR", "NAVMESH", "CHARACTER" ];
+		
+		physics_type = get_clamped_value( math.floor( genome_genes[ 7 ] * ( len( PHYSICS_TYPES ) - 1 ) ), 0, len( PHYSICS_TYPES ) - 1 );
+		
+		physics_type = PHYSICS_TYPES[ physics_type ];
+		
+		bpy.data.objects[ front_wheel_l ].game.physics_type = physics_type;
+		bpy.data.objects[ front_wheel_r ].game.physics_type = physics_type; 
+		bpy.data.objects[ back_wheel_l  ].game.physics_type = physics_type; 
+		bpy.data.objects[ back_wheel_r  ].game.physics_type = physics_type; 
 		
 		# Ghost?
 		
+		use_ghost = BOOLEANS[ round( genome_genes[ 8 ] ) ];
+		
+		bpy.data.objects[ front_wheel_l ].game.use_ghost = use_ghost;
+		bpy.data.objects[ front_wheel_r ].game.use_ghost = use_ghost;
+		bpy.data.objects[ back_wheel_l  ].game.use_ghost = use_ghost;
+		bpy.data.objects[ back_wheel_r  ].game.use_ghost = use_ghost;
+		
 		# Mass.
+		
+		mass = get_clamped_value( ( genome_genes[ 9 ] * 10000.0 ), 0.0, 10000.0 );
+		
+		bpy.data.objects[ front_wheel_l ].game.mass = mass;
+		bpy.data.objects[ front_wheel_r ].game.mass = mass;
+		bpy.data.objects[ back_wheel_l  ].game.mass = mass;
+		bpy.data.objects[ back_wheel_r  ].game.mass = mass;
 		
 		# Form factor.
 		
+		form_factor = get_clamped_value( ( genome_genes[ 10 ] ), 0.0, 1.0 );
+		
+		bpy.data.objects[ front_wheel_l ].game.form_factor = form_factor;
+		bpy.data.objects[ front_wheel_r ].game.form_factor = form_factor;
+		bpy.data.objects[ back_wheel_l  ].game.form_factor = form_factor;
+		bpy.data.objects[ back_wheel_r  ].game.form_factor = form_factor;
+		
 		# Velocity maximum.
+		
+		velocity_max = get_clamped_value( ( genome_genes[ 11 ] * 1000.0 ), 0.0, 1000.0 );
+		
+		bpy.data.objects[ front_wheel_l ].game.velocity_max = velocity_max;
+		bpy.data.objects[ front_wheel_r ].game.velocity_max = velocity_max;
+		bpy.data.objects[ back_wheel_l  ].game.velocity_max = velocity_max;
+		bpy.data.objects[ back_wheel_r  ].game.velocity_max = velocity_max;
 		
 		# Damping translation.
 		
+		damping = get_clamped_value( ( genome_genes[ 12 ] ), 0.0, 1.0 );
+		
+		bpy.data.objects[ front_wheel_l ].game.damping = damping;
+		bpy.data.objects[ front_wheel_r ].game.damping = damping;
+		bpy.data.objects[ back_wheel_l  ].game.damping = damping;
+		bpy.data.objects[ back_wheel_r  ].game.damping = damping;
+		
 		# Damping rotation.
+		
+		rotation_damping = get_clamped_value( ( genome_genes[ 13 ] ), 0.0, 1.0 );
+		
+		bpy.data.objects[ front_wheel_l ].game.rotation_damping = rotation_damping;
+		bpy.data.objects[ front_wheel_r ].game.rotation_damping = rotation_damping;
+		bpy.data.objects[ back_wheel_l  ].game.rotation_damping = rotation_damping;
+		bpy.data.objects[ back_wheel_r  ].game.rotation_damping = rotation_damping;
 		
 		# Use collision bounds.
 		
-		# Collisions margins.
+		use_collision_bounds = BOOLEANS[ round( genome_genes[ 14 ] ) ];
+		
+		bpy.data.objects[ front_wheel_l ].game.use_collision_bounds = use_collision_bounds;
+		bpy.data.objects[ front_wheel_r ].game.use_collision_bounds = use_collision_bounds;
+		bpy.data.objects[ back_wheel_l  ].game.use_collision_bounds = use_collision_bounds;
+		bpy.data.objects[ back_wheel_r  ].game.use_collision_bounds = use_collision_bounds;
+		
+		# Collision margin.
+		
+		collision_margin = get_clamped_value( ( genome_genes[ 15 ] ), 0.0, 1.0 );
+		
+		bpy.data.objects[ front_wheel_l ].game.collision_margin = collision_margin;
+		bpy.data.objects[ front_wheel_r ].game.collision_margin = collision_margin;
+		bpy.data.objects[ back_wheel_l  ].game.collision_margin = collision_margin;
+		bpy.data.objects[ back_wheel_r  ].game.collision_margin = collision_margin;
 		
 		# Collision bound type.
+		
+		COLLISION_BOUNDS_TYPES = [ "TRIANGLE_MESH", "CONVEX_HULL", "CONE", "CYLINDER", "SPHERE", "BOX", "CAPSULE" ];
+		
+		collision_bounds_type = get_clamped_value( math.floor( genome_genes[ 16 ] * ( len( COLLISION_BOUNDS_TYPES ) - 1 ) ), 0, len( COLLISION_BOUNDS_TYPES ) - 1 );
+		
+		collision_bounds_type = COLLISION_BOUNDS_TYPES[ collision_bounds_type ];
+		
+		bpy.data.objects[ front_wheel_l ].game.collision_bounds_type = collision_bounds_type;
+		bpy.data.objects[ front_wheel_r ].game.collision_bounds_type = collision_bounds_type; 
+		bpy.data.objects[ back_wheel_l  ].game.collision_bounds_type = collision_bounds_type; 
+		bpy.data.objects[ back_wheel_r  ].game.collision_bounds_type = collision_bounds_type; 
 		
 		### LOGIC BRICKS
 		
 		# Torque.
+		
+		torque_x = get_clamped_value( ( -INF + ( genome_genes[ 17 ] * ( INF + INF ) ) ), -INF, INF );
+		
+		bpy.data.objects[ front_wheel_l ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
+		bpy.data.objects[ front_wheel_r ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
+		bpy.data.objects[ back_wheel_l  ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
+		bpy.data.objects[ back_wheel_r  ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
 
 	def run_game_engine( self ):
 		
