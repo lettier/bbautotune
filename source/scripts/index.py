@@ -3,11 +3,20 @@
 import MySQLdb as mdb;
 import sys;
 
-db_connection = mdb.connect( 'localhost', 'root', 'zxZXasqw12!@', 'bbautotune' );
+variables_location = "./variables/";
+		
+database_file = open( variables_location + "database.var", "r" );
+
+user_name = database_file.readline( ).rstrip( );
+
+password  = database_file.readline( ).rstrip( );
+
+db_connection = mdb.connect( 'localhost', user_name, password, 'bbautotune' );
 
 db_cursor = db_connection.cursor( );
 
-db_cursor.execute( "SELECT * FROM  `experimental_run` LIMIT 0, 30" );
+db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 100" );
+
 result = db_cursor.fetchall( );
 
 max_fitness = 0.0;

@@ -14,25 +14,71 @@ import sys;
 import random;
 import math;
 import copy;
+import signal;
+import time;
 import itertools;
 import subprocess;
+import mysql.connector
 import os;
 import bpy;
 from bpy.props import *;
 
 '''
 
-Creates the Blender properties for the GA UI panel.
+Helper functions.
 
 '''
 
-def initialize_ga_parameter_properties( ):
+def get_clamped_value( value, minimum, maximum ):
 	
-	bpy.types.Scene.GA_POPULATION_SIZE   = IntProperty( name = "Population Size",  description = "Population size."  );
+	return max( min( maximum, value ), minimum );
+
+def get_scripts_location( ):
+	
+	current_working_directory = os.getcwd( );
+		
+	current_working_directory = current_working_directory.rsplit( "/", 1 )
+	
+	while ( current_working_directory[ 1 ] != "bbautotune" ):
+		
+		current_working_directory = current_working_directory[ 0 ].rsplit( "/", 1 );
+	
+	return current_working_directory[ 0 ] + "/bbautotune/source/scripts/";
+
+'''
+
+Creates the Blender properties for the BBAutoTune UI panel.
+
+'''
+
+def initialize_bbautotune_parameter_properties( ):
+	
+	bpy.types.Scene.GA_POPULATION_SIZE = IntProperty( 
+		
+		name = "Population Size",  
+		description = "Population size.",
+		min = 0
+		
+	);
 	bpy.context.scene[ "GA_POPULATION_SIZE" ] = 10;
 	
-	bpy.types.Scene.GA_MAX_GENERATIONS = IntProperty( name = "Max Generations", description = "Max generations." );
+	bpy.types.Scene.GA_MAX_GENERATIONS = IntProperty( 
+		
+		name = "Max Generations", 
+		description = "Max generations.",
+		min = 0
+		
+	);
 	bpy.context.scene[ "GA_MAX_GENERATIONS" ] = 100;
+	
+	bpy.types.Scene.GA_NUMBER_OF_ELITE = IntProperty( 
+		
+		name = "Number of Elite", 
+		description = "Number of elite.",
+		min = 0
+
+	);
+	bpy.context.scene[ "GA_NUMBER_OF_ELITE" ] = 2;
 
 	bpy.types.Scene.GA_CROSSOVER_PROBABILITY = FloatProperty(
 		
@@ -54,76 +100,106 @@ def initialize_ga_parameter_properties( ):
 		
 	);
 	
-	bpy.types.Scene.GA_DEBUG = BoolProperty( 
+	bpy.types.Scene.GA_USE_RANK_FITNESS = BoolProperty( 
 		
-		name        = "Debug",
-		description = "Show debug information."
+		name        = "Use Rank Fitness",
+		description = "Use rank fitness."
 		
 	);	
-	bpy.context.scene[ "GA_DEBUG" ] = False;
+	bpy.context.scene[ "GA_USE_RANK_FITNESS" ] = True;
+	
+	bpy.types.Scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY = BoolProperty( 
+		
+		name        = "Perform Crossover and Mutation Sequentially",
+		description = "Perform crossover and mutation sequentially."
+		
+	);	
+	bpy.context.scene[ "GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY" ] = False;
+	
+	bpy.types.Scene.GA_USE_SELF_ADAPTATION = BoolProperty( 
+		
+		name        = "Use Self-adaptation",
+		description = "Adapt the crossover and mutation probabilities."
+		
+	);	
+	bpy.context.scene[ "GA_USE_SELF_ADAPTATION" ] = False;
+	
+	bpy.types.Scene.BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW = BoolProperty( 
+		
+		name        = "Open GA Monitor Browser Window",
+		description = "Open a browser window to the GA monitor."
+		
+	);	
+	bpy.context.scene[ "BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW" ] = False;
+	
+	bpy.types.Scene.BBAUTOTUNE_DEBUG = BoolProperty( 
+		
+		name        = "Debug",
+		description = "Log debug information."
+		
+	);	
+	bpy.context.scene[ "BBAUTOTUNE_DEBUG" ] = False;
  
-initialize_ga_parameter_properties( );
+initialize_bbautotune_parameter_properties( );
 
 '''
 
-The GA UI panel and its layout in Blender.
+The start button operator on the BBAutoTune UI panel.
+Starts BBAutoTune with the values from the UI panel properties.
+
+'''
+ 
+class BBAUTOTUNE_UI_START_BUTTON_OPERATOR( bpy.types.Operator ):
+	
+	bl_idname = "bbautotune.start";
+	bl_label  = "Start"
+
+	def execute( self, context ):
+	
+		bpy.bbautotune.start( 
+			
+			bpy.context.scene.GA_POPULATION_SIZE,
+			bpy.context.scene.GA_MAX_GENERATIONS,
+			bpy.context.scene.GA_NUMBER_OF_ELITE,
+			bpy.context.scene.GA_CROSSOVER_PROBABILITY,
+			bpy.context.scene.GA_MUTATION_PROBABILITY,
+			bpy.context.scene.GA_USE_RANK_FITNESS,
+			bpy.context.scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY,
+			bpy.context.scene.GA_USE_SELF_ADAPTATION,
+			bpy.context.scene.BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW,
+			bpy.context.scene.BBAUTOTUNE_DEBUG
+			
+		);
+
+		return { 'FINISHED' };
+
+'''
+
+The BBAutoTune UI panel and its layout in Blender.
 
 '''
 
 class GA_UI_PANEL( bpy.types.Panel ):
 	
-	bl_label       = "GA Properties | BBAutoTune";
+	bl_label       = "BBAutoTune Parameters";
 	bl_space_type  = "PROPERTIES";
 	bl_region_type = "WINDOW";
 	bl_context     = "render";
  
 	def draw( self, context ):
 
-		self.layout.prop( context.scene, "GA_POPULATION_SIZE"       );
-		self.layout.prop( context.scene, "GA_MAX_GENERATIONS"       );
-		self.layout.prop( context.scene, "GA_CROSSOVER_PROBABILITY" );
-		self.layout.prop( context.scene, "GA_MUTATION_PROBABILITY"  );
-		self.layout.prop( context.scene, "GA_DEBUG"                 );
+		self.layout.prop( context.scene, "GA_POPULATION_SIZE"                             );
+		self.layout.prop( context.scene, "GA_MAX_GENERATIONS"                             );
+		self.layout.prop( context.scene, "GA_NUMBER_OF_ELITE"                             );
+		self.layout.prop( context.scene, "GA_CROSSOVER_PROBABILITY"                       );
+		self.layout.prop( context.scene, "GA_MUTATION_PROBABILITY"                        );
+		self.layout.prop( context.scene, "GA_USE_RANK_FITNESS"                            );
+		self.layout.prop( context.scene, "GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY" );
+		self.layout.prop( context.scene, "GA_USE_SELF_ADAPTATION"                         );
+		self.layout.prop( context.scene, "BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW"      );
+		self.layout.prop( context.scene, "BBAUTOTUNE_DEBUG"                               );
 
-		self.layout.operator( "ga.start" ); 
-		
-'''
-
-The start button operator on the GA UI panel.
-Starts the GA with the values from the UI panel properties.
-
-'''
- 
-class GA_UI_START_BUTTON_OPERATOR( bpy.types.Operator ):
-	
-	bl_idname = "ga.start";
-	bl_label  = "Start"
-
-	def execute( self, context ):
-		
-		ga.set_population_size( bpy.context.scene.GA_POPULATION_SIZE );
-		
-		ga.set_max_generations( bpy.context.scene.GA_MAX_GENERATIONS );
-
-		ga.set_crossover_probability( bpy.context.scene.GA_CROSSOVER_PROBABILITY );
-		
-		ga.set_mutation_probability( bpy.context.scene.GA_MUTATION_PROBABILITY );
-		
-		ga.set_debug( bpy.context.scene.GA_DEBUG );
-		
-		print( ga.get_population_size( ) );
-		
-		print( ga.get_max_generations( ) );
-		
-		print( ga.get_crossover_probability( ) );
-		
-		print( ga.get_mutation_probability( ) );
-		
-		print( ga.get_debug( ) );
-		
-		ga.run_game_engine( );
-
-		return { 'FINISHED' };
+		self.layout.operator( "bbautotune.start" );
 	
 '''
 
@@ -218,25 +294,31 @@ class Genome( ):
 	
 '''
 
-The main GA object.
+The main genetic algorithm object.
 
 '''
  
-class GA( ):
+class Genetic_Algorithm( ):
 	
 	def __init__( 
 		
 		self,
 		population_size                             = None,
 		max_generations                             = None,
+		number_of_elite                             = None,
 		crossover_probability                       = None,
 		mutation_probability                        = None,
 		use_rank_fitness                            = None,
 		perform_crossover_and_mutation_sequentially = None,
-		number_of_elite                             = None,
-		debug                                       = None
+		use_self_adaptation                         = None
 		
 	):
+		
+		'''
+		
+		Begin parameters.
+		
+		'''
 		
 		# Size of population.
 		
@@ -245,14 +327,10 @@ class GA( ):
 		# Number of generations to run until termination of the algorithm.
 		
 		self.max_generations = max_generations or 0;
-
-		# Use rank in selection?
 		
-		self.use_rank_fitness = use_rank_fitness or False;
+		# Set the number of elite that go on to the next generation.
 		
-		# Perform crossover and mutation sequentially or separately?
-		
-		self.perform_crossover_and_mutation_sequentially = perform_crossover_and_mutation_sequentially or False;
+		self.number_of_elite = number_of_elite or 0;
 		
 		# Probability of genome's crossing over bits.
 		# 0.7 is pretty good.
@@ -276,19 +354,27 @@ class GA( ):
 		self.total_number_of_mutations          = 0;
 		self.total_number_of_mutation_attempts  = 0;
 		
-		# Set the number of elite that go on to the next generation.
+		# Use rank fitness in selection?
 		
-		self.number_of_elite = number_of_elite or 0;
+		self.use_rank_fitness = use_rank_fitness or False;
 		
-		# Print debug messages.
+		# Perform crossover and mutation sequentially or separately?
 		
-		self.debug = debug or False;
+		self.perform_crossover_and_mutation_sequentially = perform_crossover_and_mutation_sequentially or False;
+		
+		# Use self-adaptation?
+		
+		self.use_self_adaptation = use_self_adaptation or False;
 		
 		'''
 		
 		End parameters.
 		
 		'''
+		
+		# Log file if debugging.
+		
+		self.log_file_name = "";
 		
 		# The amount of genes per genome.
 		
@@ -306,13 +392,13 @@ class GA( ):
 		
 		self.average_fitness = 0.0;
 		
-		# Best fitness.
+		# Highest fitness.
 		
-		self.best_fitness = 0.0;
+		self.highest_fitness = 0.0;
 
-		# Worst fitness.
+		# Lowest fitness.
 		
-		self.worst_fitness = 0.0;
+		self.lowest_fitness = 0.0;
 
 		# Keeps track of the best genome.
 		
@@ -364,7 +450,7 @@ class GA( ):
 	
 	def set_number_of_genes_per_genome( self, number_of = None ):
 		
-		self.mutation_probability = number_of or 0;
+		self.number_of_genes_per_genome = number_of or 0;
 		
 	def get_number_of_genes_per_genome( self ):
 		
@@ -386,29 +472,49 @@ class GA( ):
 		
 		return self.perform_crossover_and_mutation_sequentially;
 	
+	def set_use_self_adaptation( self, use_self_adaptation = None ):
+		
+		self.use_self_adaptation = use_self_adaptation or False;
+		
+	def get_use_self_adaptation( self ):
+		
+		return self.use_self_adaptation;
+	
 	def set_number_of_elite( self, number_of = None ):
 		
 		self.number_of_elite = number_of or 0;
+		
+		if ( self.number_of_elite > self.population_size ):
+			
+			self.number_of_elite = self.population_size;
 		
 	def get_number_of_elite( self ):
 		
 		return self.number_of_elite;
 	
-	def set_debug( self, boolean = None ):
+	def set_log_file_name( self, log_file_name ):
 		
-		self.debug = boolean or False;
+		self.log_file_name = log_file_name;
 		
-	def get_debug( self ):
+	def get_log_file_name( self ):
 		
-		return self.debug;
+		return self.log_file_name;
+	
+	def log( self, log_string ):
+		
+		if ( self.log_file_name != "" ):
+			
+			log_file = open( self.log_file_name, "a+" );
+			
+			log_file.write( log_string + "\n" );
+			
+			log_file.close( );
 	
 	def set_total_fitness( self, total_fitness = None ):
 		
 		self.total_fitness = total_fitness or 0;
 		
 	def get_total_fitness( self ):
-		
-		self.evaluate_population( );
 		
 		return self.total_fitness;
 	
@@ -418,37 +524,29 @@ class GA( ):
 		
 	def get_average_fitness( self ):
 		
-		self.evaluate_population( );
-		
 		return self.average_fitness;
 	
-	def set_best_fitness( self, best_fitness = None ):
+	def set_highest_fitness( self, highest_fitness = None ):
 		
-		self.best_fitness = best_fitness or 0;
+		self.highest_fitness = highest_fitness or 0;
 		
-	def get_best_fitness( self ):
+	def get_highest_fitness( self ):
 		
-		self.evaluate_population( );
-		
-		return self.best_fitness;
+		return self.highest_fitness;
 	
-	def set_worst_fitness( self, worst_fitness = None ):
+	def set_lowest_fitness( self, lowest_fitness = None ):
 		
-		self.worst_fitness = worst_fitness or 0;
+		self.lowest_fitness = lowest_fitness or 0;
 		
-	def get_worst_fitness( self ):
+	def get_lowest_fitness( self ):
 		
-		self.evaluate_population( );
-		
-		return self.worst_fitness;
+		return self.lowest_fitness;
 	
 	def set_fittest_genome_index( self, fittest_genome_index = None ):
 		
 		self.fittest_genome_index = fittest_genome_index or -1;
 		
 	def get_fittest_genome_index( self ):
-		
-		self.evaluate_population( );
 		
 		return self.fittest_genome_index;
 	
@@ -457,8 +555,6 @@ class GA( ):
 		self.weakest_genome_index = weakest_genome_index or -1;
 		
 	def get_fittest_genome_index( self ):
-		
-		self.evaluate_population( );
 		
 		return self.weakest_genome_index;
 	
@@ -524,6 +620,10 @@ class GA( ):
 			for j in range( self.number_of_genes_per_genome ):
 				
 				self.population[ i ].genes.append( random.uniform( 0.0, 1.0 ) );
+				
+		self.set_generation_number( 0 );
+		
+		self.update_population_metrics( );
 	
 	def replace_population_genes( self, replacement_population_genes ):
 		
@@ -550,12 +650,18 @@ class GA( ):
 			self.population[ i ].genes = [ ];
 			
 			for j in range( self.number_of_genes_per_genome ):
-				
-				#TODO: must convert parameter to appropriate type before appending.
 
 				self.population[ i ].genes.append( replacement_population_genes[ k ] );
 				
 				k += 1;
+				
+	def evaluate_genome_fitness( self, genome_index, X, X_prime, command ):
+		
+		assert genome_index >= 0 and genome_index < self.population_size, "Genome index out of bounds."
+		
+		# TODO: Use actual genome fitness function once the real robot motion data has been acquired.
+		
+		self.population[ genome_index ].fitness = random.randint( 0, 1 );
 				
 	def selection_operator( self, number_of_indexes ):
 
@@ -621,7 +727,7 @@ class GA( ):
 				
 				probabilities.append( probabilities[ i - 1 ] + ( self.population[ i ].fitness / self.total_fitness ) );
 			
-			while ( genome_indexes_selected.length < number_of_indexes ):
+			while ( len( genome_indexes_selected ) < number_of_indexes ):
 				
 				random_number = random.uniform( 0.0, 1.0 );
 				
@@ -672,7 +778,7 @@ class GA( ):
 				
 				probabilities.append( probabilities[ i - 1 ] + ( ( i + 1 ) / total_rank_fitness ) );
 			
-			while ( genome_indexes_selected.length < number_of_indexes ):
+			while ( len( genome_indexes_selected ) < number_of_indexes ):
 				
 				random_number = random.uniform( 0.0, 1.0 );
 				
@@ -832,9 +938,6 @@ class GA( ):
 
 				# Clamp the gene to range [-1,1].
 				
-				# TODO: clamp values to appropriate ranges of the different genes/parameters.
-				# The ranges are based on the physics engine. Not all genes have the same range.
-				
 				temp_gene_value = copy.deepcopy( offspring.genes[ i ] );
 				
 				offspring.genes[ i ] = random.gauss( offspring.genes[ i ], self.mutation_probability );
@@ -874,8 +977,8 @@ class GA( ):
 		offspring_one.fitness = 0.0;
 		offspring_two.fitness = 0.0;
 		
-		offspring_one.parent_fitness = null;
-		offspring_two.parent_fitness = null;
+		offspring_one.parent_fitness = 0;
+		offspring_two.parent_fitness = 0;
 		
 		offspring_one.created_by = 0;
 		offspring_two.created_by = 0;
@@ -941,8 +1044,6 @@ class GA( ):
 				# offspring_one.genes[ i ] = gaussian_distribution( offspring_one.genes[ i ], 0.5 );
 				# offspring_one.genes[ i ] = offspring_one.genes[ i ] + ( get_random_float( -1.0, 1.0 ) * .3 );
 				
-				# TODO: clamp invalid.
-				
 				offspring_one.genes[ i ] = get_clamped_value( offspring_one.genes[ i ], 0.0, 1.0 );
 				
 				# Test if it was truly mutated.
@@ -973,11 +1074,9 @@ class GA( ):
 				
 				temp_gene_value_two = copy.deepcopy( offspring_two.genes[ i ] );
 				
-				offspring_two.genes[ i ] = gaussian_distribution( offspring_two.genes[ i ], self.mutation_probability );
+				offspring_two.genes[ i ] = random.gauss( offspring_two.genes[ i ], self.mutation_probability );
 				# offspring_two.genes[ i ] = gaussian_distribution( offspring_two.genes[ i ], 0.5 );
 				# offspring_two.genes[ i ] = offspring_two.genes[ i ] + ( get_random_float( -1.0, 1.0 ) * .3 );
-				
-				# TODO: clamp invalid.
 				
 				offspring_two.genes[ i ] = get_clamped_value( offspring_two.genes[ i ], 0.0, 1.0 );
 				
@@ -1026,9 +1125,18 @@ class GA( ):
 
 			return { "one": offspring_one, "two": offspring_two };
 		
-	def evaluate_population( self ):
+	def reset_population_metrics( self ):
 
-		self.reset_population_evaluation( );
+		self.total_fitness         =  0;
+		self.highest_fitness       =  0;
+		self.lowest_fitness        =  0;
+		self.average_fitness       =  0;
+		self.fittest_genome_index  = -1;
+		self.weakest_genome_index  = -1;
+		
+	def update_population_metrics( self ):
+
+		self.reset_population_metrics( );
 
 		highest_so_far = self.population[ 0 ].fitness;
 		lowest_so_far  = self.population[ 0 ].fitness;
@@ -1036,9 +1144,9 @@ class GA( ):
 		self.fittest_genome_index = 0;
 		self.weakest_genome_index = 0;
 		
-		self.total_fitness  = self.population[ 0 ].fitness;
-		self.best_fitness   = self.population[ 0 ].fitness;
-		self.worst_fitness  = self.population[ 0 ].fitness;
+		self.total_fitness   = self.population[ 0 ].fitness;
+		self.highest_fitness = self.population[ 0 ].fitness;
+		self.lowest_fitness  = self.population[ 0 ].fitness;
 
 		for i in range( self.population_size ):
 			
@@ -1050,7 +1158,7 @@ class GA( ):
 
 				self.fittest_genome_index = i;
 
-				self.best_fitness = highest_so_far;
+				self.highest_fitness = highest_so_far;
 
 			# Update worst if necessary.
 			
@@ -1060,22 +1168,13 @@ class GA( ):
 				
 				self.weakest_genome_index = i;
 
-				self.worst_fitness = lowest_so_far;
+				self.lowest_fitness = lowest_so_far;
 
 			self.total_fitness += self.population[ i ].fitness;
 			
 		# Next genome.
 
 		self.average_fitness = self.total_fitness / self.population_size;
-		
-	def reset_population_evaluation( self ):
-
-		self.total_fitness         =  0;
-		self.best_fitness          =  0;
-		self.worst_fitness         =  0;
-		self.average_fitness       =  0;
-		self.fittest_genome_index  = -1;
-		self.weakest_genome_index  = -1;
 		
 	def compute_population_makeup( self ):
 		
@@ -1109,7 +1208,7 @@ class GA( ):
 
 		self.population_makeup = str( randoms ) + " " + str( crossovers ) + " " + str( mutants ) + " " + str( crossover_mutants ) + " " + str( elites );
 
-	def adjust_crossover_and_mutation_probabilities( self ):
+	def adapt_crossover_and_mutation_probabilities( self ): 
 		
 		# Calculate the crossover and mutation operators' progress where 
 		# their progress is based on how well they produced offspring that
@@ -1152,13 +1251,13 @@ class GA( ):
 
 		# Adjust crossover and mutation rate adjustments.
 		
-		if ( self.best_fitness > self.worst_fitness ):
+		if ( self.highest_fitness > self.lowest_fitness ):
 
-			self.crossover_probability_adjustment = 0.01 * ( ( self.best_fitness - self.average_fitness ) / ( self.best_fitness - self.worst_fitness ) );
+			self.crossover_probability_adjustment = 0.01 * ( ( self.highest_fitness - self.average_fitness ) / ( self.highest_fitness - self.lowest_fitness ) );
 			
-			self.mutation_probability_adjustment  = 0.01 * ( ( self.best_fitness - self.average_fitness ) / ( self.best_fitness - self.worst_fitness ) );
+			self.mutation_probability_adjustment  = 0.01 * ( ( self.highest_fitness - self.average_fitness ) / ( self.highest_fitness - self.lowest_fitness ) );
 
-		elif ( self.best_fitness == self.average_fitness ):
+		elif ( self.highest_fitness == self.average_fitness ):
 
 			self.crossover_probability_adjustment = 0.01;
 			
@@ -1200,11 +1299,19 @@ class GA( ):
 			
 	def generate_new_generation( self ):
 
-		# Assumes population is sorted in ascending order.
+		# Sort the population based on fitness in ascending order.
 		
-		# Assumes population is completely evaluated.
+		self.sort_population( );
 		
-		# Assumes crossover probability and mutation probability have been adjusted if using self-adaptation.
+		# Update population metrics.
+		
+		self.update_population_metrics( );
+		
+		# Adapt crossover and mutation probabilities if using self-adaptation.
+		
+		if ( self.use_self_adaptation == True ):
+			
+			self.adapt_crossover_and_mutation_probabilities( );
 		
 		# Create a temporary population to store newly created generation.
 		
@@ -1246,7 +1353,7 @@ class GA( ):
 				# offspring per while loop.
 				# Don't create more than the population size.
 				
-				if ( new_population.length == self.population_size ):
+				if ( len( new_population ) == self.population_size ):
 					
 					break;
 				
@@ -1319,7 +1426,7 @@ class GA( ):
 					
 					# Old population size should match this new population size.
 					
-					if ( new_population.length == self.population_size ):
+					if ( len( new_population ) == self.population_size ):
 						
 						break;
 					
@@ -1367,9 +1474,237 @@ class GA( ):
 		
 		self.generation_number += 1;
 		
+'''
+
+The BBAutoTune object.
+
+'''
+
+class BBAutoTune( ):
+	
+	def __init__( self, ga, dbm ):
+		
+		# The genetic algorithm and the database manager.
+		
+		self.ga  = ga;
+		self.dbm = dbm;
+		
+		# The current genome being evaluated.
+		
+		self.current_genome = 0;
+		
+		# Log debug statements.
+		
+		self.debug = False
+		
+		self.log_file_name = "";
+		
+		# Open a browser window to the GA monitor.
+		
+		self.open_ga_monitor_browser_window = False;
+		
+	def start( 
+		
+		self,
+		population_size,
+		max_generations,
+		number_of_elite,
+		crossover_probability,
+		mutation_probability,
+		use_rank_fitness,
+		perform_crossover_and_mutation_sequentially,
+		use_self_adaptation,
+		open_ga_monitor_browser_window,
+		debug
+		
+	):
+		
+		self.debug = debug or False;
+		
+		if ( self.debug == True ):
+			
+			logs_location = get_scripts_location( ) + "logs/";
+			
+			milliseconds = int( round( time.time( ) * 1000 ) );
+			
+			self.log_file_name = logs_location + "bbautotune_" + str( milliseconds ) + ".log";
+			
+			self.ga.set_log_file_name( self.log_file_name );
+			
+			bpy.data.objects[ "robot_monitor" ].game.properties[ "log_file_name" ].value = self.log_file_name;
+
+		self.open_ga_monitor_browser_window = open_ga_monitor_browser_window;
+		
+		# Pass the file name and directory where the robot 
+		# monitor will record the robot's xyzt and x'y'z't'.
+		
+		bpy.data.objects[ "robot_monitor" ].game.properties[ "shared_data_file_name" ].value = get_scripts_location( ) + "shared_data/genome_X_X'.dat";
+		
+		self.log( "Connecting to the database." );
+		
+		self.dbm.connect_to_database( );
+		
+		self.log( "Starting the GA manager." );
+		
+		self.start_ga_monitor( );
+		
+		self.log( "Setting the GA parameters." );
+		
+		self.ga.set_population_size( population_size );
+		self.ga.set_max_generations( max_generations );
+		self.ga.set_number_of_elite( number_of_elite );
+		self.ga.set_crossover_probability( crossover_probability );
+		self.ga.set_mutation_probability( mutation_probability );
+		self.ga.set_use_rank_fitness( use_rank_fitness );
+		self.ga.set_perform_crossover_and_mutation_sequentially( perform_crossover_and_mutation_sequentially );
+		self.ga.set_use_self_adaptation( use_self_adaptation );
+		
+		self.log( "Creating a random GA population." );
+		
+		self.ga.create_randomized_population( );
+		
+		self.log( "Setting the current genome to 0." );
+		
+		self.current_genome = 0;
+		
+		self.log( "Entering loop." );
+		
+		while ( self.ga.get_generation_number( ) <= self.ga.get_max_generations( ) ):
+			
+			# Populate physics engine parameters.
+			
+			self.log( "Populating the physics engine parameters." );
+		
+			self.populate_physics_engine_parameters( self.ga.get_genome( self.current_genome ).get_genes( ) );
+			
+			# Run game engine.
+			
+			self.log( "Starting the game engine." );
+			
+			self.start_game_engine( );
+			
+			# Calculate current genome fitness.
+			
+			shared_data_file = open( get_scripts_location( ) + "shared_data/genome_X_X'.dat", "r" );
+			
+			X = shared_data_file.readline( ).rstrip( );
+			X = X.split( "," );
+			X[ 0 ] = float( X[ 0 ] );
+			X[ 1 ] = float( X[ 1 ] );
+			X[ 2 ] = float( X[ 2 ] );
+			X[ 3 ] = float( X[ 3 ] );
+			
+			X_prime = shared_data_file.readline( ).rstrip( );
+			X_prime = X_prime.split( "," );
+			X_prime[ 0 ] = float( X_prime[ 0 ] );
+			X_prime[ 1 ] = float( X_prime[ 1 ] );
+			X_prime[ 2 ] = float( X_prime[ 2 ] );
+			X_prime[ 3 ] = float( X_prime[ 3 ] );
+			
+			shared_data_file.close( );
+			
+			os.remove( get_scripts_location( ) + "shared_data/genome_X_X'.dat" );
+			
+			self.log( "Evaluating genome fitness." );
+			
+			self.log( str( X ) );
+			
+			self.log( str( X_prime ) );
+			
+			self.ga.evaluate_genome_fitness( self.current_genome, X, X_prime, "forward" );
+			
+			# Increase current genome + 1.
+			
+			self.log( "Increasing current genome count." );
+			
+			self.current_genome += 1;
+			
+			# If current genome is equal to the population size.
+			
+			if ( self.current_genome == self.ga.get_population_size( ) ):
+				
+				self.log( "Current generation number: " + str( self.ga.get_generation_number( ) ) );
+				
+				# Update the population metrics.
+				
+				self.log( "Updating population metrics." );
+			
+				self.ga.update_population_metrics( );
+			
+				# Store the population metrics in the database.
+				
+				self.log( "Storing population metrics in the database." );
+			
+				a = str( self.ga.get_generation_number( ) );
+				b = str( self.ga.get_highest_fitness( ) );
+				c = str( self.ga.get_average_fitness( ) );
+				d = str( self.ga.get_lowest_fitness( ) );
+				e = str( self.ga.get_crossover_probability( ) );
+				f = str( self.ga.get_mutation_probability( ) );
+				
+				mysql_string  = "INSERT INTO `population_metrics` ( `generation_number`, `highest_fitness`, `average_fitness`, `lowest_fitness`, `crossover_probability`, `mutation_probability` ) ";
+				mysql_string += "VALUES( " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " );"; 
+				
+				self.dbm.execute( mysql_string );
+				
+				# Generate a new population.
+				
+				self.log( "Generation a new generation." );
+				
+				self.ga.generate_new_generation( );
+				
+				# Set current genome to 0.
+				
+				self.log( "Setting the current genome to 0." );
+				
+				self.current_genome = 0;
+			
+		self.log( "Exited loop." );
+		
+		self.log( "Stopping." );
+			
+		self.stop( );
+		
+			
+	def stop( self ):
+		
+		self.dbm.close_database_connection( );
+		
+		self.stop_ga_monitor( );
+		
+	def start_ga_monitor( self ):
+		
+		scripts_location = get_scripts_location( );
+		
+		if ( self.open_ga_monitor_browser_window == True ):
+		
+			self.cgi_http_server = subprocess.Popen( [ scripts_location + "cgi_http_server.py", "-w" ] );
+			
+		else:
+			
+			self.cgi_http_server = subprocess.Popen( scripts_location + "cgi_http_server.py" );
+		
+	def stop_ga_monitor( self ):
+		
+		self.cgi_http_server.kill( );
+		
+	def start_game_engine( self ):
+		
+		bpy.ops.view3d.game_start( );
+		
+	def log( self, log_string ):
+		
+		if ( self.log_file_name != "" ):
+			
+			log_file = open( self.log_file_name, "a+" );
+			
+			log_file.write( log_string + "\n" );
+			
+			log_file.close( );
+		
 	def populate_physics_engine_parameters( self, genome_genes ):
 		
-		assert len( genome_genes ) == self.number_of_genes_per_genome, "Cannot populate physics engine parameters.";
+		assert len( genome_genes ) == self.ga.get_number_of_genes_per_genome( ), "Cannot populate physics engine parameters.";
 
 		# Blender API call examples:
 		#
@@ -1399,7 +1734,7 @@ class GA( ):
 		back_wheel_l   = "robot_1_wheel_back_L";
 		back_wheel_r   = "robot_1_wheel_back_R";
 		wheel_material = "wheel";
-		actuator       = "torque";
+		actuator       = "torque_y";
 
 		### WORLD
 		
@@ -1407,17 +1742,29 @@ class GA( ):
 		
 		gravity = get_clamped_value( ( genome_genes[ 0 ] * 10000.0 ), 0.0, 10000.0 );
 		
+		self.log( "Setting gravity." );
+		
+		self.log( str( gravity ) );
+		
 		bpy.data.scenes[ scene ].game_settings.physics_gravity = gravity;
 		
 		# Sub-steps.
 		
 		sub_steps = get_clamped_value( math.floor( ( genome_genes[ 1 ] * 49 ) + 1 ), 1, 50 );
 		
+		self.log( "Setting sub steps." );
+		
+		self.log( str( sub_steps ) );
+		
 		bpy.data.scenes[ scene ].game_settings.physics_step_sub = sub_steps;
 		
 		# FPS.
 		
 		fps = get_clamped_value( math.floor( ( genome_genes[ 2 ] * 9999 ) + 1 ), 1, 10000 );
+		
+		self.log( "Setting FPS." );
+		
+		self.log( str( fps ) );
 		
 		bpy.data.scenes[ scene ].game_settings.fps = fps;
 		
@@ -1442,6 +1789,10 @@ class GA( ):
 		
 		use_material_physics = BOOLEANS[ round( genome_genes[ 4 ] ) ];
 		
+		self.log( "Setting use material physics." );
+		
+		self.log( str( use_material_physics ) );
+		
 		bpy.data.objects[ front_wheel_l ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
 		bpy.data.objects[ front_wheel_r ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
 		bpy.data.objects[ back_wheel_l  ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
@@ -1451,6 +1802,10 @@ class GA( ):
 		
 		material_friction = get_clamped_value( ( genome_genes[ 5 ] * 100.0 ), 0.0, 100.0 );
 		
+		self.log( "Setting material friction." );
+		
+		self.log( str( material_friction ) );
+		
 		bpy.data.objects[ front_wheel_l ].material_slots[ 0 ].material.physics.friction = material_friction;
 		bpy.data.objects[ front_wheel_r ].material_slots[ 0 ].material.physics.friction = material_friction;
 		bpy.data.objects[ back_wheel_l  ].material_slots[ 0 ].material.physics.friction = material_friction;
@@ -1459,6 +1814,10 @@ class GA( ):
 		# Elasticity.
 		
 		material_elasticity = get_clamped_value( ( genome_genes[ 6 ] ), 0.0, 1.0 );
+		
+		self.log( "Setting material elasticity." );
+		
+		self.log( str( material_elasticity ) );
 		
 		bpy.data.objects[ front_wheel_l ].material_slots[ 0 ].material.physics.elasticity = material_elasticity;
 		bpy.data.objects[ front_wheel_r ].material_slots[ 0 ].material.physics.elasticity = material_elasticity;
@@ -1501,6 +1860,10 @@ class GA( ):
 		
 		mass = get_clamped_value( ( genome_genes[ 9 ] * 10000.0 ), 0.0, 10000.0 );
 		
+		self.log( "Setting mass." );
+		
+		self.log( str( mass ) );
+		
 		bpy.data.objects[ front_wheel_l ].game.mass = mass;
 		bpy.data.objects[ front_wheel_r ].game.mass = mass;
 		bpy.data.objects[ back_wheel_l  ].game.mass = mass;
@@ -1509,6 +1872,10 @@ class GA( ):
 		# Form factor.
 		
 		form_factor = get_clamped_value( ( genome_genes[ 10 ] ), 0.0, 1.0 );
+		
+		self.log( "Setting form factor." );
+		
+		self.log( str( form_factor ) );
 		
 		bpy.data.objects[ front_wheel_l ].game.form_factor = form_factor;
 		bpy.data.objects[ front_wheel_r ].game.form_factor = form_factor;
@@ -1519,6 +1886,10 @@ class GA( ):
 		
 		velocity_max = get_clamped_value( ( genome_genes[ 11 ] * 1000.0 ), 0.0, 1000.0 );
 		
+		self.log( "Setting velocity max." );
+		
+		self.log( str( velocity_max ) );
+		
 		bpy.data.objects[ front_wheel_l ].game.velocity_max = velocity_max;
 		bpy.data.objects[ front_wheel_r ].game.velocity_max = velocity_max;
 		bpy.data.objects[ back_wheel_l  ].game.velocity_max = velocity_max;
@@ -1527,6 +1898,10 @@ class GA( ):
 		# Damping translation.
 		
 		damping = get_clamped_value( ( genome_genes[ 12 ] ), 0.0, 1.0 );
+		
+		self.log( "Setting damping translation." );
+		
+		self.log( str( damping ) );
 		
 		bpy.data.objects[ front_wheel_l ].game.damping = damping;
 		bpy.data.objects[ front_wheel_r ].game.damping = damping;
@@ -1537,6 +1912,10 @@ class GA( ):
 		
 		rotation_damping = get_clamped_value( ( genome_genes[ 13 ] ), 0.0, 1.0 );
 		
+		self.log( "Setting rotation damping." );
+		
+		self.log( str( rotation_damping ) );
+		
 		bpy.data.objects[ front_wheel_l ].game.rotation_damping = rotation_damping;
 		bpy.data.objects[ front_wheel_r ].game.rotation_damping = rotation_damping;
 		bpy.data.objects[ back_wheel_l  ].game.rotation_damping = rotation_damping;
@@ -1546,6 +1925,10 @@ class GA( ):
 		
 		use_collision_bounds = BOOLEANS[ round( genome_genes[ 14 ] ) ];
 		
+		self.log( "Setting use collision bounds." );
+		
+		self.log( str( use_collision_bounds ) );
+		
 		bpy.data.objects[ front_wheel_l ].game.use_collision_bounds = use_collision_bounds;
 		bpy.data.objects[ front_wheel_r ].game.use_collision_bounds = use_collision_bounds;
 		bpy.data.objects[ back_wheel_l  ].game.use_collision_bounds = use_collision_bounds;
@@ -1554,6 +1937,10 @@ class GA( ):
 		# Collision margin.
 		
 		collision_margin = get_clamped_value( ( genome_genes[ 15 ] ), 0.0, 1.0 );
+		
+		self.log( "Setting collision margin." );
+		
+		self.log( str( collision_margin ) );
 		
 		bpy.data.objects[ front_wheel_l ].game.collision_margin = collision_margin;
 		bpy.data.objects[ front_wheel_r ].game.collision_margin = collision_margin;
@@ -1568,6 +1955,10 @@ class GA( ):
 		
 		collision_bounds_type = COLLISION_BOUNDS_TYPES[ collision_bounds_type ];
 		
+		self.log( "Setting collision bounds type." );
+		
+		self.log( str( collision_bounds_type ) );
+		
 		bpy.data.objects[ front_wheel_l ].game.collision_bounds_type = collision_bounds_type;
 		bpy.data.objects[ front_wheel_r ].game.collision_bounds_type = collision_bounds_type; 
 		bpy.data.objects[ back_wheel_l  ].game.collision_bounds_type = collision_bounds_type; 
@@ -1577,50 +1968,86 @@ class GA( ):
 		
 		# Torque.
 		
-		torque_x = get_clamped_value( ( -INF + ( genome_genes[ 17 ] * ( INF + INF ) ) ), -INF, INF );
+		torque_y = get_clamped_value( ( -INF + ( genome_genes[ 17 ] * ( INF + INF ) ) ), -INF, INF );
 		
-		bpy.data.objects[ front_wheel_l ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
-		bpy.data.objects[ front_wheel_r ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
-		bpy.data.objects[ back_wheel_l  ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
-		bpy.data.objects[ back_wheel_r  ].game.actuators[ actuator ].torque[ 0 ] = torque_x;
-
-	def run_game_engine( self ):
+		self.log( "Setting torque-y." );
 		
-		current_working_directory = os.getcwd( );
+		self.log( str( torque_y ) );
 		
-		current_working_directory = current_working_directory.rsplit( "/", 1 )
+		bpy.data.objects[ front_wheel_l ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
+		bpy.data.objects[ front_wheel_r ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
+		bpy.data.objects[ back_wheel_l  ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
+		bpy.data.objects[ back_wheel_r  ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
 		
-		while ( current_working_directory[ 1 ] != "bbautotune" ):
-			
-			current_working_directory = current_working_directory[ 0 ].rsplit( "/", 1 );
-		
-		scripts_location = current_working_directory[ 0 ] + "/bbautotune/source/scripts/";
-		
-		print( scripts_location );
-		
-		cgi_http_server = subprocess.Popen( scripts_location + "cgi_http_server.py" );
-		
-		bpy.ops.view3d.game_start( );
-		
-'''
-
-The BBAutoTune object.
-
-'''
-
-class BBAutoTune( ):
+class Database_Manager( ):
 	
-	def __init__( self, ga ):
+	def __init__( self, database_name ):
 		
-		self.ga = ga;
+		self.database_name = database_name;
 		
-# Create the GA object.
+		variables_location = get_scripts_location( ) + "variables/";
 		
-ga = GA( );
+		database_file = open( variables_location + "database.var", "r" );
+		
+		self.user_name = database_file.readline( ).rstrip( );
+		
+		self.password  = database_file.readline( ).rstrip( );
+		
+		self.connection = None;
+		
+		self.cursor = None;
+		
+	def connect_to_database( self ):
+		
+		connection_config = {
+			
+			"user":              self.user_name,
+			"password":          self.password,
+			"database":          self.database_name,
+			'raise_on_warnings': True
+			
+		};
+		
+		try:
+		
+			self.connection = mysql.connector.connect( **connection_config );
+			
+			self.cursor     = self.connection.cursor( );
+			
+		except Exception:
+			
+			print( "Database_Manager: could not open a connection to the database." );
+		
+	def close_database_connection( self ):
+		
+		try:
+			
+			self.connection.close( );
+			
+		except Exception:
+			
+			print( "Database_Manager: could not close the database." );
+			
+	def execute( self, mysql_string = None ):
+		
+		if mysql_string == None:
+			
+			pass;
+			
+		elif self.cursor == None:
+			
+			print( "Database_Manager: you must open a connection the database first." );
+			
+		else:
+			
+			self.cursor.execute( mysql_string );
+			
+			self.connection.commit( );
 
+		
 # Create the BBAutoTune object.
 
-bbautotune = BBAutoTune( ga );
+bbautotune = BBAutoTune( Genetic_Algorithm( ), Database_Manager( "bbautotune" ) );
 
 # Add the bbautotune object instance to Blender.
 
@@ -1630,16 +2057,16 @@ bpy.bbautotune = bbautotune;
 
 bpy.context.scene.render.engine = "BLENDER_GAME";
 
+# Switch to the render pane.
+
+bpy.data.screens[ "Default" ].areas[ 1 ].spaces[ 0 ].context = "RENDER";
+
+# Setup the robot-monitor object's python controller.
+
+position_recorder_script_text = bpy.data.texts.load( get_scripts_location( ) + "robot_monitor.py" );
+
+bpy.data.objects[ "robot_monitor" ].game.controllers[ 0 ].text = position_recorder_script_text;
+
 # Register the UI panel properties, the UI panel layout, and the start button operator with blender.
 
 bpy.utils.register_module( __name__ );
-
-'''
-
-Helper functions.
-
-'''
-
-def get_clamped_value( value, minimum, maximum ):
-	
-	return max( min( maximum, value ), minimum );

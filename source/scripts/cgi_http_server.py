@@ -1,4 +1,14 @@
 #!/usr/bin/env python
+
+'''
+
+David Lettier (C) 2014.
+
+http://www.lettier.com/
+
+Starts a CGI HTTP server that displays the genetic algorithm progress at index.py.
+
+'''
  
 import BaseHTTPServer
 import CGIHTTPServer
@@ -7,36 +17,36 @@ import sys;
 import thread;
 import webbrowser;
 import os;
+
+print( "\nCGI HTTP Server | BBAutoTune\n" );
+
+# Set server parameters.
  
 server                  = BaseHTTPServer.HTTPServer;
 handler                 = CGIHTTPServer.CGIHTTPRequestHandler;
 server_address          = ( "", 8000 );
 
+# Change directory to the scripts directory.
+
 current_working_directory = os.getcwd( );
+		
+current_working_directory = current_working_directory.rsplit( "/", 1 )
 
-print( current_working_directory );
+while ( current_working_directory[ 1 ] != "bbautotune" ):
+	
+	current_working_directory = current_working_directory[ 0 ].rsplit( "/", 1 );
 
-if ( current_working_directory.rsplit( "/", 1 )[ 1 ] == "blends" ):
-	
-	scripts_location = current_working_directory.rsplit( "/", 1 )[ 0 ] + "/scripts";
-	
-	os.chdir( scripts_location );
+os.chdir( current_working_directory[ 0 ] + "/bbautotune/source/scripts/" );
 
-	handler.cgi_directories = [ "/", "/" ];
-	
-elif ( current_working_directory.rsplit( "/", 1 )[ 1 ] == "source" ):
-	
-	scripts_location = current_working_directory + "/scripts";
-	
-	os.chdir( scripts_location );
+# Set the server directories.
 
-	handler.cgi_directories = [ "/", "/" ];
-	
-else:
-	
-	handler.cgi_directories = [ "/", "/" ];
+handler.cgi_directories = [ "/", "/" ];
+
+# Create the server.
  
 httpd = server( server_address, handler );
+
+# Run the server function.
 
 def run_server( ):
 	
@@ -44,15 +54,24 @@ def run_server( ):
 	
 	httpd.serve_forever( );
 	
+# Run the server in a thread.
+	
 thread.start_new_thread( run_server, ( ) );
 
-index_url = "http://localhost:8000/index.py";
+# Process command line arguments.
+# -w indicates to open the web browser to index.py.
 
-print( "\nCGI HTTP Server | BBAutoTune\n" );
+if ( len( sys.argv ) == 2 ):
+	
+	if ( sys.argv[ 1 ] == "-w" ):
 
-print( "Opening web browser. One moment.\n" );
+		index_url = "http://localhost:8000/index.py";
 
-webbrowser.open_new_tab( index_url );
+		print( "Opening web browser. One moment.\n" );
+
+		webbrowser.open_new_tab( index_url );
+	
+# Listen for q to shutdown the server.
 
 quit = "";
 
