@@ -13,6 +13,48 @@ from matplotlib import cm;
 import numpy as np;
 import math;
 
+# Calculates or rather approximates the geometric median.
+
+def calculate_geometric_median( candidate, a, b, c ):
+
+	iterations = len( a );
+	
+	y = candidate;
+	
+	for i in range( iterations ):
+		
+		# Calculate the numerator.
+		
+		sum_n_a = 0.0;
+		sum_n_b = 0.0;
+		sum_n_c = 0.0;
+		
+		for j in range( len( a ) ):
+			
+			euclidean_distance = math.sqrt( ( a[ j ] - y[ 0 ] )**2.0 + ( b[ j ] - y[ 1 ] )**2.0 + ( c[ j ] - y[ 2 ] )**2.0 );
+			
+			sum_n_a += a[ j ] / euclidean_distance;
+			sum_n_b += b[ j ] / euclidean_distance;
+			sum_n_c += c[ j ] / euclidean_distance;
+			
+		# Calculate the denominator.
+			
+		sum_d_a = 0.0;
+		sum_d_b = 0.0;
+		sum_d_c = 0.0;
+		
+		for k in range( len( a ) ):
+			
+			euclidean_distance = math.sqrt( ( a[ k ] - y[ 0 ] )**2.0 + ( b[ k ] - y[ 1 ] )**2.0 + ( c[ k ] - y[ 2 ] )**2.0 );
+			
+			sum_d_a += 1.0 / euclidean_distance;
+			sum_d_b += 1.0 / euclidean_distance;
+			sum_d_c += 1.0 / euclidean_distance;
+			
+		y = [ sum_n_a / sum_d_a, sum_n_b / sum_d_b, sum_n_c / sum_d_c ];
+		
+	return y;
+
 def rotate_point( x, y, angle_r ):
 	
 	x_rot = ( math.cos( angle_r ) * x ) + ( -math.sin( angle_r ) * y );
@@ -324,6 +366,55 @@ for i in range( len( x_p_values ) ):
 
 # Third plot
 
+# Find the median of each dimension.
+
+x_p_median = 0.0;
+y_p_median = 0.0;
+t_p_median = 0.0;
+
+x_p_sorted = sorted( x_p_values );
+y_p_sorted = sorted( y_p_values );
+t_p_sorted = sorted( t_p_values );
+
+if ( len( x_p_sorted ) % 2 == 0 ): # Even
+	
+	x_p_median = ( x_p_sorted[ ( len( x_p_sorted ) / 2 ) - 1 ] + x_p_sorted[ ( len( x_p_sorted ) / 2 ) ] ) / 2.0;
+	y_p_median = ( y_p_sorted[ ( len( y_p_sorted ) / 2 ) - 1 ] + y_p_sorted[ ( len( y_p_sorted ) / 2 ) ] ) / 2.0; 
+	t_p_median = ( t_p_sorted[ ( len( t_p_sorted ) / 2 ) - 1 ] + t_p_sorted[ ( len( t_p_sorted ) / 2 ) ] ) / 2.0;
+	
+else:
+	
+	x_p_median = x_p_sorted[ ( len( x_p_sorted ) / 2 ) ];
+	y_p_median = y_p_sorted[ ( len( y_p_sorted ) / 2 ) ]; 
+	t_p_median = t_p_sorted[ ( len( t_p_sorted ) / 2 ) ];
+	
+print "Median: ", x_p_median, ", ", y_p_median, ", ", t_p_median;
+	
+# Find the centroid. 
+
+xyt_p_centroid = [ ];
+
+xyt_p_centroid.append( sum( x_p_values ) / float( len( x_p_values ) ) );
+xyt_p_centroid.append( sum( y_p_values ) / float( len( y_p_values ) ) );
+xyt_p_centroid.append( sum( t_p_values ) / float( len( t_p_values ) ) );
+
+print "Centroid: ", xyt_p_centroid[ 0 ], ", ", xyt_p_centroid[ 1 ], ", ", xyt_p_centroid[ 2 ];
+
+# Find the geometric median.
+
+xyt_p_geometric_median = calculate_geometric_median(
+	
+	[ x_p_median, y_p_median, t_p_median ],
+	x_p_values,
+	y_p_values,
+	t_p_values
+	
+);
+
+print "Geometric Median: ", xyt_p_geometric_median[ 0 ], ", ", xyt_p_geometric_median[ 1 ], ", ", xyt_p_geometric_median[ 2 ];
+
+# Begin plotting the 3D scatter plot.
+
 fig = plt.figure( figsize = ( 12, 12 ) );
 ax  = fig.gca( projection = "3d" );
 
@@ -345,7 +436,21 @@ for i in range( len( x_p_values ) ):
 	
 	colors.append( [ r, g, b ] );
 
+# Plot the points.
+
 ax.scatter( x_p_values, y_p_values, t_p_values, alpha = 0.8, c = colors, s = 120, norm = True );
+
+# Plot the centroid.
+
+ax.plot( [ xyt_p_centroid[ 0 ] ], [ xyt_p_centroid[ 1 ] ], [ xyt_p_centroid[ 2 ] ], color = "w", marker = "*", ms = 20 );
+
+# Plot the median.
+
+ax.plot( [ x_p_median ], [ y_p_median ], [ t_p_median ], color = "w", marker = "d", ms = 20 );
+
+# Plot the geometric median.
+
+ax.plot( [ xyt_p_geometric_median[ 0 ] ], [ xyt_p_geometric_median[ 1 ] ], [ xyt_p_geometric_median[ 2 ] ], color = "w", marker = "h", ms = 20 );
 
 ax.set_xlim3d( min( x_p_values ), max( x_p_values ) );
 ax.set_ylim3d( min( y_p_values ), max( y_p_values ) ); 
@@ -365,4 +470,4 @@ for ztick in ax.zaxis.get_major_ticks( ):
 
 plt.subplots_adjust( left = 0.0, right = 1.0, top = 1.0, bottom = 0.0 );
 
-plt.show( )
+plt.show( );	
