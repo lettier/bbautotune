@@ -66,6 +66,14 @@ forward_file = open( "../processed_data/srv_1_forward.dat", "r" );
 
 line = forward_file.readline( );
 
+x_originals  = [ ];
+y_originals = [ ];
+t_originals = [ ];
+
+x_p_originals = [ ];
+y_p_originals = [ ];
+t_p_originals = [ ];
+
 x_values = [ ];
 y_values = [ ];
 t_values = [ ];
@@ -75,8 +83,18 @@ y_p_values = [ ];
 t_p_values = [ ];
 
 visualize_translation_rotation = False;
+line_i = 1;
 
 while line != "":
+	
+	if ( line[ 0 ] == "#" ):
+		
+		# Ignore comments.
+		
+		line    = forward_file.readline( );
+		line_i += 1;
+		
+		continue;
 	
 	splitted = line.split( ";" );
 	
@@ -89,7 +107,7 @@ while line != "":
 	t_p = float( splitted[ 6 ].rstrip( ) );
 	
 	x_tran = x - x;
-	y_tran = x - x;
+	y_tran = y - y;
 	
 	x_tran_rot, y_tran_rot = rotate_point( x_tran, y_tran, -t );
 	
@@ -130,6 +148,24 @@ while line != "":
 		plt.plot( [ x_tran_rot, x_p_tran_rot ], [ y_tran_rot, y_p_tran_rot ], "--g", linewidth = 1 );
 		
 		plt.plot( [ x_p_tran_rot, x_p_tran_rot ], [ y_p_tran_rot, y_p_tran_rot ], "--go", linewidth = 1 );
+		
+		print "---";
+		
+		print "Line number: ", line_i;
+		
+		print "x: ", x;
+		print "x_tran: ", x_tran;
+		print "x_tran_rot: ", x_tran_rot;
+		print "x_p: ", x_p;
+		print "x_p_tran: ", x_p_tran;
+		print "x_p_tran_rot: ", x_p_tran_rot;
+		
+		print "y: ", y;
+		print "y_tran: ", y_tran;
+		print "y_tran_rot: ", y_tran_rot;
+		print "y_p: ", y_p;
+		print "y_p_tran: ", y_p_tran;
+		print "y_p_tran_rot: ", y_p_tran_rot;
 		
 		print "t: ", t * ( 180.0 / math.pi );
 		print "t_p: ", t_p * ( 180.0 / math.pi );
@@ -231,51 +267,180 @@ while line != "":
 		plt.grid( True );
 		
 		plt.show( );
+		
+	x_originals.append( x );
+	y_originals.append( y );
+	t_originals.append( t );
+	
+	x_p_originals.append( x_p );
+	y_p_originals.append( y_p );
+	t_p_originals.append( t_p );
 	
 	x_values.append( x_tran_rot );
-	
 	y_values.append( y_tran_rot );
-	
-	t_values.append( t_rot * ( 180.0 / math.pi ) );	
+	t_values.append( t_rot * ( 180.0 / math.pi ) );
 	
 	x_p_values.append( x_p_tran_rot );
-	
 	y_p_values.append( y_p_tran_rot );
-	
 	t_p_values.append( t_p_rot * ( 180.0 / math.pi ) );
 	
-	line = forward_file.readline( );
+	line    = forward_file.readline( );	
+	line_i += 1;
 	
-x_mean = sum( x_p_values ) * 1.0 / len( x_p_values );
-x_var  = map( lambda a: ( a - x_mean ) ** 2, x_p_values );
-x_var  = sum( x_var ) * 1.0 / len( x_var );
-x_std  = math.sqrt( x_var );
+print "Lines read: ", line_i;
 	
-print "X mean: ", x_mean;
-print "X variance: ", x_var;
-print "X standard deviation: ", x_std;
+# X'Y'T' stats.
+	
+x_p_mean = sum( x_p_values ) * 1.0 / len( x_p_values );
+x_p_var  = map( lambda a: ( a - x_p_mean ) ** 2, x_p_values );
+x_p_var  = sum( x_p_var ) * 1.0 / len( x_p_var );
+x_p_std  = math.sqrt( x_p_var );
+	
+print "X' mean: ", x_p_mean;
+print "X' variance: ", x_p_var;
+print "X' standard deviation: ", x_p_std;
 
-y_mean = sum( y_p_values ) * 1.0 / len( y_p_values );
-y_var  = map( lambda a: ( a - y_mean ) ** 2, y_p_values );
-y_var  = sum( y_var ) * 1.0 / len( y_var );
-y_std  = math.sqrt( y_var );
+y_p_mean = sum( y_p_values ) * 1.0 / len( y_p_values );
+y_p_var  = map( lambda a: ( a - y_p_mean ) ** 2, y_p_values );
+y_p_var  = sum( y_p_var ) * 1.0 / len( y_p_var );
+y_p_std  = math.sqrt( y_p_var );
 	
-print "Y mean: ", y_mean;
-print "Y variance: ", y_var;
-print "Y standard deviation: ", y_std;
+print "Y' mean: ", y_p_mean;
+print "Y' variance: ", y_p_var;
+print "Y' standard deviation: ", y_p_std;
 
-t_mean = sum( t_p_values ) * 1.0 / len( t_p_values );
-t_var  = map( lambda a: ( a - t_mean ) ** 2, t_p_values );
-t_var  = sum( t_var ) * 1.0 / len( t_var );
-t_std  = math.sqrt( t_var );
+t_p_mean = sum( t_p_values ) * 1.0 / len( t_p_values );
+t_p_var  = map( lambda a: ( a - t_p_mean ) ** 2, t_p_values );
+t_p_var  = sum( t_p_var ) * 1.0 / len( t_p_var );
+t_p_std  = math.sqrt( t_p_var );
 	
-print "Theta mean: ", t_mean;
-print "Theta variance: ", t_var;
-print "Theta standard deviation: ", t_std; 
+print "Theta' mean: ", t_p_mean;
+print "Theta' variance: ", t_p_var;
+print "Theta' standard deviation: ", t_p_std;
 
 # First plot.
 
 plt.figure( 1 );
+
+plt.title( "Total Original Real Robot Motion Collected" );
+	
+plt.axis( "equal" );
+
+plt.grid( True );
+
+color_percentage = 0.0;
+
+x_previous = 0.0;
+y_previous = 0.0;
+
+start = 0;
+stop  = len( x_originals );
+
+for i in range( start, stop ):
+	
+	color_percentage = float( i ) / float( len( x_originals ) );
+	
+	if ( x_originals[ i ] == x_previous and y_originals[ i ] == y_previous ):
+	
+		plt.plot( 
+			
+			[ x_originals[ i ] ], 
+			[ y_originals[ i ] ],
+			"o",
+			color = "green"
+			
+		);
+		
+	else:
+		
+		plt.plot( 
+			
+			[ x_originals[ i ] ], 
+			[ y_originals[ i ] ],
+			"*",
+			markersize = 10,
+			color = "green"
+			
+		);
+	
+	plt.plot( 
+		
+		[ x_originals[ i ], x_p_originals[ i ] ], 
+		[ y_originals[ i ], y_p_originals[ i ] ],
+		"--",
+		color = str( color_percentage )
+		
+	);
+	
+	if ( i + 1 == stop ):
+		
+		plt.plot( 
+			
+			[ x_p_originals[ i ] ], 
+			[ y_p_originals[ i ] ],
+			"*",
+			markersize = 10,
+			color = "red"
+			
+		);
+	
+	elif ( x_p_originals[ i ] == x_originals[ i + 1 ] and y_p_originals[ i ] == y_originals[ i + 1 ] ):
+	
+		plt.plot( 
+			
+			[ x_p_originals[ i ] ], 
+			[ y_p_originals[ i ] ],
+			"o",
+			color = "red"
+			
+		);
+		
+	else:
+		
+		plt.plot( 
+			
+			[ x_p_originals[ i ] ], 
+			[ y_p_originals[ i ] ],
+			"*",
+			markersize = 10,
+			color = "red"
+			
+		);
+	
+	a1, b1 = rotate_point( 10, 0, t_originals[ i ] );
+		
+	a1 = x_originals[ i ] + a1;
+	b1 = y_originals[ i ] + b1;
+
+	plt.annotate( 
+	
+		"", 
+		xy = ( a1, b1 ), 
+		xytext = ( x_originals[ i ], y_originals[ i ] ),
+		arrowprops = dict( facecolor = str( color_percentage ), alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
+	
+	);
+	
+	a2, b2 = rotate_point( 10, 0, t_p_originals[ i ] );
+		
+	a2 = x_p_originals[ i ] + a2;
+	b2 = y_p_originals[ i ] + b2;
+
+	plt.annotate( 
+	
+		"", 
+		xy = ( a2, b2 ), 
+		xytext = ( x_p_originals[ i ], y_p_originals[ i ] ),
+		arrowprops = dict( facecolor = str( color_percentage ), alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
+	
+	);
+	
+	x_previous = x_p_originals[ i ];
+	y_previous = y_p_originals[ i ];
+
+# Second plot.
+
+plt.figure( 2 );
 
 plt.axis( "equal" );
 	
@@ -302,9 +467,9 @@ plt.grid( True );
 
 plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 
-# Second plot.
+# Third plot.
 
-plt.figure( 2 );
+plt.figure( 3 );
 
 plt.axis( "equal" );
 plt.grid( True );
@@ -319,7 +484,7 @@ for i in range( len( x_p_values ) ):
 	
 	# Plot the starting point.
 	
-	plt.plot( [ x_values[ i ] ], [ y_values[ i ] ], "ro" );
+	plt.plot( [ x_values[ i ] ], [ y_values[ i ] ], "go" );
 	
 	# Plot the start orientation.
 	
@@ -333,7 +498,7 @@ for i in range( len( x_p_values ) ):
 		"", 
 		xy = ( x_h, y_h ), 
 		xytext = ( x_values[ i ], y_values[ i ] ),
-		arrowprops = dict( facecolor = 'red', alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
+		arrowprops = dict( facecolor = 'green', alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
 		
 	);
 	
@@ -342,11 +507,11 @@ for i in range( len( x_p_values ) ):
 	xs = [ x_values[ i ], x_p_values[ i ] ];
 	ys = [ y_values[ i ], y_p_values[ i ] ];
 	
-	plt.plot( xs, ys, "--g", linewidth = 1 );
+	plt.plot( xs, ys, "--b", linewidth = 1 );
 	
 	# Plot the resulting point.
 	
-	plt.plot( [ x_p_values[ i ] ], [ y_p_values[ i ] ], "bo", );
+	plt.plot( [ x_p_values[ i ] ], [ y_p_values[ i ] ], "ro", );
 	
 	# Plot the resulting orientation.
 	
@@ -360,11 +525,11 @@ for i in range( len( x_p_values ) ):
 		"", 
 		xy         = ( x_p_h, y_p_h ), 
 		xytext     = ( x_p_values[ i ], y_p_values[ i ] ),
-		arrowprops = dict( facecolor = 'blue', alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
+		arrowprops = dict( facecolor = 'red', alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
 		
 	);
 
-# Third plot
+# Fourth plot.
 
 # Find the median of each dimension.
 
@@ -470,4 +635,4 @@ for ztick in ax.zaxis.get_major_ticks( ):
 
 plt.subplots_adjust( left = 0.0, right = 1.0, top = 1.0, bottom = 0.0 );
 
-plt.show( );	
+plt.show( );
