@@ -9,7 +9,9 @@ Plots the normalized histograms for change in x, y, and theta.
 '''
 from mpl_toolkits.mplot3d import Axes3D;
 import matplotlib.pyplot as plt;
+import matplotlib.mlab as mlab
 from matplotlib import cm;
+from matplotlib.patches import Rectangle;
 import numpy as np;
 import math;
 
@@ -63,6 +65,7 @@ def rotate_point( x, y, angle_r ):
 	return x_rot, y_rot;
 
 forward_file = open( "../processed_data/srv_1_forward.dat", "r" );
+#forward_file = open( "../raw_data/day3/run29.cfg", "r" );
 
 line = forward_file.readline( );
 
@@ -284,39 +287,86 @@ while line != "":
 	y_p_values.append( y_p_tran_rot );
 	t_p_values.append( t_p_rot * ( 180.0 / math.pi ) );
 	
-	line    = forward_file.readline( );	
+	line    = forward_file.readline( );
 	line_i += 1;
 	
 print "Lines read: ", line_i;
 	
 # X'Y'T' stats.
 	
-x_p_mean = sum( x_p_values ) * 1.0 / len( x_p_values );
-x_p_var  = map( lambda a: ( a - x_p_mean ) ** 2, x_p_values );
-x_p_var  = sum( x_p_var ) * 1.0 / len( x_p_var );
+x_p_mean = sum( x_p_values ) / float( len( x_p_values ) );
+x_p_var  = map( lambda a: ( a - x_p_mean )**2.0, x_p_values );
+x_p_var  = sum( x_p_var ) / float( len( x_p_var ) );
 x_p_std  = math.sqrt( x_p_var );
 	
 print "X' mean: ", x_p_mean;
 print "X' variance: ", x_p_var;
 print "X' standard deviation: ", x_p_std;
 
-y_p_mean = sum( y_p_values ) * 1.0 / len( y_p_values );
-y_p_var  = map( lambda a: ( a - y_p_mean ) ** 2, y_p_values );
-y_p_var  = sum( y_p_var ) * 1.0 / len( y_p_var );
+y_p_mean = sum( y_p_values ) / float( len( y_p_values ) );
+y_p_var  = map( lambda a: ( a - y_p_mean )**2.0, y_p_values );
+y_p_var  = sum( y_p_var ) / float( len( y_p_var ) );
 y_p_std  = math.sqrt( y_p_var );
 	
 print "Y' mean: ", y_p_mean;
 print "Y' variance: ", y_p_var;
 print "Y' standard deviation: ", y_p_std;
 
-t_p_mean = sum( t_p_values ) * 1.0 / len( t_p_values );
-t_p_var  = map( lambda a: ( a - t_p_mean ) ** 2, t_p_values );
-t_p_var  = sum( t_p_var ) * 1.0 / len( t_p_var );
+t_p_mean = sum( t_p_values ) / float( len( t_p_values ) );
+t_p_var  = map( lambda a: ( a - t_p_mean )**2.0, t_p_values );
+t_p_var  = sum( t_p_var ) / float( len( t_p_var ) );
 t_p_std  = math.sqrt( t_p_var );
 	
 print "Theta' mean: ", t_p_mean;
 print "Theta' variance: ", t_p_var;
 print "Theta' standard deviation: ", t_p_std;
+
+# Find the median of each dimension.
+
+x_p_median = 0.0;
+y_p_median = 0.0;
+t_p_median = 0.0;
+
+x_p_sorted = sorted( x_p_values );
+y_p_sorted = sorted( y_p_values );
+t_p_sorted = sorted( t_p_values );
+
+if ( len( x_p_sorted ) % 2 == 0 ): # Even.
+	
+	x_p_median = ( x_p_sorted[ ( len( x_p_sorted ) / 2 ) - 1 ] + x_p_sorted[ ( len( x_p_sorted ) / 2 ) ] ) / 2.0;
+	y_p_median = ( y_p_sorted[ ( len( y_p_sorted ) / 2 ) - 1 ] + y_p_sorted[ ( len( y_p_sorted ) / 2 ) ] ) / 2.0; 
+	t_p_median = ( t_p_sorted[ ( len( t_p_sorted ) / 2 ) - 1 ] + t_p_sorted[ ( len( t_p_sorted ) / 2 ) ] ) / 2.0;
+	
+else:
+	
+	x_p_median = x_p_sorted[ ( len( x_p_sorted ) / 2 ) ];
+	y_p_median = y_p_sorted[ ( len( y_p_sorted ) / 2 ) ]; 
+	t_p_median = t_p_sorted[ ( len( t_p_sorted ) / 2 ) ];
+	
+print "X', Y', T' Median: ", x_p_median, ", ", y_p_median, ", ", t_p_median;
+	
+# Find the centroid. 
+
+xyt_p_centroid = [ ];
+
+xyt_p_centroid.append( sum( x_p_values ) / float( len( x_p_values ) ) );
+xyt_p_centroid.append( sum( y_p_values ) / float( len( y_p_values ) ) );
+xyt_p_centroid.append( sum( t_p_values ) / float( len( t_p_values ) ) );
+
+print "X'Y'T' Centroid: ", xyt_p_centroid[ 0 ], ", ", xyt_p_centroid[ 1 ], ", ", xyt_p_centroid[ 2 ];
+
+# Find the geometric median.
+
+xyt_p_geometric_median = calculate_geometric_median(
+	
+	[ x_p_median, y_p_median, t_p_median ],
+	x_p_values,
+	y_p_values,
+	t_p_values
+	
+);
+
+print "X'Y'T' Geometric Median: ", xyt_p_geometric_median[ 0 ], ", ", xyt_p_geometric_median[ 1 ], ", ", xyt_p_geometric_median[ 2 ];
 
 # First plot.
 
@@ -442,27 +492,58 @@ for i in range( start, stop ):
 
 plt.figure( 2 );
 
-plt.axis( "equal" );
-	
 plt.subplot( 3, 1, 1 );
-plt.hist( x_p_values, bins = 15, normed = True );
+n, bins, patches = plt.hist( x_p_values, bins = 50, normed = True, alpha = 0.75 );
+patch_heights    = map( lambda a: a.get_height( ), patches );
+max_patch_height = max( patch_heights );
+normal_pdf       = mlab.normpdf( bins, x_p_mean, x_p_std );
+plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
+current_axis = plt.gca( );
+current_axis.add_patch( Rectangle( ( ( x_p_mean - x_p_std ), 0.0 ), x_p_std, max_patch_height, facecolor = "grey", alpha = 0.5 ) );
+current_axis.add_patch( Rectangle( ( ( x_p_mean ), 0.0 ), x_p_std, max_patch_height, facecolor = "grey", alpha = 0.5 ) );
+plt.plot( [ x_p_mean, x_p_mean ], [ 0.0, max_patch_height ], "g--", linewidth = 3 );
+plt.plot( [ ( x_p_mean - x_p_std ), ( x_p_mean - x_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
+plt.plot( [ ( x_p_mean + x_p_std ), ( x_p_mean + x_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
+plt.plot( [ x_p_median, x_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "X-axis Delta in Centimeters" );
-plt.ylabel( "Frequency Normalized" );
+plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
 plt.subplot( 3, 1, 2 );
-plt.hist( y_p_values, bins = 15, normed = True );
+n, bins, patches = plt.hist( y_p_values, bins = 50, normed = True, alpha = 0.75 );
+patch_heights    = map( lambda a: a.get_height( ), patches );
+max_patch_height = max( patch_heights );
+normal_pdf       = mlab.normpdf( bins, y_p_mean, y_p_std );
+plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
+current_axis = plt.gca( );
+current_axis.add_patch( Rectangle( ( ( y_p_mean - y_p_std ), 0.0 ), y_p_std, max_patch_height, facecolor = "grey", alpha = 0.5 ) );
+current_axis.add_patch( Rectangle( ( ( y_p_mean ), 0.0 ), y_p_std, max_patch_height, facecolor = "grey", alpha = 0.5 ) );
+plt.plot( [ y_p_mean, y_p_mean ], [ 0.0, max_patch_height ], "g--", linewidth = 3 );
+plt.plot( [ ( y_p_mean - y_p_std ), ( y_p_mean - y_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
+plt.plot( [ ( y_p_mean + y_p_std ), ( y_p_mean + y_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
+plt.plot( [ y_p_median, y_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "Y-axis Delta in Centimeters" );
-plt.ylabel( "Frequency Normalized" );
+plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
 plt.subplot( 3, 1, 3 );
-plt.hist( t_p_values, bins = 15, normed = True );
+n, bins, patches = plt.hist( t_p_values, bins = 50, normed = True, alpha = 0.75 );
+patch_heights    = map( lambda a: a.get_height( ), patches );
+max_patch_height = max( patch_heights );
+normal_pdf       = mlab.normpdf( bins, t_p_mean, t_p_std );
+plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
+current_axis = plt.gca( );
+current_axis.add_patch( Rectangle( ( ( t_p_mean - t_p_std ), 0.0 ), t_p_std, max_patch_height, facecolor = "grey", alpha = 0.5 ) );
+current_axis.add_patch( Rectangle( ( ( t_p_mean ), 0.0 ), t_p_std, max_patch_height, facecolor = "grey", alpha = 0.5 ) );
+plt.plot( [ t_p_mean, t_p_mean ], [ 0.0, max_patch_height ], "g--", linewidth = 3 );
+plt.plot( [ ( t_p_mean - t_p_std ), ( t_p_mean - t_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
+plt.plot( [ ( t_p_mean + t_p_std ), ( t_p_mean + t_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
+plt.plot( [ t_p_median, t_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "Theta Delta in Degrees" );
-plt.ylabel( "Frequency Normalized" );
+plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
 plt.tight_layout( pad = 1.08, h_pad = 0.5 );
@@ -470,6 +551,33 @@ plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 # Third plot.
 
 plt.figure( 3 );
+
+plt.subplot( 3, 1, 1 );
+plt.hist( x_p_values, bins = 50, normed = True, alpha = 0.75, cumulative = True );
+plt.title( "Real Robot Forward Motion" );
+plt.xlabel( "X-axis Delta in Centimeters" );
+plt.ylabel( "CDF Normalized" );
+plt.grid( True );
+
+plt.subplot( 3, 1, 2 );
+plt.hist( y_p_values, bins = 50, normed = True, alpha = 0.75, cumulative = True  );
+plt.title( "Real Robot Forward Motion" );
+plt.xlabel( "Y-axis Delta in Centimeters" );
+plt.ylabel( "CDF Normalized" );
+plt.grid( True );
+
+plt.subplot( 3, 1, 3 );
+plt.hist( t_p_values, bins = 50, normed = True, alpha = 0.75, cumulative = True  );
+plt.title( "Real Robot Forward Motion" );
+plt.xlabel( "Theta Delta in Degrees" );
+plt.ylabel( "CDF Normalized" );
+plt.grid( True );
+
+plt.tight_layout( pad = 1.08, h_pad = 0.5 );
+
+# Fourth plot.
+
+plt.figure( 4 );
 
 plt.axis( "equal" );
 plt.grid( True );
@@ -529,54 +637,7 @@ for i in range( len( x_p_values ) ):
 		
 	);
 
-# Fourth plot.
-
-# Find the median of each dimension.
-
-x_p_median = 0.0;
-y_p_median = 0.0;
-t_p_median = 0.0;
-
-x_p_sorted = sorted( x_p_values );
-y_p_sorted = sorted( y_p_values );
-t_p_sorted = sorted( t_p_values );
-
-if ( len( x_p_sorted ) % 2 == 0 ): # Even
-	
-	x_p_median = ( x_p_sorted[ ( len( x_p_sorted ) / 2 ) - 1 ] + x_p_sorted[ ( len( x_p_sorted ) / 2 ) ] ) / 2.0;
-	y_p_median = ( y_p_sorted[ ( len( y_p_sorted ) / 2 ) - 1 ] + y_p_sorted[ ( len( y_p_sorted ) / 2 ) ] ) / 2.0; 
-	t_p_median = ( t_p_sorted[ ( len( t_p_sorted ) / 2 ) - 1 ] + t_p_sorted[ ( len( t_p_sorted ) / 2 ) ] ) / 2.0;
-	
-else:
-	
-	x_p_median = x_p_sorted[ ( len( x_p_sorted ) / 2 ) ];
-	y_p_median = y_p_sorted[ ( len( y_p_sorted ) / 2 ) ]; 
-	t_p_median = t_p_sorted[ ( len( t_p_sorted ) / 2 ) ];
-	
-print "Median: ", x_p_median, ", ", y_p_median, ", ", t_p_median;
-	
-# Find the centroid. 
-
-xyt_p_centroid = [ ];
-
-xyt_p_centroid.append( sum( x_p_values ) / float( len( x_p_values ) ) );
-xyt_p_centroid.append( sum( y_p_values ) / float( len( y_p_values ) ) );
-xyt_p_centroid.append( sum( t_p_values ) / float( len( t_p_values ) ) );
-
-print "Centroid: ", xyt_p_centroid[ 0 ], ", ", xyt_p_centroid[ 1 ], ", ", xyt_p_centroid[ 2 ];
-
-# Find the geometric median.
-
-xyt_p_geometric_median = calculate_geometric_median(
-	
-	[ x_p_median, y_p_median, t_p_median ],
-	x_p_values,
-	y_p_values,
-	t_p_values
-	
-);
-
-print "Geometric Median: ", xyt_p_geometric_median[ 0 ], ", ", xyt_p_geometric_median[ 1 ], ", ", xyt_p_geometric_median[ 2 ];
+# Fifth plot.
 
 # Begin plotting the 3D scatter plot.
 
