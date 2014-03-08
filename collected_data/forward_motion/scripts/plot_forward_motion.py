@@ -4,16 +4,17 @@ David Lettier (C) 2014.
 
 http://www.lettier.com/
 
-Plots the normalized histograms for change in x, y, and theta.
+Plots the real robot forward motion.
 
 '''
-from mpl_toolkits.mplot3d import Axes3D;
-import matplotlib.pyplot as plt;
-import matplotlib.mlab as mlab
-from matplotlib import cm;
-from matplotlib.patches import Rectangle;
 import numpy as np;
 import math;
+import cPickle;
+import matplotlib.pyplot as plt;
+import matplotlib.mlab as mlab;
+from mpl_toolkits.mplot3d import Axes3D;
+from matplotlib import cm;
+from matplotlib.patches import Rectangle;
 
 # Calculates or rather approximates the geometric median.
 
@@ -57,6 +58,8 @@ def calculate_geometric_median( candidate, a, b, c ):
 		
 	return y;
 
+# Rotates a point around the origin, counter-clockwise.
+
 def rotate_point( x, y, angle_r ):
 	
 	x_rot = ( math.cos( angle_r ) * x ) + ( -math.sin( angle_r ) * y );
@@ -69,7 +72,7 @@ forward_file = open( "../processed_data/srv_1_forward.dat", "r" );
 
 line = forward_file.readline( );
 
-x_originals  = [ ];
+x_originals = [ ];
 y_originals = [ ];
 t_originals = [ ];
 
@@ -290,6 +293,22 @@ while line != "":
 	line    = forward_file.readline( );
 	line_i += 1;
 	
+cPickle.dump( x_originals, open( "../pickled_data/x_originals.pkl", "wb" ) );
+cPickle.dump( y_originals, open( "../pickled_data/y_originals.pkl", "wb" ) );
+cPickle.dump( t_originals, open( "../pickled_data/t_originals.pkl", "wb" ) );
+
+cPickle.dump( x_p_originals, open( "../pickled_data/x_p_originals.pkl", "wb" ) );
+cPickle.dump( y_p_originals, open( "../pickled_data/y_p_originals.pkl", "wb" ) );
+cPickle.dump( t_p_originals, open( "../pickled_data/t_p_originals.pkl", "wb" ) );
+	
+cPickle.dump( x_values, open( "../pickled_data/x_values.pkl", "wb" ) );
+cPickle.dump( y_values, open( "../pickled_data/y_values.pkl", "wb" ) );
+cPickle.dump( t_values, open( "../pickled_data/t_values.pkl", "wb" ) );
+
+cPickle.dump( x_p_values, open( "../pickled_data/x_p_values.pkl", "wb" ) );
+cPickle.dump( y_p_values, open( "../pickled_data/y_p_values.pkl", "wb" ) );
+cPickle.dump( t_p_values, open( "../pickled_data/t_p_values.pkl", "wb" ) );
+
 print "Lines read: ", line_i;
 	
 # X'Y'T' stats.
@@ -320,6 +339,25 @@ t_p_std  = math.sqrt( t_p_var );
 print "Theta' mean: ", t_p_mean;
 print "Theta' variance: ", t_p_var;
 print "Theta' standard deviation: ", t_p_std;
+
+# Covariance matrix.
+
+forward_motion = [ ];
+
+for i in range( len( x_p_values ) ):
+	
+	x_p_value = x_p_values[ i ];
+	y_p_value = y_p_values[ i ];
+	t_p_value = t_p_values[ i ];
+	
+	forward_motion.append( 
+		
+		[ x_p_value, y_p_value, t_p_value ]
+		
+	);
+	
+print "Covariance matrix: ";
+print np.cov( forward_motion, rowvar = 0 );
 
 # Find the median of each dimension.
 
@@ -641,13 +679,15 @@ for i in range( len( x_p_values ) ):
 
 # Begin plotting the 3D scatter plot.
 
-fig = plt.figure( figsize = ( 12, 12 ) );
+fig = plt.figure( 5, figsize = ( 12, 12 ) );
 ax  = fig.gca( projection = "3d" );
+
+ax.grid( alpha = 1.0 );
 
 ax.set_title(  "Real Robot Forward Motion",   fontsize = 15 );
 ax.set_xlabel( "X-axis Delta in Centimeters", fontsize = 15 );
 ax.set_ylabel( "Y-axis Delta in Centimeters", fontsize = 15 );
-ax.set_zlabel( "\nTheta Delta in Degrees\n",    fontsize = 15, linespacing = 10 );
+ax.set_zlabel( "\nTheta Delta in Degrees\n",  fontsize = 15, linespacing = 10 );
 
 colors = [ ];
 max_x  = max( x_p_values );
@@ -664,7 +704,7 @@ for i in range( len( x_p_values ) ):
 
 # Plot the points.
 
-ax.scatter( x_p_values, y_p_values, t_p_values, alpha = 0.8, c = colors, s = 120, norm = True );
+ax.scatter( x_p_values, y_p_values, t_p_values, alpha = 0.5, c = colors, s = 120, norm = True );
 
 # Plot the centroid.
 
