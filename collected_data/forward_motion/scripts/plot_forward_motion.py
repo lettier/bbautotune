@@ -15,6 +15,8 @@ import matplotlib.mlab as mlab;
 from mpl_toolkits.mplot3d import Axes3D;
 from matplotlib import cm;
 from matplotlib.patches import Rectangle;
+from scipy.stats import scoreatpercentile;
+from scipy.stats import normaltest;
 
 # Calculates or rather approximates the geometric median.
 
@@ -173,10 +175,10 @@ while line != "":
 		print "y_p_tran: ", y_p_tran;
 		print "y_p_tran_rot: ", y_p_tran_rot;
 		
-		print "t: ", t * ( 180.0 / math.pi );
-		print "t_p: ", t_p * ( 180.0 / math.pi );
-		print "t_rot: ", t_rot * ( 180.0 / math.pi );
-		print "t_p_rot: ", t_p_rot * ( 180.0 / math.pi );
+		print "t: ",       t,       ( t * ( 180.0 / math.pi ) )       % 360.0;
+		print "t_p: ",     t_p,     ( t_p * ( 180.0 / math.pi ) )     % 360.0;
+		print "t_rot: ",   t_rot,   ( t_rot * ( 180.0 / math.pi ) )   % 360.0;
+		print "t_p_rot: ", t_p_rot, ( t_p_rot * ( 180.0 / math.pi ) ) % 360.0;
 		
 		# Not translated nor rotated.
 		
@@ -284,11 +286,13 @@ while line != "":
 	
 	x_values.append( x_tran_rot );
 	y_values.append( y_tran_rot );
-	t_values.append( t_rot * ( 180.0 / math.pi ) );
+	#t_values.append( ( t_rot * ( 180.0 / math.pi ) ) % 360.0 );
+	t_values.append( t_rot );
 	
 	x_p_values.append( x_p_tran_rot );
 	y_p_values.append( y_p_tran_rot );
-	t_p_values.append( t_p_rot * ( 180.0 / math.pi ) );
+	#t_p_values.append( ( t_p_rot * ( 180.0 / math.pi ) ) % 360.0 );
+	t_p_values.append( t_p_rot );
 	
 	line    = forward_file.readline( );
 	line_i += 1;
@@ -309,7 +313,7 @@ cPickle.dump( x_p_values, open( "../pickled_data/x_p_values.pkl", "wb" ) );
 cPickle.dump( y_p_values, open( "../pickled_data/y_p_values.pkl", "wb" ) );
 cPickle.dump( t_p_values, open( "../pickled_data/t_p_values.pkl", "wb" ) );
 
-print "Lines read: ", line_i;
+print "Number of sample points: ", line_i;
 	
 # X'Y'T' stats.
 	
@@ -317,7 +321,8 @@ x_p_mean = sum( x_p_values ) / float( len( x_p_values ) );
 x_p_var  = map( lambda a: ( a - x_p_mean )**2.0, x_p_values );
 x_p_var  = sum( x_p_var ) / float( len( x_p_var ) );
 x_p_std  = math.sqrt( x_p_var );
-	
+
+print "X' max/min: ", max( x_p_values ), min( x_p_values );
 print "X' mean: ", x_p_mean;
 print "X' variance: ", x_p_var;
 print "X' standard deviation: ", x_p_std;
@@ -326,7 +331,8 @@ y_p_mean = sum( y_p_values ) / float( len( y_p_values ) );
 y_p_var  = map( lambda a: ( a - y_p_mean )**2.0, y_p_values );
 y_p_var  = sum( y_p_var ) / float( len( y_p_var ) );
 y_p_std  = math.sqrt( y_p_var );
-	
+
+print "Y' max/min: ", max( y_p_values ), min( y_p_values );
 print "Y' mean: ", y_p_mean;
 print "Y' variance: ", y_p_var;
 print "Y' standard deviation: ", y_p_std;
@@ -335,10 +341,35 @@ t_p_mean = sum( t_p_values ) / float( len( t_p_values ) );
 t_p_var  = map( lambda a: ( a - t_p_mean )**2.0, t_p_values );
 t_p_var  = sum( t_p_var ) / float( len( t_p_var ) );
 t_p_std  = math.sqrt( t_p_var );
-	
+
+print "Theta' max/min: ", max( t_p_values ), min( t_p_values );
 print "Theta' mean: ", t_p_mean;
 print "Theta' variance: ", t_p_var;
 print "Theta' standard deviation: ", t_p_std;
+
+z, x_p_normal_test = normaltest( x_p_values );
+z, y_p_normal_test = normaltest( y_p_values );
+z, t_p_normal_test = normaltest( t_p_values );
+
+x_p_is_normal = "Normal";
+y_p_is_normal = "Normal";
+t_p_is_normal = "Normal";
+
+if ( x_p_normal_test < 0.05 ):
+	
+	x_p_is_normal = "Not Normal";
+	
+if ( y_p_normal_test < 0.05 ):
+	
+	y_p_is_normal = "Not Normal";
+	
+if ( t_p_normal_test < 0.05 ):
+	
+	t_p_is_normal = "Not Normal";
+
+print "X' normal test p-value: ", x_p_normal_test, x_p_is_normal;
+print "Y' normal test p-value: ", y_p_normal_test, y_p_is_normal;
+print "T' normal test p-value: ", t_p_normal_test, t_p_is_normal;
 
 # Covariance matrix.
 
@@ -410,9 +441,12 @@ print "X'Y'T' Geometric Median: ", xyt_p_geometric_median[ 0 ], ", ", xyt_p_geom
 
 plt.figure( 1 );
 
-plt.title( "Total Original Real Robot Motion Collected" );
+plt.title( "Total Original Real Robot Motion Collected (Camera Perspective)" );
 	
 plt.axis( "equal" );
+
+plt.xlabel( "X-axis in Centimeters" );
+plt.ylabel( "Y-axis in Centimeters" );
 
 plt.grid( True );
 
@@ -528,10 +562,23 @@ for i in range( start, stop ):
 
 # Second plot.
 
+# Calculate the Freedman-Diaconis' choice for bin size.
+
+X_sorted = np.sort( x_p_values );
+
+Q3 = scoreatpercentile( X_sorted, 0.75 );
+Q1 = scoreatpercentile( X_sorted, 0.25 );
+
+IQR = Q3 - Q1;
+
+h = 2.0 * ( IQR / ( len( X_sorted )**( 1.0 / 3.0 ) ) );
+
+k_x = math.ceil( ( max( x_p_values ) - min( x_p_values ) ) / h );
+
 plt.figure( 2 );
 
 plt.subplot( 3, 1, 1 );
-n, bins, patches = plt.hist( x_p_values, bins = 50, normed = True, alpha = 0.75 );
+n, bins, patches = plt.hist( x_p_values, bins = k_x, normed = True, alpha = 0.75 );
 patch_heights    = map( lambda a: a.get_height( ), patches );
 max_patch_height = max( patch_heights );
 normal_pdf       = mlab.normpdf( bins, x_p_mean, x_p_std );
@@ -548,8 +595,19 @@ plt.xlabel( "X-axis Delta in Centimeters" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
+Y_sorted = np.sort( y_p_values );
+
+Q3 = scoreatpercentile( Y_sorted, 0.75 );
+Q1 = scoreatpercentile( Y_sorted, 0.25 );
+
+IQR = Q3 - Q1;
+
+h = 2.0 * ( IQR / ( len( Y_sorted )**( 1.0 / 3.0 ) ) );
+
+k_y = math.ceil( ( max( y_p_values ) - min( y_p_values ) ) / h );
+
 plt.subplot( 3, 1, 2 );
-n, bins, patches = plt.hist( y_p_values, bins = 50, normed = True, alpha = 0.75 );
+n, bins, patches = plt.hist( y_p_values, bins = k_y, normed = True, alpha = 0.75 );
 patch_heights    = map( lambda a: a.get_height( ), patches );
 max_patch_height = max( patch_heights );
 normal_pdf       = mlab.normpdf( bins, y_p_mean, y_p_std );
@@ -566,8 +624,19 @@ plt.xlabel( "Y-axis Delta in Centimeters" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
+T_sorted = np.sort( t_p_values );
+
+Q3 = scoreatpercentile( T_sorted, 0.75 );
+Q1 = scoreatpercentile( T_sorted, 0.25 );
+
+IQR = Q3 - Q1;
+
+h = 2.0 * ( IQR / ( len( T_sorted )**( 1.0 / 3.0 ) ) );
+
+k_t = math.ceil( ( max( t_p_values ) - min( t_p_values ) ) / h );
+
 plt.subplot( 3, 1, 3 );
-n, bins, patches = plt.hist( t_p_values, bins = 50, normed = True, alpha = 0.75 );
+n, bins, patches = plt.hist( t_p_values, bins = k_t, normed = True, alpha = 0.75 );
 patch_heights    = map( lambda a: a.get_height( ), patches );
 max_patch_height = max( patch_heights );
 normal_pdf       = mlab.normpdf( bins, t_p_mean, t_p_std );
@@ -591,21 +660,21 @@ plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 plt.figure( 3 );
 
 plt.subplot( 3, 1, 1 );
-plt.hist( x_p_values, bins = 50, normed = True, alpha = 0.75, cumulative = True );
+plt.hist( x_p_values, bins = k_x, normed = True, alpha = 0.75, cumulative = True );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "X-axis Delta in Centimeters" );
 plt.ylabel( "CDF Normalized" );
 plt.grid( True );
 
 plt.subplot( 3, 1, 2 );
-plt.hist( y_p_values, bins = 50, normed = True, alpha = 0.75, cumulative = True  );
+plt.hist( y_p_values, bins = k_y, normed = True, alpha = 0.75, cumulative = True  );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "Y-axis Delta in Centimeters" );
 plt.ylabel( "CDF Normalized" );
 plt.grid( True );
 
 plt.subplot( 3, 1, 3 );
-plt.hist( t_p_values, bins = 50, normed = True, alpha = 0.75, cumulative = True  );
+plt.hist( t_p_values, bins = k_t, normed = True, alpha = 0.75, cumulative = True  );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "Theta Delta in Degrees" );
 plt.ylabel( "CDF Normalized" );
@@ -619,7 +688,7 @@ plt.figure( 4 );
 
 plt.axis( "equal" );
 plt.grid( True );
-plt.title( "Real Robot Forward Motion" );
+plt.title( "Real Robot Forward Motion (Robot Perspective)" );
 plt.xlabel( "X-axis" );
 plt.ylabel( "Y-axis" );
 plt.tight_layout( pad = 1.08, h_pad = 0.5 );
@@ -634,7 +703,8 @@ for i in range( len( x_p_values ) ):
 	
 	# Plot the start orientation.
 	
-	x_h, y_h = rotate_point( 2.0, 0.0, ( t_values[ i ] * ( math.pi / 180.0 ) ) );
+	#x_h, y_h = rotate_point( 2.0, 0.0, ( t_values[ i ] * ( math.pi / 180.0 ) ) );
+	x_h, y_h = rotate_point( 2.0, 0.0, t_values[ i ] );
 	
 	x_h = x_values[ i ] + x_h;
 	y_h = y_values[ i ] + y_h;
@@ -661,7 +731,8 @@ for i in range( len( x_p_values ) ):
 	
 	# Plot the resulting orientation.
 	
-	x_p_h, y_p_h = rotate_point( 2.0, 0.0, ( t_p_values[ i ] * ( math.pi / 180.0 ) ) );
+	#x_p_h, y_p_h = rotate_point( 2.0, 0.0, ( t_p_values[ i ] * ( math.pi / 180.0 ) ) );
+	x_p_h, y_p_h = rotate_point( 2.0, 0.0, t_p_values[ i ] );
 	
 	x_p_h = x_p_values[ i ] + x_p_h;
 	y_p_h = y_p_values[ i ] + y_p_h;
