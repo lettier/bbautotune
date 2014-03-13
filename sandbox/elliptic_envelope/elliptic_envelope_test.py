@@ -13,6 +13,8 @@ import scipy.spatial.distance;
 from scipy.stats import scoreatpercentile;
 from scipy.stats import mode;
 from scipy.stats import normaltest;
+from scipy.stats import norm;
+from scipy.stats import probplot;
 from sklearn.covariance import EllipticEnvelope;
 from sklearn.covariance import MinCovDet;
 from sklearn.cross_validation import cross_val_score;
@@ -213,15 +215,16 @@ for i in range( len( mds_sorted ) ):
 # Plot 1.
 
 plt.figure( 1 );
-plt.scatter( mds_sorted, chi2_quantiles, color = "green", alpha = 0.5 );
+plt.scatter( chi2_quantiles, mds_sorted, color = "green", alpha = 0.5 );
 plt.title( "Real Robot Forward Motion Q-Q Plot" );
-plt.ylabel( "Square Root of Chi-square Probability Quantile" );
-plt.xlabel( "Mahalanobis Distance" );
-plt.plot( [ 0, max( chi2_quantiles ) ], [ 0, max( chi2_quantiles ) ], color = "red", alpha = 0.5 );
+plt.xlabel( "Square Root of Chi-square Probability Quantile" );
+plt.ylabel( "Ordered Mahalanobis Distance Quantile" );
+plt.plot( [ min( chi2_quantiles ), max( chi2_quantiles ) ], [ min( chi2_quantiles ), max( chi2_quantiles ) ], color = "red", alpha = 0.5 );
 plt.plot( 
-	
-	[ math.sqrt( chi2.isf( 1.0 - 0.995, 3 ) ), math.sqrt( chi2.isf( 1.0 - 0.995, 3 ) ) ], 
-	[ 0, max( chi2_quantiles ) ], color = "blue", alpha = 0.5 
+
+	[ 0, max( chi2_quantiles ) ],
+	[ math.sqrt( chi2.isf( 1.0 - 0.995, 3 ) ), math.sqrt( chi2.isf( 1.0 - 0.995, 3 ) ) ],
+	color = "blue", alpha = 0.5 
 	
 );
 plt.grid( True );
@@ -232,13 +235,13 @@ plt.figure( 2 );
 
 for i in range( len( mds ) ):
 	
-	if ( not ( ( mds[ i ]**2.0 ) > chi2.isf( 1.0 - 0.995, 3 ) ) ):
+	if ( not ( ( mds[ i ] * mds[ i ] ) > chi2.isf( 1.0 - 0.995, 3 ) ) ):
 		
 		plt.plot( [ i + 1 ], [ mds[ i ] ], color = "blue", alpha = 0.5, marker = "o" );
 
 for i in range( len( mds ) ):
 		
-	if ( ( mds[ i ]**2.0 ) > chi2.isf( 1.0 - 0.995, 3 ) ):
+	if ( ( mds[ i ] * mds[ i ] ) > chi2.isf( 1.0 - 0.995, 3 ) ):
 		
 		plt.plot( [ i + 1 ], [ mds[ i ] ], color = "red", alpha = 0.5, marker = "o" );
 
@@ -257,7 +260,7 @@ j = 0;
 
 for i in range( len( mds ) ):
 	
-	if ( ( mds[ i ]**2.0 ) > chi2.isf( 1.0 - 0.995, 3 ) ):
+	if ( ( mds[ i ] * mds[ i ] ) > chi2.isf( 1.0 - 0.995, 3 ) ):
 		
 		outlier_indexes.append( i );
 		
@@ -278,7 +281,7 @@ ax.grid( alpha = 1.0 );
 ax.set_title(  "Real Robot Forward Motion Outliers", fontsize = 15 );
 ax.set_xlabel( "X-axis Delta in Centimeters", fontsize = 15 );
 ax.set_ylabel( "Y-axis Delta in Centimeters", fontsize = 15 );
-ax.set_zlabel( "Theta Delta in Degrees",  fontsize = 15, linespacing = 10 );
+ax.set_zlabel( "Theta Delta in Radians",  fontsize = 15, linespacing = 10 );
 
 for i in range( len( x_p_values ) ):
 	
@@ -358,9 +361,9 @@ x_p_mode = mode( x_p_clean );
 y_p_mode = mode( y_p_clean );
 t_p_mode = mode( t_p_clean );
 
-z, x_p_normal_test = normaltest( x_p_clean );
-z, y_p_normal_test = normaltest( y_p_clean );
-z, t_p_normal_test = normaltest( t_p_clean );
+z, x_p_normal_test = normaltest( x_p_clean, axis = 0 );
+z, y_p_normal_test = normaltest( y_p_clean, axis = 0 );
+z, t_p_normal_test = normaltest( t_p_clean, axis = 0 );
 
 x_p_is_normal = "Normal";
 y_p_is_normal = "Normal";
@@ -392,8 +395,8 @@ print "T' normal test p-value: ", t_p_normal_test, t_p_is_normal;
 	
 X_sorted = numpy.sort( x_p_clean );
 
-Q3 = scoreatpercentile( X_sorted, 0.75 );
-Q1 = scoreatpercentile( X_sorted, 0.25 );
+Q3 = scoreatpercentile( X_sorted, 75 );
+Q1 = scoreatpercentile( X_sorted, 25 );
 
 IQR = Q3 - Q1;
 
@@ -404,9 +407,8 @@ k_x = math.ceil( ( max( x_p_clean ) - min( x_p_clean ) ) / h );
 plt.figure( 4 );
 
 plt.subplot( 3, 1, 1 );
-n, bins, patches = plt.hist( x_p_clean, bins = k_x, normed = True, alpha = 0.75 );
-patch_heights    = map( lambda a: a.get_height( ), patches );
-max_patch_height = max( patch_heights );
+n, bins, patches = plt.hist( x_p_clean, bins = k_x, normed = True, alpha = 0.75, histtype = "stepfilled" );
+max_patch_height = max( ( numpy.histogram( x_p_clean, k_x, normed = True ) )[ 0 ] );
 normal_pdf       = mlab.normpdf( bins, x_p_mean, x_p_std );
 plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
 current_axis = plt.gca( );
@@ -423,8 +425,8 @@ plt.grid( True );
 
 Y_sorted = numpy.sort( y_p_clean );
 
-Q3 = scoreatpercentile( Y_sorted, 0.75 );
-Q1 = scoreatpercentile( Y_sorted, 0.25 );
+Q3 = scoreatpercentile( Y_sorted, 75 );
+Q1 = scoreatpercentile( Y_sorted, 25 );
 
 IQR = Q3 - Q1;
 
@@ -433,9 +435,8 @@ h = 2.0 * ( IQR / ( len( Y_sorted )**( 1.0 / 3.0 ) ) );
 k_y = math.ceil( ( max( y_p_clean ) - min( y_p_clean ) ) / h );
 
 plt.subplot( 3, 1, 2 );
-n, bins, patches = plt.hist( y_p_clean, bins = k_y, normed = True, alpha = 0.75 );
-patch_heights    = map( lambda a: a.get_height( ), patches );
-max_patch_height = max( patch_heights );
+n, bins, patches = plt.hist( y_p_clean, bins = k_y, normed = True, alpha = 0.75, histtype = "stepfilled" );
+max_patch_height = max( ( numpy.histogram( y_p_clean, k_y, normed = True ) )[ 0 ] );
 normal_pdf       = mlab.normpdf( bins, y_p_mean, y_p_std );
 plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
 current_axis = plt.gca( );
@@ -452,8 +453,8 @@ plt.grid( True );
 
 T_sorted = numpy.sort( t_p_clean );
 
-Q3 = scoreatpercentile( T_sorted, 0.75 );
-Q1 = scoreatpercentile( T_sorted, 0.25 );
+Q3 = scoreatpercentile( T_sorted, 75 );
+Q1 = scoreatpercentile( T_sorted, 25 );
 
 IQR = Q3 - Q1;
 
@@ -462,9 +463,8 @@ h = 2.0 * ( IQR / ( len( T_sorted )**( 1.0 / 3.0 ) ) );
 k_t = math.ceil( ( max( t_p_clean ) - min( t_p_clean ) ) / h );
 
 plt.subplot( 3, 1, 3 );
-n, bins, patches = plt.hist( t_p_clean, bins = k_t, normed = True, alpha = 0.75 );
-patch_heights    = map( lambda a: a.get_height( ), patches );
-max_patch_height = max( patch_heights );
+n, bins, patches = plt.hist( t_p_clean, bins = k_t, normed = True, alpha = 0.75, histtype = "stepfilled" );
+max_patch_height = max( ( numpy.histogram( t_p_clean, k_t, normed = True ) )[ 0 ] );
 normal_pdf       = mlab.normpdf( bins, t_p_mean, t_p_std );
 plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
 current_axis = plt.gca( );
@@ -482,6 +482,42 @@ plt.grid( True );
 plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 
 # Plot 5.
+
+plt.figure( 5 );
+
+plt.subplot( 3, 1, 1 );
+n, bins, patches = plt.hist( x_p_clean, bins = k_x, normed = True, alpha = 0.75, cumulative = True, histtype = "stepfilled" );
+normal_data = sorted( norm.rvs( size = len( x_p_clean ), loc = x_p_mean, scale = x_p_std ) );
+normal_data_cdf = norm.cdf( normal_data, x_p_mean, x_p_std );
+plt.plot( normal_data, normal_data_cdf, "--r" );
+plt.title( "Real Robot Forward Motion w/out Outliers" );
+plt.xlabel( "X-axis Delta in Centimeters" );
+plt.ylabel( "CDF Normalized" );
+plt.grid( True );
+
+plt.subplot( 3, 1, 2 );
+plt.hist( y_p_clean, bins = k_y, normed = True, alpha = 0.75, cumulative = True, histtype = "stepfilled" );
+normal_data = sorted( norm.rvs( size = len( y_p_clean ), loc = y_p_mean, scale = y_p_std ) );
+normal_data_cdf = norm.cdf( normal_data, y_p_mean, y_p_std );
+plt.plot( normal_data, normal_data_cdf, "--r" );
+plt.title( "Real Robot Forward Motion w/out Outliers" );
+plt.xlabel( "Y-axis Delta in Centimeters" );
+plt.ylabel( "CDF Normalized" );
+plt.grid( True );
+
+plt.subplot( 3, 1, 3 );
+plt.hist( t_p_clean, bins = k_t, normed = True, alpha = 0.75, cumulative = True, histtype = "stepfilled" );
+normal_data = sorted( norm.rvs( size = len( t_p_clean ), loc = t_p_mean, scale = t_p_std ) );
+normal_data_cdf = norm.cdf( normal_data, t_p_mean, t_p_std );
+plt.plot( normal_data, normal_data_cdf, "--r" );
+plt.title( "Real Robot Forward Motion w/out Outliers" );
+plt.xlabel( "Theta Delta in Degrees" );
+plt.ylabel( "CDF Normalized" );
+plt.grid( True );
+
+plt.tight_layout( pad = 1.08, h_pad = 0.5 );
+
+# Plot 6.
 
 mcd_trained_clean = MinCovDet( assume_centered = False, support_fraction = 0.5 * ( len( forward_motion_clean ) + 3.0 + 1.0 ) ).fit( forward_motion_clean );
 
@@ -518,19 +554,48 @@ for i in range( len( mds_clean_sorted ) ):
 	
 	chi2_quantiles.append( x2_sr );
 
-plt.figure( 5 );
-plt.scatter( mds_clean_sorted, chi2_quantiles, color = "green", alpha = 0.5 );
+plt.figure( 6 );
+plt.scatter( chi2_quantiles, mds_clean_sorted, color = "green", alpha = 0.5 );
 plt.title( "Real Robot Forward Motion Q-Q Plot w/out Outliers" );
-plt.ylabel( "Square Root of Chi-square Probability Quantile" );
-plt.xlabel( "Mahalanobis Distance" );
-plt.plot( [ 0, max( chi2_quantiles ) ], [ 0, max( chi2_quantiles ) ], color = "red", alpha = 0.5 );
+plt.xlabel( "Square Root of Chi-square Probability Quantile" );
+plt.ylabel( "Ordered Mahalanobis Distance Quantile" );
+plt.plot( [ min( chi2_quantiles ), max( chi2_quantiles ) ], [ min( chi2_quantiles ), max( chi2_quantiles ) ], color = "red", alpha = 0.5 );
 plt.plot( 
 	
+	[ 0, max( chi2_quantiles ) ], 
 	[ math.sqrt( chi2.isf( 1.0 - 0.995, 3 ) ), math.sqrt( chi2.isf( 1.0 - 0.995, 3 ) ) ], 
-	[ 0, max( chi2_quantiles ) ], color = "blue", alpha = 0.5 
+	color = "blue", alpha = 0.5 
 	
 );
 plt.grid( True );
+
+# Plot 7.
+
+plt.figure( 7 );
+
+plt.subplot( 3, 1, 1 );
+plt.grid( True );
+x_qq_plot = probplot( x_p_clean, dist = "norm", sparams = ( x_p_mean, x_p_std ), plot = plt );
+plt.title( "Real Robot Forward Motion Q-Q Plot w/out Outliers" );
+plt.xlabel( "Normal Quantile" );
+plt.ylabel( "Ordered X-axis Delta Quantile" );
+
+plt.subplot( 3, 1, 2 );
+plt.grid( True );
+x_qq_plot = probplot( y_p_clean, dist = "norm", sparams = ( y_p_mean, y_p_std ), plot = plt );
+plt.title( "Real Robot Forward Motion Q-Q Plot w/out Outliers" );
+plt.xlabel( "Normal Quantile" );
+plt.ylabel( "Ordered Y-axis Delta Quantile" );
+
+plt.subplot( 3, 1, 3 );
+plt.grid( True );
+x_qq_plot = probplot( t_p_clean, dist = "norm", sparams = ( t_p_mean, t_p_std ), plot = plt );
+plt.title( "Real Robot Forward Motion Q-Q Plot w/out Outliers" );
+plt.xlabel( "Normal Quantile" );
+plt.ylabel( "Ordered Theta Delta Quantile" );
+
+# Plot 7.
+
 
 # Try the elliptical envelope now with the outliers gone.
 
@@ -551,5 +616,7 @@ print "Without outliers:";
 
 print "In envelope? ", ee.fit( forward_motion_clean ).predict( ssp );
 print "MD: ", math.sqrt( ee.fit( forward_motion_clean ).mahalanobis( ssp ) );
+
+# Show the plots.
 
 plt.show( );

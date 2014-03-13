@@ -17,6 +17,8 @@ from matplotlib import cm;
 from matplotlib.patches import Rectangle;
 from scipy.stats import scoreatpercentile;
 from scipy.stats import normaltest;
+from scipy.stats import norm;
+from scipy.stats import probplot;
 
 # Calculates or rather approximates the geometric median.
 
@@ -347,9 +349,9 @@ print "Theta' mean: ", t_p_mean;
 print "Theta' variance: ", t_p_var;
 print "Theta' standard deviation: ", t_p_std;
 
-z, x_p_normal_test = normaltest( x_p_values );
-z, y_p_normal_test = normaltest( y_p_values );
-z, t_p_normal_test = normaltest( t_p_values );
+z, x_p_normal_test = normaltest( x_p_values, axis = 0 );
+z, y_p_normal_test = normaltest( y_p_values, axis = 0 );
+z, t_p_normal_test = normaltest( t_p_values, axis = 0 );
 
 x_p_is_normal = "Normal";
 y_p_is_normal = "Normal";
@@ -566,8 +568,8 @@ for i in range( start, stop ):
 
 X_sorted = np.sort( x_p_values );
 
-Q3 = scoreatpercentile( X_sorted, 0.75 );
-Q1 = scoreatpercentile( X_sorted, 0.25 );
+Q3 = scoreatpercentile( X_sorted, 75 );
+Q1 = scoreatpercentile( X_sorted, 25 );
 
 IQR = Q3 - Q1;
 
@@ -578,9 +580,8 @@ k_x = math.ceil( ( max( x_p_values ) - min( x_p_values ) ) / h );
 plt.figure( 2 );
 
 plt.subplot( 3, 1, 1 );
-n, bins, patches = plt.hist( x_p_values, bins = k_x, normed = True, alpha = 0.75 );
-patch_heights    = map( lambda a: a.get_height( ), patches );
-max_patch_height = max( patch_heights );
+n, bins, patches = plt.hist( x_p_values, bins = k_x, normed = True, alpha = 0.75, histtype = "stepfilled" );
+max_patch_height = max( ( np.histogram( x_p_values, k_x, normed = True ) )[ 0 ] );
 normal_pdf       = mlab.normpdf( bins, x_p_mean, x_p_std );
 plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
 current_axis = plt.gca( );
@@ -597,8 +598,8 @@ plt.grid( True );
 
 Y_sorted = np.sort( y_p_values );
 
-Q3 = scoreatpercentile( Y_sorted, 0.75 );
-Q1 = scoreatpercentile( Y_sorted, 0.25 );
+Q3 = scoreatpercentile( Y_sorted, 75 );
+Q1 = scoreatpercentile( Y_sorted, 25 );
 
 IQR = Q3 - Q1;
 
@@ -607,9 +608,8 @@ h = 2.0 * ( IQR / ( len( Y_sorted )**( 1.0 / 3.0 ) ) );
 k_y = math.ceil( ( max( y_p_values ) - min( y_p_values ) ) / h );
 
 plt.subplot( 3, 1, 2 );
-n, bins, patches = plt.hist( y_p_values, bins = k_y, normed = True, alpha = 0.75 );
-patch_heights    = map( lambda a: a.get_height( ), patches );
-max_patch_height = max( patch_heights );
+n, bins, patches = plt.hist( y_p_values, bins = k_y, normed = True, alpha = 0.75, histtype = "stepfilled" );
+max_patch_height = max( ( np.histogram( y_p_values, k_y, normed = True ) )[ 0 ] );
 normal_pdf       = mlab.normpdf( bins, y_p_mean, y_p_std );
 plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
 current_axis = plt.gca( );
@@ -626,8 +626,8 @@ plt.grid( True );
 
 T_sorted = np.sort( t_p_values );
 
-Q3 = scoreatpercentile( T_sorted, 0.75 );
-Q1 = scoreatpercentile( T_sorted, 0.25 );
+Q3 = scoreatpercentile( T_sorted, 75 );
+Q1 = scoreatpercentile( T_sorted, 25 );
 
 IQR = Q3 - Q1;
 
@@ -636,9 +636,8 @@ h = 2.0 * ( IQR / ( len( T_sorted )**( 1.0 / 3.0 ) ) );
 k_t = math.ceil( ( max( t_p_values ) - min( t_p_values ) ) / h );
 
 plt.subplot( 3, 1, 3 );
-n, bins, patches = plt.hist( t_p_values, bins = k_t, normed = True, alpha = 0.75 );
-patch_heights    = map( lambda a: a.get_height( ), patches );
-max_patch_height = max( patch_heights );
+n, bins, patches = plt.hist( t_p_values, bins = k_t, normed = True, alpha = 0.75, histtype = "stepfilled" );
+max_patch_height = max( ( np.histogram( t_p_values, k_t, normed = True ) )[ 0 ] );
 normal_pdf       = mlab.normpdf( bins, t_p_mean, t_p_std );
 plt.plot( bins, normal_pdf, "r--", linewidth = 1 );
 current_axis = plt.gca( );
@@ -660,21 +659,30 @@ plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 plt.figure( 3 );
 
 plt.subplot( 3, 1, 1 );
-plt.hist( x_p_values, bins = k_x, normed = True, alpha = 0.75, cumulative = True );
+plt.hist( x_p_values, bins = k_x, normed = True, alpha = 0.75, cumulative = True, histtype = "stepfilled" );
+normal_data = sorted( norm.rvs( size = len( x_p_values ), loc = x_p_mean, scale = x_p_std ) );
+normal_data_cdf = norm.cdf( normal_data, x_p_mean, x_p_std );
+plt.plot( normal_data, normal_data_cdf, "--r" );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "X-axis Delta in Centimeters" );
 plt.ylabel( "CDF Normalized" );
 plt.grid( True );
 
 plt.subplot( 3, 1, 2 );
-plt.hist( y_p_values, bins = k_y, normed = True, alpha = 0.75, cumulative = True  );
+plt.hist( y_p_values, bins = k_y, normed = True, alpha = 0.75, cumulative = True, histtype = "stepfilled" );
+normal_data = sorted( norm.rvs( size = len( y_p_values ), loc = y_p_mean, scale = y_p_std ) );
+normal_data_cdf = norm.cdf( normal_data, y_p_mean, y_p_std );
+plt.plot( normal_data, normal_data_cdf, "--r" );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "Y-axis Delta in Centimeters" );
 plt.ylabel( "CDF Normalized" );
 plt.grid( True );
 
 plt.subplot( 3, 1, 3 );
-plt.hist( t_p_values, bins = k_t, normed = True, alpha = 0.75, cumulative = True  );
+plt.hist( t_p_values, bins = k_t, normed = True, alpha = 0.75, cumulative = True, histtype = "stepfilled" );
+normal_data = sorted( norm.rvs( size = len( t_p_values ), loc = t_p_mean, scale = t_p_std ) );
+normal_data_cdf = norm.cdf( normal_data, t_p_mean, t_p_std );
+plt.plot( normal_data, normal_data_cdf, "--r" );
 plt.title( "Real Robot Forward Motion" );
 plt.xlabel( "Theta Delta in Degrees" );
 plt.ylabel( "CDF Normalized" );
@@ -745,12 +753,37 @@ for i in range( len( x_p_values ) ):
 		arrowprops = dict( facecolor = 'red', alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
 		
 	);
+	
+# Plot 5.
+	
+plt.figure( 5 );
 
-# Fifth plot.
+plt.subplot( 3, 1, 1 );
+plt.grid( True );
+x_qq_plot = probplot( x_p_values, dist = "norm", sparams = ( x_p_mean, x_p_std ), plot = plt );
+plt.title( "Real Robot Forward Motion Q-Q Plot" );
+plt.xlabel( "Normal Quantile" );
+plt.ylabel( "Ordered X-axis Delta Quantile" );
+
+plt.subplot( 3, 1, 2 );
+plt.grid( True );
+x_qq_plot = probplot( y_p_values, dist = "norm", sparams = ( y_p_mean, y_p_std ), plot = plt );
+plt.title( "Real Robot Forward Motion Q-Q Plot" );
+plt.xlabel( "Normal Quantile" );
+plt.ylabel( "Ordered Y-axis Delta Quantile" );
+
+plt.subplot( 3, 1, 3 );
+plt.grid( True );
+x_qq_plot = probplot( t_p_values, dist = "norm", sparams = ( t_p_mean, t_p_std ), plot = plt );
+plt.title( "Real Robot Forward Motion Q-Q Plot" );
+plt.xlabel( "Normal Quantile" );
+plt.ylabel( "Ordered Theta Delta Quantile" );
+
+# Plot 6.
 
 # Begin plotting the 3D scatter plot.
 
-fig = plt.figure( 5, figsize = ( 12, 12 ) );
+fig = plt.figure( 6, figsize = ( 12, 12 ) );
 ax  = fig.gca( projection = "3d" );
 
 ax.grid( alpha = 1.0 );
@@ -758,7 +791,7 @@ ax.grid( alpha = 1.0 );
 ax.set_title(  "Real Robot Forward Motion",   fontsize = 15 );
 ax.set_xlabel( "X-axis Delta in Centimeters", fontsize = 15 );
 ax.set_ylabel( "Y-axis Delta in Centimeters", fontsize = 15 );
-ax.set_zlabel( "\nTheta Delta in Degrees\n",  fontsize = 15, linespacing = 10 );
+ax.set_zlabel( "Theta Delta in Radians",  fontsize = 15, linespacing = 10 );
 
 colors = [ ];
 max_x  = max( x_p_values );
