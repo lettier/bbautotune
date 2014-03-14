@@ -519,17 +519,7 @@ plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 
 # Plot 6.
 
-mcd_trained_clean = MinCovDet( assume_centered = False, support_fraction = 0.5 * ( len( forward_motion_clean ) + 3.0 + 1.0 ) ).fit( forward_motion_clean );
-
-mds_clean = [ ];
-
-robust_covariance_matrix_inverse_clean = numpy.linalg.inv( mcd_trained_clean.covariance_ );
-
-for i in range( len( forward_motion_clean ) ):
-	
-	md_clean = scipy.spatial.distance.mahalanobis( forward_motion_clean[ i ], mcd_trained_clean.location_, robust_covariance_matrix_inverse_clean );
-	
-	mds_clean.append( md_clean );
+mds_clean = map( lambda a: scipy.spatial.distance.mahalanobis( a, mcd_trained.location_, robust_covariance_matrix_inverse ), forward_motion_clean )
 
 print "Max MD: ", max( mds_clean );
 print "Min MD: ", min( mds_clean );
@@ -595,7 +585,6 @@ plt.xlabel( "Normal Quantile" );
 plt.ylabel( "Ordered Theta Delta Quantile" );
 
 # Plot 7.
-
 
 # Try the elliptical envelope now with the outliers gone.
 
