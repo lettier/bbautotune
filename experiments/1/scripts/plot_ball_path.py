@@ -28,6 +28,20 @@ if ( len( experiment_files ) == 0 ):
 	print( "\nNo files.\n" );
 	
 	sys.exit( 0 );
+	
+# Get rid of the max distances file as one of the files to read in.
+	
+distances_file_index = 0;
+
+for i in xrange( 0, len( experiment_files ) ):
+
+	if experiment_files[ i ].find( "max_distances_to_standard" ) != -1:
+	
+		distances_file_index = i;
+		
+		break;
+		
+del experiment_files[ distances_file_index ];
 
 # Y_M_D_H_M_S.N-N#0,0#.csv
 # 0         5

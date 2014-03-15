@@ -15,17 +15,27 @@ db_connection = mdb.connect( 'localhost', user_name, password, 'bbautotune' );
 
 db_cursor = db_connection.cursor( );
 
-db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 100" );
+db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 1000" );
 
 result = db_cursor.fetchall( );
 
-max_fitness = 0.0;
+max_fitness = -1.0 * sys.float_info[ 0 ];
+
+min_fitness = sys.float_info[ 0 ];
 
 for row in result:
 	
 	if ( row[ 2 ] > max_fitness ):
 		
 		max_fitness = row[ 2 ];
+		
+	if ( row[ 4 ] < min_fitness ):
+		
+		min_fitness = row[ 4 ];
+		
+if ( min_fitness < -40.0 ):
+	
+	min_fitness = -40.0;
 
 print( "Content-type: text/html\n" );
 
@@ -45,14 +55,24 @@ print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>GA 
 print( "<font style='font-family: sans-serif; font-size: 20px; color: rgba( 255,  10,  10, 0.8 );'>Highest&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 20px; color: rgba(  10, 255,  10, 0.8 );'>Average&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 20px; color: rgba(  10,  10, 255, 0.8 );'>Lowest&nbsp;</font><br><br>" );
-print( "<canvas id='fitness_chart'   width='800' height='600' style='background: #fff; border: 1px #000 solid;'></canvas>" );
+print( "<canvas id='fitness_chart' width='1500' height='600' style='background: #fff; border: 1px #000 solid;'></canvas>" );
+print( "<script type='text/javascript'>" );
+print( "document.getElementById('fitness_chart').width  = window.innerWidth - 100;" );
+print( "document.getElementById('fitness_chart').height = window.innerHeight / 2;" );
+print( "</script>" );
 print( "</td>" );
+print( "</tr>" );
+print( "<tr>" );
 print( "<td>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: rgba( 255, 10,  10, 0.8 );'>Crossover&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>&&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: rgba(  10, 255, 10, 0.8 );'>Mutation&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'> Rate Progress:&nbsp;</font><br><br>" );
-print( "<canvas id='cross_mut_chart' width='800' height='600' style='background: #fff; border: 1px #000 solid;'></canvas>" );
+print( "<canvas id='cross_mut_chart' width='1500' height='600' style='background: #fff; border: 1px #000 solid;'></canvas>" );
+print( "<script type='text/javascript'>" );
+print( "document.getElementById('cross_mut_chart').width  = window.innerWidth - 100;" );
+print( "document.getElementById('cross_mut_chart').height = window.innerHeight / 2;" );
+print( "</script>" );
 print( "</td>" );
 print( "</tr>" );
 print( "</table>" );
@@ -64,52 +84,52 @@ print( "labels: [ " );
 
 for row in result:
 	
-	print( "'" + str( row[ 1 ] ) + "'," );
+	print( "'" + str( row[ 1 ] ) + "'," ); # Generation number.
 
 print( "]," );
 print( "datasets: [" );
 print( "{" );
-print( "fillColor :   'rgba( 255, 10, 10, 0.5 )'," );
+print( "fillColor :   'rgba( 255, 10, 10, 0.1 )'," );
 print( "strokeColor : 'rgba( 255, 10, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 255, 10, 10, 0.8 )'," );
+print( "pointColor :  'rgba( 255, 10, 10, 0.5 )'," );
 print( "pointStrokeColor : '#333'," );
 print( "data: [" );
 
 for row in result:
 	
-	print( "'" + str( row[ 2 ] ) + "'," );
+	print( "'" + str( row[ 2 ] ) + "'," ); # Highest fitness.
 
 print( "]" );
 print( "}," );
 print( "{" );
-print( "fillColor :   'rgba( 10, 255, 10, 0.5 )'," );
+print( "fillColor :   'rgba( 10, 255, 10, 0.1 )'," );
 print( "strokeColor : 'rgba( 10, 255, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 10, 255, 10, 0.8 )'," );
+print( "pointColor :  'rgba( 10, 255, 10, 0.5 )'," );
 print( "pointStrokeColor : '#222'," );
 print( "data: [" );
 
 for row in result:
 	
-	print( "'" + str( row[ 3 ] ) + "'," );
+	print( "'" + str( row[ 3 ] ) + "'," ); # Average fitness.
 
 print( "]" );
 print( "}," );
 print( "{" );
-print( "fillColor :   'rgba( 10, 10, 200, 0.5 )'," );
+print( "fillColor :   'rgba( 10, 10, 200, 0.1 )'," );
 print( "strokeColor : 'rgba( 10, 10, 200, 0.8 )'," );
-print( "pointColor :  'rgba( 10, 10, 200, 0.8 )'," );
+print( "pointColor :  'rgba( 10, 10, 200, 0.5 )'," );
 print( "pointStrokeColor : '#111'," );
 print( "data: [" );
 
 for row in result:
 	
-	print( "'" + str( row[ 4 ] ) + "'," );
+	print( "'" + str( row[ 4 ] ) + "'," ); # Lowest fitness.
 
 print( "]" );
 print( "}" );
 print( "]" );
 print( "};" );
-print( "var fitness_chart_options = { scaleOverride: true, scaleSteps: 20.1, scaleStepWidth: " + str( max_fitness / 20 ) + ", scaleStartValue: 0.0, scaleFontFamily: \"'sans-serif'\" };" );
+print( "var fitness_chart_options = { scaleOverride: true, scaleSteps: 20.1, scaleStepWidth: " + str( ( max_fitness - min_fitness ) / 20.0 ) + ", scaleStartValue: " + str( min_fitness ) + ", scaleFontFamily: \"'sans-serif'\" };" );
 print( "var fitness_chart = new Chart( fitness_chart_context ).Line( fitness_data, fitness_chart_options );" );
 print( "var cross_mut_chart_context = document.getElementById( 'cross_mut_chart' ).getContext( '2d' );" );
 print( "var cross_mut_data = {" );
@@ -122,28 +142,28 @@ for row in result:
 print( "]," );
 print( "datasets: [" );
 print( "{" );
-print( "fillColor :   'rgba( 255, 10, 10, 0.5 )'," );
+print( "fillColor :   'rgba( 255, 10, 10, 0.1 )'," );
 print( "strokeColor : 'rgba( 255, 10, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 255, 10, 10, 0.8 )'," );
+print( "pointColor :  'rgba( 255, 10, 10, 0.5 )'," );
 print( "pointStrokeColor : '#333'," );
 print( "data: [" );
 
 for row in result:
 	
-	print( "'" + str( row[ 5 ] ) + "'," );
+	print( "'" + str( row[ 5 ] ) + "'," ); # Crossover probability.
 
 print( "]" );
 print( "}," );
 print( "{" );
-print( "fillColor :   'rgba( 10, 255, 10, 0.8 )'," );
+print( "fillColor :   'rgba( 10, 255, 10, 0.1 )'," );
 print( "strokeColor : 'rgba( 10, 255, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 10, 255, 10, 0.8 )'," );
+print( "pointColor :  'rgba( 10, 255, 10, 0.5 )'," );
 print( "pointStrokeColor : '#222'," );
 print( "data: [" );
 
 for row in result:
 	
-	print( "'" + str( row[ 6 ] ) + "'," );
+	print( "'" + str( row[ 6 ] ) + "'," ); # Mutation probability.
 
 print( "]" );
 print( "}" );

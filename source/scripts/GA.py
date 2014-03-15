@@ -21,6 +21,10 @@ import subprocess;
 import mysql.connector
 import os;
 import bpy;
+import pickle;
+import scipy;
+import numpy;
+import sklearn.covariance;
 from bpy.props import *;
 
 '''
@@ -584,6 +588,12 @@ class Genetic_Algorithm( ):
 		
 		return self.population[ index ].fitness;
 	
+	def set_genome_fitness( self, index, fitness ):
+		
+		assert index < self.population_size and index >= 0, "Genome index out of bounds.";
+		
+		self.population[ index ].set_fitness( fitness ); 
+	
 	def get_genome_genes_as_string( self, index ):
 		
 		assert index < self.population_size and index >= 0, "Genome index out of bounds.";
@@ -608,6 +618,8 @@ class Genetic_Algorithm( ):
 		
 	def create_randomized_population( self ):
 		
+		self.log( "Generating random population." );
+		
 		self.population = [ ];
 		
 		# Initialize population with genomes consisting of random
@@ -616,10 +628,18 @@ class Genetic_Algorithm( ):
 		for i in range( self.population_size ):
 
 			self.population.append( Genome( ) );
+			
+			self.log( "Genome: " + str( i ) );
 
 			for j in range( self.number_of_genes_per_genome ):
 				
-				self.population[ i ].genes.append( random.uniform( 0.0, 1.0 ) );
+				random_gene = random.uniform( 0.0, 1.0 );
+				
+				self.log( "Random gene: " + str( j ) );
+				
+				self.log( str( random_gene ) );
+				
+				self.population[ i ].genes.append( random_gene );
 				
 		self.set_generation_number( 0 );
 		
@@ -655,15 +675,11 @@ class Genetic_Algorithm( ):
 				
 				k += 1;
 				
-	def evaluate_genome_fitness( self, genome_index, X, X_prime, command ):
-		
-		assert genome_index >= 0 and genome_index < self.population_size, "Genome index out of bounds."
-		
-		# TODO: Use actual genome fitness function once the real robot motion data has been acquired.
-		
-		self.population[ genome_index ].fitness = random.randint( 0, 1 );
-				
 	def selection_operator( self, number_of_indexes ):
+		
+		self.log( "Entering selection operator." );
+		
+		self.log( str( number_of_indexes ) + " genomes requested." );
 
 		# Assumes population has been evaluated.
 		
@@ -711,6 +727,10 @@ class Genetic_Algorithm( ):
 			
 			if ( self.total_fitness == 0.0 ):
 				
+				self.log( "Total population fitnes is 0." );
+				
+				self.log( "Selecting genomes at random." );
+				
 				# So that we don't divide by zero.
 				# This means genomes all have zero fitness 
 				# so just select random genome indexes.
@@ -718,6 +738,10 @@ class Genetic_Algorithm( ):
 				for i in range( number_of_indexes ):
 				
 					genome_indexes_selected.append( random.randint( 0, self.population_size - 1 ) );
+					
+				self.log( "Selected genomes at random." );
+			
+				self.log( str( genome_indexes_selected ) );
 				
 				return genome_indexes_selected;
 
@@ -736,6 +760,14 @@ class Genetic_Algorithm( ):
 					if ( random_number <= probabilities[ i ] ):
 						
 						genome_indexes_selected.append( i );
+						
+					if ( len( genome_indexes_selected ) == number_of_indexes ):
+						
+						break;
+						
+			self.log( "Selected genomes without rank fitness." );
+			
+			self.log( str( genome_indexes_selected ) );
 			
 			return genome_indexes_selected;
 		
@@ -768,9 +800,9 @@ class Genetic_Algorithm( ):
 			# ...
 			# G-10: G-9 + 10/55
 			
-			total_rank_fitness = ( self.population_size * ( self.population_size + 1 ) ) / 2;
+			total_rank_fitness = ( self.population_size * ( self.population_size + 1.0 ) ) / 2.0;
 
-			probabilities.append( 1 / total_rank_fitness ); # First rank fitness probability.
+			probabilities.append( 1.0 / total_rank_fitness ); # First rank fitness probability.
 			
 			# Rest of the rank fitness probabilities.
 			
@@ -787,10 +819,20 @@ class Genetic_Algorithm( ):
 					if ( random_number <= probabilities[ i ] ):
 						
 						genome_indexes_selected.append( i );
+						
+					if ( len( genome_indexes_selected ) == number_of_indexes ):
+						
+						break;
+						
+			self.log( "Selected genomes with rank fitness." );
+			
+			self.log( str( genome_indexes_selected ) );
 			
 			return genome_indexes_selected;
 	
-	def elitism_operator( self, new_population ): 
+	def elitism_operator( self, new_population ):
+		
+		self.log( "Attempting to add elite genomes." );
 
 		if ( self.number_of_elite > self.population_size ):
 			
@@ -820,6 +862,8 @@ class Genetic_Algorithm( ):
 			genome_temp.fitness        = 0.0;
 			genome_temp.parent_fitness = 0.0;
 			genome_temp.created_by     = 4;
+
+			self.log( "Adding elite genome." );
 			
 			new_population.append( genome_temp );
 			
@@ -833,6 +877,8 @@ class Genetic_Algorithm( ):
 		
 		# Do we crossover?
 		
+		self.log( "Attempting crossover." );
+		
 		if ( random.uniform( 0.0, 1.0 ) <= self.crossover_probability ):
 		
 			# If the parents are the same genome then this is not a true crossover.
@@ -840,6 +886,10 @@ class Genetic_Algorithm( ):
 			if ( parent_one_index == parent_two_index ):
 				
 				return 0;
+			
+			self.log( "Parent indexes." );
+				
+			self.log( str( parent_one_index ) + " " + str( parent_two_index ) );
 			
 			# Only returns one crossed offspring.
 			
@@ -854,14 +904,18 @@ class Genetic_Algorithm( ):
 			# from another parent.
 			
 			crossover_point = random.randint( 1, ( self.number_of_genes_per_genome - 1 ) );
+			
+			self.log( "Crossover point." );
+			
+			self.log( str( crossover_point ) );
 
 			# Cross the parent's genes in the offspring.
 			
 			offspring.genes = [ ];
 			
-			offspring.fitness = 0;
+			offspring.fitness = 0.0;
 			
-			offspring.parent_fitness = 0;
+			offspring.parent_fitness = 0.0;
 			
 			for i in range( crossover_point ):
 				
@@ -890,15 +944,27 @@ class Genetic_Algorithm( ):
 				
 				offspring.parent_fitness = parent_one_contribution + parent_two_contribution;
 				
+				self.log( "Parent fitness contributions." );
+				
+				self.log( str( parent_one_contribution ) );
+				
+				self.log( str( parent_two_contribution ) );
+				
 				offspring.created_by = 1;
+				
+				self.log( "Returning crossed offspring." );
 				
 				return offspring;
 	
 			else:
+				
+				self.log( "Did not actually perform crossover." );
 
 				return 0;
 			
 		else:
+			
+			self.log( "Greater than crossover probability." ); 
 			
 			return 0;
 		
@@ -910,6 +976,8 @@ class Genetic_Algorithm( ):
 		
 		# Do we mutate?
 		
+		self.log( "Attempting mutation." );
+		
 		if ( random.uniform( 0.0, 1.0 ) <= self.mutation_probability ):
 			
 			# Create a new offspring.
@@ -917,8 +985,8 @@ class Genetic_Algorithm( ):
 			offspring                = Genome( );
 			offspring.genes          = [ ];
 			offspring.genes          = copy.deepcopy( self.population[ parent_index ].genes );
-			offspring.fitness        = 0;
-			offspring.parent_fitness = 0;
+			offspring.fitness        = 0.0;
+			offspring.parent_fitness = 0.0;
 			
 			# Begin to mutate.
 			
@@ -929,9 +997,9 @@ class Genetic_Algorithm( ):
 				# Mutate this gene by sampling a value from a normal distribution
 				# where the mean is the current gene value and the standard deviation
 				# is the mutation step equal to the mutation probability in the range [0,1].
-				# A low mutation probability will give a mutated gene value close to the original gene 
+				# A low mutation probability will give a mutated gene value closer to the original gene 
 				# value (the mean) (most of the time) as the standard deviation is small and therefore the mutation step is small. 
-				# A high mutation probability will give (or it can easily) a mutated gene value farther from the original gene 
+				# A high mutation probability will give a mutated gene value farther from the original gene 
 				# value (the mean) as the standard deviation is large and therefore the mutation step is large. 
 				
 				# Note that gv = gv + σ*N(0,1) is the same as gv = N(gv,σ).
@@ -942,6 +1010,10 @@ class Genetic_Algorithm( ):
 				
 				offspring.genes[ i ] = random.gauss( offspring.genes[ i ], self.mutation_probability );
 				offspring.genes[ i ] = get_clamped_value( offspring.genes[ i ], 0.0, 1.0 );
+				
+				self.log( "Mutation value before/after." );
+				
+				self.log( str( temp_gene_value ) + " " + str( offspring.genes[ i ] ) );
 				
 				# Test if it was truly mutated.
 				
@@ -958,10 +1030,14 @@ class Genetic_Algorithm( ):
 				return offspring;
 
 			else:
+				
+				self.log( "Mutation did not actually take place." );
 
 				return 0;
 
 		else:
+			
+			self.log( "Greater than mutation probability." );
 			
 			return 0;
 		
@@ -971,17 +1047,21 @@ class Genetic_Algorithm( ):
 		
 		# First attempts crossover and then attempts mutation.
 		
+		self.log( "Attempting crossover and then mutation." );
+		
 		offspring_one = copy.deepcopy( self.population[ parent_one_index ] );
 		offspring_two = copy.deepcopy( self.population[ parent_one_index ] );
 		
 		offspring_one.fitness = 0.0;
 		offspring_two.fitness = 0.0;
 		
-		offspring_one.parent_fitness = 0;
-		offspring_two.parent_fitness = 0;
+		offspring_one.parent_fitness = 0.0;
+		offspring_two.parent_fitness = 0.0;
 		
 		offspring_one.created_by = 0;
 		offspring_two.created_by = 0;
+		
+		self.log( "Attempting crossover first." );
 		
 		# Attempt crossover.
 
@@ -990,6 +1070,10 @@ class Genetic_Algorithm( ):
 		if ( ( random.uniform( 0.0, 1.0 ) <= self.crossover_probability ) and ( parent_one_index != parent_two_index ) and ( crossover_point != 0 ) ):
 
 			# Cross the parent's genes in the offspring.
+			
+			self.log( "Crossover point." );
+			
+			self.log( str( crossover_point ) );
 
 			offspring_one.genes = [ ];
 			offspring_two.genes = [ ];
@@ -1013,10 +1097,16 @@ class Genetic_Algorithm( ):
 			parent_two_contribution = ( self.population[ parent_two_index ].fitness * ( (                                   crossover_point ) / ( self.number_of_genes_per_genome ) ) );
 			parent_one_contribution = ( self.population[ parent_one_index ].fitness * ( ( self.number_of_genes_per_genome - crossover_point ) / ( self.number_of_genes_per_genome ) ) );	
 			
-			offspring_two.parent_fitness = parent_two_contribution + parent_one_contribution;
+			offspring_two.parent_fitness = parent_two_contribution  + parent_one_contribution;
 			offspring_two.created_by     = offspring_two.created_by + 1;
+			
+		else:
+			
+			self.log( "Crossover failed." );
 
 		# Crossover may or may not have happened but now try mutation.
+		
+		self.log( "Attempting mutation second." );
 
 		# Attempt to mutate offspring one.
 		
@@ -1029,12 +1119,12 @@ class Genetic_Algorithm( ):
 			# mutation probability in the range [0,1]. A low mutation probability will give a mutated gene 
 			# value close to the original gene value (the mean) (most of the time) as the standard 
 			# deviation is small and therefore the mutation step is small. A high mutation probability
-			# will give (or it can easily) a mutated gene value farther from the original gene value 
+			# will give, or it can more easily, mutate a gene value farther from the original gene value 
 			# (the mean) as the standard deviation is large and therefore the mutation step is large. 
 			
 			# Note that gv = gv + σ * N( 0, 1 ) is the same as gv = N( gv, σ ).
 
-			# Clamp the gene to range [-1,1].
+			# Clamp the gene to range [0,1].
 			
 			if ( random.uniform( 0.0, 1.0 ) <= self.mutation_probability ): # Mutate this gene?
 			
@@ -1045,6 +1135,10 @@ class Genetic_Algorithm( ):
 				# offspring_one.genes[ i ] = offspring_one.genes[ i ] + ( get_random_float( -1.0, 1.0 ) * .3 );
 				
 				offspring_one.genes[ i ] = get_clamped_value( offspring_one.genes[ i ], 0.0, 1.0 );
+				
+				self.log( "Mutation value before/after." );
+				
+				self.log( str( temp_gene_value_one ) + " " + str( offspring_one.genes[ i ] ) );
 				
 				# Test if it was truly mutated.
 				
@@ -1063,12 +1157,12 @@ class Genetic_Algorithm( ):
 			# mutation probability in the range [0,1]. A low mutation probability will give a mutated gene 
 			# value close to the original gene value (the mean) (most of the time) as the standard 
 			# deviation is small and therefore the mutation step is small. A high mutation probability
-			# will give (or it can easily) a mutated gene value farther from the original gene value 
+			# will give (or it can more easily) mutate a gene value farther from the original gene value 
 			# (the mean) as the standard deviation is large and therefore the mutation step is large. 
 			
 			# Note that gv = gv + σ * N( 0, 1 ) is the same as gv = N( gv, σ ).
 
-			# Clamp the gene to range [-1,1].
+			# Clamp the gene to range [0,1].
 			
 			if ( random.uniform( 0.0, 1.0 ) <= self.mutation_probability ): # Mutate this gene?
 				
@@ -1079,6 +1173,10 @@ class Genetic_Algorithm( ):
 				# offspring_two.genes[ i ] = offspring_two.genes[ i ] + ( get_random_float( -1.0, 1.0 ) * .3 );
 				
 				offspring_two.genes[ i ] = get_clamped_value( offspring_two.genes[ i ], 0.0, 1.0 );
+				
+				self.log( "Mutation value before/after." );
+				
+				self.log( str( temp_gene_value_two ) + " " + str( offspring_one.genes[ i ] ) );
 				
 				# Test if it was truly mutated.
 				
@@ -1096,6 +1194,8 @@ class Genetic_Algorithm( ):
 			# It it was crossed before being mutated then offspring_one.created would equal 3.
 			
 			if ( offspring_one.created_by == 2 ):
+				
+				self.log( "Offspring one only mutated." );
 			
 				offspring_one.parent_fitness = copy.deepcopy( self.population[ parent_one_index ].fitness );
 		
@@ -1107,6 +1207,8 @@ class Genetic_Algorithm( ):
 			# It it was crossed before being mutated then offspring_two.created would equal 3.
 			
 			if ( offspring_two.created_by == 2 ):
+				
+				self.log( "Offspring two only mutated." );
 			
 				offspring_two.parent_fitness = copy.deepcopy( self.population[ parent_two_index ].fitness );
 		
@@ -1115,22 +1217,28 @@ class Genetic_Algorithm( ):
 		
 		if ( ( offspring_one.created_by == 0 ) or ( offspring_two.created_by == 0 ) ):
 			
+			self.log( "No crossover and/or mutation occured." );
+			
 			return 0;
 		
 		elif ( ( offspring_one.genes == self.population[ parent_one_index ].genes ) or ( offspring_two.genes == self.population[ parent_two_index ].genes ) ):
 
+			self.log( "Offspring genes not different from parents." );
+
 			return 0;
 
 		else:
+			
+			self.log( "Returning offspring." );
 
 			return { "one": offspring_one, "two": offspring_two };
 		
 	def reset_population_metrics( self ):
 
-		self.total_fitness         =  0;
-		self.highest_fitness       =  0;
-		self.lowest_fitness        =  0;
-		self.average_fitness       =  0;
+		self.total_fitness         =  0.0;
+		self.highest_fitness       =  0.0;
+		self.lowest_fitness        =  0.0;
+		self.average_fitness       =  0.0;
 		self.fittest_genome_index  = -1;
 		self.weakest_genome_index  = -1;
 		
@@ -1172,9 +1280,16 @@ class Genetic_Algorithm( ):
 
 			self.total_fitness += self.population[ i ].fitness;
 			
-		# Next genome.
+			# Next genome.
 
-		self.average_fitness = self.total_fitness / self.population_size;
+		self.average_fitness = self.total_fitness / float( self.population_size );
+		
+		self.log( "Population metrics. T H L A." );
+		
+		self.log( str( self.total_fitness ) );
+		self.log( str( self.highest_fitness ) );
+		self.log( str( self.lowest_fitness ) );
+		self.log( str( self.average_fitness ) );
 		
 	def compute_population_makeup( self ):
 		
@@ -1208,11 +1323,17 @@ class Genetic_Algorithm( ):
 
 		self.population_makeup = str( randoms ) + " " + str( crossovers ) + " " + str( mutants ) + " " + str( crossover_mutants ) + " " + str( elites );
 
+		self.log( "Population makeup. R C M CM E." );
+		
+		self.log( self.population_makeup );
+
 	def adapt_crossover_and_mutation_probabilities( self ): 
 		
 		# Calculate the crossover and mutation operators' progress where 
 		# their progress is based on how well they produced offspring that
 		# had a better fitness than their parent.
+		
+		self.log( "Adapting crossover and mutation probabilities." );
 		
 		crossover_operator_progress_sum = 0;
 		number_of_crossovers            = 0;
@@ -1262,32 +1383,48 @@ class Genetic_Algorithm( ):
 			self.crossover_probability_adjustment = 0.01;
 			
 			self.mutation_probability_adjustment  = 0.01;
+			
+		self.log( "Crossover progress average." );
+			
+		self.log( str( self.crossover_operator_progress_average ) );
+		
+		self.log( "Mutation progress average." );
+			
+		self.log( str( self.mutation_operator_progress_average ) );
 
 		# Adjust crossover and mutation rates.
 		
 		if ( self.crossover_operator_progress_average > self.mutation_operator_progress_average ):
+			
+			self.log( "Adjusting crossover/mutation probabilities. CPA > MPA." );
 
 			self.crossover_probability = self.crossover_probability + self.crossover_probability_adjustment;
 			
 			self.mutation_probability  = self.mutation_probability  - self.mutation_probability_adjustment;
 
 		elif ( self.crossover_operator_progress_average < self.mutation_operator_progress_average ):
+			
+			self.log( "Adjusting crossover/mutation probabilities. CPA < MPA." );
 
 			self.crossover_probability = self.crossover_probability - self.crossover_probability_adjustment;
 			
 			self.mutation_probability  = self.mutation_probability  + self.mutation_probability_adjustment;
 
 		elif ( self.crossover_operator_progress_average == self.mutation_operator_progress_average ):
+			
+			self.log( "Not adjusting crossover/mutation probabilities. CPA == MPA." );
 
 			# Do not adjust.
 			
 			pass;
 		
-		self.crossover_probability = get_clamped_value( self.crossover_probability, self.crossover_probability_minimum, 1.0 );
+		self.crossover_probability = get_clamped_value( self.crossover_probability, self.crossover_probability_minimum, 1.0 - self.mutation_probability_minimum  );
 		
-		self.mutation_probability  = get_clamped_value( self.mutation_probability,  self.mutation_probability_minimum,  1.0 );
+		self.mutation_probability  = get_clamped_value( self.mutation_probability,  self.mutation_probability_minimum,  1.0 - self.crossover_probability_minimum );		
 		
 	def sort_population( self, descending = None ):
+		
+		self.log( "Sorting population. Descending: " + str( descending ) );
 
 		if ( descending == None or descending == False ):
 
@@ -1297,7 +1434,13 @@ class Genetic_Algorithm( ):
 
 			self.population = sorted( self.population, key = lambda genome: genome.fitness, reverse = True );
 			
+		self.log( "Sorted." );
+			
+		self.log( str( self.population[ 0 ].fitness ) + " " + str( self.population[ -1 ].fitness ) );
+			
 	def generate_new_generation( self ):
+		
+		self.log( "Creating a new generation." );
 
 		# Sort the population based on fitness in ascending order.
 		
@@ -1312,6 +1455,10 @@ class Genetic_Algorithm( ):
 		if ( self.use_self_adaptation == True ):
 			
 			self.adapt_crossover_and_mutation_probabilities( );
+			
+		# Calculate current population makeup.
+		
+		self.compute_population_makeup( );
 		
 		# Create a temporary population to store newly created generation.
 		
@@ -1324,6 +1471,10 @@ class Genetic_Algorithm( ):
 		# Perform crossover and mutation separately?
 		
 		if ( not self.perform_crossover_and_mutation_sequentially ):
+			
+			self.log( "Performing crossover and mutation separately." );
+			
+			self.log( "Entering the loop." );
 
 			# Now we enter the GA loop.
 
@@ -1344,6 +1495,8 @@ class Genetic_Algorithm( ):
 				crossover_offspring = self.crossover_operator( parents[ 0 ], parents[ 1 ] );
 				
 				if ( crossover_offspring != 0 ):
+					
+					self.log( "Adding crossover offspring." );
 
 					new_population.append( crossover_offspring );
 					
@@ -1369,6 +1522,8 @@ class Genetic_Algorithm( ):
 				
 				if ( mutation_offspring != 0 ):
 					
+					self.log( "Adding mutation offspring." );
+					
 					new_population.append( mutation_offspring );
 					
 					self.total_number_of_mutations += 1;
@@ -1383,6 +1538,10 @@ class Genetic_Algorithm( ):
 		
 		else: # Perform crossover and mutation in sequence.
 			
+			self.log( "Performing crossover and mutation in sequence." );
+			
+			self.log( "Entering the loop." );
+			
 			# Now we enter the GA loop.
 
 			# Repeat until a new population is generated.
@@ -1393,13 +1552,21 @@ class Genetic_Algorithm( ):
 				
 				parents   = self.selection_operator( 2 );
 				
+				self.log( "Parents selected." );
+				
+				self.log( str( parents ) );
+				
 				offspring = self.crossover_then_mutate_operator( parents[ 0 ], parents[ 1 ] );
 				
 				if ( offspring != 0 ):
 					
+					self.log( "Adding first offspring." );
+					
 					# First offspring.
 					
 					if ( offspring[ "one" ].created_by == 1 ):
+						
+						self.log( "Adding crossover offspring." );
 						
 						self.total_number_of_crossovers         += 1;
 						self.total_number_of_crossover_attempts += 1;
@@ -1409,6 +1576,8 @@ class Genetic_Algorithm( ):
 					
 					elif ( offspring[ "one" ].created_by == 2 ):
 						
+						self.log( "Adding mutation offspring." );
+						
 						self.total_number_of_mutations          += 1;
 						self.total_number_of_crossover_attempts += 1;
 						self.total_number_of_mutation_attempts  += 1;
@@ -1416,6 +1585,8 @@ class Genetic_Algorithm( ):
 						new_population.append( offspring[ "one" ] );
 					
 					elif ( offspring[ "one" ].created_by == 3 ):
+						
+						self.log( "Adding crossed over and mutated offspring." );
 						
 						self.total_number_of_crossovers         += 1;
 						self.total_number_of_mutations          += 1;
@@ -1430,9 +1601,13 @@ class Genetic_Algorithm( ):
 						
 						break;
 					
+					self.log( "Adding second offspring." );
+					
 					# Second offspring.
 					
 					if ( offspring[ "two" ].created_by == 1 ):
+						
+						self.log( "Adding crossover offspring." );
 						
 						self.total_number_of_crossovers         += 1;
 						self.total_number_of_crossover_attempts += 1;
@@ -1442,6 +1617,8 @@ class Genetic_Algorithm( ):
 					
 					elif ( offspring[ "two" ].created_by == 2 ):
 						
+						self.log( "Adding mutation offspring." );
+						
 						self.total_number_of_mutations          += 1;
 						self.total_number_of_crossover_attempts += 1;
 						self.total_number_of_mutation_attempts  += 1;
@@ -1449,6 +1626,8 @@ class Genetic_Algorithm( ):
 						new_population.append( offspring[ "two" ] );
 					
 					elif ( offspring[ "two" ].created_by == 3 ):
+						
+						self.log( "Adding crossed over and mutated offspring." );
 						
 						self.total_number_of_crossovers         += 1;
 						self.total_number_of_mutations          += 1;
@@ -1469,6 +1648,10 @@ class Genetic_Algorithm( ):
 		
 		self.observed_crossover_rate = self.total_number_of_crossovers / self.total_number_of_crossover_attempts;
 		self.observed_mutation_rate  = self.total_number_of_mutations  / self.total_number_of_mutation_attempts;
+		
+		self.log( "Observed cross/mut rates." );
+		
+		self.log( str( self.observed_crossover_rate ) + " " + str( self.observed_mutation_rate ) );
 		
 		# Advance generation counter.
 		
@@ -1502,6 +1685,42 @@ class BBAutoTune( ):
 		# Open a browser window to the GA monitor.
 		
 		self.open_ga_monitor_browser_window = False;
+		
+		# Load in real robot data.
+		
+		real_forward_x_primes = pickle.load( open( get_scripts_location( ) + "data/x_p_values.pkl", "rb" ) );
+		real_forward_y_primes = pickle.load( open( get_scripts_location( ) + "data/y_p_values.pkl", "rb" ) );
+		real_forward_t_primes = pickle.load( open( get_scripts_location( ) + "data/t_p_values.pkl", "rb" ) );
+		
+		real_forward_motion = [ ];
+
+		for i in range( len( real_forward_x_primes ) ):
+			
+			x = real_forward_x_primes[ i ];
+			y = real_forward_y_primes[ i ];
+			t = real_forward_t_primes[ i ];
+			
+			real_forward_motion.append( 
+				
+				[ x, y, t ]
+				
+			);
+			
+		real_forward_motion = numpy.array( real_forward_motion );
+		
+		# Calculate the robust covariance matrix and the robust mean (location).
+		
+		self.mcd_fitted = sklearn.covariance.MinCovDet( assume_centered = False, support_fraction = 0.5 * ( len( real_forward_motion ) + 3.0 + 1.0 ) ).fit( real_forward_motion );
+		
+		self.rcm = self.mcd_fitted.covariance_;
+		
+		self.rcm_inv = numpy.linalg.inv( self.rcm );
+		
+		self.rm  = self.mcd_fitted.location_;
+		
+		# The threshold for Chi-square with 4 degrees of freedom (x,y,z,t) and an alpha value of 0.005.
+		
+		self.genome_fitness_threshold = math.sqrt( scipy.stats.chi2.isf( 1.0 - 0.995, 3 ) );
 		
 	def start( 
 		
@@ -1538,7 +1757,7 @@ class BBAutoTune( ):
 		# Pass the file name and directory where the robot 
 		# monitor will record the robot's xyzt and x'y'z't'.
 		
-		bpy.data.objects[ "robot_monitor" ].game.properties[ "shared_data_file_name" ].value = get_scripts_location( ) + "shared_data/genome_X_X'.dat";
+		bpy.data.objects[ "robot_monitor" ].game.properties[ "shared_data_file_name" ].value = get_scripts_location( ) + "shared_data/genome_P_P'.dat";
 		
 		self.log( "Connecting to the database." );
 		
@@ -1569,7 +1788,11 @@ class BBAutoTune( ):
 		
 		self.log( "Entering loop." );
 		
-		while ( self.ga.get_generation_number( ) <= self.ga.get_max_generations( ) ):
+		while ( self.ga.get_generation_number( ) < self.ga.get_max_generations( ) ):
+			
+			self.log( "Current genome." );
+			
+			self.log( str( self.ga.get_genome( self.current_genome ) ) );
 			
 			# Populate physics engine parameters.
 			
@@ -1585,39 +1808,60 @@ class BBAutoTune( ):
 			
 			# Calculate current genome fitness.
 			
-			shared_data_file = open( get_scripts_location( ) + "shared_data/genome_X_X'.dat", "r" );
+			# Read in P=(x,y,z,t) and P'=(x',y',z',t') which was recorded by the robot monitor
+			# while the game engine was running. 
 			
-			X = shared_data_file.readline( ).rstrip( );
-			X = X.split( "," );
-			X[ 0 ] = float( X[ 0 ] );
-			X[ 1 ] = float( X[ 1 ] );
-			X[ 2 ] = float( X[ 2 ] );
-			X[ 3 ] = float( X[ 3 ] );
+			# The z of the real robot was never recorded. Thus in the blend file z translation was locked.
+			# Maybe not ideal but this is the case.
+			# Throw away the z and z'.
 			
-			X_prime = shared_data_file.readline( ).rstrip( );
-			X_prime = X_prime.split( "," );
-			X_prime[ 0 ] = float( X_prime[ 0 ] );
-			X_prime[ 1 ] = float( X_prime[ 1 ] );
-			X_prime[ 2 ] = float( X_prime[ 2 ] );
-			X_prime[ 3 ] = float( X_prime[ 3 ] );
+			self.log( "Game engine stopped." );
+			
+			self.log( "Getting genome P and P'." );
+			
+			shared_data_file = open( get_scripts_location( ) + "shared_data/genome_P_P'.dat", "r" );
+			
+			P = shared_data_file.readline( ).rstrip( );
+			P = P.split( "," );
+			P[ 0 ] = float( P[ 0 ] ); # x
+			P[ 1 ] = float( P[ 1 ] ); # y
+			P[ 2 ] = float( P[ 2 ] ); # z
+			P[ 3 ] = float( P[ 3 ] ); # t
+			
+			P_prime = shared_data_file.readline( ).rstrip( );
+			P_prime = P_prime.split( "," );
+			P_prime[ 0 ] = float( P_prime[ 0 ] ); # x'
+			P_prime[ 1 ] = float( P_prime[ 1 ] ); # y'
+			P_prime[ 2 ] = float( P_prime[ 2 ] ); # z'
+			P_prime[ 3 ] = float( P_prime[ 3 ] ); # t'
 			
 			shared_data_file.close( );
 			
-			os.remove( get_scripts_location( ) + "shared_data/genome_X_X'.dat" );
+			os.remove( get_scripts_location( ) + "shared_data/genome_P_P'.dat" );
 			
-			self.log( "Evaluating genome fitness." );
+			self.log( str( P ) );
 			
-			self.log( str( X ) );
+			self.log( str( P_prime ) );
 			
-			self.log( str( X_prime ) );
+			self.log( "Calculating genome fitness." );			
 			
-			self.ga.evaluate_genome_fitness( self.current_genome, X, X_prime, "forward" );
+			# Throw away z'.
+			
+			P_prime = [ P_prime[ 0 ], P_prime[ 1 ], P_prime[ 3 ] ];
+			
+			current_genome_fitness = self.calculate_genome_fitness( P_prime );
+			
+			self.log( str( current_genome_fitness ) );
+			
+			self.ga.set_genome_fitness( self.current_genome, current_genome_fitness );
 			
 			# Increase current genome + 1.
 			
 			self.log( "Increasing current genome count." );
 			
 			self.current_genome += 1;
+			
+			self.log( str( self.current_genome ) );
 			
 			# If current genome is equal to the population size.
 			
@@ -1649,7 +1893,7 @@ class BBAutoTune( ):
 				
 				# Generate a new population.
 				
-				self.log( "Generation a new generation." );
+				self.log( "Generating a new generation." );
 				
 				self.ga.generate_new_generation( );
 				
@@ -1663,8 +1907,7 @@ class BBAutoTune( ):
 		
 		self.log( "Stopping." );
 			
-		self.stop( );
-		
+		self.stop( );		
 			
 	def stop( self ):
 		
@@ -1701,8 +1944,49 @@ class BBAutoTune( ):
 			log_file.write( log_string + "\n" );
 			
 			log_file.close( );
+			
+	def calculate_mahalanobis_distance( self, point ):
+		
+		md = scipy.spatial.distance.mahalanobis( point, self.rm, self.rcm_inv );
+		
+		md2 = md * md;
+		
+		return md, md2;
+	
+	def calculate_genome_fitness( self, point ):
+		
+		# Blender returns NaN for large distances in the dimensions x, y, and z.
+		# If this is the case, return fitness = -1.7976931348623158e+307 on this machine.
+		# The maximum float on this machine is 1.7976931348623157e+308 but to avoid inf,
+		# set it to a value one exponent less.
+		
+		fitness = sys.float_info[ 0 ] / -10.0;
+		
+		for i in range( len( point ) ):
+			
+			if ( numpy.isnan( point[ i ] ) ):
+				
+				return fitness;
+		
+		md, md2 = self.calculate_mahalanobis_distance( point );
+		
+		self.log( "Genome fitness threshold." );
+		
+		self.log( str( self.genome_fitness_threshold ) );
+		
+		self.log( "Genome mahalanobis distance" );
+		
+		self.log( str( md ) );
+		
+		fitness = self.genome_fitness_threshold - md;
+			
+		return fitness;
 		
 	def populate_physics_engine_parameters( self, genome_genes ):
+		
+		self.log( "Genome genes." );
+		
+		self.log( str( genome_genes ) );
 		
 		assert len( genome_genes ) == self.ga.get_number_of_genes_per_genome( ), "Cannot populate physics engine parameters.";
 
@@ -1787,7 +2071,12 @@ class BBAutoTune( ):
 		
 		# Use physics.
 		
-		use_material_physics = BOOLEANS[ round( genome_genes[ 4 ] ) ];
+		# Round returns incorrect values but converting its return value to a string does return the right value.
+		# Convert only the numbers before the decimal '.' to an integer.
+
+		index = int( str( round( genome_genes[ 4 ] ) ).split( "." )[ 0 ] );
+		
+		use_material_physics = BOOLEANS[ index ];
 		
 		self.log( "Setting use material physics." );
 		
@@ -1847,7 +2136,9 @@ class BBAutoTune( ):
 		
 		'''
 		
-		use_ghost = BOOLEANS[ round( genome_genes[ 8 ] ) ];
+		index = int( str( round( genome_genes[ 8 ] ) ).split( "." )[ 0 ] );
+		
+		use_ghost = BOOLEANS[ index ];
 		
 		bpy.data.objects[ front_wheel_l ].game.use_ghost = use_ghost;
 		bpy.data.objects[ front_wheel_r ].game.use_ghost = use_ghost;
@@ -1923,7 +2214,9 @@ class BBAutoTune( ):
 		
 		# Use collision bounds.
 		
-		use_collision_bounds = BOOLEANS[ round( genome_genes[ 14 ] ) ];
+		index = int( str( round( genome_genes[ 14 ] ) ).split( "." )[ 0 ] );
+		
+		use_collision_bounds = BOOLEANS[ index ];
 		
 		self.log( "Setting use collision bounds." );
 		
@@ -1968,7 +2261,9 @@ class BBAutoTune( ):
 		
 		# Torque.
 		
-		torque_y = get_clamped_value( ( -INF + ( genome_genes[ 17 ] * ( INF + INF ) ) ), -INF, INF );
+		#torque_y = get_clamped_value( ( -INF + ( genome_genes[ 17 ] * ( INF + INF ) ) ), -INF, INF );
+		
+		torque_y = get_clamped_value( genome_genes[ 17 ] * 200.0, 0.0, INF );
 		
 		self.log( "Setting torque-y." );
 		
@@ -2043,7 +2338,10 @@ class Database_Manager( ):
 			self.cursor.execute( mysql_string );
 			
 			self.connection.commit( );
+			
+# Seed the random module.
 
+random.seed( );
 		
 # Create the BBAutoTune object.
 

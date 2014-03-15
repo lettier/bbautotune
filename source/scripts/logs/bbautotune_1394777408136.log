@@ -1,0 +1,412 @@
+Connecting to the database.
+Starting the GA manager.
+Setting the GA parameters.
+Creating a random GA population.
+Population metrics.
+0.0
+0.0
+0.0
+0.0
+Setting the current genome to 0.
+Entering loop.
+Populating the physics engine parameters.
+Setting gravity.
+4308.732700204615
+Setting sub steps.
+10
+Setting FPS.
+4470
+Setting use material physics.
+False
+Setting material friction.
+49.15405377082218
+Setting material elasticity.
+0.9274368728754208
+Setting mass.
+8869.957610281874
+Setting form factor.
+0.8947404993246094
+Setting velocity max.
+186.05589690957592
+Setting damping translation.
+0.8536947250012245
+Setting rotation damping.
+0.011460887963248623
+Setting use collision bounds.
+False
+Setting collision margin.
+0.531903976963963
+Setting collision bounds type.
+BOX
+Setting torque-y.
+2.172642602818933e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[-7.475189088968881e+24, -7.851814281137973e+22, 0.004756794311106205, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+3158.2070537858585
+Setting sub steps.
+19
+Setting FPS.
+4263
+Setting use material physics.
+False
+Setting material friction.
+4.161569222834316
+Setting material elasticity.
+0.9732995364705105
+Setting mass.
+8173.222348685537
+Setting form factor.
+0.6336716117303159
+Setting velocity max.
+469.7485143723941
+Setting damping translation.
+0.9755897644554992
+Setting rotation damping.
+0.40615477858295823
+Setting use collision bounds.
+False
+Setting collision margin.
+0.017024050143446767
+Setting collision bounds type.
+SPHERE
+Setting torque-y.
+1.1305610018505251e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[-1.8156154531929038e+24, -2.886127993140699e+22, 0.004756794311106205, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+2397.3642526802964
+Setting sub steps.
+47
+Setting FPS.
+8382
+Setting use material physics.
+True
+Setting material friction.
+61.00902818716499
+Setting material elasticity.
+0.887418653009002
+Setting mass.
+5895.377221439684
+Setting form factor.
+0.07476417906873623
+Setting velocity max.
+828.3583324290264
+Setting damping translation.
+0.34466540547776836
+Setting rotation damping.
+0.9752037094578466
+Setting use collision bounds.
+False
+Setting collision margin.
+0.7853481838169548
+Setting collision bounds type.
+BOX
+Setting torque-y.
+1.3806172870940087e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[nan, nan, nan, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+3.7304063729060033
+Setting sub steps.
+15
+Setting FPS.
+7437
+Setting use material physics.
+False
+Setting material friction.
+2.1779383785848205
+Setting material elasticity.
+0.3107688603424902
+Setting mass.
+726.9065527261187
+Setting form factor.
+0.9344729424012366
+Setting velocity max.
+383.98771122677243
+Setting damping translation.
+0.6446580510287714
+Setting rotation damping.
+0.05468204085894768
+Setting use collision bounds.
+True
+Setting collision margin.
+0.7161197242266324
+Setting collision bounds type.
+SPHERE
+Setting torque-y.
+1.08704002431609e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[nan, nan, nan, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+5689.791552548187
+Setting sub steps.
+39
+Setting FPS.
+6085
+Setting use material physics.
+True
+Setting material friction.
+97.63174411650701
+Setting material elasticity.
+0.9870179130323818
+Setting mass.
+5286.116278003249
+Setting form factor.
+0.5082750102607954
+Setting velocity max.
+122.39956361719395
+Setting damping translation.
+0.12995143327397507
+Setting rotation damping.
+0.7422227198833088
+Setting use collision bounds.
+False
+Setting collision margin.
+0.654597849778253
+Setting collision bounds type.
+SPHERE
+Setting torque-y.
+3.08412954766574e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[nan, nan, nan, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+3316.4989107411316
+Setting sub steps.
+4
+Setting FPS.
+8306
+Setting use material physics.
+False
+Setting material friction.
+20.731467636911184
+Setting material elasticity.
+0.8091383208096619
+Setting mass.
+4976.215550032292
+Setting form factor.
+0.35340055669685255
+Setting velocity max.
+740.4985382363081
+Setting damping translation.
+0.33074065866277413
+Setting rotation damping.
+0.5146093433244308
+Setting use collision bounds.
+False
+Setting collision margin.
+0.5289075400034943
+Setting collision bounds type.
+CYLINDER
+Setting torque-y.
+2.8077017806858604e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[nan, nan, nan, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+8364.689445553473
+Setting sub steps.
+26
+Setting FPS.
+120
+Setting use material physics.
+False
+Setting material friction.
+97.18531283567536
+Setting material elasticity.
+0.9846188235834333
+Setting mass.
+2078.3534762338727
+Setting form factor.
+0.14981266879315025
+Setting velocity max.
+366.9639537370669
+Setting damping translation.
+0.0688568634005935
+Setting rotation damping.
+0.11839461331586776
+Setting use collision bounds.
+False
+Setting collision margin.
+0.6871060990401707
+Setting collision bounds type.
+CYLINDER
+Setting torque-y.
+6.578229013186755e+37
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[nan, nan, nan, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+219.1321743558905
+Setting sub steps.
+17
+Setting FPS.
+2907
+Setting use material physics.
+False
+Setting material friction.
+7.280247228849457
+Setting material elasticity.
+0.7925257561116068
+Setting mass.
+9057.263419687803
+Setting form factor.
+0.3637830776660156
+Setting velocity max.
+160.288196347676
+Setting damping translation.
+0.8037495014290951
+Setting rotation damping.
+0.44339205636281986
+Setting use collision bounds.
+True
+Setting collision margin.
+0.1386690502475426
+Setting collision bounds type.
+CONVEX_HULL
+Setting torque-y.
+1.8447444391889538e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+6191.646659885408
+Setting sub steps.
+26
+Setting FPS.
+142
+Setting use material physics.
+False
+Setting material friction.
+69.24379056625398
+Setting material elasticity.
+0.0525160365660835
+Setting mass.
+8974.319419187317
+Setting form factor.
+0.3038683350212952
+Setting velocity max.
+468.58956031895127
+Setting damping translation.
+0.06794678608752047
+Setting rotation damping.
+0.8439770565486039
+Setting use collision bounds.
+True
+Setting collision margin.
+0.36728630301884213
+Setting collision bounds type.
+CONVEX_HULL
+Setting torque-y.
+2.001652556893785e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+0.0
+Increasing current genome count.
+Populating the physics engine parameters.
+Setting gravity.
+1972.4050298279637
+Setting sub steps.
+2
+Setting FPS.
+6981
+Setting use material physics.
+False
+Setting material friction.
+55.06934269251998
+Setting material elasticity.
+0.19883098942278932
+Setting mass.
+8698.311398775682
+Setting form factor.
+0.9291575400225066
+Setting velocity max.
+37.445063969756
+Setting damping translation.
+0.40007491943830575
+Setting rotation damping.
+0.4292875077390088
+Setting use collision bounds.
+False
+Setting collision margin.
+0.284843226206169
+Setting collision bounds type.
+TRIANGLE_MESH
+Setting torque-y.
+2.8714337542199352e+38
+Starting the game engine.
+Calculating genome fitness.
+[1.7267729468528614e-09, 7.824520764643239e-08, 0.004756794311106205, 0.0]
+[-9.943633460247598e+25, -1.026039682778696e+24, 0.004756794311106205, 0.0]
+0.0
+Increasing current genome count.
+Current generation number: 0
+Updating population metrics.
+Population metrics.
+0.0
+0.0
+0.0
+0.0
+Storing population metrics in the database.
+Generation a new generation.
+Creating new generation.
+Population metrics.
+0.0
+0.0
+0.0
+0.0
+Adapting crossover and mutation probabilities.
+Crossover progress average.
+0.0
+Mutation progress average.
+0.0
+Not adjusting crossover/mutation probabilities. CPA == MPA.
+Population makeup.
+10 0 0 0 0
+Adding elite genome.
+Adding elite genome.
+Performing crossover and mutation separately.
+Entering generation loop.
+Selecting genomes with rank fitness.
+[6, 7, 8, 9]
+Attempting crossover.
+Parent indexes.

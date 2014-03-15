@@ -1,7 +1,7 @@
 import random;
 import numpy;
 import numpy.linalg;
-import cPickle;
+import pickle;
 import math;
 import matplotlib.pyplot as plt;
 import matplotlib.mlab as mlab;
@@ -22,9 +22,9 @@ from sklearn.cross_validation import train_test_split;
 
 # Import real robot forward motion data.
 
-x_p_values = cPickle.load( open( "../../collected_data/forward_motion/pickled_data/x_p_values.pkl", "rb" ) );
-y_p_values = cPickle.load( open( "../../collected_data/forward_motion/pickled_data/y_p_values.pkl", "rb" ) );
-t_p_values = cPickle.load( open( "../../collected_data/forward_motion/pickled_data/t_p_values.pkl", "rb" ) );
+x_p_values = pickle.load( open( "../../collected_data/forward_motion/pickled_data/x_p_values.pkl", "rb" ) );
+y_p_values = pickle.load( open( "../../collected_data/forward_motion/pickled_data/y_p_values.pkl", "rb" ) );
+t_p_values = pickle.load( open( "../../collected_data/forward_motion/pickled_data/t_p_values.pkl", "rb" ) );
 
 forward_motion = [ ];
 

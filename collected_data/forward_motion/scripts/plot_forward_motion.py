@@ -9,7 +9,7 @@ Plots the real robot forward motion.
 '''
 import numpy as np;
 import math;
-import cPickle;
+import pickle;
 import matplotlib.pyplot as plt;
 import matplotlib.mlab as mlab;
 from mpl_toolkits.mplot3d import Axes3D;
@@ -299,21 +299,21 @@ while line != "":
 	line    = forward_file.readline( );
 	line_i += 1;
 	
-cPickle.dump( x_originals, open( "../pickled_data/x_originals.pkl", "wb" ) );
-cPickle.dump( y_originals, open( "../pickled_data/y_originals.pkl", "wb" ) );
-cPickle.dump( t_originals, open( "../pickled_data/t_originals.pkl", "wb" ) );
+pickle.dump( x_originals, open( "../pickled_data/x_originals.pkl", "wb" ) );
+pickle.dump( y_originals, open( "../pickled_data/y_originals.pkl", "wb" ) );
+pickle.dump( t_originals, open( "../pickled_data/t_originals.pkl", "wb" ) );
 
-cPickle.dump( x_p_originals, open( "../pickled_data/x_p_originals.pkl", "wb" ) );
-cPickle.dump( y_p_originals, open( "../pickled_data/y_p_originals.pkl", "wb" ) );
-cPickle.dump( t_p_originals, open( "../pickled_data/t_p_originals.pkl", "wb" ) );
+pickle.dump( x_p_originals, open( "../pickled_data/x_p_originals.pkl", "wb" ) );
+pickle.dump( y_p_originals, open( "../pickled_data/y_p_originals.pkl", "wb" ) );
+pickle.dump( t_p_originals, open( "../pickled_data/t_p_originals.pkl", "wb" ) );
 	
-cPickle.dump( x_values, open( "../pickled_data/x_values.pkl", "wb" ) );
-cPickle.dump( y_values, open( "../pickled_data/y_values.pkl", "wb" ) );
-cPickle.dump( t_values, open( "../pickled_data/t_values.pkl", "wb" ) );
+pickle.dump( x_values, open( "../pickled_data/x_values.pkl", "wb" ) );
+pickle.dump( y_values, open( "../pickled_data/y_values.pkl", "wb" ) );
+pickle.dump( t_values, open( "../pickled_data/t_values.pkl", "wb" ) );
 
-cPickle.dump( x_p_values, open( "../pickled_data/x_p_values.pkl", "wb" ) );
-cPickle.dump( y_p_values, open( "../pickled_data/y_p_values.pkl", "wb" ) );
-cPickle.dump( t_p_values, open( "../pickled_data/t_p_values.pkl", "wb" ) );
+pickle.dump( x_p_values, open( "../pickled_data/x_p_values.pkl", "wb" ) );
+pickle.dump( y_p_values, open( "../pickled_data/y_p_values.pkl", "wb" ) );
+pickle.dump( t_p_values, open( "../pickled_data/t_p_values.pkl", "wb" ) );
 
 print "Number of sample points: ", line_i;
 	
