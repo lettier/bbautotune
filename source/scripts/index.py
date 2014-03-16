@@ -113,18 +113,19 @@ print( "<font style='font-family: sans-serif; font-size: 50px; color: #fff;'>GA 
 print( "<table cellpadding='0' cellspacing='20px'>" );
 print( "<tr>" );
 print( "<td>" );
-print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>GA Fitness Progress:&nbsp;</font>" );
-print( "<font style='font-family: sans-serif; font-size: 20px; color: #89bbd8;'>Highest&nbsp;</font>" );
-print( "<font style='font-family: sans-serif; font-size: 20px; color: #9dd597;'>Average&nbsp;</font>" );
-print( "<font style='font-family: sans-serif; font-size: 20px; color: #DD5C5C;'>Lowest&nbsp;</font><br><br>" );
+print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>Generation Fitness Progress:&nbsp;</font>" );
+print( "<font id='highest_text' style='font-family: sans-serif; font-size: 20px; color: #89bbd8; cursor: pointer;'>Highest&nbsp;</font>" );
+print( "<font id='average_text' style='font-family: sans-serif; font-size: 20px; color: #9dd597; cursor: pointer;'>Average&nbsp;</font>" );
+print( "<font id='lowest_text'  style='font-family: sans-serif; font-size: 20px; color: #DD5C5C; cursor: pointer;'>Lowest&nbsp;</font>" );
+print( "<font id='all_text'  style='font-family: sans-serif; font-size: 20px; color: #fff; cursor: pointer;'>ALL&nbsp;</font><br><br>" );
 print( "<figure style='width: 800px; height: 600px;' id='fitnesses'></figure><br>" );
 print( "</td>" );
 print( "</tr>" );
 print( "<tr>" );
 print( "<td>" );
-print( "<font style='font-family: sans-serif; font-size: 12px; color: #fff;'>Highest Fitness Max, Min, Mean, Variance, Standard Deviation: " + str( hf_max ) + ", " + str( hf_min ) + ", " + str( hf_mean ) + ", " + str( hf_var ) + ", " + str( hf_std ) + "</font><br>" );
-print( "<font style='font-family: sans-serif; font-size: 12px; color: #fff;'>Average Fitness Max, Min, Mean, Variance, Standard Deviation: " + str( af_max ) + ", " + str( af_min ) + ", " + str( af_mean ) + ", " + str( af_var ) + ", " + str( af_std ) + "</font><br>" );
-print( "<font style='font-family: sans-serif; font-size: 12px; color: #fff;'>Lowest Fitness Max, Min, Mean, Variance, Standard Deviation: "  + str( lf_max ) + ", " + str( lf_min ) + ", " + str( lf_mean ) + ", " + str( lf_var ) + ", " + str( lf_std ) + "</font><br>"  );
+print( "<font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Highest Fitness Max, Min, Mean, Variance, Standard Deviation: &nbsp;&nbsp;&nbsp; " + str( hf_max ) + " &nbsp;&nbsp;&nbsp; " + str( hf_min ) + " &nbsp;&nbsp;&nbsp; " + str( hf_mean ) + " &nbsp;&nbsp;&nbsp; " + str( hf_var ) + " &nbsp;&nbsp;&nbsp; " + str( hf_std ) + "</font><br>" );
+print( "<font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Average Fitness Max, Min, Mean, Variance, Standard Deviation: &nbsp;&nbsp;&nbsp; " + str( af_max ) + " &nbsp;&nbsp;&nbsp; " + str( af_min ) + " &nbsp;&nbsp;&nbsp; " + str( af_mean ) + " &nbsp;&nbsp;&nbsp; " + str( af_var ) + " &nbsp;&nbsp;&nbsp; " + str( af_std ) + "</font><br>" );
+print( "<font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Lowest Fitness Max, Min, Mean, Variance, Standard Deviation: &nbsp;&nbsp;&nbsp;  " + str( lf_max ) + " &nbsp;&nbsp;&nbsp; " + str( lf_min ) + " &nbsp;&nbsp;&nbsp; " + str( lf_mean ) + " &nbsp;&nbsp;&nbsp; " + str( lf_var ) + " &nbsp;&nbsp;&nbsp; " + str( lf_std ) + "</font><br><br>"  );
 print( "</td>" );
 print( "</tr>" );
 print( "<tr>" );
@@ -143,7 +144,7 @@ print( "<link rel='stylesheet' type='text/css' href='dependencies/xcharts/xchart
 print( "<script>" );
 print( "document.getElementById('fitnesses').style.width  = window.innerWidth - 200 + 'px';" );
 print( "document.getElementById('fitnesses').style.height = window.innerHeight -300 + 'px';" );
-print( " var fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( hf_max ) ) +", 'yMin': " + str( af_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'main': [ " );
+print( " var fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( hf_max ) ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.highFitnesses', 'data': [" );
 
 for i in range( len( highest_fitnesses ) ):
@@ -171,9 +172,52 @@ for i in range( len( lowest_fitnesses ) ):
 	print( "}," );
 print( " ] }" );
 print( "] };" );
-print( "var fitnesses_chart = new xChart( 'line-dotted', fitnesses_data, '#fitnesses', { 'axisPaddingTop': 10 } );" );
+print( "var fitnesses_chart = new xChart( 'line-dotted', fitnesses_data, '#fitnesses', { 'axisPaddingTop': 10, 'paddingLeft': 80 } );" );
 print( "document.getElementById('probabilities').style.width  = window.innerWidth - 200 + 'px';" );
 print( "document.getElementById('probabilities').style.height = window.innerHeight -300 + 'px';" );
+print( "var highest_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( hf_max ) ) +", 'yMin': " + str( hf_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
+print( "{ 'className': '.highFitnesses', 'data': [" );
+
+for i in range( len( highest_fitnesses ) ):
+	
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( highest_fitnesses[ i ] ) );
+	print( "}," );
+	
+print( "] }" );
+print( "] };" );
+print( "var average_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( af_max ) ) +", 'yMin': " + str( af_min ) + ", 'xMax': " + str( len( average_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
+print( "{ 'className': '.null1', 'data': [] }," );
+print( "{ 'className': '.averageFitnesses', 'data': [" );
+
+for i in range( len( average_fitnesses ) ):
+	
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( average_fitnesses[ i ] ) );
+	print( "}," );
+	
+print( "] }" );
+print( "] };" );
+print( "var lowest_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( lf_max ) ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( lowest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
+print( "{ 'className': '.null1', 'data': [] }," );
+print( "{ 'className': '.null2', 'data': [] }," );
+print( "{ 'className': '.lowestFitnesses', 'data': [" );
+
+for i in range( len( lowest_fitnesses ) ):
+	
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( lowest_fitnesses[ i ] ) );
+	print( "}," );
+	
+print( "] }" );
+print( "] };" );
+print( "document.getElementById('highest_text').onmousedown = function ( ) { fitnesses_chart.setData( highest_fitnesses_data ); };" );
+print( "document.getElementById('average_text').onmousedown = function ( ) { fitnesses_chart.setData( average_fitnesses_data ); };" );
+print( "document.getElementById('lowest_text').onmousedown  = function ( ) { fitnesses_chart.setData( lowest_fitnesses_data  ); };" );
+print( "document.getElementById('all_text').onmousedown  = function ( ) { fitnesses_chart.setData( fitnesses_data  ); };" );
 print( " var probabilities_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': 1.0, 'yMin': 0.0, 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'main': [ " );
 print( "{ 'className': '.crossoverProbabilities', 'data': [" );
 
@@ -194,7 +238,7 @@ for i in range( len( mutation_probabilities ) ):
 	print( "}," );
 print( " ] }" );
 print( "] };" );
-print( "var probabilities_chart = new xChart( 'line-dotted', probabilities_data, '#probabilities', { 'axisPaddingTop': 10 } );" );	
+print( "var probabilities_chart = new xChart( 'line-dotted', probabilities_data, '#probabilities', { 'axisPaddingTop': 10, 'paddingLeft': 80 } );" );	
 print( "</script>" );
 print( "<font style='font-family: sans-serif; font-size: 10px; color: #fff;'>David Lettier (C) 2014.</font><br><br>" );
 print( "</body>" );
