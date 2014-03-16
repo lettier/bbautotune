@@ -2,6 +2,7 @@
 
 import MySQLdb as mdb;
 import sys;
+import numpy;
 
 variables_location = "./variables/";
 		
@@ -19,23 +20,73 @@ db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 1000" );
 
 result = db_cursor.fetchall( );
 
-max_fitness = -1.0 * sys.float_info[ 0 ];
-
-min_fitness = sys.float_info[ 0 ];
+highest_fitnesses = [ ];
+average_fitnesses = [ ];
+lowest_fitnesses  = [ ];
+crossover_probabilities = [ ];
+mutation_probabilities = [ ];
 
 for row in result:
 	
-	if ( row[ 2 ] > max_fitness ):
-		
-		max_fitness = row[ 2 ];
-		
-	if ( row[ 4 ] < min_fitness ):
-		
-		min_fitness = row[ 4 ];
-		
-if ( min_fitness < -40.0 ):
+	highest_fitnesses.append( row[ 2 ] );
 	
-	min_fitness = -40.0;
+	average_fitnesses.append( row[ 3 ] );
+		
+	lowest_fitnesses.append( row[ 4 ] );
+	
+	crossover_probabilities.append( row[ 5 ] );
+	
+	mutation_probabilities.append( row[ 6 ] );
+	
+if ( len( highest_fitnesses ) != 0 ):
+	
+	max_fitness = min( highest_fitnesses );
+	min_fitness = max( lowest_fitnesses  );
+
+	if ( min_fitness > 200.0 ):
+		
+		min_fitness = 200.0;
+		
+	hf_max  = min( highest_fitnesses );
+	hf_min  = max( highest_fitnesses );
+	hf_mean = numpy.mean( highest_fitnesses );
+	hf_var  = numpy.var( highest_fitnesses );
+	hf_std  = numpy.std( highest_fitnesses );
+
+	af_max  = min( average_fitnesses );
+	af_min  = max( average_fitnesses );
+	af_mean = numpy.mean( average_fitnesses );
+	af_var  = numpy.var( average_fitnesses );
+	af_std  = numpy.std( average_fitnesses );
+
+	lf_max  = min( lowest_fitnesses );
+	lf_min  = max( lowest_fitnesses  );
+	lf_mean = numpy.mean( lowest_fitnesses );
+	lf_var  = numpy.var( lowest_fitnesses );
+	lf_std  = numpy.std( lowest_fitnesses );
+	
+else:
+	
+	max_fitness = 0.0;
+	min_fitness = 0.0;
+	
+	hf_max  = 0.0;
+	hf_min  = 0.0;
+	hf_mean = 0.0;
+	hf_var  = 0.0;
+	hf_std  = 0.0;
+
+	af_max  = 0.0;
+	af_min  = 0.0;
+	af_mean = 0.0;
+	af_var  = 0.0;
+	af_std  = 0.0;
+
+	lf_max  = 0.0;
+	lf_min  = 0.0;
+	lf_mean = 0.0;
+	lf_var  = 0.0;
+	lf_std  = 0.0;
 
 print( "Content-type: text/html\n" );
 
@@ -60,6 +111,13 @@ print( "<script type='text/javascript'>" );
 print( "document.getElementById('fitness_chart').width  = window.innerWidth - 100;" );
 print( "document.getElementById('fitness_chart').height = window.innerHeight / 2;" );
 print( "</script>" );
+print( "</td>" );
+print( "</tr>" );
+print( "<tr>" );
+print( "<td>" );
+print( "<font style='font-family: sans-serif; font-size: 12px; color: #fff;'>Highest Fitness Max, Min, Mean, Variance, Standard Deviation: " + str( hf_max ) + ", " + str( hf_min ) + ", " + str( hf_mean ) + ", " + str( hf_var ) + ", " + str( hf_std ) + "</font><br>" );
+print( "<font style='font-family: sans-serif; font-size: 12px; color: #fff;'>Average Fitness Max, Min, Mean, Variance, Standard Deviation: " + str( af_max ) + ", " + str( af_min ) + ", " + str( af_mean ) + ", " + str( af_var ) + ", " + str( af_std ) + "</font><br>" );
+print( "<font style='font-family: sans-serif; font-size: 12px; color: #fff;'>Lowest Fitness Max, Min, Mean, Variance, Standard Deviation: "  + str( lf_max ) + ", " + str( lf_min ) + ", " + str( lf_mean ) + ", " + str( lf_var ) + ", " + str( lf_std ) + "</font><br>"  );
 print( "</td>" );
 print( "</tr>" );
 print( "<tr>" );
@@ -89,10 +147,10 @@ for row in result:
 print( "]," );
 print( "datasets: [" );
 print( "{" );
-print( "fillColor :   'rgba( 255, 10, 10, 0.1 )'," );
-print( "strokeColor : 'rgba( 255, 10, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 255, 10, 10, 0.5 )'," );
-print( "pointStrokeColor : '#333'," );
+print( "fillColor :   'rgba( 255, 10, 10, 0.09 )'," );
+print( "strokeColor : 'rgba( 255, 10, 10, 0.8 )',"  );
+print( "pointColor :  'rgba( 255, 10, 10, 0.5 )',"  );
+print( "pointStrokeColor : '#911'," );
 print( "data: [" );
 
 for row in result:
@@ -102,23 +160,23 @@ for row in result:
 print( "]" );
 print( "}," );
 print( "{" );
-print( "fillColor :   'rgba( 10, 255, 10, 0.1 )'," );
-print( "strokeColor : 'rgba( 10, 255, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 10, 255, 10, 0.5 )'," );
-print( "pointStrokeColor : '#222'," );
+print( "fillColor :   'rgba( 10, 255, 10, 0.09 )'," );
+print( "strokeColor : 'rgba( 10, 255, 10, 0.8 )',"  );
+print( "pointColor :  'rgba( 10, 255, 10, 0.5 )',"  );
+print( "pointStrokeColor : '#191'," );
 print( "data: [" );
 
 for row in result:
 	
-	print( "'" + str( row[ 3 ] ) + "'," ); # Average fitness.
+	print( "'" + str( row[ 3 ] ) + "'," ); # Average fitness. 
 
 print( "]" );
 print( "}," );
 print( "{" );
-print( "fillColor :   'rgba( 10, 10, 200, 0.1 )'," );
-print( "strokeColor : 'rgba( 10, 10, 200, 0.8 )'," );
-print( "pointColor :  'rgba( 10, 10, 200, 0.5 )'," );
-print( "pointStrokeColor : '#111'," );
+print( "fillColor :   'rgba( 10, 10, 255, 0.09 )'," );
+print( "strokeColor : 'rgba( 10, 10, 255, 0.8 )',"  );
+print( "pointColor :  'rgba( 10, 10, 255, 0.5 )',"  );
+print( "pointStrokeColor : '#119'," );
 print( "data: [" );
 
 for row in result:

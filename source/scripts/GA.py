@@ -104,13 +104,13 @@ def initialize_bbautotune_parameter_properties( ):
 		
 	);
 	
-	bpy.types.Scene.GA_USE_RANK_FITNESS = BoolProperty( 
+	bpy.types.Scene.GA_USE_RANK_SELECTION = BoolProperty( 
 		
-		name        = "Use Rank Fitness",
-		description = "Use rank fitness."
+		name        = "Use Rank Selection",
+		description = "Use rank selection otherwise tournament selection will be used."
 		
 	);	
-	bpy.context.scene[ "GA_USE_RANK_FITNESS" ] = True;
+	bpy.context.scene[ "GA_USE_RANK_SELECTION" ] = True;
 	
 	bpy.types.Scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY = BoolProperty( 
 		
@@ -167,7 +167,7 @@ class BBAUTOTUNE_UI_START_BUTTON_OPERATOR( bpy.types.Operator ):
 			bpy.context.scene.GA_NUMBER_OF_ELITE,
 			bpy.context.scene.GA_CROSSOVER_PROBABILITY,
 			bpy.context.scene.GA_MUTATION_PROBABILITY,
-			bpy.context.scene.GA_USE_RANK_FITNESS,
+			bpy.context.scene.GA_USE_RANK_SELECTION,
 			bpy.context.scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY,
 			bpy.context.scene.GA_USE_SELF_ADAPTATION,
 			bpy.context.scene.BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW,
@@ -197,7 +197,7 @@ class GA_UI_PANEL( bpy.types.Panel ):
 		self.layout.prop( context.scene, "GA_NUMBER_OF_ELITE"                             );
 		self.layout.prop( context.scene, "GA_CROSSOVER_PROBABILITY"                       );
 		self.layout.prop( context.scene, "GA_MUTATION_PROBABILITY"                        );
-		self.layout.prop( context.scene, "GA_USE_RANK_FITNESS"                            );
+		self.layout.prop( context.scene, "GA_USE_RANK_SELECTION"                          );
 		self.layout.prop( context.scene, "GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY" );
 		self.layout.prop( context.scene, "GA_USE_SELF_ADAPTATION"                         );
 		self.layout.prop( context.scene, "BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW"      );
@@ -312,7 +312,7 @@ class Genetic_Algorithm( ):
 		number_of_elite                             = None,
 		crossover_probability                       = None,
 		mutation_probability                        = None,
-		use_rank_fitness                            = None,
+		use_rank_selection                          = None,
 		perform_crossover_and_mutation_sequentially = None,
 		use_self_adaptation                         = None
 		
@@ -358,9 +358,9 @@ class Genetic_Algorithm( ):
 		self.total_number_of_mutations          = 0;
 		self.total_number_of_mutation_attempts  = 0;
 		
-		# Use rank fitness in selection?
+		# Use rank selection?
 		
-		self.use_rank_fitness = use_rank_fitness or False;
+		self.use_rank_selection = use_rank_selection or False;
 		
 		# Perform crossover and mutation sequentially or separately?
 		
@@ -460,13 +460,13 @@ class Genetic_Algorithm( ):
 		
 		return self.number_of_genes_per_genome;
 	
-	def set_use_rank_fitness( self, boolean = None ):
+	def set_use_rank_selection( self, boolean = None ):
 		
-		self.use_rank_fitness = boolean or 0;
+		self.use_rank_selection = boolean or 0;
 		
-	def get_use_rank_fitness( self ):
+	def get_use_rank_selection( self ):
 		
-		return self.use_rank_fitness;
+		return self.use_rank_selection;
 	
 	def set_perform_crossover_and_mutation_sequentially( self, boolean = None ):
 		
@@ -681,91 +681,54 @@ class Genetic_Algorithm( ):
 		
 		self.log( str( number_of_indexes ) + " genomes requested." );
 
-		# Assumes population has been evaluated.
+		# Assumes the population has been evaluated.
 		
-		# Assumes population is sorted in ascending order according to fitness.
+		# Assumes the population is sorted in descending order according to fitness.
 		
-		# Roulette selection of n genome indexes in the population.
-		
-		if ( not self.use_rank_fitness ):
-		
-			# Say we have a population of 4 with these fitness values:
-			# G-1: 1
-			# G-2: 2
-			# G-3: 3
-			# G-4: 4
-			# Total fitness: 10
-			# Probabilities:
-			# G-1: .1
-			# G-2: .2
-			# G-3: .3
-			# G-4: .4
-			#
-			# Now shift them over by the running sum.
-			# This give them a portion on the number line [0.0,1.0] proportional to their
-			# fitness.
-			#
-			# G-1: .1
-			# G-2: G-1 + .2 = .3
-			# G-3: G-2 + .3 = .6
-			# G-4: G-3 + .4 = 1.0
-			#
-			# 0.0----.10----.20----.30----.40----.50----.60----.70----.80----.90----1.0
-			#        G-1           G-2                  G-3                         G-4
-			#
-			# Now selected a random float in [0.0,1.0]:
-			# RF: .51
-			#
-			# 0.0----.10----.20----.30----.40----.50----.60----.70----.80----.90----1.0
-			#        G-1           G-2              RF  G-3                         G-4
-			#
-			# G-3 gets selected for mating.
-
-			probabilities = [ ];
+		if ( not self.use_rank_selection ):
+			
+			tournament_size = number_of_indexes + 1;
+			
+			assert tournament_size <= self.population_size and tournament_size >= 0, "Tournament size too large/small.";
 			
 			genome_indexes_selected = [ ];
 			
-			if ( self.total_fitness == 0.0 ):
+			self.log( "Selecting random players." );
+			
+			for i in range( number_of_indexes ):
 				
-				self.log( "Total population fitnes is 0." );
-				
-				self.log( "Selecting genomes at random." );
-				
-				# So that we don't divide by zero.
-				# This means genomes all have zero fitness 
-				# so just select random genome indexes.
-				
-				for i in range( number_of_indexes ):
-				
-					genome_indexes_selected.append( random.randint( 0, self.population_size - 1 ) );
+				tournament_players = [ ];
+			
+				for j in range( tournament_size ):
 					
-				self.log( "Selected genomes at random." );
-			
-				self.log( str( genome_indexes_selected ) );
-				
-				return genome_indexes_selected;
-
-			probabilities.append( self.population[ 0 ].fitness / self.total_fitness );
-			
-			for i in range( self.population_size ):
-				
-				probabilities.append( probabilities[ i - 1 ] + ( self.population[ i ].fitness / self.total_fitness ) );
-			
-			while ( len( genome_indexes_selected ) < number_of_indexes ):
-				
-				random_number = random.uniform( 0.0, 1.0 );
-				
-				for i in range( self.population_size ):	
+					random_int = random.randint( 0, self.population_size - 1 );
 					
-					if ( random_number <= probabilities[ i ] ):
+					tournament_players.append( [ random_int, self.population[ random_int ].get_fitness( ) ] );
+					
+					self.log( "Random players selected." );
 						
-						genome_indexes_selected.append( i );
+					self.log( str( tournament_players ) );
+					
+				# Remember, lower fitness values are a higher fitness.
+				# Sorts list in ascending orderer.
+				# tournament_players = [ [genome_index,genome_fitness], ... ]
+				# [ 0 ][ 0 ] = get the index with the lowest fitness value (thus the highest fitness ).
+					
+				player_ranking = sorted( tournament_players, key = lambda x: x[ 1 ] );
+				
+				self.log( "Player ranking." );
+				
+				self.log( str( player_ranking ) );
+				
+				winner = player_ranking[ 0 ][ 0 ];
+				
+				self.log( "Winner." );
+				
+				self.log( str( winner ) );
+				
+				genome_indexes_selected.append( winner );
 						
-					if ( len( genome_indexes_selected ) == number_of_indexes ):
-						
-						break;
-						
-			self.log( "Selected genomes without rank fitness." );
+			self.log( "Selected genomes with tournament selection." );
 			
 			self.log( str( genome_indexes_selected ) );
 			
@@ -773,58 +736,84 @@ class Genetic_Algorithm( ):
 		
 		else:
 		
+			self.log( "Sorted?" );
+			
+			self.log( str( self.population[ 0 ].get_fitness( ) ) + " " + str( self.population[ -1 ].get_fitness( ) ) );
+			
+			# Assume the genomes are sorted in non-increasing order of fitness.
 			
 			# Give the worst genome a rank fitness of 1.
 			# Give the second worst genome a rank fitness of 2.
 			# ...
 			# Give the best genome a rank fitness of the population size.
 			
-			# Now, based on rank fitness, do a roulette selection where the
-			# probabilities are based on the rank fitness.
-			
-			probabilities = [ ];
-			
 			genome_indexes_selected = [ ];
-			
-			# Rank fitness of the first is 1.
-			# Probability is 1/(n(n+1)/2).
-			# Where n is population size.
-			# (n(n+1)/2) = the total rank fitness.
-			# Summing the numbers from 1 to population size.
-			# Say population size is 10.
-			# Rank fitness: G-1 = 1, G-2 = 2, ..., G-10 = 10.
-			# Total rank fitness is 1+2+3+...+10 = n(n+1)/2 = (10*11)/2 = 55
-			# Probabilities:
-			# G-1: 1/55
-			# G-2: G-1 + 2/55
-			# ...
-			# G-10: G-9 + 10/55
-			
-			total_rank_fitness = ( self.population_size * ( self.population_size + 1.0 ) ) / 2.0;
 
-			probabilities.append( 1.0 / total_rank_fitness ); # First rank fitness probability.
+			# Genomes:               1, 2, 3,  4
+			# Genomes fitnesses:     4, 2, 3,  1 (Lowest is highest. )
+			# Rank fitnesses:        1, 2, 3,  4 (Highest is highest.)
+			# Partial sums:          1, 3, 6, 10
+			# Random number U(0,10): 7
+			# Genome 4 is selected.
+			# Since all random numbers are uniform,
+			# Genome 1 has a probability of being selected:  (1-0)*(1/10) =  10%
+			# Genome 2 has a probability of being selected:  (3-1)*(1/10) =  20%
+			# Genome 3 has a probability of being selected:  (6-3)*(1/10) =  30%
+			# Genome 4 has a probability of being selected: (10-6)*(1/10) =  40%
+			# Total of any being selected:                                = 100%
+			#    |
+			#    
+			# 0.10 ---------------------------------------
+			#     |   |       |           |               |
+			#     |   |       |           |               |
+			#     0---1---2---3---4---5---6---7---8---9---10
+			#         G1      G2          G3              G4
+						
+			# Individual rank fitnesses.
 			
-			# Rest of the rank fitness probabilities.
+			rank_fitnesses = [ ];
 			
 			for i in range( self.population_size ):
 				
-				probabilities.append( probabilities[ i - 1 ] + ( ( i + 1 ) / total_rank_fitness ) );
+				rank_fitnesses.append( i + 1 );
+				
+			total_rank_fitness = sum( rank_fitnesses );
+			
+			self.log( "Total rank fitness." );
+			
+			self.log( str( total_rank_fitness ) );
+			
+			# Partial sum. P[i] = sum( P[1:i] ) where i is in range [1,n].
+			
+			partial_sums = list( itertools.accumulate( rank_fitnesses ) );
+				
+			self.log( "Partial sums." );
+			
+			self.log( str( partial_sums ) );
 			
 			while ( len( genome_indexes_selected ) < number_of_indexes ):
 				
-				random_number = random.uniform( 0.0, 1.0 );
+				random_number = random.randint( 0, total_rank_fitness );
+				
+				self.log( "Random number: " + str( random_number ) );
 				
 				for i in range( self.population_size ):
 					
-					if ( random_number <= probabilities[ i ] ):
+					if ( partial_sums[ i ] >= random_number ):
+						
+						self.log( "Partial sum: " + str( partial_sums[ i ] ) );
+	       
+						self.log( "Genome index selected: " + str( i ) );
 						
 						genome_indexes_selected.append( i );
+						
+						break;
 						
 					if ( len( genome_indexes_selected ) == number_of_indexes ):
 						
 						break;
 						
-			self.log( "Selected genomes with rank fitness." );
+			self.log( "Selected genomes with rank selection." );
 			
 			self.log( str( genome_indexes_selected ) );
 			
@@ -859,11 +848,11 @@ class Genetic_Algorithm( ):
 
 			genome_temp = copy.deepcopy( self.population[ ( self.population_size - 1 ) - i ] );
 			
+			self.log( "Adding elite genome. Its fitness: " + str( genome_temp.get_fitness( ) ) );
+			
 			genome_temp.fitness        = 0.0;
 			genome_temp.parent_fitness = 0.0;
-			genome_temp.created_by     = 4;
-
-			self.log( "Adding elite genome." );
+			genome_temp.created_by     = 4;	
 			
 			new_population.append( genome_temp );
 			
@@ -1110,6 +1099,8 @@ class Genetic_Algorithm( ):
 
 		# Attempt to mutate offspring one.
 		
+		self.log( "Attempting to mutate first cross offspring." );
+		
 		mutated_one = False;
 		
 		for i in range( self.number_of_genes_per_genome ):
@@ -1147,6 +1138,8 @@ class Genetic_Algorithm( ):
 					mutated_one = True;
 	
 		# Attempt to mutate offspring two.
+		
+		self.log( "Attempting to mutate second cross offspring." );
 		
 		mutated_two = False;
 		
@@ -1243,6 +1236,9 @@ class Genetic_Algorithm( ):
 		self.weakest_genome_index  = -1;
 		
 	def update_population_metrics( self ):
+		
+		# 0.0 is the highest fitness
+		# 1.7976931348623157e+308 is lowest fitness.
 
 		self.reset_population_metrics( );
 
@@ -1260,7 +1256,7 @@ class Genetic_Algorithm( ):
 			
 			# Update fittest if necessary.
 			
-			if ( highest_so_far < self.population[ i ].fitness ):
+			if ( highest_so_far > self.population[ i ].fitness ):
 
 				highest_so_far = self.population[ i ].fitness;
 
@@ -1270,7 +1266,7 @@ class Genetic_Algorithm( ):
 
 			# Update worst if necessary.
 			
-			if ( lowest_so_far > self.population[ i ].fitness ):
+			if ( lowest_so_far < self.population[ i ].fitness ):
 
 				lowest_so_far = self.population[ i ].fitness;
 				
@@ -1443,10 +1439,16 @@ class Genetic_Algorithm( ):
 		self.log( "Creating a new generation." );
 
 		# Sort the population based on fitness in ascending order.
+		# 0.0 is the highest fitness and infinity is the lowest fitness.
+		# So sort in non-increasing order.
 		
-		self.sort_population( );
+		self.log( "Sorting population." );
+		
+		self.sort_population( descending = True );
 		
 		# Update population metrics.
+		
+		self.log( "Updating population metrics." );
 		
 		self.update_population_metrics( );
 		
@@ -1454,17 +1456,25 @@ class Genetic_Algorithm( ):
 		
 		if ( self.use_self_adaptation == True ):
 			
+			self.log( "Adapting crossover/mutation probabilities." );
+			
 			self.adapt_crossover_and_mutation_probabilities( );
 			
 		# Calculate current population makeup.
+		
+		self.log( "Computing population makeup." );
 		
 		self.compute_population_makeup( );
 		
 		# Create a temporary population to store newly created generation.
 		
+		self.log( "Creating empty new population." );
+		
 		new_population = [ ];
 		
 		# Allow the top N elite to pass into the next generation.
+		
+		self.log( "Performing elitism." );
 
 		self.elitism_operator( new_population );
 		
@@ -1688,9 +1698,9 @@ class BBAutoTune( ):
 		
 		# Load in real robot data.
 		
-		real_forward_x_primes = pickle.load( open( get_scripts_location( ) + "data/x_p_values.pkl", "rb" ) );
-		real_forward_y_primes = pickle.load( open( get_scripts_location( ) + "data/y_p_values.pkl", "rb" ) );
-		real_forward_t_primes = pickle.load( open( get_scripts_location( ) + "data/t_p_values.pkl", "rb" ) );
+		real_forward_x_primes = pickle.load( open( get_scripts_location( ) + "data/real_robot_motion/forward/x_p_values.pkl", "rb" ) );
+		real_forward_y_primes = pickle.load( open( get_scripts_location( ) + "data/real_robot_motion/forward/y_p_values.pkl", "rb" ) );
+		real_forward_t_primes = pickle.load( open( get_scripts_location( ) + "data/real_robot_motion/forward/t_p_values.pkl", "rb" ) );
 		
 		real_forward_motion = [ ];
 
@@ -1730,7 +1740,7 @@ class BBAutoTune( ):
 		number_of_elite,
 		crossover_probability,
 		mutation_probability,
-		use_rank_fitness,
+		use_rank_selection,
 		perform_crossover_and_mutation_sequentially,
 		use_self_adaptation,
 		open_ga_monitor_browser_window,
@@ -1740,13 +1750,17 @@ class BBAutoTune( ):
 		
 		self.debug = debug or False;
 		
+		self.run_id = int( round( time.time( ) * 1000 ) );
+		
+		self.log( "Run ID." );
+		
+		self.log( str( self.run_id ) );
+		
 		if ( self.debug == True ):
 			
 			logs_location = get_scripts_location( ) + "logs/";
 			
-			milliseconds = int( round( time.time( ) * 1000 ) );
-			
-			self.log_file_name = logs_location + "bbautotune_" + str( milliseconds ) + ".log";
+			self.log_file_name = logs_location + "log_" + str( self.run_id ) + ".log";
 			
 			self.ga.set_log_file_name( self.log_file_name );
 			
@@ -1767,14 +1781,23 @@ class BBAutoTune( ):
 		
 		self.start_ga_monitor( );
 		
-		self.log( "Setting the GA parameters." );
+		self.log( "Setting the GA parameters. PS MG NE CP MP URS PCMS USA." );
+		
+		self.log( str( population_size ) );
+		self.log( str( max_generations ) );
+		self.log( str( number_of_elite ) );
+		self.log( str( crossover_probability ) );
+		self.log( str( mutation_probability ) );
+		self.log( str( use_rank_selection ) );
+		self.log( str( perform_crossover_and_mutation_sequentially ) );
+		self.log( str( use_self_adaptation ) );
 		
 		self.ga.set_population_size( population_size );
 		self.ga.set_max_generations( max_generations );
 		self.ga.set_number_of_elite( number_of_elite );
 		self.ga.set_crossover_probability( crossover_probability );
 		self.ga.set_mutation_probability( mutation_probability );
-		self.ga.set_use_rank_fitness( use_rank_fitness );
+		self.ga.set_use_rank_selection( use_rank_selection );
 		self.ga.set_perform_crossover_and_mutation_sequentially( perform_crossover_and_mutation_sequentially );
 		self.ga.set_use_self_adaptation( use_self_adaptation );
 		
@@ -1808,52 +1831,83 @@ class BBAutoTune( ):
 			
 			# Calculate current genome fitness.
 			
-			# Read in P=(x,y,z,t) and P'=(x',y',z',t') which was recorded by the robot monitor
-			# while the game engine was running. 
-			
-			# The z of the real robot was never recorded. Thus in the blend file z translation was locked.
-			# Maybe not ideal but this is the case.
-			# Throw away the z and z'.
+			# Read in P=(x_pos,y_pos,z_pos,x_ori,y_ori,z_ori) and P'=(x_pos,y_pos,z_pos,x_ori,y_ori,z_ori)
+			# which was recorded by the robot monitor while the game engine was running. 
 			
 			self.log( "Game engine stopped." );
 			
 			self.log( "Getting genome P and P'." );
+			self.log( "x , y , z , x_r , y _r , z_r" );
 			
 			shared_data_file = open( get_scripts_location( ) + "shared_data/genome_P_P'.dat", "r" );
 			
 			P = shared_data_file.readline( ).rstrip( );
 			P = P.split( "," );
-			P[ 0 ] = float( P[ 0 ] ); # x
-			P[ 1 ] = float( P[ 1 ] ); # y
-			P[ 2 ] = float( P[ 2 ] ); # z
-			P[ 3 ] = float( P[ 3 ] ); # t
+			P[ 0 ] = float( P[ 0 ] ); # x position.
+			P[ 1 ] = float( P[ 1 ] ); # y position.
+			P[ 2 ] = float( P[ 2 ] ); # z position.
+			P[ 3 ] = float( P[ 3 ] ); # x orientation.
+			P[ 4 ] = float( P[ 4 ] ); # y orientation.
+			P[ 5 ] = float( P[ 5 ] ); # z orientation.
+			P[ 6 ] = float( P[ 6 ] ); # Start time.
 			
 			P_prime = shared_data_file.readline( ).rstrip( );
 			P_prime = P_prime.split( "," );
-			P_prime[ 0 ] = float( P_prime[ 0 ] ); # x'
-			P_prime[ 1 ] = float( P_prime[ 1 ] ); # y'
-			P_prime[ 2 ] = float( P_prime[ 2 ] ); # z'
-			P_prime[ 3 ] = float( P_prime[ 3 ] ); # t'
+			P_prime[ 0 ] = float( P_prime[ 0 ] ); # x' position.
+			P_prime[ 1 ] = float( P_prime[ 1 ] ); # y' position.
+			P_prime[ 2 ] = float( P_prime[ 2 ] ); # z' position.
+			P_prime[ 3 ] = float( P_prime[ 3 ] ); # x' orientation.
+			P_prime[ 4 ] = float( P_prime[ 4 ] ); # y' orientation.
+			P_prime[ 5 ] = float( P_prime[ 5 ] ); # z' orientation.
+			P_prime[ 6 ] = float( P_prime[ 6 ] ); # End time.
 			
 			shared_data_file.close( );
 			
 			os.remove( get_scripts_location( ) + "shared_data/genome_P_P'.dat" );
 			
+			# Record simulated robot motion.
+			
+			simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srr_" + str( self.run_id ) + ".dat", "a" );
+			
+			write_string  = str( P[ 0 ] ) + ",";
+			write_string += str( P[ 1 ] ) + ",";
+			write_string += str( P[ 2 ] ) + ",";
+			write_string += str( P[ 3 ] ) + ",";
+			write_string += str( P[ 4 ] ) + ",";
+			write_string += str( P[ 5 ] ) + ";";
+			
+			write_string  = str( P_prime[ 0 ] ) + ",";
+			write_string += str( P_prime[ 1 ] ) + ",";
+			write_string += str( P_prime[ 2 ] ) + ",";
+			write_string += str( P_prime[ 3 ] ) + ",";
+			write_string += str( P_prime[ 4 ] ) + ",";
+			write_string += str( P_prime[ 5 ] ) + "\n";
+			
+			simulated_robot_motion_file.write( write_string );
+			
+			simulated_robot_motion_file.close( );
+			
 			self.log( str( P ) );
 			
 			self.log( str( P_prime ) );
 			
-			self.log( "Calculating genome fitness." );			
+			self.log( "Calculating genome fitness." );
 			
-			# Throw away z'.
+			current_genome_fitness = self.calculate_genome_fitness( P, P_prime );
 			
-			P_prime = [ P_prime[ 0 ], P_prime[ 1 ], P_prime[ 3 ] ];
-			
-			current_genome_fitness = self.calculate_genome_fitness( P_prime );
+			self.log( "Genome fitness." );
 			
 			self.log( str( current_genome_fitness ) );
 			
-			self.ga.set_genome_fitness( self.current_genome, current_genome_fitness );
+			self.ga.set_genome_fitness( self.current_genome, current_genome_fitness );				
+			
+			# Record the genome's phenotype (the physics parameters) and its eventual fitness.
+			
+			physics_parameters_with_fitness_file = open( get_scripts_location( ) + "data/physics_parameters_with_fitness/" + "ppwf_" + str( self.run_id ) + ".dat", "a" );
+			
+			physics_parameters_with_fitness_file.write( "fitness," + str( current_genome_fitness ) + "\n\n" );
+			
+			physics_parameters_with_fitness_file.close( );
 			
 			# Increase current genome + 1.
 			
@@ -1866,6 +1920,16 @@ class BBAutoTune( ):
 			# If current genome is equal to the population size.
 			
 			if ( self.current_genome == self.ga.get_population_size( ) ):
+				
+				self.log( "Evaluated all genomes in population." );
+				
+				# Separate recorded simulated robot motion by generation.
+			
+				simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srr_" + str( self.run_id ) + ".dat", "a" );
+				
+				simulated_robot_motion_file.write( "\n" );
+				
+				simulated_robot_motion_file.close( );
 				
 				self.log( "Current generation number: " + str( self.ga.get_generation_number( ) ) );
 				
@@ -1890,6 +1954,8 @@ class BBAutoTune( ):
 				mysql_string += "VALUES( " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " );"; 
 				
 				self.dbm.execute( mysql_string );
+				
+				self.log( mysql_string );
 				
 				# Generate a new population.
 				
@@ -1947,38 +2013,79 @@ class BBAutoTune( ):
 			
 	def calculate_mahalanobis_distance( self, point ):
 		
+		self.log( "Point." );
+		
+		self.log( str( point ) );
+		
 		md = scipy.spatial.distance.mahalanobis( point, self.rm, self.rcm_inv );
 		
 		md2 = md * md;
 		
 		return md, md2;
 	
-	def calculate_genome_fitness( self, point ):
+	def calculate_genome_fitness( self, start, end ):
 		
-		# Blender returns NaN for large distances in the dimensions x, y, and z.
-		# If this is the case, return fitness = -1.7976931348623158e+307 on this machine.
-		# The maximum float on this machine is 1.7976931348623157e+308 but to avoid inf,
-		# set it to a value one exponent less.
+		# Blender returns NaN for large positions/orientations for x, y, and z.
+		# If this is the case, set the fitness so some large value.
 		
-		fitness = sys.float_info[ 0 ] / -10.0;
+		# start/end structure:
+		#   x_pos   0
+		#   y_pos   1
+		#   z_pos   2
+		#   x_rot   3
+		#   y_rot   4
+		#   z_rot   5
+		# s/e_tim   6
 		
-		for i in range( len( point ) ):
+		
+		fitness = 9999999999.0;
+		
+		for i in range( len( end ) ):
 			
-			if ( numpy.isnan( point[ i ] ) ):
+			if ( numpy.isnan( end[ i ] ) ):
 				
 				return fitness;
+			
+		# Only 3 dof was recorded for the real robot.
+		# So assemble for the simulated robot its x' position, y' position, and z' orientation.
 		
-		md, md2 = self.calculate_mahalanobis_distance( point );
+		end_trimmed = [ end[ 0 ], end[ 1 ], end[ 5 ] ];
 		
-		self.log( "Genome fitness threshold." );
+		md, md2 = self.calculate_mahalanobis_distance( end_trimmed );
 		
-		self.log( str( self.genome_fitness_threshold ) );
+		self.log( "Genome mahalanobis distance." );
 		
-		self.log( "Genome mahalanobis distance" );
+		self.log( str( md ) );		
 		
-		self.log( str( md ) );
+		# Penalties?
 		
-		fitness = self.genome_fitness_threshold - md;
+		self.log( "Penalties." );
+		
+		# Time > 1 seconds.
+		
+		elapsed_time = ( ( end[ 6 ] - start[ 6 ] ) / 1000.0 ) - 1.0;
+		
+		self.log( "Elapsed time > 1 seconds: " + str( elapsed_time ) );
+		
+		# Rotation in x.
+		
+		rotation_x = abs( end[ 3 ] - start[ 3 ] );
+		
+		self.log( "X rotation: " + str( rotation_x ) );
+		
+		# Rotation in y.
+		
+		rotation_y = abs( end[ 4 ] - start[ 4 ] );
+		
+		self.log( "Y rotation: " + str( rotation_y ) );
+		
+		# Translation in z.
+		
+		translation_z = abs( end[ 2 ] - start[ 2 ] );
+		
+		self.log( "Z translation: " + str( translation_z ) );
+		
+		fitness = md + elapsed_time + rotation_x + rotation_y + translation_z;
 			
 		return fitness;
 		
@@ -2034,7 +2141,10 @@ class BBAutoTune( ):
 		
 		# Sub-steps.
 		
-		sub_steps = get_clamped_value( math.floor( ( genome_genes[ 1 ] * 49 ) + 1 ), 1, 50 );
+		# You can input 1 up to 50. However, if only sliding the values, the value only goes from 1 to 5.
+		# Not sure if this is a bug in the Blender code.
+		
+		sub_steps = get_clamped_value( math.floor( ( genome_genes[ 1 ] * ( 5 - 1 ) ) + 1 ), 1, 5 );
 		
 		self.log( "Setting sub steps." );
 		
@@ -2044,7 +2154,7 @@ class BBAutoTune( ):
 		
 		# FPS.
 		
-		fps = get_clamped_value( math.floor( ( genome_genes[ 2 ] * 9999 ) + 1 ), 1, 10000 );
+		fps = get_clamped_value( math.floor( ( genome_genes[ 2 ] * ( 10000 - 1 ) ) + 1 ), 1, 10000 );
 		
 		self.log( "Setting FPS." );
 		
@@ -2055,10 +2165,10 @@ class BBAutoTune( ):
 		### Object 
 		
 		# Scale XYZ?
+
+		scale = get_clamped_value( ( genome_genes[ 3 ] * INF ), 0.0, INF );
 		
 		'''
-		
-		scale = get_clamped_value( ( genome_genes[ 3 ] * INF ), 0.0, INF );
 		
 		bpy.data.objects[ front_wheel_l ].scale = [ scale, scale, scale ];
 		bpy.data.objects[ front_wheel_r ].scale = [ scale, scale, scale ];
@@ -2116,14 +2226,14 @@ class BBAutoTune( ):
 		### PHYSICS
 		
 		# Type?
-		
-		'''
-		
+
 		PHYSICS_TYPES = [ "NO_COLLISION", "STATIC", "DYNAMIC", "RIGID_BODY", "SOFT_BODY", "OCCLUDE", "SENSOR", "NAVMESH", "CHARACTER" ];
 		
 		physics_type = get_clamped_value( math.floor( genome_genes[ 7 ] * ( len( PHYSICS_TYPES ) - 1 ) ), 0, len( PHYSICS_TYPES ) - 1 );
 		
 		physics_type = PHYSICS_TYPES[ physics_type ];
+		
+		'''
 		
 		bpy.data.objects[ front_wheel_l ].game.physics_type = physics_type;
 		bpy.data.objects[ front_wheel_r ].game.physics_type = physics_type; 
@@ -2134,11 +2244,11 @@ class BBAutoTune( ):
 		
 		# Ghost?
 		
-		'''
-		
 		index = int( str( round( genome_genes[ 8 ] ) ).split( "." )[ 0 ] );
 		
 		use_ghost = BOOLEANS[ index ];
+		
+		'''
 		
 		bpy.data.objects[ front_wheel_l ].game.use_ghost = use_ghost;
 		bpy.data.objects[ front_wheel_r ].game.use_ghost = use_ghost;
@@ -2149,7 +2259,7 @@ class BBAutoTune( ):
 		
 		# Mass.
 		
-		mass = get_clamped_value( ( genome_genes[ 9 ] * 10000.0 ), 0.0, 10000.0 );
+		mass = get_clamped_value( 0.010 + ( genome_genes[ 9 ] * ( 10000.0 - 0.01 ) ), 0.010, 10000.0 );
 		
 		self.log( "Setting mass." );
 		
@@ -2273,6 +2383,31 @@ class BBAutoTune( ):
 		bpy.data.objects[ front_wheel_r ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
 		bpy.data.objects[ back_wheel_l  ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
 		bpy.data.objects[ back_wheel_r  ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
+		
+		# Record the genome's phenotype (the physics parameters) and its eventual fitness.
+		
+		physics_parameters_with_fitness_file = open( get_scripts_location( ) + "data/physics_parameters_with_fitness/" + "ppwf_" + str( self.run_id ) + ".dat", "a" ); 
+		
+		physics_parameters_with_fitness_file.write( "gravity," + str( gravity ) + "\n" );
+		physics_parameters_with_fitness_file.write( "sub_steps," + str( sub_steps ) + "\n" );
+		physics_parameters_with_fitness_file.write( "fps," + str( fps ) + "\n" );
+		#physics_parameters_with_fitness_file.write( "scale," + str( scale ) + "\n" );
+		physics_parameters_with_fitness_file.write( "use_material_physics," + str( use_material_physics ) + "\n" );
+		physics_parameters_with_fitness_file.write( "material_friction," + str( material_friction ) + "\n" );
+		physics_parameters_with_fitness_file.write( "material_elasticity," + str( material_elasticity ) + "\n" );
+		#physics_parameters_with_fitness_file.write( "physics_type," + str( physics_type ) + "\n" );
+		#physics_parameters_with_fitness_file.write( "use_ghost," + str( use_ghost ) + "\n" );
+		physics_parameters_with_fitness_file.write( "mass," + str( mass ) + "\n" );
+		physics_parameters_with_fitness_file.write( "form_factor," + str( form_factor ) + "\n" );
+		physics_parameters_with_fitness_file.write( "velocity_max," + str( velocity_max ) + "\n" );
+		physics_parameters_with_fitness_file.write( "damping," + str( damping ) + "\n" );
+		physics_parameters_with_fitness_file.write( "rotation_damping," + str( rotation_damping ) + "\n" );
+		physics_parameters_with_fitness_file.write( "use_collision_bounds," + str( use_collision_bounds ) + "\n" );
+		physics_parameters_with_fitness_file.write( "collision_margin," + str( collision_margin ) + "\n" );
+		physics_parameters_with_fitness_file.write( "collision_bounds_type," + str( collision_bounds_type ) + "\n" );
+		physics_parameters_with_fitness_file.write( "torque_y," + str( torque_y ) + "\n" );
+		
+		physics_parameters_with_fitness_file.close( );
 		
 class Database_Manager( ):
 	
