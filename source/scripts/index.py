@@ -41,8 +41,8 @@ for row in result:
 if ( len( highest_fitnesses ) != 0 ):
 	
 	max_fitness = min( highest_fitnesses );
-	min_fitness = max( lowest_fitnesses  );
-
+	min_fitness = max( lowest_fitnesses );
+	
 	if ( min_fitness > 200.0 ):
 		
 		min_fitness = 200.0;
@@ -64,6 +64,12 @@ if ( len( highest_fitnesses ) != 0 ):
 	lf_mean = numpy.mean( lowest_fitnesses );
 	lf_var  = numpy.var( lowest_fitnesses );
 	lf_std  = numpy.std( lowest_fitnesses );
+	
+	cp_max  = max( crossover_probabilities );	
+	cp_min  = min( crossover_probabilities );
+	
+	mp_max  = max( mutation_probabilities );
+	mp_min  = min( mutation_probabilities );
 	
 else:
 	
@@ -87,6 +93,12 @@ else:
 	lf_mean = 0.0;
 	lf_var  = 0.0;
 	lf_std  = 0.0;
+	
+	cp_max  = 0.0;	
+	cp_min  = 0.0;
+	
+	mp_max  = 0.0;
+	mp_min  = 0.0;
 
 print( "Content-type: text/html\n" );
 
@@ -95,7 +107,6 @@ print( "<html>" );
 print( "<head>" );
 print( "<meta http-equiv='content-type' content='text/html; charset=UTF-8'>");
 print( "<title>GA Progress Monitor | BBAutoTune</title>" );
-print( "<script type='text/javascript' src='dependencies/Chart.min.js'></script>" );
 print( "</head>" );
 print( "<body style='background: #556;'>" );
 print( "<font style='font-family: sans-serif; font-size: 50px; color: #fff;'>GA Progress Monitor | BBAutoTune</font><br><br>" );
@@ -103,14 +114,10 @@ print( "<table cellpadding='0' cellspacing='20px'>" );
 print( "<tr>" );
 print( "<td>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>GA Fitness Progress:&nbsp;</font>" );
-print( "<font style='font-family: sans-serif; font-size: 20px; color: rgba( 255,  10,  10, 0.8 );'>Highest&nbsp;</font>" );
-print( "<font style='font-family: sans-serif; font-size: 20px; color: rgba(  10, 255,  10, 0.8 );'>Average&nbsp;</font>" );
-print( "<font style='font-family: sans-serif; font-size: 20px; color: rgba(  10,  10, 255, 0.8 );'>Lowest&nbsp;</font><br><br>" );
-print( "<canvas id='fitness_chart' width='1500' height='600' style='background: #fff; border: 1px #000 solid;'></canvas>" );
-print( "<script type='text/javascript'>" );
-print( "document.getElementById('fitness_chart').width  = window.innerWidth - 100;" );
-print( "document.getElementById('fitness_chart').height = window.innerHeight / 2;" );
-print( "</script>" );
+print( "<font style='font-family: sans-serif; font-size: 20px; color: #89bbd8;'>Highest&nbsp;</font>" );
+print( "<font style='font-family: sans-serif; font-size: 20px; color: #9dd597;'>Average&nbsp;</font>" );
+print( "<font style='font-family: sans-serif; font-size: 20px; color: #DD5C5C;'>Lowest&nbsp;</font><br><br>" );
+print( "<figure style='width: 800px; height: 600px;' id='fitnesses'></figure><br>" );
 print( "</td>" );
 print( "</tr>" );
 print( "<tr>" );
@@ -122,113 +129,72 @@ print( "</td>" );
 print( "</tr>" );
 print( "<tr>" );
 print( "<td>" );
-print( "<font style='font-family: sans-serif; font-size: 30px; color: rgba( 255, 10,  10, 0.8 );'>Crossover&nbsp;</font>" );
+print( "<font style='font-family: sans-serif; font-size: 30px; color: #89bbd8;'>Crossover&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>&&nbsp;</font>" );
-print( "<font style='font-family: sans-serif; font-size: 30px; color: rgba(  10, 255, 10, 0.8 );'>Mutation&nbsp;</font>" );
+print( "<font style='font-family: sans-serif; font-size: 30px; color: #9dd597;'>Mutation&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'> Rate Progress:&nbsp;</font><br><br>" );
-print( "<canvas id='cross_mut_chart' width='1500' height='600' style='background: #fff; border: 1px #000 solid;'></canvas>" );
-print( "<script type='text/javascript'>" );
-print( "document.getElementById('cross_mut_chart').width  = window.innerWidth - 100;" );
-print( "document.getElementById('cross_mut_chart').height = window.innerHeight / 2;" );
-print( "</script>" );
+print( "<figure style='width: 800px; height: 600px;' id='probabilities'></figure>" );
 print( "</td>" );
 print( "</tr>" );
 print( "</table>" );
-print( "<script type='text/javascript'>" );
-print( "setTimeout( function ( ) { window.location.reload( false ); }, 60000 );" );
-print( "var fitness_chart_context = document.getElementById( 'fitness_chart' ).getContext( '2d' );" );
-print( "var fitness_data = {" );
-print( "labels: [ " );
+print( "<script type='text/javascript' src='dependencies/d3/d3.min.js'></script>" );
+print( "<script type='text/javascript' src='dependencies/xcharts/xcharts.min.js'></script>" );
+print( "<link rel='stylesheet' type='text/css' href='dependencies/xcharts/xcharts.css'>" );
+print( "<script>" );
+print( "document.getElementById('fitnesses').style.width  = window.innerWidth - 200 + 'px';" );
+print( "document.getElementById('fitnesses').style.height = window.innerHeight -300 + 'px';" );
+print( " var fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( hf_max ) ) +", 'yMin': " + str( af_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'main': [ " );
+print( "{ 'className': '.highFitnesses', 'data': [" );
 
-for row in result:
+for i in range( len( highest_fitnesses ) ):
 	
-	print( "'" + str( row[ 1 ] ) + "'," ); # Generation number.
-
-print( "]," );
-print( "datasets: [" );
-print( "{" );
-print( "fillColor :   'rgba( 255, 10, 10, 0.09 )'," );
-print( "strokeColor : 'rgba( 255, 10, 10, 0.8 )',"  );
-print( "pointColor :  'rgba( 255, 10, 10, 0.5 )',"  );
-print( "pointStrokeColor : '#911'," );
-print( "data: [" );
-
-for row in result:
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( highest_fitnesses[ i ] ) );
+	print( "}," );
 	
-	print( "'" + str( row[ 2 ] ) + "'," ); # Highest fitness.
-
-print( "]" );
-print( "}," );
-print( "{" );
-print( "fillColor :   'rgba( 10, 255, 10, 0.09 )'," );
-print( "strokeColor : 'rgba( 10, 255, 10, 0.8 )',"  );
-print( "pointColor :  'rgba( 10, 255, 10, 0.5 )',"  );
-print( "pointStrokeColor : '#191'," );
-print( "data: [" );
-
-for row in result:
+print( "] }," );
+print( "{ 'className': '.averageFitnesses', 'data': [" );
+for i in range( len( average_fitnesses ) ):
 	
-	print( "'" + str( row[ 3 ] ) + "'," ); # Average fitness. 
-
-print( "]" );
-print( "}," );
-print( "{" );
-print( "fillColor :   'rgba( 10, 10, 255, 0.09 )'," );
-print( "strokeColor : 'rgba( 10, 10, 255, 0.8 )',"  );
-print( "pointColor :  'rgba( 10, 10, 255, 0.5 )',"  );
-print( "pointStrokeColor : '#119'," );
-print( "data: [" );
-
-for row in result:
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( average_fitnesses[ i ] ) );
+	print( "}," );
+print( " ] }," );
+print( "{ 'className': '.lowestFitnesses', 'data': [" );
+for i in range( len( lowest_fitnesses ) ):
 	
-	print( "'" + str( row[ 4 ] ) + "'," ); # Lowest fitness.
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( lowest_fitnesses[ i ] ) );
+	print( "}," );
+print( " ] }" );
+print( "] };" );
+print( "var fitnesses_chart = new xChart( 'line-dotted', fitnesses_data, '#fitnesses', { 'axisPaddingTop': 10 } );" );
+print( "document.getElementById('probabilities').style.width  = window.innerWidth - 200 + 'px';" );
+print( "document.getElementById('probabilities').style.height = window.innerHeight -300 + 'px';" );
+print( " var probabilities_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': 1.0, 'yMin': 0.0, 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'main': [ " );
+print( "{ 'className': '.crossoverProbabilities', 'data': [" );
 
-print( "]" );
-print( "}" );
-print( "]" );
-print( "};" );
-print( "var fitness_chart_options = { scaleOverride: true, scaleSteps: 20.1, scaleStepWidth: " + str( ( max_fitness - min_fitness ) / 20.0 ) + ", scaleStartValue: " + str( min_fitness ) + ", scaleFontFamily: \"'sans-serif'\" };" );
-print( "var fitness_chart = new Chart( fitness_chart_context ).Line( fitness_data, fitness_chart_options );" );
-print( "var cross_mut_chart_context = document.getElementById( 'cross_mut_chart' ).getContext( '2d' );" );
-print( "var cross_mut_data = {" );
-print( "labels: [ " );
-
-for row in result:
+for i in range( len( crossover_probabilities ) ):
 	
-	print( "'" + str( row[ 1 ] ) + "'," );
-
-print( "]," );
-print( "datasets: [" );
-print( "{" );
-print( "fillColor :   'rgba( 255, 10, 10, 0.1 )'," );
-print( "strokeColor : 'rgba( 255, 10, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 255, 10, 10, 0.5 )'," );
-print( "pointStrokeColor : '#333'," );
-print( "data: [" );
-
-for row in result:
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( crossover_probabilities[ i ] ) );
+	print( "}," );
 	
-	print( "'" + str( row[ 5 ] ) + "'," ); # Crossover probability.
-
-print( "]" );
-print( "}," );
-print( "{" );
-print( "fillColor :   'rgba( 10, 255, 10, 0.1 )'," );
-print( "strokeColor : 'rgba( 10, 255, 10, 0.8 )'," );
-print( "pointColor :  'rgba( 10, 255, 10, 0.5 )'," );
-print( "pointStrokeColor : '#222'," );
-print( "data: [" );
-
-for row in result:
+print( "] }," );
+print( "{ 'className': '.mutationProbabilities', 'data': [" );
+for i in range( len( mutation_probabilities ) ):
 	
-	print( "'" + str( row[ 6 ] ) + "'," ); # Mutation probability.
-
-print( "]" );
-print( "}" );
-print( "]" );
-print( "};" );
-print( "var cross_mut_chart_options = { scaleOverride: true, scaleSteps: 20.1, scaleStepWidth: 0.05, scaleStartValue: 0.0, scaleFontFamily: \"'sans-serif'\" };" );
-print( "var fitness_chart = new Chart( cross_mut_chart_context ).Line( cross_mut_data, cross_mut_chart_options );" );
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( mutation_probabilities[ i ] ) );
+	print( "}," );
+print( " ] }" );
+print( "] };" );
+print( "var probabilities_chart = new xChart( 'line-dotted', probabilities_data, '#probabilities', { 'axisPaddingTop': 10 } );" );	
 print( "</script>" );
 print( "<font style='font-family: sans-serif; font-size: 10px; color: #fff;'>David Lettier (C) 2014.</font><br><br>" );
 print( "</body>" );
