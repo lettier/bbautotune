@@ -933,8 +933,8 @@ class Genetic_Algorithm( ):
 			# it should not match parent two's genes as the offspring
 			# should be a combination of the two.
 			
-			if ( ( offspring.genes != self.population[ parent_one_index ].genes ) and
-				( offspring.genes != self.population[ parent_two_index ].genes ) ):
+			if (    ( offspring.genes != self.population[ parent_one_index ].genes ) and
+				( offspring.genes != self.population[ parent_two_index ].genes )     ):
 					
 				# Weighted average fitness of the parents based on crossover point
 				# determining percentage of genes received from parent one and parent two.
@@ -1070,13 +1070,13 @@ class Genetic_Algorithm( ):
 
 		crossover_point = random.randint( 0, ( self.number_of_genes_per_genome - 1 ) );
 		
+		self.log( "Crossover point." );
+			
+		self.log( str( crossover_point ) );
+		
 		if ( ( random.uniform( 0.0, 1.0 ) <= self.crossover_probability ) and ( parent_one_index != parent_two_index ) and ( crossover_point != 0 ) ):
 
 			# Cross the parent's genes in the offspring.
-			
-			self.log( "Crossover point." );
-			
-			self.log( str( crossover_point ) );
 
 			offspring_one.genes = [ ];
 			offspring_two.genes = [ ];
@@ -1113,7 +1113,7 @@ class Genetic_Algorithm( ):
 
 		# Attempt to mutate offspring one.
 		
-		self.log( "Attempting to mutate first cross offspring." );
+		self.log( "Attempting to mutate the first offspring." );
 		
 		mutated_one = False;
 		
@@ -1153,7 +1153,7 @@ class Genetic_Algorithm( ):
 	
 		# Attempt to mutate offspring two.
 		
-		self.log( "Attempting to mutate second cross offspring." );
+		self.log( "Attempting to mutate the second offspring." );
 		
 		mutated_two = False;
 		
@@ -1294,12 +1294,14 @@ class Genetic_Algorithm( ):
 
 		self.average_fitness = self.total_fitness / float( self.population_size );
 		
-		self.log( "Population metrics. T H L A." );
+		self.log( "Population metrics. T H L A Fi Wi." );
 		
-		self.log( str( self.total_fitness ) );
-		self.log( str( self.highest_fitness ) );
-		self.log( str( self.lowest_fitness ) );
-		self.log( str( self.average_fitness ) );
+		self.log( str( self.total_fitness        ) );
+		self.log( str( self.highest_fitness      ) );
+		self.log( str( self.lowest_fitness       ) );
+		self.log( str( self.average_fitness      ) );
+		self.log( str( self.fittest_genome_index ) );
+		self.log( str( self.weakest_genome_index ) );
 		
 	def compute_population_makeup( self ):
 		
@@ -1345,25 +1347,28 @@ class Genetic_Algorithm( ):
 		
 		self.log( "Adapting crossover and mutation probabilities." );
 		
-		crossover_operator_progress_sum = 0;
+		crossover_operator_progress_sum = 0.0;
 		number_of_crossovers            = 0;
 		
-		mutation_operator_progress_sum  = 0;
+		mutation_operator_progress_sum  = 0.0;
 		number_of_mutations             = 0;
 		
 		# Sum all of the progresses.
+		
+		# Since the GA is looking to minimize the fitness function, progress is when the offspring has a lower fitness score
+		# than its parent.
 		
 		for i in range( self.population_size ):
 
 			if ( self.population[ i ].created_by == 1 ): # Created by crossover.
 
-				crossover_operator_progress_sum += ( self.population[ i ].fitness - self.population[ i ].parent_fitness );
+				crossover_operator_progress_sum += ( self.population[ i ].parent_fitness - self.population[ i ].fitness );
 				
 				number_of_crossovers += 1;
 			
 			elif ( self.population[ i ].created_by == 2 ): # Created by mutation.
 
-				mutation_operator_progress_sum  += ( self.population[ i ].fitness - self.population[ i ].parent_fitness );
+				mutation_operator_progress_sum  += ( self.population[ i ].parent_fitness - self.population[ i ].fitness );
 				
 				number_of_mutations += 1;
 				
@@ -1382,13 +1387,21 @@ class Genetic_Algorithm( ):
 
 		# Adjust crossover and mutation rate adjustments.
 		
-		if ( self.highest_fitness > self.lowest_fitness ):
-
-			self.crossover_probability_adjustment = 0.01 * ( ( self.highest_fitness - self.average_fitness ) / ( self.highest_fitness - self.lowest_fitness ) );
+		self.log( "Adjusting crossover and mutation rate adjustments." );
+		
+		if ( self.lowest_fitness > self.highest_fitness ):
 			
-			self.mutation_probability_adjustment  = 0.01 * ( ( self.highest_fitness - self.average_fitness ) / ( self.highest_fitness - self.lowest_fitness ) );
+			self.log( "L > H" );
 
-		elif ( self.highest_fitness == self.average_fitness ):
+			self.crossover_probability_adjustment = 0.01 * ( ( self.lowest_fitness - self.average_fitness ) / ( self.lowest_fitness - self.highest_fitness ) );
+			
+			self.mutation_probability_adjustment  = 0.01 * ( ( self.lowest_fitness - self.average_fitness ) / ( self.lowest_fitness - self.highest_fitness ) );
+
+			self.log( str( self.crossover_probability_adjustment ) + " " + str( self.mutation_probability_adjustment ) );
+
+		elif ( self.lowest_fitness == self.average_fitness ):
+			
+			self.log( "L == A" );
 
 			self.crossover_probability_adjustment = 0.01;
 			
@@ -2084,7 +2097,7 @@ class BBAutoTune( ):
 		
 		# Time > 1 seconds.
 		
-		elapsed_time = ( ( end[ 6 ] - start[ 6 ] ) / 1000.0 ) - 1.0;
+		elapsed_time = abs( ( ( end[ 6 ] - start[ 6 ] ) / 1000.0 ) - 1.0 );
 		
 		self.log( "Elapsed time > 1 seconds: " + str( elapsed_time ) );
 		

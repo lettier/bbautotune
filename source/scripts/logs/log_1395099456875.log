@@ -1,0 +1,1599 @@
+Connecting to the database.
+Starting the GA manager.
+Setting the GA parameters. PS MG NE CP MP URS PCMS USA.
+10
+100
+2
+0.800000011920929
+0.20000000298023224
+True
+False
+True
+Creating a random GA population.
+Generating random population.
+Genome: 0
+Random gene: 0
+0.4707668548921292
+Random gene: 1
+0.9764888405407319
+Random gene: 2
+0.889643111634633
+Random gene: 3
+0.9639510439627114
+Random gene: 4
+0.960509186625015
+Random gene: 5
+0.5812915546445651
+Random gene: 6
+0.7147845451331765
+Random gene: 7
+0.12604607769319742
+Random gene: 8
+0.2850987225704201
+Random gene: 9
+0.7161210951078645
+Random gene: 10
+0.8568434190154331
+Random gene: 11
+0.7690367515991995
+Random gene: 12
+0.674502661904769
+Random gene: 13
+0.1868390249812807
+Random gene: 14
+0.03869789847412575
+Random gene: 15
+0.3117162976866439
+Random gene: 16
+0.5306781456730582
+Random gene: 17
+0.6471235301667357
+Genome: 1
+Random gene: 0
+0.8793378662921302
+Random gene: 1
+0.001078691857955838
+Random gene: 2
+0.03646494848236459
+Random gene: 3
+0.8840694911255403
+Random gene: 4
+0.7088281879403766
+Random gene: 5
+0.8430160053034922
+Random gene: 6
+0.6147558596006931
+Random gene: 7
+0.7002363106692342
+Random gene: 8
+0.9897395317560871
+Random gene: 9
+0.5276775414731737
+Random gene: 10
+0.7065645608792424
+Random gene: 11
+0.757488135801837
+Random gene: 12
+0.5766945990884561
+Random gene: 13
+0.8162149891533094
+Random gene: 14
+0.39979714358749563
+Random gene: 15
+0.23470772779112903
+Random gene: 16
+0.8868018296813543
+Random gene: 17
+0.5311138575985632
+Genome: 2
+Random gene: 0
+0.3905007895361816
+Random gene: 1
+0.9181570965824355
+Random gene: 2
+0.2095204746496715
+Random gene: 3
+0.2398671119622816
+Random gene: 4
+0.4510838685932217
+Random gene: 5
+0.4669872326374839
+Random gene: 6
+0.301795250123562
+Random gene: 7
+0.6135476562542274
+Random gene: 8
+0.14180553537456575
+Random gene: 9
+0.7809483603885647
+Random gene: 10
+0.31264374941491624
+Random gene: 11
+0.4548115131607664
+Random gene: 12
+0.03015951824242158
+Random gene: 13
+0.21696640879597284
+Random gene: 14
+0.2262941697587475
+Random gene: 15
+0.357241147743919
+Random gene: 16
+0.1877265845726861
+Random gene: 17
+0.1422821593446214
+Genome: 3
+Random gene: 0
+0.6509982206564667
+Random gene: 1
+0.3073227050709191
+Random gene: 2
+0.1131983376179726
+Random gene: 3
+0.7057764668056682
+Random gene: 4
+0.8906878100577198
+Random gene: 5
+0.7051600325641851
+Random gene: 6
+0.6362200096190427
+Random gene: 7
+0.987265954974791
+Random gene: 8
+0.019967754921828784
+Random gene: 9
+0.7277945598897437
+Random gene: 10
+0.7703780570784298
+Random gene: 11
+0.6071261356941684
+Random gene: 12
+0.5613085887494791
+Random gene: 13
+0.4808563315451492
+Random gene: 14
+0.20466957030697275
+Random gene: 15
+0.07310794947636634
+Random gene: 16
+0.160027825521594
+Random gene: 17
+0.7704193325446788
+Genome: 4
+Random gene: 0
+0.2363880634960689
+Random gene: 1
+0.49896195384659847
+Random gene: 2
+0.9597614412229906
+Random gene: 3
+0.6414044346051065
+Random gene: 4
+0.7411095079910218
+Random gene: 5
+0.7496474639061748
+Random gene: 6
+0.11161405107862932
+Random gene: 7
+0.4012155617683363
+Random gene: 8
+0.9440051178765564
+Random gene: 9
+0.5127823697148458
+Random gene: 10
+0.5154566963899317
+Random gene: 11
+0.6703886922690443
+Random gene: 12
+0.6736087071535051
+Random gene: 13
+0.017166054842821743
+Random gene: 14
+0.6047883494847858
+Random gene: 15
+0.5341362419220024
+Random gene: 16
+0.7056880548235964
+Random gene: 17
+0.8612278251985578
+Genome: 5
+Random gene: 0
+0.5656797077842406
+Random gene: 1
+0.24198754903053676
+Random gene: 2
+0.061327494632976376
+Random gene: 3
+0.6352283878624945
+Random gene: 4
+0.013349836629635292
+Random gene: 5
+0.37668190307577987
+Random gene: 6
+0.7123907838347285
+Random gene: 7
+0.8296016248602056
+Random gene: 8
+0.911020876271646
+Random gene: 9
+0.15275778956673935
+Random gene: 10
+0.3543513463793396
+Random gene: 11
+0.5376099739335085
+Random gene: 12
+0.20198305608658773
+Random gene: 13
+0.0860740888211895
+Random gene: 14
+0.49445847029957735
+Random gene: 15
+0.9805079844605473
+Random gene: 16
+0.025706989989490836
+Random gene: 17
+0.21292460219113818
+Genome: 6
+Random gene: 0
+0.08540878477084368
+Random gene: 1
+0.4421638821529431
+Random gene: 2
+0.7788604778599727
+Random gene: 3
+0.14136214405041025
+Random gene: 4
+0.5743774624258349
+Random gene: 5
+0.5985877118265388
+Random gene: 6
+0.7126333726739034
+Random gene: 7
+0.9201673325916239
+Random gene: 8
+0.1448274110991541
+Random gene: 9
+0.45280084895286277
+Random gene: 10
+0.7658596031405505
+Random gene: 11
+0.4992947066857186
+Random gene: 12
+0.2903883847604284
+Random gene: 13
+0.28690161985047125
+Random gene: 14
+0.22858142618771837
+Random gene: 15
+0.8780976112946913
+Random gene: 16
+0.6410927796872823
+Random gene: 17
+0.5371395166153603
+Genome: 7
+Random gene: 0
+0.19110026351428366
+Random gene: 1
+0.8066350268636361
+Random gene: 2
+0.3545829271766757
+Random gene: 3
+0.45610107608309347
+Random gene: 4
+0.23685682611782688
+Random gene: 5
+0.9677967711554233
+Random gene: 6
+0.6379414031534262
+Random gene: 7
+0.08485895739608518
+Random gene: 8
+0.5241383441034544
+Random gene: 9
+0.0648485171275669
+Random gene: 10
+0.7199086379173844
+Random gene: 11
+0.4546537096362593
+Random gene: 12
+0.8761310631384842
+Random gene: 13
+0.10192033830441816
+Random gene: 14
+0.8046312914289823
+Random gene: 15
+0.2770626597598269
+Random gene: 16
+0.6207695940075793
+Random gene: 17
+0.8057619474484161
+Genome: 8
+Random gene: 0
+0.3284514390226503
+Random gene: 1
+0.851715123126526
+Random gene: 2
+0.8768403796775919
+Random gene: 3
+0.0009478373810579699
+Random gene: 4
+0.9904270202311719
+Random gene: 5
+0.13815668202819664
+Random gene: 6
+0.03973749278358063
+Random gene: 7
+0.45667238670471677
+Random gene: 8
+0.9310245264769635
+Random gene: 9
+0.13583405882726052
+Random gene: 10
+0.6429228957136572
+Random gene: 11
+0.20637845373670705
+Random gene: 12
+0.030237919566776572
+Random gene: 13
+0.8645131192410674
+Random gene: 14
+0.7457797387518413
+Random gene: 15
+0.9174119301728617
+Random gene: 16
+0.8812011284865717
+Random gene: 17
+0.7667324036352986
+Genome: 9
+Random gene: 0
+0.17545497954143074
+Random gene: 1
+0.009401668527138862
+Random gene: 2
+0.6819341589312532
+Random gene: 3
+0.13597758734905951
+Random gene: 4
+0.34303820720754497
+Random gene: 5
+0.7723262823031657
+Random gene: 6
+0.0057576990610681555
+Random gene: 7
+0.7375562358505025
+Random gene: 8
+0.6496229343733667
+Random gene: 9
+0.33723618193124916
+Random gene: 10
+0.9634454226153673
+Random gene: 11
+0.23578275128845771
+Random gene: 12
+0.24115301757031204
+Random gene: 13
+0.4578167388583051
+Random gene: 14
+0.8353871647739298
+Random gene: 15
+0.5346741253986068
+Random gene: 16
+0.07004811518978515
+Random gene: 17
+0.7206067001890047
+Population metrics. T H L A.
+0.0
+0.0
+0.0
+0.0
+Setting the current genome to 0.
+Entering loop.
+Current genome.
+(0, 0, 0.0, 0.0, [0.4707668548921292, 0.9764888405407319, 0.889643111634633, 0.9639510439627114, 0.960509186625015, 0.5812915546445651, 0.7147845451331765, 0.12604607769319742, 0.2850987225704201, 0.7161210951078645, 0.8568434190154331, 0.7690367515991995, 0.674502661904769, 0.1868390249812807, 0.03869789847412575, 0.3117162976866439, 0.5306781456730582, 0.6471235301667357])
+Populating the physics engine parameters.
+Genome genes.
+[0.4707668548921292, 0.9764888405407319, 0.889643111634633, 0.9639510439627114, 0.960509186625015, 0.5812915546445651, 0.7147845451331765, 0.12604607769319742, 0.2850987225704201, 0.7161210951078645, 0.8568434190154331, 0.7690367515991995, 0.674502661904769, 0.1868390249812807, 0.03869789847412575, 0.3117162976866439, 0.5306781456730582, 0.6471235301667357]
+Setting gravity.
+4707.668548921292
+Setting sub steps.
+4
+Setting FPS.
+8899
+Setting material friction.
+58.1291554644565
+Setting material elasticity.
+0.7147845451331765
+Setting mass.
+7161.213789867694
+Setting form factor.
+0.8568434190154331
+Setting velocity max.
+769.0367515991995
+Setting damping translation.
+0.674502661904769
+Setting rotation damping.
+0.1868390249812807
+Setting collision bounds type.
+CONVEX_HULL
+Setting torque-z.
+65.06522948650684
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099456979.599]
+[0.269706011749804, -0.23129673209041357, 0.0, 0.019765974953770638, -0.005015873350203037, 0.0733272060751915, 1395099472998.721]
+Calculating genome fitness.
+Point.
+[0.269706011749804, -0.23129673209041357, 0.0733272060751915]
+Genome mahalanobis distance.
+19.865152438
+Penalties.
+Elapsed time > 1 seconds: 15.019121826171876
+X rotation: 0.019765974953770638
+Y rotation: 0.005015873350203037
+Z translation: 0.0
+Genome fitness.
+34.9090561125
+Increasing current genome count.
+1
+Current genome.
+(1, 0, 0.0, 0.0, [0.8793378662921302, 0.001078691857955838, 0.03646494848236459, 0.8840694911255403, 0.7088281879403766, 0.8430160053034922, 0.6147558596006931, 0.7002363106692342, 0.9897395317560871, 0.5276775414731737, 0.7065645608792424, 0.757488135801837, 0.5766945990884561, 0.8162149891533094, 0.39979714358749563, 0.23470772779112903, 0.8868018296813543, 0.5311138575985632])
+Populating the physics engine parameters.
+Genome genes.
+[0.8793378662921302, 0.001078691857955838, 0.03646494848236459, 0.8840694911255403, 0.7088281879403766, 0.8430160053034922, 0.6147558596006931, 0.7002363106692342, 0.9897395317560871, 0.5276775414731737, 0.7065645608792424, 0.757488135801837, 0.5766945990884561, 0.8162149891533094, 0.39979714358749563, 0.23470772779112903, 0.8868018296813543, 0.5311138575985632]
+Setting gravity.
+8793.378662921301
+Setting sub steps.
+1
+Setting FPS.
+393
+Setting material friction.
+84.30160053034922
+Setting material elasticity.
+0.6147558596006931
+Setting mass.
+5276.7801379563225
+Setting form factor.
+0.7065645608792424
+Setting velocity max.
+757.4881358018371
+Setting damping translation.
+0.5766945990884561
+Setting rotation damping.
+0.8162149891533094
+Setting collision bounds type.
+CYLINDER
+Setting torque-z.
+53.580271902257756
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099473085.1868]
+[17793.45703125, -7653.569793701172, 0.0, -0.33549726009368896, 0.3128077983856201, 1.461247205734253, 1395099489115.048]
+Calculating genome fitness.
+Point.
+[17793.45703125, -7653.569793701172, 1.461247205734253]
+Genome mahalanobis distance.
+16509.3573858
+Penalties.
+Elapsed time > 1 seconds: 15.029861328125001
+X rotation: 0.33549726009368896
+Y rotation: 0.3128077983856201
+Z translation: 0.0
+Genome fitness.
+16525.0355522
+Increasing current genome count.
+2
+Current genome.
+(2, 0, 0.0, 0.0, [0.3905007895361816, 0.9181570965824355, 0.2095204746496715, 0.2398671119622816, 0.4510838685932217, 0.4669872326374839, 0.301795250123562, 0.6135476562542274, 0.14180553537456575, 0.7809483603885647, 0.31264374941491624, 0.4548115131607664, 0.03015951824242158, 0.21696640879597284, 0.2262941697587475, 0.357241147743919, 0.1877265845726861, 0.1422821593446214])
+Populating the physics engine parameters.
+Genome genes.
+[0.3905007895361816, 0.9181570965824355, 0.2095204746496715, 0.2398671119622816, 0.4510838685932217, 0.4669872326374839, 0.301795250123562, 0.6135476562542274, 0.14180553537456575, 0.7809483603885647, 0.31264374941491624, 0.4548115131607664, 0.03015951824242158, 0.21696640879597284, 0.2262941697587475, 0.357241147743919, 0.1877265845726861, 0.1422821593446214]
+Setting gravity.
+3905.0078953618163
+Setting sub steps.
+4
+Setting FPS.
+2118
+Setting material friction.
+46.698723263748384
+Setting material elasticity.
+0.301795250123562
+Setting mass.
+7809.485794402043
+Setting form factor.
+0.31264374941491624
+Setting velocity max.
+454.8115131607664
+Setting damping translation.
+0.03015951824242158
+Setting rotation damping.
+0.21696640879597284
+Setting collision bounds type.
+TRIANGLE_MESH
+Setting torque-z.
+15.08593377511752
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099489200.364]
+[3.64794097840786, 0.1747540314681828, 0.0, 0.0011674666311591864, -0.004129059612751007, 0.27348148822784424, 1395099505302.1372]
+Calculating genome fitness.
+Point.
+[3.64794097840786, 0.1747540314681828, 0.27348148822784424]
+Genome mahalanobis distance.
+18.5478343222
+Penalties.
+Elapsed time > 1 seconds: 15.101773193359374
+X rotation: 0.0011674666311591864
+Y rotation: 0.004129059612751007
+Z translation: 0.0
+Genome fitness.
+33.6549040418
+Increasing current genome count.
+3
+Current genome.
+(3, 0, 0.0, 0.0, [0.6509982206564667, 0.3073227050709191, 0.1131983376179726, 0.7057764668056682, 0.8906878100577198, 0.7051600325641851, 0.6362200096190427, 0.987265954974791, 0.019967754921828784, 0.7277945598897437, 0.7703780570784298, 0.6071261356941684, 0.5613085887494791, 0.4808563315451492, 0.20466957030697275, 0.07310794947636634, 0.160027825521594, 0.7704193325446788])
+Populating the physics engine parameters.
+Genome genes.
+[0.6509982206564667, 0.3073227050709191, 0.1131983376179726, 0.7057764668056682, 0.8906878100577198, 0.7051600325641851, 0.6362200096190427, 0.987265954974791, 0.019967754921828784, 0.7277945598897437, 0.7703780570784298, 0.6071261356941684, 0.5613085887494791, 0.4808563315451492, 0.20466957030697275, 0.07310794947636634, 0.160027825521594, 0.7704193325446788]
+Setting gravity.
+6509.982206564668
+Setting sub steps.
+2
+Setting FPS.
+1158
+Setting material friction.
+70.51600325641851
+Setting material elasticity.
+0.6362200096190427
+Setting mass.
+7277.9483209518385
+Setting form factor.
+0.7703780570784298
+Setting velocity max.
+607.1261356941684
+Setting damping translation.
+0.5613085887494791
+Setting rotation damping.
+0.4808563315451492
+Setting collision bounds type.
+TRIANGLE_MESH
+Setting torque-z.
+77.2715139219232
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099505388.311]
+[3071.2039947509766, 601.5438079833984, 0.0, -0.2555135190486908, -0.9119983911514282, -3.028336763381958, 1395099521414.4546]
+Calculating genome fitness.
+Point.
+[3071.2039947509766, 601.5438079833984, -3.028336763381958]
+Genome mahalanobis distance.
+2545.92143458
+Penalties.
+Elapsed time > 1 seconds: 15.0261435546875
+X rotation: 0.2555135190486908
+Y rotation: 0.9119983911514282
+Z translation: 0.0
+Genome fitness.
+2562.11509004
+Increasing current genome count.
+4
+Current genome.
+(4, 0, 0.0, 0.0, [0.2363880634960689, 0.49896195384659847, 0.9597614412229906, 0.6414044346051065, 0.7411095079910218, 0.7496474639061748, 0.11161405107862932, 0.4012155617683363, 0.9440051178765564, 0.5127823697148458, 0.5154566963899317, 0.6703886922690443, 0.6736087071535051, 0.017166054842821743, 0.6047883494847858, 0.5341362419220024, 0.7056880548235964, 0.8612278251985578])
+Populating the physics engine parameters.
+Genome genes.
+[0.2363880634960689, 0.49896195384659847, 0.9597614412229906, 0.6414044346051065, 0.7411095079910218, 0.7496474639061748, 0.11161405107862932, 0.4012155617683363, 0.9440051178765564, 0.5127823697148458, 0.5154566963899317, 0.6703886922690443, 0.6736087071535051, 0.017166054842821743, 0.6047883494847858, 0.5341362419220024, 0.7056880548235964, 0.8612278251985578]
+Setting gravity.
+2363.880634960689
+Setting sub steps.
+2
+Setting FPS.
+9598
+Setting material friction.
+74.96474639061748
+Setting material elasticity.
+0.11161405107862932
+Setting mass.
+5127.828569324761
+Setting form factor.
+0.5154566963899317
+Setting velocity max.
+670.3886922690443
+Setting damping translation.
+0.6736087071535051
+Setting rotation damping.
+0.017166054842821743
+Setting collision bounds type.
+CYLINDER
+Setting torque-z.
+86.26155469465722
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099521500.2031]
+[-107.44585990905762, 3.333834931254387, 0.0, -0.021833699196577072, 0.007997839711606503, -0.11578686535358429, 1395099537532.1318]
+Calculating genome fitness.
+Point.
+[-107.44585990905762, 3.333834931254387, -0.11578686535358429]
+Genome mahalanobis distance.
+109.38230787
+Penalties.
+Elapsed time > 1 seconds: 15.0319287109375
+X rotation: 0.021833699196577072
+Y rotation: 0.007997839711606503
+Z translation: 0.0
+Genome fitness.
+124.44406812
+Increasing current genome count.
+5
+Current genome.
+(5, 0, 0.0, 0.0, [0.5656797077842406, 0.24198754903053676, 0.061327494632976376, 0.6352283878624945, 0.013349836629635292, 0.37668190307577987, 0.7123907838347285, 0.8296016248602056, 0.911020876271646, 0.15275778956673935, 0.3543513463793396, 0.5376099739335085, 0.20198305608658773, 0.0860740888211895, 0.49445847029957735, 0.9805079844605473, 0.025706989989490836, 0.21292460219113818])
+Populating the physics engine parameters.
+Genome genes.
+[0.5656797077842406, 0.24198754903053676, 0.061327494632976376, 0.6352283878624945, 0.013349836629635292, 0.37668190307577987, 0.7123907838347285, 0.8296016248602056, 0.911020876271646, 0.15275778956673935, 0.3543513463793396, 0.5376099739335085, 0.20198305608658773, 0.0860740888211895, 0.49445847029957735, 0.9805079844605473, 0.025706989989490836, 0.21292460219113818]
+Setting gravity.
+5656.797077842406
+Setting sub steps.
+1
+Setting FPS.
+641
+Setting material friction.
+37.66819030757799
+Setting material elasticity.
+0.7123907838347285
+Setting mass.
+1527.586368089498
+Setting form factor.
+0.3543513463793396
+Setting velocity max.
+537.6099739335085
+Setting damping translation.
+0.20198305608658773
+Setting rotation damping.
+0.0860740888211895
+Setting collision bounds type.
+TRIANGLE_MESH
+Setting torque-z.
+22.07953561692268
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099537621.727]
+[532.2530269622803, 4769.144821166992, 0.0, -0.11558838188648224, -2.4178054332733154, 0.3305506408214569, 1395099553648.8394]
+Calculating genome fitness.
+Point.
+[532.2530269622803, 4769.144821166992, 0.3305506408214569]
+Genome mahalanobis distance.
+3920.72737897
+Penalties.
+Elapsed time > 1 seconds: 15.027112304687499
+X rotation: 0.11558838188648224
+Y rotation: 2.4178054332733154
+Z translation: 0.0
+Genome fitness.
+3938.28788509
+Increasing current genome count.
+6
+Current genome.
+(6, 0, 0.0, 0.0, [0.08540878477084368, 0.4421638821529431, 0.7788604778599727, 0.14136214405041025, 0.5743774624258349, 0.5985877118265388, 0.7126333726739034, 0.9201673325916239, 0.1448274110991541, 0.45280084895286277, 0.7658596031405505, 0.4992947066857186, 0.2903883847604284, 0.28690161985047125, 0.22858142618771837, 0.8780976112946913, 0.6410927796872823, 0.5371395166153603])
+Populating the physics engine parameters.
+Genome genes.
+[0.08540878477084368, 0.4421638821529431, 0.7788604778599727, 0.14136214405041025, 0.5743774624258349, 0.5985877118265388, 0.7126333726739034, 0.9201673325916239, 0.1448274110991541, 0.45280084895286277, 0.7658596031405505, 0.4992947066857186, 0.2903883847604284, 0.28690161985047125, 0.22858142618771837, 0.8780976112946913, 0.6410927796872823, 0.5371395166153603]
+Setting gravity.
+854.0878477084368
+Setting sub steps.
+2
+Setting FPS.
+7795
+Setting material friction.
+59.85877118265388
+Setting material elasticity.
+0.7126333726739034
+Setting mass.
+4528.013961520138
+Setting form factor.
+0.7658596031405505
+Setting velocity max.
+499.2947066857186
+Setting damping translation.
+0.2903883847604284
+Setting rotation damping.
+0.28690161985047125
+Setting collision bounds type.
+CONVEX_HULL
+Setting torque-z.
+54.17681214492067
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099553733.4448]
+[0.6377683486789465, -0.07076214533299208, 0.0, 0.030930452048778534, -0.024446694180369377, 0.04629462584853172, 1395099569766.2446]
+Calculating genome fitness.
+Point.
+[0.6377683486789465, -0.07076214533299208, 0.04629462584853172]
+Genome mahalanobis distance.
+19.4842064453
+Penalties.
+Elapsed time > 1 seconds: 15.0327998046875
+X rotation: 0.030930452048778534
+Y rotation: 0.024446694180369377
+Z translation: 0.0
+Genome fitness.
+34.5723833962
+Increasing current genome count.
+7
+Current genome.
+(7, 0, 0.0, 0.0, [0.19110026351428366, 0.8066350268636361, 0.3545829271766757, 0.45610107608309347, 0.23685682611782688, 0.9677967711554233, 0.6379414031534262, 0.08485895739608518, 0.5241383441034544, 0.0648485171275669, 0.7199086379173844, 0.4546537096362593, 0.8761310631384842, 0.10192033830441816, 0.8046312914289823, 0.2770626597598269, 0.6207695940075793, 0.8057619474484161])
+Populating the physics engine parameters.
+Genome genes.
+[0.19110026351428366, 0.8066350268636361, 0.3545829271766757, 0.45610107608309347, 0.23685682611782688, 0.9677967711554233, 0.6379414031534262, 0.08485895739608518, 0.5241383441034544, 0.0648485171275669, 0.7199086379173844, 0.4546537096362593, 0.8761310631384842, 0.10192033830441816, 0.8046312914289823, 0.2770626597598269, 0.6207695940075793, 0.8057619474484161]
+Setting gravity.
+1911.0026351428367
+Setting sub steps.
+4
+Setting FPS.
+3565
+Setting material friction.
+96.77967711554233
+Setting material elasticity.
+0.6379414031534262
+Setting mass.
+648.4945227904976
+Setting form factor.
+0.7199086379173844
+Setting velocity max.
+454.6537096362593
+Setting damping translation.
+0.8761310631384842
+Setting rotation damping.
+0.10192033830441816
+Setting collision bounds type.
+CONVEX_HULL
+Setting torque-z.
+80.7704327973932
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099569851.7725]
+[2.1167052909731865, -0.04416645097080618, 0.0, 0.016278425231575966, -0.0003238806966692209, 0.1234864592552185, 1395099585868.5938]
+Calculating genome fitness.
+Point.
+[2.1167052909731865, -0.04416645097080618, 0.1234864592552185]
+Genome mahalanobis distance.
+18.5752766675
+Penalties.
+Elapsed time > 1 seconds: 15.016821289062499
+X rotation: 0.016278425231575966
+Y rotation: 0.0003238806966692209
+Z translation: 0.0
+Genome fitness.
+33.6087002625
+Increasing current genome count.
+8
+Current genome.
+(8, 0, 0.0, 0.0, [0.3284514390226503, 0.851715123126526, 0.8768403796775919, 0.0009478373810579699, 0.9904270202311719, 0.13815668202819664, 0.03973749278358063, 0.45667238670471677, 0.9310245264769635, 0.13583405882726052, 0.6429228957136572, 0.20637845373670705, 0.030237919566776572, 0.8645131192410674, 0.7457797387518413, 0.9174119301728617, 0.8812011284865717, 0.7667324036352986])
+Populating the physics engine parameters.
+Genome genes.
+[0.3284514390226503, 0.851715123126526, 0.8768403796775919, 0.0009478373810579699, 0.9904270202311719, 0.13815668202819664, 0.03973749278358063, 0.45667238670471677, 0.9310245264769635, 0.13583405882726052, 0.6429228957136572, 0.20637845373670705, 0.030237919566776572, 0.8645131192410674, 0.7457797387518413, 0.9174119301728617, 0.8812011284865717, 0.7667324036352986]
+Setting gravity.
+3284.5143902265027
+Setting sub steps.
+4
+Setting FPS.
+8772
+Setting material friction.
+13.815668202819664
+Setting material elasticity.
+0.03973749278358063
+Setting mass.
+1358.349229932017
+Setting form factor.
+0.6429228957136572
+Setting velocity max.
+206.37845373670706
+Setting damping translation.
+0.030237919566776572
+Setting rotation damping.
+0.8645131192410674
+Setting collision bounds type.
+CYLINDER
+Setting torque-z.
+76.90650795989455
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099585954.42]
+[-97.76458740234375, -4.097540304064751, 0.0, 0.010898799635469913, -0.0034023986663669348, 0.07348978519439697, 1395099601982.1763]
+Calculating genome fitness.
+Point.
+[-97.76458740234375, -4.097540304064751, 0.07348978519439697]
+Genome mahalanobis distance.
+100.963863886
+Penalties.
+Elapsed time > 1 seconds: 15.02775634765625
+X rotation: 0.010898799635469913
+Y rotation: 0.0034023986663669348
+Z translation: 0.0
+Genome fitness.
+116.005921432
+Increasing current genome count.
+9
+Current genome.
+(9, 0, 0.0, 0.0, [0.17545497954143074, 0.009401668527138862, 0.6819341589312532, 0.13597758734905951, 0.34303820720754497, 0.7723262823031657, 0.0057576990610681555, 0.7375562358505025, 0.6496229343733667, 0.33723618193124916, 0.9634454226153673, 0.23578275128845771, 0.24115301757031204, 0.4578167388583051, 0.8353871647739298, 0.5346741253986068, 0.07004811518978515, 0.7206067001890047])
+Populating the physics engine parameters.
+Genome genes.
+[0.17545497954143074, 0.009401668527138862, 0.6819341589312532, 0.13597758734905951, 0.34303820720754497, 0.7723262823031657, 0.0057576990610681555, 0.7375562358505025, 0.6496229343733667, 0.33723618193124916, 0.9634454226153673, 0.23578275128845771, 0.24115301757031204, 0.4578167388583051, 0.8353871647739298, 0.5346741253986068, 0.07004811518978515, 0.7206067001890047]
+Setting gravity.
+1754.5497954143075
+Setting sub steps.
+1
+Setting FPS.
+6828
+Setting material friction.
+77.23262823031656
+Setting material elasticity.
+0.0057576990610681555
+Setting mass.
+3372.3684469506725
+Setting form factor.
+0.9634454226153673
+Setting velocity max.
+235.78275128845772
+Setting damping translation.
+0.24115301757031204
+Setting rotation damping.
+0.4578167388583051
+Setting collision bounds type.
+TRIANGLE_MESH
+Setting torque-z.
+72.34006331871147
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099602070.0078]
+[-1.7203815281391144, -0.050321733579039574, 0.0, -0.00011750472913263366, 0.01514394860714674, -0.025392156094312668, 1395099618092.819]
+Calculating genome fitness.
+Point.
+[-1.7203815281391144, -0.050321733579039574, -0.025392156094312668]
+Genome mahalanobis distance.
+21.3407211969
+Penalties.
+Elapsed time > 1 seconds: 15.022811279296874
+X rotation: 0.00011750472913263366
+Y rotation: 0.01514394860714674
+Z translation: 0.0
+Genome fitness.
+36.3787939296
+Increasing current genome count.
+10
+Evaluated all genomes in population.
+Current generation number: 0
+Updating population metrics.
+Population metrics. T H L A.
+23473.9214107
+33.6087002625
+16525.0355522
+2347.39214107
+Storing population metrics in the database.
+INSERT INTO `population_metrics` ( `generation_number`, `highest_fitness`, `average_fitness`, `lowest_fitness`, `crossover_probability`, `mutation_probability` ) VALUES( 0, 33.6087002625, 2347.39214107, 16525.0355522, 0.800000011920929, 0.20000000298023224 );
+Generating a new generation.
+Creating a new generation.
+Sorting population.
+Sorting population. Descending: True
+Sorted.
+16525.0355522 33.6087002625
+Updating population metrics.
+Population metrics. T H L A.
+39964.0479068
+33.6087002625
+16525.0355522
+3996.40479068
+Adapting crossover/mutation probabilities.
+Adapting crossover and mutation probabilities.
+Crossover progress average.
+0.0
+Mutation progress average.
+0.0
+Not adjusting crossover/mutation probabilities. CPA == MPA.
+Computing population makeup.
+Population makeup. R C M CM E.
+10 0 0 0 0
+Creating empty new population.
+Performing elitism.
+Attempting to add elite genomes.
+Adding elite genome. Its fitness: 33.6549040418
+Adding elite genome. Its fitness: 33.6087002625
+Performing crossover and mutation separately.
+Entering the loop.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 32
+Partial sum: 36
+Genome index selected: 7
+Random number: 38
+Partial sum: 45
+Genome index selected: 8
+Selected genomes with rank selection.
+[7, 8]
+Attempting crossover.
+Greater than crossover probability.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 38
+Partial sum: 45
+Genome index selected: 8
+Selected genomes with rank selection.
+[8]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 24
+Partial sum: 28
+Genome index selected: 6
+Random number: 48
+Partial sum: 55
+Genome index selected: 9
+Selected genomes with rank selection.
+[6, 9]
+Attempting crossover.
+Parent indexes.
+6 9
+Crossover point.
+11
+Parent fitness contributions.
+21.3333120688
+13.0700501021
+Returning crossed offspring.
+Adding crossover offspring.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 32
+Partial sum: 36
+Genome index selected: 7
+Selected genomes with rank selection.
+[7]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 44
+Partial sum: 45
+Genome index selected: 8
+Random number: 39
+Partial sum: 45
+Genome index selected: 8
+Selected genomes with rank selection.
+[8, 8]
+Attempting crossover.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 30
+Partial sum: 36
+Genome index selected: 7
+Selected genomes with rank selection.
+[7]
+Attempting mutation.
+Mutation value before/after.
+0.08540878477084368 0.0
+Mutation value before/after.
+0.4421638821529431 0.365289821874175
+Mutation value before/after.
+0.7788604778599727 0.9468839447524199
+Mutation value before/after.
+0.14136214405041025 0.26419361935139507
+Mutation value before/after.
+0.5743774624258349 0.508731735436927
+Mutation value before/after.
+0.5985877118265388 0.9950207691792021
+Mutation value before/after.
+0.7126333726739034 0.9161388826213928
+Mutation value before/after.
+0.9201673325916239 0.6887965432190475
+Mutation value before/after.
+0.1448274110991541 0.40364777207361974
+Mutation value before/after.
+0.45280084895286277 0.420264491085318
+Mutation value before/after.
+0.7658596031405505 0.474757507595974
+Mutation value before/after.
+0.4992947066857186 0.5370689071903145
+Mutation value before/after.
+0.2903883847604284 0.16286452271277613
+Mutation value before/after.
+0.28690161985047125 0.3657099284031035
+Mutation value before/after.
+0.22858142618771837 0.367110542735837
+Mutation value before/after.
+0.8780976112946913 1.0
+Mutation value before/after.
+0.6410927796872823 0.7408851554154402
+Mutation value before/after.
+0.5371395166153603 0.43097802401124163
+Adding mutation offspring.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 14
+Partial sum: 15
+Genome index selected: 4
+Random number: 26
+Partial sum: 28
+Genome index selected: 6
+Selected genomes with rank selection.
+[4, 6]
+Attempting crossover.
+Greater than crossover probability.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 41
+Partial sum: 45
+Genome index selected: 8
+Selected genomes with rank selection.
+[8]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 37
+Partial sum: 45
+Genome index selected: 8
+Random number: 1
+Partial sum: 1
+Genome index selected: 0
+Selected genomes with rank selection.
+[8, 0]
+Attempting crossover.
+Greater than crossover probability.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 0
+Partial sum: 1
+Genome index selected: 0
+Selected genomes with rank selection.
+[0]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 55
+Partial sum: 55
+Genome index selected: 9
+Random number: 12
+Partial sum: 15
+Genome index selected: 4
+Selected genomes with rank selection.
+[9, 4]
+Attempting crossover.
+Parent indexes.
+9 4
+Crossover point.
+3
+Parent fitness contributions.
+5.60145004375
+96.671601193
+Returning crossed offspring.
+Adding crossover offspring.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 53
+Partial sum: 55
+Genome index selected: 9
+Selected genomes with rank selection.
+[9]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 54
+Partial sum: 55
+Genome index selected: 9
+Random number: 11
+Partial sum: 15
+Genome index selected: 4
+Selected genomes with rank selection.
+[9, 4]
+Attempting crossover.
+Parent indexes.
+9 4
+Crossover point.
+13
+Parent fitness contributions.
+24.2729501896
+32.2238670643
+Returning crossed offspring.
+Adding crossover offspring.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 27
+Partial sum: 28
+Genome index selected: 6
+Selected genomes with rank selection.
+[6]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 31
+Partial sum: 36
+Genome index selected: 7
+Random number: 21
+Partial sum: 21
+Genome index selected: 5
+Selected genomes with rank selection.
+[7, 5]
+Attempting crossover.
+Parent indexes.
+7 5
+Crossover point.
+9
+Parent fitness contributions.
+17.2861916981
+18.1893969648
+Returning crossed offspring.
+Adding crossover offspring.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 36
+Partial sum: 36
+Genome index selected: 7
+Selected genomes with rank selection.
+[7]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 22
+Partial sum: 28
+Genome index selected: 6
+Random number: 45
+Partial sum: 45
+Genome index selected: 8
+Selected genomes with rank selection.
+[6, 8]
+Attempting crossover.
+Greater than crossover probability.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 21
+Partial sum: 21
+Genome index selected: 5
+Selected genomes with rank selection.
+[5]
+Attempting mutation.
+Mutation value before/after.
+0.17545497954143074 0.2697054985882331
+Mutation value before/after.
+0.009401668527138862 0.0
+Mutation value before/after.
+0.6819341589312532 0.7121341679476599
+Mutation value before/after.
+0.13597758734905951 0.0
+Mutation value before/after.
+0.34303820720754497 0.5383638522319992
+Mutation value before/after.
+0.7723262823031657 0.8932301446329505
+Mutation value before/after.
+0.0057576990610681555 0.0
+Mutation value before/after.
+0.7375562358505025 0.6363355916666924
+Mutation value before/after.
+0.6496229343733667 0.7578304219723866
+Mutation value before/after.
+0.33723618193124916 0.44309203363990174
+Mutation value before/after.
+0.9634454226153673 1.0
+Mutation value before/after.
+0.23578275128845771 0.4304476383653267
+Mutation value before/after.
+0.24115301757031204 0.4104103652312501
+Mutation value before/after.
+0.4578167388583051 0.18177497051515723
+Mutation value before/after.
+0.8353871647739298 0.6460040458026203
+Mutation value before/after.
+0.5346741253986068 0.5076422132056152
+Mutation value before/after.
+0.07004811518978515 0.09468534418484979
+Mutation value before/after.
+0.7206067001890047 0.9693128656579898
+Adding mutation offspring.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 37
+Partial sum: 45
+Genome index selected: 8
+Random number: 48
+Partial sum: 55
+Genome index selected: 9
+Selected genomes with rank selection.
+[8, 9]
+Attempting crossover.
+Parent indexes.
+8 9
+Crossover point.
+1
+Parent fitness contributions.
+1.86971689121
+31.7415502479
+Returning crossed offspring.
+Adding crossover offspring.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 5
+Partial sum: 6
+Genome index selected: 2
+Selected genomes with rank selection.
+[2]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 23
+Partial sum: 28
+Genome index selected: 6
+Random number: 37
+Partial sum: 45
+Genome index selected: 8
+Selected genomes with rank selection.
+[6, 8]
+Attempting crossover.
+Greater than crossover probability.
+Entering selection operator.
+1 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 33
+Partial sum: 36
+Genome index selected: 7
+Selected genomes with rank selection.
+[7]
+Attempting mutation.
+Greater than mutation probability.
+Entering selection operator.
+2 genomes requested.
+Sorted?
+16525.0355522 33.6087002625
+Total rank fitness.
+55
+Partial sums.
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+Random number: 51
+Partial sum: 55
+Genome index selected: 9
+Random number: 35
+Partial sum: 36
+Genome index selected: 7
+Selected genomes with rank selection.
+[9, 7]
+Attempting crossover.
+Parent indexes.
+9 7
+Crossover point.
+2
+Parent fitness contributions.
+3.73430002917
+30.7310074633
+Returning crossed offspring.
+Adding crossover offspring.
+Observed cross/mut rates.
+0.5 0.18181818181818182
+Setting the current genome to 0.
+Current genome.
+(2, 4, 0.0, 0.0, [0.3905007895361816, 0.9181570965824355, 0.2095204746496715, 0.2398671119622816, 0.4510838685932217, 0.4669872326374839, 0.301795250123562, 0.6135476562542274, 0.14180553537456575, 0.7809483603885647, 0.31264374941491624, 0.4548115131607664, 0.03015951824242158, 0.21696640879597284, 0.2262941697587475, 0.357241147743919, 0.1877265845726861, 0.1422821593446214])
+Populating the physics engine parameters.
+Genome genes.
+[0.3905007895361816, 0.9181570965824355, 0.2095204746496715, 0.2398671119622816, 0.4510838685932217, 0.4669872326374839, 0.301795250123562, 0.6135476562542274, 0.14180553537456575, 0.7809483603885647, 0.31264374941491624, 0.4548115131607664, 0.03015951824242158, 0.21696640879597284, 0.2262941697587475, 0.357241147743919, 0.1877265845726861, 0.1422821593446214]
+Setting gravity.
+3905.0078953618163
+Setting sub steps.
+4
+Setting FPS.
+2118
+Setting material friction.
+46.698723263748384
+Setting material elasticity.
+0.301795250123562
+Setting mass.
+7809.485794402043
+Setting form factor.
+0.31264374941491624
+Setting velocity max.
+454.8115131607664
+Setting damping translation.
+0.03015951824242158
+Setting rotation damping.
+0.21696640879597284
+Setting collision bounds type.
+TRIANGLE_MESH
+Setting torque-z.
+15.08593377511752
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099618217.8513]
+[3.576109930872917, 0.1288458821363747, 0.0, 0.006161648314446211, -0.013915074989199638, 0.26404663920402527, 1395099634301.2778]
+Calculating genome fitness.
+Point.
+[3.576109930872917, 0.1288458821363747, 0.26404663920402527]
+Genome mahalanobis distance.
+18.5074469736
+Penalties.
+Elapsed time > 1 seconds: 15.083426513671874
+X rotation: 0.006161648314446211
+Y rotation: 0.013915074989199638
+Z translation: 0.0
+Genome fitness.
+33.6109502106
+Increasing current genome count.
+1
+Current genome.
+(7, 4, 0.0, 0.0, [0.19110026351428366, 0.8066350268636361, 0.3545829271766757, 0.45610107608309347, 0.23685682611782688, 0.9677967711554233, 0.6379414031534262, 0.08485895739608518, 0.5241383441034544, 0.0648485171275669, 0.7199086379173844, 0.4546537096362593, 0.8761310631384842, 0.10192033830441816, 0.8046312914289823, 0.2770626597598269, 0.6207695940075793, 0.8057619474484161])
+Populating the physics engine parameters.
+Genome genes.
+[0.19110026351428366, 0.8066350268636361, 0.3545829271766757, 0.45610107608309347, 0.23685682611782688, 0.9677967711554233, 0.6379414031534262, 0.08485895739608518, 0.5241383441034544, 0.0648485171275669, 0.7199086379173844, 0.4546537096362593, 0.8761310631384842, 0.10192033830441816, 0.8046312914289823, 0.2770626597598269, 0.6207695940075793, 0.8057619474484161]
+Setting gravity.
+1911.0026351428367
+Setting sub steps.
+4
+Setting FPS.
+3565
+Setting material friction.
+96.77967711554233
+Setting material elasticity.
+0.6379414031534262
+Setting mass.
+648.4945227904976
+Setting form factor.
+0.7199086379173844
+Setting velocity max.
+454.6537096362593
+Setting damping translation.
+0.8761310631384842
+Setting rotation damping.
+0.10192033830441816
+Setting collision bounds type.
+CONVEX_HULL
+Setting torque-z.
+80.7704327973932
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099634384.355]
+[2.1515944972634315, -0.04464256053324789, 0.0, 0.01304779201745987, 0.00021275787730701268, 0.12273246794939041, 1395099650400.263]
+Calculating genome fitness.
+Point.
+[2.1515944972634315, -0.04464256053324789, 0.12273246794939041]
+Genome mahalanobis distance.
+18.5428323887
+Penalties.
+Elapsed time > 1 seconds: 15.015907958984375
+X rotation: 0.01304779201745987
+Y rotation: 0.00021275787730701268
+Z translation: 0.0
+Genome fitness.
+33.5720008975
+Increasing current genome count.
+2
+Current genome.
+(10, 1, 0.0, 34.40336217084365, [0.4707668548921292, 0.9764888405407319, 0.889643111634633, 0.9639510439627114, 0.960509186625015, 0.5812915546445651, 0.7147845451331765, 0.12604607769319742, 0.2850987225704201, 0.7161210951078645, 0.8568434190154331, 0.4546537096362593, 0.8761310631384842, 0.10192033830441816, 0.8046312914289823, 0.2770626597598269, 0.6207695940075793, 0.8057619474484161])
+Populating the physics engine parameters.
+Genome genes.
+[0.4707668548921292, 0.9764888405407319, 0.889643111634633, 0.9639510439627114, 0.960509186625015, 0.5812915546445651, 0.7147845451331765, 0.12604607769319742, 0.2850987225704201, 0.7161210951078645, 0.8568434190154331, 0.4546537096362593, 0.8761310631384842, 0.10192033830441816, 0.8046312914289823, 0.2770626597598269, 0.6207695940075793, 0.8057619474484161]
+Setting gravity.
+4707.668548921292
+Setting sub steps.
+4
+Setting FPS.
+8899
+Setting material friction.
+58.1291554644565
+Setting material elasticity.
+0.7147845451331765
+Setting mass.
+7161.213789867694
+Setting form factor.
+0.8568434190154331
+Setting velocity max.
+454.6537096362593
+Setting damping translation.
+0.8761310631384842
+Setting rotation damping.
+0.10192033830441816
+Setting collision bounds type.
+CONVEX_HULL
+Setting torque-z.
+80.7704327973932
+Starting the game engine.
+Game engine stopped.
+Getting genome P and P'.
+x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim
+[1.7267729468528614e-07, 0.0, 0.0, 0.0, 0.0, 0.0, 1395099650485.088]
+[-4.519029334187508, 0.006751761247869581, 0.0, 0.006169229745864868, 0.012942151166498661, -0.15115681290626526, 1395099666516.9915]
+Calculating genome fitness.
+Point.
+[-4.519029334187508, 0.006751761247869581, -0.15115681290626526]
+Genome mahalanobis distance.
+23.8478373208
+Penalties.
+Elapsed time > 1 seconds: 15.031903564453124
+X rotation: 0.006169229745864868
+Y rotation: 0.012942151166498661
+Z translation: 0.0
+Genome fitness.
+38.8988522662
+Increasing current genome count.
+3
+Current genome.
+(11, 2, 0.0, 34.572383396239765, [0.0, 0.365289821874175, 0.9468839447524199, 0.26419361935139507, 0.508731735436927, 0.9950207691792021, 0.9161388826213928, 0.6887965432190475, 0.40364777207361974, 0.420264491085318, 0.474757507595974, 0.5370689071903145, 0.16286452271277613, 0.3657099284031035, 0.367110542735837, 1.0, 0.7408851554154402, 0.43097802401124163])
+Populating the physics engine parameters.
+Genome genes.
+[0.0, 0.365289821874175, 0.9468839447524199, 0.26419361935139507, 0.508731735436927, 0.9950207691792021, 0.9161388826213928, 0.6887965432190475, 0.40364777207361974, 0.420264491085318, 0.474757507595974, 0.5370689071903145, 0.16286452271277613, 0.3657099284031035, 0.367110542735837, 1.0, 0.7408851554154402, 0.43097802401124163]
+Setting gravity.
+0.0
+Setting sub steps.
+2
+Setting FPS.
+9470
+Setting material friction.
+99.5020769179202
+Setting material elasticity.
+0.9161388826213928
+Setting mass.
+4202.650708208269
+Setting form factor.
+0.474757507595974
+Setting velocity max.
+537.0689071903146
+Setting damping translation.
+0.16286452271277613
+Setting rotation damping.
+0.3657099284031035
+Setting collision bounds type.
+CYLINDER
+Setting torque-z.
+43.666824377112924
+Starting the game engine.
