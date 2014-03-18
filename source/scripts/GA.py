@@ -104,13 +104,23 @@ def initialize_bbautotune_parameter_properties( ):
 		
 	);
 	
+	bpy.types.Scene.GA_MAX_TORQUE = FloatProperty(
+		
+		name        = "Max Torque", 
+		description = "Maximum torque value possible during search.",
+		default     = 100.0,
+		min         = 0.0,
+		max         = 340282346638528859811704183484516925440.0 
+		
+	);
+	
 	bpy.types.Scene.GA_USE_RANK_SELECTION = BoolProperty( 
 		
 		name        = "Use Rank Selection",
 		description = "Use rank selection otherwise tournament selection will be used."
 		
 	);	
-	bpy.context.scene[ "GA_USE_RANK_SELECTION" ] = True;
+	bpy.context.scene[ "GA_USE_RANK_SELECTION" ] = False;
 	
 	bpy.types.Scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY = BoolProperty( 
 		
@@ -167,6 +177,7 @@ class BBAUTOTUNE_UI_START_BUTTON_OPERATOR( bpy.types.Operator ):
 			bpy.context.scene.GA_NUMBER_OF_ELITE,
 			bpy.context.scene.GA_CROSSOVER_PROBABILITY,
 			bpy.context.scene.GA_MUTATION_PROBABILITY,
+			bpy.context.scene.GA_MAX_TORQUE,
 			bpy.context.scene.GA_USE_RANK_SELECTION,
 			bpy.context.scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY,
 			bpy.context.scene.GA_USE_SELF_ADAPTATION,
@@ -197,6 +208,7 @@ class GA_UI_PANEL( bpy.types.Panel ):
 		self.layout.prop( context.scene, "GA_NUMBER_OF_ELITE"                             );
 		self.layout.prop( context.scene, "GA_CROSSOVER_PROBABILITY"                       );
 		self.layout.prop( context.scene, "GA_MUTATION_PROBABILITY"                        );
+		self.layout.prop( context.scene, "GA_MAX_TORQUE"                                  );
 		self.layout.prop( context.scene, "GA_USE_RANK_SELECTION"                          );
 		self.layout.prop( context.scene, "GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY" );
 		self.layout.prop( context.scene, "GA_USE_SELF_ADAPTATION"                         );
@@ -1360,11 +1372,11 @@ class Genetic_Algorithm( ):
 		
 		if ( number_of_crossovers != 0 ):
 
-			self.crossover_operator_progress_average = ( crossover_operator_progress_sum ) / ( number_of_crossovers );			
+			self.crossover_operator_progress_average = ( crossover_operator_progress_sum ) / float( number_of_crossovers );			
 
 		if ( number_of_mutations != 0 ):
 
-			self.mutation_operator_progress_average  = ( mutation_operator_progress_sum ) / ( number_of_mutations );			
+			self.mutation_operator_progress_average  = ( mutation_operator_progress_sum ) / float( number_of_mutations );			
 
 		# Adjust crossover and mutation rate adjustments.
 		
@@ -1740,6 +1752,7 @@ class BBAutoTune( ):
 		number_of_elite,
 		crossover_probability,
 		mutation_probability,
+		max_torque,
 		use_rank_selection,
 		perform_crossover_and_mutation_sequentially,
 		use_self_adaptation,
@@ -1747,14 +1760,14 @@ class BBAutoTune( ):
 		debug
 		
 	):
-		
-		self.debug = debug or False;
-		
+
 		self.run_id = int( round( time.time( ) * 1000 ) );
 		
 		self.log( "Run ID." );
 		
 		self.log( str( self.run_id ) );
+		
+		self.debug = debug or False;
 		
 		if ( self.debug == True ):
 			
@@ -1765,11 +1778,15 @@ class BBAutoTune( ):
 			self.ga.set_log_file_name( self.log_file_name );
 			
 			bpy.data.objects[ "robot_monitor" ].game.properties[ "log_file_name" ].value = self.log_file_name;
-
-		self.open_ga_monitor_browser_window = open_ga_monitor_browser_window;
+			
+		self.log( "Max torque." );
+		
+		self.max_torque = max_torque;
+		
+		self.log( str( self.max_torque ) );
 		
 		# Pass the file name and directory where the robot 
-		# monitor will record the robot's xyzt and x'y'z't'.
+		# monitor will record the robot's P and P'.
 		
 		bpy.data.objects[ "robot_monitor" ].game.properties[ "shared_data_file_name" ].value = get_scripts_location( ) + "shared_data/genome_P_P'.dat";
 		
@@ -1778,6 +1795,8 @@ class BBAutoTune( ):
 		self.dbm.connect_to_database( );
 		
 		self.log( "Starting the GA manager." );
+		
+		self.open_ga_monitor_browser_window = open_ga_monitor_browser_window;
 		
 		self.start_ga_monitor( );
 		
@@ -1837,7 +1856,7 @@ class BBAutoTune( ):
 			self.log( "Game engine stopped." );
 			
 			self.log( "Getting genome P and P'." );
-			self.log( "x , y , z , x_r , y _r , z_r" );
+			self.log( "x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim" );
 			
 			shared_data_file = open( get_scripts_location( ) + "shared_data/genome_P_P'.dat", "r" );
 			
@@ -2026,7 +2045,7 @@ class BBAutoTune( ):
 	def calculate_genome_fitness( self, start, end ):
 		
 		# Blender returns NaN for large positions/orientations for x, y, and z.
-		# If this is the case, set the fitness so some large value.
+		# If this is the case, set the fitness to some large value.
 		
 		# start/end structure:
 		#   x_pos   0
@@ -2125,13 +2144,15 @@ class BBAutoTune( ):
 		back_wheel_l   = "robot_1_wheel_back_L";
 		back_wheel_r   = "robot_1_wheel_back_R";
 		wheel_material = "wheel";
-		actuator       = "torque_y";
+		actuator       = "torque_z";
 
 		### WORLD
 		
 		# Gravity.
 		
-		gravity = get_clamped_value( ( genome_genes[ 0 ] * 10000.0 ), 0.0, 10000.0 );
+		#gravity = get_clamped_value( ( genome_genes[ 0 ] * 10000.0 ), 0.0, 10000.0 );
+		
+		gravity = get_clamped_value( ( genome_genes[ 0 ] * 100.0 ), 0.0, 100.0 );
 		
 		self.log( "Setting gravity." );
 		
@@ -2154,7 +2175,10 @@ class BBAutoTune( ):
 		
 		# FPS.
 		
-		fps = get_clamped_value( math.floor( ( genome_genes[ 2 ] * ( 10000 - 1 ) ) + 1 ), 1, 10000 );
+		# Setting FPS within [1,30) makes the game engine run extremely slow so allow the GA to find a solution
+		# within the range of 30 to 10000 FPS.
+		
+		fps = get_clamped_value( math.floor( ( genome_genes[ 2 ] * ( 10000 - 30 ) ) + 30 ), 30, 10000 );
 		
 		self.log( "Setting FPS." );
 		
@@ -2165,10 +2189,10 @@ class BBAutoTune( ):
 		### Object 
 		
 		# Scale XYZ?
-
-		scale = get_clamped_value( ( genome_genes[ 3 ] * INF ), 0.0, INF );
 		
 		'''
+
+		scale = get_clamped_value( ( genome_genes[ 3 ] * INF ), 0.0, INF );
 		
 		bpy.data.objects[ front_wheel_l ].scale = [ scale, scale, scale ];
 		bpy.data.objects[ front_wheel_r ].scale = [ scale, scale, scale ];
@@ -2179,10 +2203,12 @@ class BBAutoTune( ):
 		
 		### MATERIAL
 		
-		# Use physics.
+		# Use physics?
 		
 		# Round returns incorrect values but converting its return value to a string does return the right value.
 		# Convert only the numbers before the decimal '.' to an integer.
+		
+		'''
 
 		index = int( str( round( genome_genes[ 4 ] ) ).split( "." )[ 0 ] );
 		
@@ -2196,6 +2222,8 @@ class BBAutoTune( ):
 		bpy.data.objects[ front_wheel_r ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
 		bpy.data.objects[ back_wheel_l  ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
 		bpy.data.objects[ back_wheel_r  ].material_slots[ 0 ].material.game_settings.physics = use_material_physics;
+		
+		'''
 		
 		# Friction.
 		
@@ -2226,14 +2254,14 @@ class BBAutoTune( ):
 		### PHYSICS
 		
 		# Type?
+		
+		'''
 
 		PHYSICS_TYPES = [ "NO_COLLISION", "STATIC", "DYNAMIC", "RIGID_BODY", "SOFT_BODY", "OCCLUDE", "SENSOR", "NAVMESH", "CHARACTER" ];
 		
-		physics_type = get_clamped_value( math.floor( genome_genes[ 7 ] * ( len( PHYSICS_TYPES ) - 1 ) ), 0, len( PHYSICS_TYPES ) - 1 );
+		physics_type = get_clamped_value( math.floor( genome_genes[ 7 ] * len( PHYSICS_TYPES ) ), 0, len( PHYSICS_TYPES ) - 1 );
 		
 		physics_type = PHYSICS_TYPES[ physics_type ];
-		
-		'''
 		
 		bpy.data.objects[ front_wheel_l ].game.physics_type = physics_type;
 		bpy.data.objects[ front_wheel_r ].game.physics_type = physics_type; 
@@ -2244,11 +2272,11 @@ class BBAutoTune( ):
 		
 		# Ghost?
 		
+		'''
+		
 		index = int( str( round( genome_genes[ 8 ] ) ).split( "." )[ 0 ] );
 		
-		use_ghost = BOOLEANS[ index ];
-		
-		'''
+		use_ghost = BOOLEANS[ index ];		
 		
 		bpy.data.objects[ front_wheel_l ].game.use_ghost = use_ghost;
 		bpy.data.objects[ front_wheel_r ].game.use_ghost = use_ghost;
@@ -2259,7 +2287,7 @@ class BBAutoTune( ):
 		
 		# Mass.
 		
-		mass = get_clamped_value( 0.010 + ( genome_genes[ 9 ] * ( 10000.0 - 0.01 ) ), 0.010, 10000.0 );
+		mass = get_clamped_value( ( genome_genes[ 9 ] * ( 10000.0 - 0.01 ) ) + 0.010, 0.010, 10000.0 );
 		
 		self.log( "Setting mass." );
 		
@@ -2270,7 +2298,9 @@ class BBAutoTune( ):
 		bpy.data.objects[ back_wheel_l  ].game.mass = mass;
 		bpy.data.objects[ back_wheel_r  ].game.mass = mass;
 		
-		# Form factor.
+		# Form factor?
+		
+		'''
 		
 		form_factor = get_clamped_value( ( genome_genes[ 10 ] ), 0.0, 1.0 );
 		
@@ -2282,6 +2312,8 @@ class BBAutoTune( ):
 		bpy.data.objects[ front_wheel_r ].game.form_factor = form_factor;
 		bpy.data.objects[ back_wheel_l  ].game.form_factor = form_factor;
 		bpy.data.objects[ back_wheel_r  ].game.form_factor = form_factor;
+		
+		'''
 		
 		# Velocity maximum.
 		
@@ -2322,7 +2354,9 @@ class BBAutoTune( ):
 		bpy.data.objects[ back_wheel_l  ].game.rotation_damping = rotation_damping;
 		bpy.data.objects[ back_wheel_r  ].game.rotation_damping = rotation_damping;
 		
-		# Use collision bounds.
+		# Use collision bounds?
+		
+		'''
 		
 		index = int( str( round( genome_genes[ 14 ] ) ).split( "." )[ 0 ] );
 		
@@ -2337,7 +2371,11 @@ class BBAutoTune( ):
 		bpy.data.objects[ back_wheel_l  ].game.use_collision_bounds = use_collision_bounds;
 		bpy.data.objects[ back_wheel_r  ].game.use_collision_bounds = use_collision_bounds;
 		
-		# Collision margin.
+		'''
+		
+		# Collision margin?
+		
+		'''
 		
 		collision_margin = get_clamped_value( ( genome_genes[ 15 ] ), 0.0, 1.0 );
 		
@@ -2350,11 +2388,15 @@ class BBAutoTune( ):
 		bpy.data.objects[ back_wheel_l  ].game.collision_margin = collision_margin;
 		bpy.data.objects[ back_wheel_r  ].game.collision_margin = collision_margin;
 		
+		'''
+		
 		# Collision bound type.
 		
-		COLLISION_BOUNDS_TYPES = [ "TRIANGLE_MESH", "CONVEX_HULL", "CONE", "CYLINDER", "SPHERE", "BOX", "CAPSULE" ];
+		#COLLISION_BOUNDS_TYPES = [ "TRIANGLE_MESH", "CONVEX_HULL", "CONE", "CYLINDER", "SPHERE", "BOX", "CAPSULE" ];
 		
-		collision_bounds_type = get_clamped_value( math.floor( genome_genes[ 16 ] * ( len( COLLISION_BOUNDS_TYPES ) - 1 ) ), 0, len( COLLISION_BOUNDS_TYPES ) - 1 );
+		COLLISION_BOUNDS_TYPES = [ "TRIANGLE_MESH", "CONVEX_HULL", "CYLINDER", "SPHERE" ];
+		
+		collision_bounds_type = get_clamped_value( math.floor( genome_genes[ 16 ] * len( COLLISION_BOUNDS_TYPES ) ), 0, len( COLLISION_BOUNDS_TYPES ) - 1 );
 		
 		collision_bounds_type = COLLISION_BOUNDS_TYPES[ collision_bounds_type ];
 		
@@ -2371,18 +2413,30 @@ class BBAutoTune( ):
 		
 		# Torque.
 		
-		#torque_y = get_clamped_value( ( -INF + ( genome_genes[ 17 ] * ( INF + INF ) ) ), -INF, INF );
+		#torque_z = get_clamped_value( ( -INF + ( genome_genes[ 17 ] * ( INF + INF ) ) ), -INF, INF );
 		
-		torque_y = get_clamped_value( genome_genes[ 17 ] * 200.0, 0.0, INF );
+		torque_z = get_clamped_value( genome_genes[ 17 ] * self.max_torque, 0.0, self.max_torque );
 		
-		self.log( "Setting torque-y." );
+		self.log( "Setting torque_z." );
 		
-		self.log( str( torque_y ) );
+		self.log( str( torque_z ) );
 		
-		bpy.data.objects[ front_wheel_l ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
-		bpy.data.objects[ front_wheel_r ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
-		bpy.data.objects[ back_wheel_l  ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
-		bpy.data.objects[ back_wheel_r  ].game.actuators[ actuator ].torque = [ 0, torque_y, 0 ];
+		# In order to make the collision_bounds_type "CYLINDER" feasible, the wheel had to be rotated in model
+		# space by -90deg around the x-axis. This allows the cylinder shape to coincide with the wheel shape.
+		# Otherwise, if the wheel is unrotated, the cylinder bounds' flat sides reside at the rounded sides
+		# of the wheel. Imagine standing a tire up, putting a tube over it and rolling the wheel.
+		# Thus, in local space, applying torque to the wheels must be done around the z-axis since in local space,
+		# the z-axis points out of the wheel hub.
+		
+		bpy.data.objects[ front_wheel_l ].game.actuators[ actuator ].use_local_torque = True;
+		bpy.data.objects[ front_wheel_r ].game.actuators[ actuator ].use_local_torque = True;
+		bpy.data.objects[ back_wheel_l  ].game.actuators[ actuator ].use_local_torque = True;
+		bpy.data.objects[ back_wheel_r  ].game.actuators[ actuator ].use_local_torque = True;
+		
+		bpy.data.objects[ front_wheel_l ].game.actuators[ actuator ].torque = [ 0, 0, torque_z ];
+		bpy.data.objects[ front_wheel_r ].game.actuators[ actuator ].torque = [ 0, 0, torque_z ];
+		bpy.data.objects[ back_wheel_l  ].game.actuators[ actuator ].torque = [ 0, 0, torque_z ];
+		bpy.data.objects[ back_wheel_r  ].game.actuators[ actuator ].torque = [ 0, 0, torque_z ];
 		
 		# Record the genome's phenotype (the physics parameters) and its eventual fitness.
 		
@@ -2392,20 +2446,20 @@ class BBAutoTune( ):
 		physics_parameters_with_fitness_file.write( "sub_steps," + str( sub_steps ) + "\n" );
 		physics_parameters_with_fitness_file.write( "fps," + str( fps ) + "\n" );
 		#physics_parameters_with_fitness_file.write( "scale," + str( scale ) + "\n" );
-		physics_parameters_with_fitness_file.write( "use_material_physics," + str( use_material_physics ) + "\n" );
+		#physics_parameters_with_fitness_file.write( "use_material_physics," + str( use_material_physics ) + "\n" );
 		physics_parameters_with_fitness_file.write( "material_friction," + str( material_friction ) + "\n" );
 		physics_parameters_with_fitness_file.write( "material_elasticity," + str( material_elasticity ) + "\n" );
 		#physics_parameters_with_fitness_file.write( "physics_type," + str( physics_type ) + "\n" );
 		#physics_parameters_with_fitness_file.write( "use_ghost," + str( use_ghost ) + "\n" );
 		physics_parameters_with_fitness_file.write( "mass," + str( mass ) + "\n" );
-		physics_parameters_with_fitness_file.write( "form_factor," + str( form_factor ) + "\n" );
+		#physics_parameters_with_fitness_file.write( "form_factor," + str( form_factor ) + "\n" );
 		physics_parameters_with_fitness_file.write( "velocity_max," + str( velocity_max ) + "\n" );
 		physics_parameters_with_fitness_file.write( "damping," + str( damping ) + "\n" );
 		physics_parameters_with_fitness_file.write( "rotation_damping," + str( rotation_damping ) + "\n" );
-		physics_parameters_with_fitness_file.write( "use_collision_bounds," + str( use_collision_bounds ) + "\n" );
-		physics_parameters_with_fitness_file.write( "collision_margin," + str( collision_margin ) + "\n" );
+		#physics_parameters_with_fitness_file.write( "use_collision_bounds," + str( use_collision_bounds ) + "\n" );
+		#physics_parameters_with_fitness_file.write( "collision_margin," + str( collision_margin ) + "\n" );
 		physics_parameters_with_fitness_file.write( "collision_bounds_type," + str( collision_bounds_type ) + "\n" );
-		physics_parameters_with_fitness_file.write( "torque_y," + str( torque_y ) + "\n" );
+		physics_parameters_with_fitness_file.write( "torque_z," + str( torque_z ) + "\n" );
 		
 		physics_parameters_with_fitness_file.close( );
 		

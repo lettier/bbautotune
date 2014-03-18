@@ -3,6 +3,7 @@
 import MySQLdb as mdb;
 import sys;
 import numpy;
+import math;
 
 variables_location = "./variables/";
 		
@@ -99,6 +100,9 @@ else:
 	
 	mp_max  = 0.0;
 	mp_min  = 0.0;
+	
+yMax = 0.0;
+yMin = 250.0;
 
 print( "Content-type: text/html\n" );
 
@@ -147,7 +151,7 @@ print( "<link rel='stylesheet' type='text/css' href='dependencies/xcharts/xchart
 print( "<script>" );
 print( "document.getElementById('fitnesses').style.width  = window.innerWidth - 200 + 'px';" );
 print( "document.getElementById('fitnesses').style.height = window.innerHeight -300 + 'px';" );
-print( " var fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( hf_max ) ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
+print( " var fitnesses_data = { 'xScale': 'linear', 'yScale': 'exponential', 'yMax': " + str( hf_max ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.highFitnesses', 'data': [" );
 
 for i in range( len( highest_fitnesses ) ):
@@ -178,7 +182,7 @@ print( "] };" );
 print( "var fitnesses_chart = new xChart( 'line-dotted', fitnesses_data, '#fitnesses', { 'axisPaddingTop': 10, 'paddingLeft': 80 } );" );
 print( "document.getElementById('probabilities').style.width  = window.innerWidth - 200 + 'px';" );
 print( "document.getElementById('probabilities').style.height = window.innerHeight -300 + 'px';" );
-print( "var highest_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( hf_max ) ) +", 'yMin': " + str( hf_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
+print( "var highest_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( hf_max ) +", 'yMin': " + str( hf_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.highFitnesses', 'data': [" );
 
 for i in range( len( highest_fitnesses ) ):
@@ -190,7 +194,7 @@ for i in range( len( highest_fitnesses ) ):
 	
 print( "] }" );
 print( "] };" );
-print( "var average_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( af_max ) ) +", 'yMin': " + str( af_min ) + ", 'xMax': " + str( len( average_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
+print( "var average_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( af_max ) +", 'yMin': " + str( af_min ) + ", 'xMax': " + str( len( average_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.null1', 'data': [] }," );
 print( "{ 'className': '.averageFitnesses', 'data': [" );
 
@@ -203,7 +207,7 @@ for i in range( len( average_fitnesses ) ):
 	
 print( "] }" );
 print( "] };" );
-print( "var lowest_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( float( lf_max ) ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( lowest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
+print( "var lowest_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( lf_max ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( lowest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.null1', 'data': [] }," );
 print( "{ 'className': '.null2', 'data': [] }," );
 print( "{ 'className': '.lowestFitnesses', 'data': [" );
@@ -221,7 +225,7 @@ print( "document.getElementById('highest_text').onmousedown = function ( ) { fit
 print( "document.getElementById('average_text').onmousedown = function ( ) { fitnesses_chart.setData( average_fitnesses_data ); };" );
 print( "document.getElementById('lowest_text').onmousedown  = function ( ) { fitnesses_chart.setData( lowest_fitnesses_data  ); };" );
 print( "document.getElementById('all_text').onmousedown  = function ( ) { fitnesses_chart.setData( fitnesses_data  ); };" );
-print( " var probabilities_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': 1.0, 'yMin': 0.0, 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'main': [ " );
+print( " var probabilities_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': 1.0, 'yMin': 0.0, 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.crossoverProbabilities', 'data': [" );
 
 for i in range( len( crossover_probabilities ) ):
@@ -242,6 +246,7 @@ for i in range( len( mutation_probabilities ) ):
 print( " ] }" );
 print( "] };" );
 print( "var probabilities_chart = new xChart( 'line-dotted', probabilities_data, '#probabilities', { 'axisPaddingTop': 10, 'paddingLeft': 80 } );" );	
+print( "var reload_timer = setTimeout( function ( ) { location.reload( true ) }, 1000 * 60 );" );
 print( "</script>" );
 print( "<font style='font-family: sans-serif; font-size: 10px; color: #fff;'>David Lettier (C) 2014.</font><br><br>" );
 print( "</body>" );
