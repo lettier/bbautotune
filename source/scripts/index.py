@@ -153,7 +153,6 @@ print( "document.getElementById('fitnesses').style.width  = window.innerWidth - 
 print( "document.getElementById('fitnesses').style.height = window.innerHeight -300 + 'px';" );
 print( " var fitnesses_data = { 'xScale': 'linear', 'yScale': 'exponential', 'yMax': " + str( hf_max ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.highFitnesses', 'data': [" );
-
 for i in range( len( highest_fitnesses ) ):
 	
 	print( "{" );
@@ -192,12 +191,23 @@ for i in range( len( highest_fitnesses ) ):
 	print( "'y':" + str( highest_fitnesses[ i ] ) );
 	print( "}," );
 	
-print( "] }" );
-print( "] };" );
+print( "] } ]," );
+print( "'comp': [ " );
+print( "{ 'className': '.bestFit', 'type': 'line', 'data': [" );
+xi = numpy.arange( 0, len( highest_fitnesses ) );
+A = numpy.array( [ xi, numpy.ones( len( highest_fitnesses ) ) ] );
+w = numpy.linalg.lstsq( A.T, highest_fitnesses )[ 0 ];
+best_fit_line = w[ 0 ] * xi + w[ 1 ];
+for i in range( len( best_fit_line ) ):
+	
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( best_fit_line[ i ] ) );
+	print( "}," );
+print( "] } ] };" );
 print( "var average_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( af_max ) +", 'yMin': " + str( af_min ) + ", 'xMax': " + str( len( average_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.null1', 'data': [] }," );
 print( "{ 'className': '.averageFitnesses', 'data': [" );
-
 for i in range( len( average_fitnesses ) ):
 	
 	print( "{" );
@@ -205,13 +215,25 @@ for i in range( len( average_fitnesses ) ):
 	print( "'y':" + str( average_fitnesses[ i ] ) );
 	print( "}," );
 	
-print( "] }" );
-print( "] };" );
+print( "] } ]," );
+print( "'comp': [ " );
+print( "{ 'className': '.null2', type: 'line', 'data': [] }," );
+print( "{ 'className': '.bestFit', 'type': 'line', 'data': [" );
+xi = numpy.arange( 0, len( average_fitnesses ) );
+A = numpy.array( [ xi, numpy.ones( len( average_fitnesses ) ) ] );
+w = numpy.linalg.lstsq( A.T, average_fitnesses )[ 0 ];
+best_fit_line = w[ 0 ] * xi + w[ 1 ];
+for i in range( len( best_fit_line ) ):
+	
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( best_fit_line[ i ] ) );
+	print( "}," );
+print( "] } ] };" );
 print( "var lowest_fitnesses_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': " + str( lf_max ) +", 'yMin': " + str( lf_min ) + ", 'xMax': " + str( len( lowest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.null1', 'data': [] }," );
 print( "{ 'className': '.null2', 'data': [] }," );
 print( "{ 'className': '.lowestFitnesses', 'data': [" );
-
 for i in range( len( lowest_fitnesses ) ):
 	
 	print( "{" );
@@ -219,15 +241,28 @@ for i in range( len( lowest_fitnesses ) ):
 	print( "'y':" + str( lowest_fitnesses[ i ] ) );
 	print( "}," );
 	
-print( "] }" );
-print( "] };" );
+print( "] } ]," );
+print( "'comp': [ " );
+print( "{ 'className': '.null3', type: 'line', 'data': [] }," );
+print( "{ 'className': '.null4', type: 'line', 'data': [] }," );
+print( "{ 'className': '.bestFit', 'type': 'line', 'data': [" );
+xi = numpy.arange( 0, len( lowest_fitnesses ) );
+A = numpy.array( [ xi, numpy.ones( len( lowest_fitnesses ) ) ] );
+w = numpy.linalg.lstsq( A.T, lowest_fitnesses )[ 0 ];
+best_fit_line = w[ 0 ] * xi + w[ 1 ];
+for i in range( len( best_fit_line ) ):
+	
+	print( "{" );
+	print( "'x':" + str( i ) + "," );
+	print( "'y':" + str( best_fit_line[ i ] ) );
+	print( "}," );
+print( "] } ] };" );
 print( "document.getElementById('highest_text').onmousedown = function ( ) { fitnesses_chart.setData( highest_fitnesses_data ); };" );
 print( "document.getElementById('average_text').onmousedown = function ( ) { fitnesses_chart.setData( average_fitnesses_data ); };" );
 print( "document.getElementById('lowest_text').onmousedown  = function ( ) { fitnesses_chart.setData( lowest_fitnesses_data  ); };" );
-print( "document.getElementById('all_text').onmousedown  = function ( ) { fitnesses_chart.setData( fitnesses_data  ); };" );
+print( "document.getElementById('all_text').onmousedown     = function ( ) { fitnesses_chart.setData( fitnesses_data         ); };" );
 print( " var probabilities_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': 1.0, 'yMin': 0.0, 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.crossoverProbabilities', 'data': [" );
-
 for i in range( len( crossover_probabilities ) ):
 	
 	print( "{" );
