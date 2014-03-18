@@ -108,7 +108,7 @@ def initialize_bbautotune_parameter_properties( ):
 		
 		name        = "Max Torque", 
 		description = "Maximum torque value possible during search.",
-		default     = 100.0,
+		default     = 50.0,
 		min         = 0.0,
 		max         = 340282346638528859811704183484516925440.0 
 		
@@ -885,6 +885,8 @@ class Genetic_Algorithm( ):
 			# If the parents are the same genome then this is not a true crossover.
 			
 			if ( parent_one_index == parent_two_index ):
+				
+				self.log( "Parents are the same. Crossover failed." );
 				
 				return 0;
 			
@@ -2152,7 +2154,7 @@ class BBAutoTune( ):
 		
 		#gravity = get_clamped_value( ( genome_genes[ 0 ] * 10000.0 ), 0.0, 10000.0 );
 		
-		gravity = get_clamped_value( ( genome_genes[ 0 ] * 100.0 ), 0.0, 100.0 );
+		gravity = get_clamped_value( ( genome_genes[ 0 ] * 15.0 ), 0.0, 100.0 );
 		
 		self.log( "Setting gravity." );
 		
@@ -2287,7 +2289,9 @@ class BBAutoTune( ):
 		
 		# Mass.
 		
-		mass = get_clamped_value( ( genome_genes[ 9 ] * ( 10000.0 - 0.01 ) ) + 0.010, 0.010, 10000.0 );
+		#mass = get_clamped_value( ( genome_genes[ 9 ] * ( 10000.0 - 0.01 ) ) + 0.010, 0.010, 10000.0 );
+		
+		mass = get_clamped_value( ( genome_genes[ 9 ] * ( 15.0 - 0.010 ) ) + 0.010, 0.010, 15.0 );
 		
 		self.log( "Setting mass." );
 		
