@@ -17,7 +17,9 @@ db_connection = mdb.connect( 'localhost', user_name, password, 'bbautotune' );
 
 db_cursor = db_connection.cursor( );
 
-db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 2000" );
+#db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 2000" );
+
+db_cursor.execute( "SELECT * FROM  `population_metrics`" );
 
 result = db_cursor.fetchall( );
 
@@ -131,7 +133,7 @@ print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>Gen
 print( "<font id='highest_text' style='font-family: sans-serif; font-size: 20px; color: #89bbd8; cursor: pointer;'>Highest&nbsp;</font>" );
 print( "<font id='average_text' style='font-family: sans-serif; font-size: 20px; color: #9dd597; cursor: pointer;'>Average&nbsp;</font>" );
 print( "<font id='lowest_text'  style='font-family: sans-serif; font-size: 20px; color: #DD5C5C; cursor: pointer;'>Lowest&nbsp;</font>" );
-print( "<font id='all_text'  style='font-family: sans-serif; font-size: 20px; color: #fff; cursor: pointer;'>ALL&nbsp;</font><br><br>" );
+print( "<font id='all_text'  style='font-family: sans-serif; font-size: 20px; color: #fff; cursor: pointer; font-weight: bold;'>ALL&nbsp;</font><br><br>" );
 print( "<figure style='width: 800px; height: 600px;' id='fitnesses'></figure><br>" );
 print( "</td>" );
 print( "</tr>" );
@@ -267,10 +269,10 @@ for i in range( len( best_fit_line ) ):
 	print( "'y':" + str( best_fit_line[ i ] ) );
 	print( "}," );
 print( "] } ] };" );
-print( "document.getElementById('highest_text').onmousedown = function ( ) { fitnesses_chart.setData( highest_fitnesses_data ); };" );
-print( "document.getElementById('average_text').onmousedown = function ( ) { fitnesses_chart.setData( average_fitnesses_data ); };" );
-print( "document.getElementById('lowest_text').onmousedown  = function ( ) { fitnesses_chart.setData( lowest_fitnesses_data  ); };" );
-print( "document.getElementById('all_text').onmousedown     = function ( ) { fitnesses_chart.setData( fitnesses_data         ); };" );
+print( "document.getElementById('highest_text').onmousedown = function ( ) { document.getElementById('highest_text').style.fontWeight = 'bold'; document.getElementById('average_text').style.fontWeight = 'normal'; document.getElementById('lowest_text').style.fontWeight = 'normal';  document.getElementById('all_text').style.fontWeight = 'normal';     fitnesses_chart.setData( highest_fitnesses_data ); };" );
+print( "document.getElementById('average_text').onmousedown = function ( ) { document.getElementById('average_text').style.fontWeight = 'bold'; document.getElementById('highest_text').style.fontWeight = 'normal'; document.getElementById('lowest_text').style.fontWeight = 'normal';  document.getElementById('all_text').style.fontWeight = 'normal';     fitnesses_chart.setData( average_fitnesses_data ); };" );
+print( "document.getElementById('lowest_text').onmousedown  = function ( ) { document.getElementById('lowest_text').style.fontWeight = 'bold';  document.getElementById('average_text').style.fontWeight = 'normal'; document.getElementById('highest_text').style.fontWeight = 'normal'; document.getElementById('all_text').style.fontWeight = 'normal';     fitnesses_chart.setData( lowest_fitnesses_data  ); };" );
+print( "document.getElementById('all_text').onmousedown     = function ( ) { document.getElementById('all_text').style.fontWeight = 'bold';     document.getElementById('average_text').style.fontWeight = 'normal'; document.getElementById('lowest_text').style.fontWeight = 'normal';  document.getElementById('highest_text').style.fontWeight = 'normal'; fitnesses_chart.setData( fitnesses_data         ); };" );
 print( " var probabilities_data = { 'xScale': 'linear', 'yScale': 'linear', 'yMax': 1.0, 'yMin': 0.0, 'xMax': " + str( len( highest_fitnesses ) - 1 ) + ", 'xMin': 0, 'main': [ " );
 print( "{ 'className': '.crossoverProbabilities', 'data': [" );
 for i in range( len( crossover_probabilities ) ):

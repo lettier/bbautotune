@@ -11,6 +11,7 @@ The main GA python file.
 '''
 
 import sys;
+import atexit;
 import random;
 import math;
 import copy;
@@ -185,6 +186,10 @@ class BBAUTOTUNE_UI_START_BUTTON_OPERATOR( bpy.types.Operator ):
 			bpy.context.scene.BBAUTOTUNE_DEBUG
 			
 		);
+		
+		# Clean up on premature exit.
+
+		atexit.register( bpy.bbautotune.stop );
 
 		return { 'FINISHED' };
 
@@ -1703,11 +1708,15 @@ The BBAutoTune object.
 class BBAutoTune( ):
 	
 	def __init__( self, ga, dbm ):
-		
+
 		# The genetic algorithm and the database manager.
 		
 		self.ga  = ga;
 		self.dbm = dbm;
+		
+		# Run ID.
+		
+		self.run_id = None;
 		
 		# The current genome being evaluated.
 		
@@ -2011,9 +2020,13 @@ class BBAutoTune( ):
 			
 	def stop( self ):
 		
-		self.dbm.close_database_connection( );
+		if ( self.run_id != None ):
 		
-		self.stop_ga_monitor( );
+			self.dbm.close_database_connection( );
+		
+			self.stop_ga_monitor( );
+		
+			self.run_id = None;
 		
 	def start_ga_monitor( self ):
 		
