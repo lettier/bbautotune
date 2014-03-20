@@ -1788,7 +1788,7 @@ class BBAutoTune( ):
 			
 			logs_location = get_scripts_location( ) + "logs/";
 			
-			self.log_file_name = logs_location + "log_" + str( self.run_id ) + ".log";
+			self.log_file_name = logs_location + "log_" + str( self.run_id ) + ".dat";
 			
 			self.ga.set_log_file_name( self.log_file_name );
 			
@@ -1901,7 +1901,7 @@ class BBAutoTune( ):
 			
 			# Record simulated robot motion.
 			
-			simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srr_" + str( self.run_id ) + ".dat", "a" );
+			simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srmf_" + str( self.run_id ) + ".dat", "a" );
 			
 			write_string  = str( P[ 0 ] ) + ",";
 			write_string += str( P[ 1 ] ) + ",";
@@ -1959,7 +1959,7 @@ class BBAutoTune( ):
 				
 				# Separate recorded simulated robot motion by generation.
 			
-				simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srr_" + str( self.run_id ) + ".dat", "a" );
+				simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srmf_" + str( self.run_id ) + ".dat", "a" );
 				
 				simulated_robot_motion_file.write( "\n" );
 				

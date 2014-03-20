@@ -17,9 +17,19 @@ db_connection = mdb.connect( 'localhost', user_name, password, 'bbautotune' );
 
 db_cursor = db_connection.cursor( );
 
-db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 1000" );
+db_cursor.execute( "SELECT * FROM  `population_metrics` LIMIT 0, 2000" );
 
 result = db_cursor.fetchall( );
+
+last_start_index = 0;
+
+for i in range( len( result ) ):
+	
+	if result[ i ][ 1 ] == 0:
+		
+		last_start_index = i;
+		
+result = result[ last_start_index : ];
 
 highest_fitnesses = [ ];
 average_fitnesses = [ ];
