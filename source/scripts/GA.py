@@ -1787,10 +1787,6 @@ class BBAutoTune( ):
 
 		self.run_id = int( round( time.time( ) * 1000 ) );
 		
-		self.log( "Run ID." );
-		
-		self.log( str( self.run_id ) );
-		
 		self.debug = debug or False;
 		
 		if ( self.debug == True ):
@@ -1803,11 +1799,9 @@ class BBAutoTune( ):
 			
 			bpy.data.objects[ "robot_monitor" ].game.properties[ "log_file_name" ].value = self.log_file_name;
 			
-		self.log( "Max torque." );
+		self.log( "Run ID." );
 		
-		self.max_torque = max_torque;
-		
-		self.log( str( self.max_torque ) );
+		self.log( str( self.run_id ) );
 		
 		# Pass the file name and directory where the robot 
 		# monitor will record the robot's P and P'.
@@ -1834,6 +1828,12 @@ class BBAutoTune( ):
 		self.log( str( use_rank_selection ) );
 		self.log( str( perform_crossover_and_mutation_sequentially ) );
 		self.log( str( use_self_adaptation ) );
+		
+		self.log( "Max torque." );
+		
+		self.max_torque = max_torque;
+		
+		self.log( str( self.max_torque ) );
 		
 		self.ga.set_population_size( population_size );
 		self.ga.set_max_generations( max_generations );
@@ -1919,7 +1919,7 @@ class BBAutoTune( ):
 			write_string += str( P[ 4 ] ) + ",";
 			write_string += str( P[ 5 ] ) + ";";
 			
-			write_string  = str( P_prime[ 0 ] ) + ",";
+			write_string += str( P_prime[ 0 ] ) + ",";
 			write_string += str( P_prime[ 1 ] ) + ",";
 			write_string += str( P_prime[ 2 ] ) + ",";
 			write_string += str( P_prime[ 3 ] ) + ",";
