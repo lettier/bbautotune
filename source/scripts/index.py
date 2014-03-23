@@ -80,9 +80,15 @@ if ( len( highest_fitnesses ) != 0 ):
 	
 	cp_max  = max( crossover_probabilities );	
 	cp_min  = min( crossover_probabilities );
+	cp_mean = numpy.mean( crossover_probabilities );
+	cp_var  = numpy.var( crossover_probabilities );
+	cp_std  = numpy.std( crossover_probabilities );
 	
 	mp_max  = max( mutation_probabilities );
 	mp_min  = min( mutation_probabilities );
+	mp_mean = numpy.mean( crossover_probabilities );
+	mp_var  = numpy.var( crossover_probabilities );
+	mp_std  = numpy.std( crossover_probabilities );
 	
 else:
 	
@@ -109,12 +115,15 @@ else:
 	
 	cp_max  = 0.0;	
 	cp_min  = 0.0;
+	cp_mean = 0.0;
+	cp_var  = 0.0;
+	cp_std  = 0.0;
 	
 	mp_max  = 0.0;
 	mp_min  = 0.0;
-	
-yMax = 0.0;
-yMin = 250.0;
+	mp_mean = 0.0;
+	mp_var  = 0.0;
+	mp_std  = 0.0;
 
 print( "Content-type: text/html\n" );
 
@@ -134,16 +143,16 @@ print( "<font id='highest_text' style='font-family: sans-serif; font-size: 20px;
 print( "<font id='average_text' style='font-family: sans-serif; font-size: 20px; color: #9dd597; cursor: pointer;'>Average&nbsp;</font>" );
 print( "<font id='lowest_text'  style='font-family: sans-serif; font-size: 20px; color: #DD5C5C; cursor: pointer;'>Lowest&nbsp;</font>" );
 print( "<font id='all_text'  style='font-family: sans-serif; font-size: 20px; color: #fff; cursor: pointer; font-weight: bold;'>ALL&nbsp;</font><br><br>" );
-print( "<figure style='width: 800px; height: 600px;' id='fitnesses'></figure><br>" );
+print( "<figure style='width: 800px; height: 600px;' id='fitnesses'></figure>" );
 print( "</td>" );
 print( "</tr>" );
 print( "<tr>" );
 print( "<td>" );
 print( "<table cellspacing='15px'>" );
 print( "<tr><td></td><td>Min</td><td>Max</td><td>Mean</td><td>Variance</td><td>Standard Deviation</td></tr>" );
-print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Highest Fitness</font></td><td>" + str( hf_max ) + "</td><td>" + str( hf_min ) + "</td><td>" + str( hf_mean ) + "</td><td>" + str( hf_var ) + "</td><td>" + str( hf_std ) + "</td></tr>" );
-print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Average Fitness</font></td><td>" + str( af_max ) + "</td><td>" + str( af_min ) + "</td><td>" + str( af_mean ) + "</td><td>" + str( af_var ) + "</td><td>" + str( af_std ) + "</td></tr>" );
-print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Lowest Fitness</font></td><td>" + str( lf_max ) + "</td><td>" + str( lf_min ) + "</td><td>" + str( lf_mean ) + "</td><td>" + str( lf_var ) + "</td><td>" + str( lf_std ) + "</td></tr>"  );
+print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Highest Fitness</font></td><td>" + str( hf_max ) + "</td><td>" + str( hf_min ) + "</td><td>"  + str( hf_mean ) + "</td><td>" + str( hf_var ) + "</td><td>" + str( hf_std ) + "</td></tr>" );
+print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Average Fitness</font></td><td>" + str( af_max ) + "</td><td>" + str( af_min ) + "</td><td>"  + str( af_mean ) + "</td><td>" + str( af_var ) + "</td><td>" + str( af_std ) + "</td></tr>" );
+print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Lowest Fitness</font></td><td>"  + str( lf_max ) + "</td><td>" + str( lf_min )  + "</td><td>" + str( lf_mean ) + "</td><td>" + str( lf_var ) + "</td><td>" + str( lf_std ) + "</td></tr>"  );
 print( "</table>" );
 print( "</td>" );
 print( "</tr>" );
@@ -154,6 +163,15 @@ print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'>&&n
 print( "<font style='font-family: sans-serif; font-size: 30px; color: #9dd597;'>Mutation&nbsp;</font>" );
 print( "<font style='font-family: sans-serif; font-size: 30px; color: #fff;'> Rate Progress:&nbsp;</font><br><br>" );
 print( "<figure style='width: 800px; height: 600px;' id='probabilities'></figure>" );
+print( "</td>" );
+print( "</tr>" );
+print( "<tr>" );
+print( "<td>" );
+print( "<table cellspacing='15px'>" );
+print( "<tr><td></td><td>Min</td><td>Max</td><td>Mean</td><td>Variance</td><td>Standard Deviation</td></tr>" );
+print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Crossover Probability</font></td><td>" + str( cp_min ) + "</td><td>" + str( cp_max ) + "</td><td>" + str( cp_mean ) + "</td><td>" + str( cp_var ) + "</td><td>" + str( cp_std ) + "</td></tr>" );
+print( "<tr><td><font style='font-family: sans-serif; font-size: 15px; color: #fff;'>Mutation Probability</font></td><td>"  + str( mp_min ) + "</td><td>" + str( mp_max ) + "</td><td>" + str( cp_mean ) + "</td><td>" + str( mp_var ) + "</td><td>" + str( mp_std ) + "</td></tr>" );
+print( "</table>" );
 print( "</td>" );
 print( "</tr>" );
 print( "</table>" );

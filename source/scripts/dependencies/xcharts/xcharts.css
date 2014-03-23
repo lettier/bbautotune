@@ -22,7 +22,7 @@
   font-size: 12px;
 }
 .xchart .color0 .line {
-  /*stroke: #3880aa;*/
+  stroke: #3880aa;
   stroke: #3880ff;
 }
 .xchart .color0 .line .fill {
@@ -31,6 +31,8 @@
 .xchart .color0 rect,
 .xchart .color0 circle {
   fill: #3880aa;
+  fill: #3880ff;
+  stroke: #96BAFA;
 }
 .xchart .color0 .fill {
   fill: rgba(56, 128, 170, 0.1);
@@ -58,6 +60,7 @@
 .xchart .color1 rect,
 .xchart .color1 circle {
   fill: #4da944;
+  stroke: #8FCF89;
 }
 .xchart .color1 .fill {
   fill: rgba(77, 169, 68, 0.1);
@@ -85,6 +88,8 @@
 .xchart .color2 rect,
 .xchart .color2 circle {
   fill: #f26522;
+  fill:   #DD5C5C;
+  stroke: #FCAAAA;
 }
 .xchart .color2 .fill {
   fill: rgba(242, 101, 34, 0.1);

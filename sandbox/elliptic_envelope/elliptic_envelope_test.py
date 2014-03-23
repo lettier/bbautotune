@@ -191,6 +191,7 @@ for i in range( len( forward_motion ) ):
 
 print "Max MD: ", max( mds );
 print "Min MD: ", min( mds );
+print "Robust Mean (Location) MD: ", scipy.spatial.distance.mahalanobis( mcd_trained.location_, mcd_trained.location_, robust_covariance_matrix_inverse );
 	
 md2s_sorted = sorted( map( lambda a: a * a, mds ) );
 
@@ -590,7 +591,7 @@ plt.ylabel( "Ordered Theta Delta Quantile" );
 
 print "EE:";
 
-ssp = numpy.array( [ [ 0.0, 25.0, 0.0 ] ] );
+ssp = numpy.array( [ [ -10, 25.0, 0.0 ] ] );
 
 print "Sample simulated point [[X',Y',T']]: ", ssp;
 
