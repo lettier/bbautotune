@@ -61371,6 +61371,8 @@ collision_bounds_type,TRIANGLE_MESH
 torque_z,0.0
 fitness,21.9592395399
 
+*** LOWEST ***
+
 gravity,8.75393457516
 sub_steps,5
 fps,30
@@ -61383,6 +61385,8 @@ rotation_damping,0.0
 collision_bounds_type,TRIANGLE_MESH
 torque_z,10.0
 fitness,11256.072054
+
+*** LOWEST ***
 
 gravity,0.0171593124771
 sub_steps,5
