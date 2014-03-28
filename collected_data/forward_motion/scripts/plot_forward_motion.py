@@ -19,6 +19,7 @@ from scipy.stats import scoreatpercentile;
 from scipy.stats import normaltest;
 from scipy.stats import norm;
 from scipy.stats import probplot;
+from scipy.stats import mode;
 
 # Calculates or rather approximates the geometric median.
 
@@ -325,6 +326,7 @@ x_p_var  = sum( x_p_var ) / float( len( x_p_var ) );
 x_p_std  = math.sqrt( x_p_var );
 
 print "X' max/min: ", max( x_p_values ), min( x_p_values );
+print "X' mode: ", mode( x_p_values, axis = None );
 print "X' mean: ", x_p_mean;
 print "X' variance: ", x_p_var;
 print "X' standard deviation: ", x_p_std;
@@ -335,6 +337,7 @@ y_p_var  = sum( y_p_var ) / float( len( y_p_var ) );
 y_p_std  = math.sqrt( y_p_var );
 
 print "Y' max/min: ", max( y_p_values ), min( y_p_values );
+print "Y' mode: ", mode( y_p_values, axis = None );
 print "Y' mean: ", y_p_mean;
 print "Y' variance: ", y_p_var;
 print "Y' standard deviation: ", y_p_std;
@@ -345,6 +348,7 @@ t_p_var  = sum( t_p_var ) / float( len( t_p_var ) );
 t_p_std  = math.sqrt( t_p_var );
 
 print "Theta' max/min: ", max( t_p_values ), min( t_p_values );
+print "Theta' mode: ", mode( t_p_values, axis = None );
 print "Theta' mean: ", t_p_mean;
 print "Theta' variance: ", t_p_var;
 print "Theta' standard deviation: ", t_p_std;
@@ -591,8 +595,8 @@ plt.plot( [ x_p_mean, x_p_mean ], [ 0.0, max_patch_height ], "g--", linewidth = 
 plt.plot( [ ( x_p_mean - x_p_std ), ( x_p_mean - x_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ ( x_p_mean + x_p_std ), ( x_p_mean + x_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ x_p_median, x_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
-plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "X-axis Delta in Centimeters" );
+plt.title( "BBAutoTune \n\n Real Robot Forward Motion" );
+plt.xlabel( "X-translation in Centimeters" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
@@ -620,7 +624,7 @@ plt.plot( [ ( y_p_mean - y_p_std ), ( y_p_mean - y_p_std ) ], [ 0.0, max_patch_h
 plt.plot( [ ( y_p_mean + y_p_std ), ( y_p_mean + y_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ y_p_median, y_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
 plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "Y-axis Delta in Centimeters" );
+plt.xlabel( "Y-translation in Centimeters" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
@@ -648,7 +652,7 @@ plt.plot( [ ( t_p_mean - t_p_std ), ( t_p_mean - t_p_std ) ], [ 0.0, max_patch_h
 plt.plot( [ ( t_p_mean + t_p_std ), ( t_p_mean + t_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ t_p_median, t_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
 plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "Theta Delta in Degrees" );
+plt.xlabel( "Z-rotation in Radians" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
@@ -663,8 +667,8 @@ plt.hist( x_p_values, bins = k_x, normed = True, alpha = 0.75, cumulative = True
 normal_data = sorted( norm.rvs( size = len( x_p_values ), loc = x_p_mean, scale = x_p_std ) );
 normal_data_cdf = norm.cdf( normal_data, x_p_mean, x_p_std );
 plt.plot( normal_data, normal_data_cdf, "--r" );
-plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "X-axis Delta in Centimeters" );
+plt.title( "BBAutoTune \n\n Real Robot Forward Motion" );
+plt.xlabel( "X-translation in Centimeters" );
 plt.ylabel( "CDF Normalized" );
 plt.grid( True );
 
@@ -674,7 +678,7 @@ normal_data = sorted( norm.rvs( size = len( y_p_values ), loc = y_p_mean, scale 
 normal_data_cdf = norm.cdf( normal_data, y_p_mean, y_p_std );
 plt.plot( normal_data, normal_data_cdf, "--r" );
 plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "Y-axis Delta in Centimeters" );
+plt.xlabel( "Y-translation in Centimeters" );
 plt.ylabel( "CDF Normalized" );
 plt.grid( True );
 
@@ -684,7 +688,7 @@ normal_data = sorted( norm.rvs( size = len( t_p_values ), loc = t_p_mean, scale 
 normal_data_cdf = norm.cdf( normal_data, t_p_mean, t_p_std );
 plt.plot( normal_data, normal_data_cdf, "--r" );
 plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "Theta Delta in Degrees" );
+plt.xlabel( "Z-rotation in Radians" );
 plt.ylabel( "CDF Normalized" );
 plt.grid( True );
 
@@ -696,9 +700,9 @@ plt.figure( 4 );
 
 plt.axis( "equal" );
 plt.grid( True );
-plt.title( "Real Robot Forward Motion (Robot Perspective)" );
-plt.xlabel( "X-axis" );
-plt.ylabel( "Y-axis" );
+plt.title( "BBAutoTune \n\n Real Robot Forward Motion (Robot Perspective)" );
+plt.xlabel( "X-translation in Centimeters" );
+plt.ylabel( "Y-translation in Centimeters" );
 plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 
 plt.plot( [ min( x_values ), max( x_p_values ) ], [ min( y_values ), min( y_values ) ], "r-", linewidth = 2 );
@@ -761,23 +765,23 @@ plt.figure( 5 );
 plt.subplot( 3, 1, 1 );
 plt.grid( True );
 x_qq_plot = probplot( x_p_values, dist = "norm", sparams = ( x_p_mean, x_p_std ), plot = plt );
-plt.title( "Real Robot Forward Motion Q-Q Plot" );
+plt.title( "BBAutoTune \n\n Real Robot Forward Motion Q-Q Plot" );
 plt.xlabel( "Normal Quantile" );
-plt.ylabel( "Ordered X-axis Delta Quantile" );
+plt.ylabel( "Ordered X-translation Quantile" );
 
 plt.subplot( 3, 1, 2 );
 plt.grid( True );
 x_qq_plot = probplot( y_p_values, dist = "norm", sparams = ( y_p_mean, y_p_std ), plot = plt );
 plt.title( "Real Robot Forward Motion Q-Q Plot" );
 plt.xlabel( "Normal Quantile" );
-plt.ylabel( "Ordered Y-axis Delta Quantile" );
+plt.ylabel( "Ordered Y-translation Quantile" );
 
 plt.subplot( 3, 1, 3 );
 plt.grid( True );
 x_qq_plot = probplot( t_p_values, dist = "norm", sparams = ( t_p_mean, t_p_std ), plot = plt );
 plt.title( "Real Robot Forward Motion Q-Q Plot" );
 plt.xlabel( "Normal Quantile" );
-plt.ylabel( "Ordered Theta Delta Quantile" );
+plt.ylabel( "Ordered Z-rotation Quantile" );
 
 # Plot 6.
 
@@ -788,10 +792,10 @@ ax  = fig.gca( projection = "3d" );
 
 ax.grid( alpha = 1.0 );
 
-ax.set_title(  "Real Robot Forward Motion",   fontsize = 15 );
-ax.set_xlabel( "X-axis Delta in Centimeters", fontsize = 15 );
-ax.set_ylabel( "Y-axis Delta in Centimeters", fontsize = 15 );
-ax.set_zlabel( "Theta Delta in Radians",  fontsize = 15, linespacing = 10 );
+ax.set_title(  "BBAutoTune \n\n Real Robot Forward Motion", fontsize = 15 );
+ax.set_xlabel( "X-translation in Centimeters",               fontsize = 15 );
+ax.set_ylabel( "Y-translation in Centimeters",               fontsize = 15 );
+ax.set_zlabel( "Z-rotation in Radians",                    fontsize = 15, linespacing = 10 );
 
 colors = [ ];
 max_x  = max( x_p_values );
@@ -816,11 +820,11 @@ ax.plot( [ xyt_p_centroid[ 0 ] ], [ xyt_p_centroid[ 1 ] ], [ xyt_p_centroid[ 2 ]
 
 # Plot the median.
 
-ax.plot( [ x_p_median ], [ y_p_median ], [ t_p_median ], color = "w", marker = "d", ms = 20 );
+#ax.plot( [ x_p_median ], [ y_p_median ], [ t_p_median ], color = "w", marker = "d", ms = 20 );
 
 # Plot the geometric median.
 
-ax.plot( [ xyt_p_geometric_median[ 0 ] ], [ xyt_p_geometric_median[ 1 ] ], [ xyt_p_geometric_median[ 2 ] ], color = "w", marker = "h", ms = 20 );
+#ax.plot( [ xyt_p_geometric_median[ 0 ] ], [ xyt_p_geometric_median[ 1 ] ], [ xyt_p_geometric_median[ 2 ] ], color = "w", marker = "h", ms = 20 );
 
 ax.set_xlim3d( min( x_p_values ), max( x_p_values ) );
 ax.set_ylim3d( min( y_p_values ), max( y_p_values ) ); 

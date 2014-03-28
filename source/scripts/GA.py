@@ -778,7 +778,7 @@ class Genetic_Algorithm( ):
 			# Genome 3 has a probability of being selected:  (6-3)*(1/10) =  30%
 			# Genome 4 has a probability of being selected: (10-6)*(1/10) =  40%
 			# Total of any being selected:                                = 100%
-			#    |
+			#
 			#    
 			# 0.10 ---------------------------------------
 			#     |   |       |           |               |
@@ -2362,7 +2362,7 @@ class BBAutoTune( ):
 		
 		damping = get_clamped_value( ( genome_genes[ 12 ] ), 0.0, 1.0 );
 		
-		self.log( "Setting damping translation." );
+		self.log( "Setting translation damping." );
 		
 		self.log( str( damping ) );
 		

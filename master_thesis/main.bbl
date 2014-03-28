@@ -1,0 +1,144 @@
+\begin{thebibliography}{19}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Juang et~al.(2011)Juang, Hung, and Kang]{forklift}
+Jhih~Ren. Juang, Wei~Han Hung, and Shih~Chung Kang.
+\newblock Using game engines for physical–based simulations–a forklift.
+\newblock \emph{Journal of Information Technology in Construction},
+  16:\penalty0 3--22, 2011.
+
+\bibitem[web({\natexlab{a}})]{website:blender-rigidbody}
+Doc:2.6/manual/game engine/physics/object type/dynamic - blenderwiki.
+\newblock
+  \url{http://wiki.blender.org/index.php/Doc:2.6/Manual/Game_Engine/Physics/Object_Type/Dynamic},
+  {\natexlab{a}}.
+\newblock Accessed August 13, 2013.
+
+\bibitem[web({\natexlab{b}})]{website:blender-objecttype}
+Doc:2.6/manual/game engine/physics/object type - blenderwiki.
+\newblock
+  \url{http://wiki.blender.org/index.php/Doc:2.6/Manual/Game_Engine/Physics/Object_Type},
+  {\natexlab{b}}.
+\newblock Accessed August 13, 2013.
+
+\bibitem[Hess(2007)]{Hess:2007:EBG:1543288}
+Roland Hess.
+\newblock \emph{The Essential Blender: Guide to 3D Creation with the Open
+  Source Suite Blender}.
+\newblock No Starch Press, San Francisco, CA, USA, 2007.
+\newblock ISBN 1593271662, 9781593271664.
+
+\bibitem[Buckland(2013)]{neuralnetworks}
+Mat Buckland.
+\newblock Neural networks in plain english.
+\newblock \url{http://www.ai-junkie.com/ann/evolved/nnt1.html}, September 2013.
+\newblock URL \url{http://www.ai-junkie.com/ann/evolved/nnt1.html}.
+
+\bibitem[Pohlheim(1997)]{geneticalgorithm}
+Hartmut Pohlheim.
+\newblock Genetic and evolutionary algorithms: Principles, methods and
+  algorithms.
+\newblock \url{http://www.pg.gda.pl/~mkwies/dyd/geadocu/algindex.html}, May
+  1997.
+\newblock URL \url{http://www.pg.gda.pl/~mkwies/dyd/geadocu/algindex.html}.
+
+\bibitem[Wen-Yang~Lin and Hong(2003)]{self_adapt}
+Wen-Yung~Lee Wen-Yang~Lin and Tzung-Pei Hong.
+\newblock Adapting crossover and mutation rates in genetic algorithms.
+\newblock \emph{Journal of Information Science and Engineering}, 19:\penalty0
+  889--903, 2003.
+
+\bibitem[Obitko(1998)]{genselect}
+Marek Obitko.
+\newblock Selection: Introduction to genetic algorithms.
+\newblock
+  \url{http://www.obitko.com/tutorials/genetic-algorithms/selection.php}, 1998.
+\newblock URL
+  \url{http://www.obitko.com/tutorials/genetic-algorithms/selection.php}.
+
+\bibitem[M\"{u}hlenbein and Schlierkamp-Voosen(1993)]{predictive_models}
+Heinz M\"{u}hlenbein and Dirk Schlierkamp-Voosen.
+\newblock Predictive models for the breeder genetic algorithm i. continuous
+  parameter optimization.
+\newblock \emph{Evol. Comput.}, 1\penalty0 (1):\penalty0 25--49, March 1993.
+\newblock ISSN 1063-6560.
+\newblock \doi{10.1162/evco.1993.1.1.25}.
+\newblock URL \url{http://dx.doi.org/10.1162/evco.1993.1.1.25}.
+
+\bibitem[web({\natexlab{c}})]{website:continuousphysics}
+Bullet collision detection \& physics library.
+\newblock \url{http://www.continuousphysics.com/Bullet/BulletFull/index.html},
+  {\natexlab{c}}.
+\newblock Accessed March 26, 2014.
+
+\bibitem[Maesschalck et~al.(2000)Maesschalck, Jouan-Rimbaud, and
+  Massart]{mahalanobis_distance}
+R.~De Maesschalck, D.~Jouan-Rimbaud, and D.L. Massart.
+\newblock The mahalanobis distance.
+\newblock \emph{Chemometrics and Intelligent Laboratory System}, 50\penalty0
+  (1):\penalty0 1--18, January 2000.
+
+\bibitem[Wicklin(2012)]{what_is_mahalanobis_distance}
+Rick Wicklin.
+\newblock What is mahalanobis distance?
+\newblock
+  \url{http://blogs.sas.com/content/iml/2012/02/15/what-is-mahalanobis-distance/},
+  February 2012.
+\newblock Accessed March 27, 2014.
+
+\bibitem[Rousseeuw and Driessen(1999)]{Rousseeuw:1999:FAM:331435.331458}
+Peter~J. Rousseeuw and Katrien~Van Driessen.
+\newblock A fast algorithm for the minimum covariance determinant estimator.
+\newblock \emph{Technometrics}, 41\penalty0 (3):\penalty0 212--223, August
+  1999.
+\newblock ISSN 0040-1706.
+\newblock \doi{10.2307/1270566}.
+\newblock URL \url{http://dx.doi.org/10.2307/1270566}.
+
+\bibitem[Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort, Michel, Thirion,
+  Grisel, Blondel, Prettenhofer, Weiss, Dubourg, Vanderplas, Passos,
+  Cournapeau, Brucher, Perrot, and Duchesnay]{scikit-learn}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
+  M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, J.~Vanderplas, A.~Passos,
+  D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock \emph{Journal of Machine Learning Research}, 12:\penalty0 2825--2830,
+  2011.
+
+\bibitem[Hubert and Debruyne(2010)]{WICS:WICS61}
+Mia Hubert and Michiel Debruyne.
+\newblock Minimum covariance determinant.
+\newblock \emph{Wiley Interdisciplinary Reviews: Computational Statistics},
+  2\penalty0 (1):\penalty0 36--43, 2010.
+\newblock ISSN 1939-0068.
+\newblock \doi{10.1002/wics.61}.
+\newblock URL \url{http://dx.doi.org/10.1002/wics.61}.
+
+\bibitem[Agarwal et~al.(2012)Agarwal, Avraham, Kaplan, and Sharir]{frechet}
+Pankaj~K. Agarwal, Rinat~Ben Avraham, Haim Kaplan, and Micha Sharir.
+\newblock Computing the discrete fr{\'e}chet distance in subquadratic time.
+\newblock \emph{CoRR}, abs/1204.5333, 2012.
+
+\bibitem[Chen et~al.(2010)Chen, Ma, Xu, and Paul]{hausdorff}
+Xiao-Diao Chen, Weiyin Ma, Gang Xu, and Jean-Claude Paul.
+\newblock Computing the hausdorff distance between two b-spline curves.
+\newblock \emph{Computer-Aided Design}, 42\penalty0 (12):\penalty0 1197--1206,
+  2010.
+
+\bibitem[web(2012)]{website:bulletscale}
+Scaling the world - physics simulation wiki.
+\newblock
+  \url{http://www.bulletphysics.org/mediawiki-1.5.8/index.php?title=Scaling_The_World},
+  2012.
+\newblock Accessed August 13, 2013.
+
+\bibitem[web(2011)]{website:stage}
+Stage - the player project.
+\newblock \url{http://playerstage.sourceforge.net/wiki/Stage}, 2011.
+\newblock Accessed August 14, 2013.
+
+\end{thebibliography}

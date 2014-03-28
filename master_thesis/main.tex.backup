@@ -1,0 +1,106 @@
+\documentclass{book}[11pt]
+
+\usepackage{bc}
+\usepackage{epsfig}
+\usepackage{url}
+\usepackage{fullpage}
+\usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{booktabs}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{lstpatch}
+\usepackage[centerlast,small,sc]{caption}
+\usepackage{varwidth}
+\usepackage{rotating}
+\usepackage{colortbl}
+\usepackage[table]{xcolor}
+\usepackage{pdflscape}
+\usepackage{pbox}
+\usepackage[square, numbers, comma, sort&compress]{natbib}
+\usepackage[pdfpagemode={UseOutlines},bookmarks=true,bookmarksopen=true,
+bookmarksopenlevel=0,bookmarksnumbered=true,hypertexnames=false,
+%colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red},
+colorlinks,linkcolor={black},citecolor={black},urlcolor={black},
+pdfstartview={FitV},unicode,breaklinks=true]{hyperref}
+   
+\graphicspath{ {./Figures/} }
+\hypersetup{urlcolor=black, colorlinks=true}
+
+\makeatletter
+\newcommand{\thickhline}{\noalign {\ifnum 0=`}\fi \hrule height 1pt\futurelet \reserved@a \@xhline}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+\newcommand{\tab}{\hspace*{2em}}
+
+% End Lettier added.
+
+\begin{document}
+
+  \thesistitle
+  {Tunning the Blender Physics Engine via a Genetic Algorithm}
+  {David Lettier}
+  {\today}
+
+
+  \newpage
+  \pagenumbering{roman}
+  \section*{Acknowledgments}
+  Thanks to everyone who helped me complete this thesis!
+
+
+  \newpage
+  \section*{Abstract}
+
+  Using a physics engine for robotic simulation provides fidelity with the added benefit of lower research costs, minimal space requirements, and even less time as the physical simulation can be run at faster than real-time speeds \cite{forklift}. However, physics engines have numerous parameters to tune such as friction coefficients, rigid-body constraints, body mass, gravitational acceleration, material elasticity, collision shapes, etcetera \cite{website:blender-rigidbody}\cite{website:blender-objecttype}. Tuning these either programmatically or as in the case of \textit{Blender}\footnote{Blender, released under the GNU General Public License, is a 3D creation suite allowing artists and programmers alike to produce immersive audio/visual works ranging from animation shorts to real-time 3D interactive games. Features include 3D modeling, 3D sculpting, texturing, sound editing, film editing, motion tracking, rigging, rendering, animation, physical simulation, a real-time 3D engine, and extensibility via the integrated Python API \cite{Hess:2007:EBG:1543288}.}---via the graphical user interface---is a daunting task considering the multidimensional state space. Simulation fidelity is compromised as some parameters are perfected while others are now maladjusted. Adjusting some parameters only to malign others leads to a ``herding cats'' type of effect. This ultimately results in a ``reality gap'' between the simulated environment and the physical environment. However, by using a genetic algorithm to optimize or rather fine tune the physics-engine parameters, the hypothesis is that the physics engine will produce a robot motion model more closely reassembling that of the real-world robot kinematics.
+
+  \tableofcontents
+
+  \listoffigures
+
+  \listoftables
+
+  \newpage
+  \newpage
+  \pagestyle{plain}
+  \pagenumbering{arabic}
+  \def\baselinestretch{1.9}
+  \normalsize
+
+  \include{Chapters/Chapter1}
+  \include{Chapters/Chapter2}
+  \include{Chapters/Chapter3}
+  \include{Chapters/Chapter4}
+  \include{Chapters/Chapter5}
+  \include{Chapters/Chapter6}
+  
+  %----------------------------------------------------------------------------------------
+  %	THESIS CONTENT - APPENDICES
+  %----------------------------------------------------------------------------------------
+
+  \addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+  \appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+
+  % Include the appendices of the thesis as separate files from the Appendices folder
+  % Uncomment the lines as you write the Appendices
+
+  \input{Appendices/AppendixA}
+  %\input{Appendices/AppendixB}
+  %\input{Appendices/AppendixC}
+
+  \addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+  \backmatter
+
+  %----------------------------------------------------------------------------------------
+  %	BIBLIOGRAPHY
+  %----------------------------------------------------------------------------------------
+
+  \label{Bibliography}
+  \bibliographystyle{unsrtnat} % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+  \bibliography{./Bibliography/Bibliography}
+
+\end{document}

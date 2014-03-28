@@ -181,6 +181,12 @@ mcd_md2s = mcd_trained.dist_;
 
 mds = [ ];
 
+classical_mean = mcd_trained.raw_location_;
+
+robust_mean = mcd_trained.location_;
+
+classical_covariance_matrix_inverse = numpy.linalg.inv( mcd_trained.raw_covariance_ );
+
 robust_covariance_matrix_inverse = numpy.linalg.inv( mcd_trained.covariance_ );
 
 for i in range( len( forward_motion ) ):
@@ -191,8 +197,43 @@ for i in range( len( forward_motion ) ):
 
 print "Max MD: ", max( mds );
 print "Min MD: ", min( mds );
+print "Classical Mean (Location): ", mcd_trained.raw_location_;
+print "Robust Mean (Location): ", mcd_trained.location_;
+print "Classical Covariance Matrix: \n", mcd_trained.raw_covariance_;
+print "Robust Covariance Matrix: \n", mcd_trained.covariance_;
 print "Robust Mean (Location) MD: ", scipy.spatial.distance.mahalanobis( mcd_trained.location_, mcd_trained.location_, robust_covariance_matrix_inverse );
+print "Classical Support samples: \n", mcd_trained.raw_support_;
+print "Robust Support samples: \n", mcd_trained.support_;
+
+robust_support_samples = [ ];
+
+non_robust_support_samples = [ ];
+
+for i in range( len( mcd_trained.support_ ) ):
 	
+	if ( mcd_trained.support_[ i ] == True ):
+		
+		robust_support_samples.append( forward_motion[ i ] );
+		
+	else:
+		
+		non_robust_support_samples.append( forward_motion[ i ] );
+		
+# Compare MD versus RD.
+
+classical_md = [ ];
+robust_md    = [ ];
+
+for i in range( len( forward_motion ) ):
+	
+	md = scipy.spatial.distance.mahalanobis( forward_motion[ i ], mcd_trained.raw_location_, classical_covariance_matrix_inverse );
+	
+	classical_md.append( md );
+	
+	rd = scipy.spatial.distance.mahalanobis( forward_motion[ i ], mcd_trained.location_, robust_covariance_matrix_inverse );
+	
+	robust_md.append( rd );
+
 md2s_sorted = sorted( map( lambda a: a * a, mds ) );
 
 mds_sorted = sorted( mds );
@@ -272,7 +313,51 @@ print "Percentage of outliers: {0:.0f}%".format( ( float( j ) / len( forward_mot
 
 # Plot 3.
 
+# Graph support samples used to compute the robust mean and cov-mat.
+
+fig = plt.figure( 3, figsize = ( 12, 12 ) );
+ax  = fig.gca( projection = "3d" );
+
+ax.grid( alpha = 1.0 );
+
+ax.set_title(  "BBAutoTune \n\n Real Robot Forward Motion Robust Support Samples", fontsize = 15 );
+ax.set_xlabel( "X-translation in Centimeters", fontsize = 15 );
+ax.set_ylabel( "Y-translation in Centimeters", fontsize = 15 );
+ax.set_zlabel( "Z-rotation in Radians",  fontsize = 15, linespacing = 10 );
+
+for i in range( len( non_robust_support_samples ) ):
+	
+	ax.plot( 
+		
+		[ non_robust_support_samples[ i ][ 0 ] ], 
+		[ non_robust_support_samples[ i ][ 1 ] ], 
+		[ non_robust_support_samples[ i ][ 2 ] ], 
+		color = "0.75", 
+		marker = "o",
+		alpha = 0.7,
+		ms = 15 
+		
+	);
+		
+for i in range( len( robust_support_samples ) ):
+		
+	ax.plot( 
+		
+		[ robust_support_samples[ i ][ 0 ] ], 
+		[ robust_support_samples[ i ][ 1 ] ], 
+		[ robust_support_samples[ i ][ 2 ] ], 
+		color = "b",
+		alpha = 0.7,
+		marker = "o", 
+		ms = 15 
+		
+	);
+	
+plt.subplots_adjust( left = 0.0, right = 1.0, top = 1.0, bottom = 0.0 );
+
 # Graph outliers.
+
+'''
 
 fig = plt.figure( 3, figsize = ( 12, 12 ) );
 ax  = fig.gca( projection = "3d" );
@@ -317,6 +402,8 @@ for i in range( len( x_p_values ) ):
 		);
 		
 plt.subplots_adjust( left = 0.0, right = 1.0, top = 1.0, bottom = 0.0 );
+
+'''
 
 # Plot 4.
 
@@ -585,7 +672,18 @@ plt.title( "Real Robot Forward Motion Q-Q Plot w/out Outliers" );
 plt.xlabel( "Normal Quantile" );
 plt.ylabel( "Ordered Theta Delta Quantile" );
 
-# Plot 7.
+# Plot 8.
+
+plt.figure( 8 );
+
+plt.grid( True );
+
+plt.scatter( classical_md, robust_md, color = "green", alpha = 0.5 );
+plt.title( "BBAutoTune \n\n Real Robot Forward Motion MD versus RD" );
+plt.xlabel( "Mahalanobis Distance (MD)" );
+plt.ylabel( "Robust Distance (RD)" );
+plt.plot( [ min( classical_md ), max( classical_md ) ], [ min( classical_md ), max( classical_md ) ], color = "red", alpha = 0.5 );
+
 
 # Try the elliptical envelope now with the outliers gone.
 
