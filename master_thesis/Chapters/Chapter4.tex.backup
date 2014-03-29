@@ -16,7 +16,7 @@ The robot used during experimentation was a 3D model of the Surveyor SRV-1 Black
 
 \subsection{GUI}
 
-Blender's graphical user interface can be extended via its Python API. BBAutoTune adds a custom panel to Blender that allows the user to specify certain parameters pertaining the GA and the overall tuning loop. From this panel the user can also start the tuning loop where BBAutoTune will run until the max generations specified has been reached. See Figure \ref{fig:bbautotune_gui}. 
+Blender's graphical user interface can be extended via its Python API. BBAutoTune adds a custom panel to Blender that allows the user to specify certain parameters pertaining to the GA and the overall tuning loop. Once the user specifies their preferred parameters, they press start to begin the tuning process. After pressing start, BBAutoTune will continue to run until the GA has reached the max generations specified. See Figure \ref{fig:bbautotune_gui}. 
 
 \begin{figure}[htbp]
 \centering
@@ -100,7 +100,7 @@ Running within the Blender game engine, the robot monitor records the position a
 
 \subsection{Progress Monitor}
 
-The progress monitor is an external and self-contained Python HTTP-CGI server that listens on port 8000. By visiting  \texttt{http://localhost:8000/index.py}, a user can track the GA's progress concerning the highest fitness, average fitness, lowest fitness, crossover probability, and the mutation probability. See Figure \ref{fig:ga_monitor}. Once the user presses run on the GUI panel, BBAutoTune starts the server as an external process with the option of opening a browser to the progress page. Once every minute, the progress monitor retrieves the most current GA run information from the local MySQL database which was populated by the database manager.
+The progress monitor is an external and self-contained Python HTTP-CGI server that listens on port 8000. By visiting  \texttt{http://localhost:8000/index.py}, a user can track the GA's progress concerning the highest fitness, average fitness, lowest fitness, crossover probability, and the mutation probability. See Figure \ref{fig:ga_monitor}. Once the user presses start on the GUI panel, BBAutoTune starts the server as an external process with the option of opening a browser to the progress page. Once every minute, the progress monitor retrieves the most current GA run information from the local MySQL database which was populated by the database manager.
 
 \begin{figure}[htbp]
 \centering
@@ -116,7 +116,7 @@ The genetic algorithm for BBAutoTune was borrowed from the SimPL project and por
 
 \subsubsection{Encoding Scheme}
 
-The physics parameters selected for tuning were a mixed set of floats, integers, string arrays, and boolean values. To ease the process of crossover and mutation, all genome genes were homogenized to a normalized range of $[0.0,1.0]$. Let any given genome's gene value be $g_i$ and any given physics parameter be $p_i$. For a float type with range max $r_{max}$ and range min $r_{min}$, the mapping function was $p_i=(g_i*(r_{max}-r_{min}))+r_{min}$. For an integer type with range max $r_{max}$ and range min $r_{min}$, the mapping function was $p_i=\lfloor(g_i*(r_{max}-r_{min}))+r_{min}\rfloor$. For an array $A$ of strings type with size $n$, the mapping function was $p_i=A[\lfloor g_i*(n-1)\rfloor]$. Finally for a boolean type, the mapping function was 
+The physics parameters selected for tuning were a mixed set of floats, integers, string arrays, and boolean values. To ease the process of crossover and mutation, all genome genes were homogenized to a normalized range of $[0.0,1.0]$. Let any given genome's gene value be $g_i$ and any given physics parameter be $p_i$. For a float type with a maximum range value $r_{max}$ and minimum range value $r_{min}$, the mapping function was $p_i=(g_i*(r_{max}-r_{min}))+r_{min}$. For an integer type with a maximum range value $r_{max}$ and a minimum range value $r_{min}$, the mapping function was $p_i=\lfloor(g_i*(r_{max}-r_{min}))+r_{min}\rfloor$. For an array $A$ of strings type with size $n$, the mapping function was $p_i=A[\lfloor g_i*(n-1)\rfloor]$. Finally for a boolean type, the mapping function was 
 
 \[ p_i = \left\{
 \begin{array}{l l}
@@ -129,7 +129,7 @@ False & \quad \text{if $g_i < 0.5$.}
 
 The operators used include selection, elitism, crossover, and mutation. All of these operators work together to generate a new population once the current population has been fully evaluated by the fitness function.
 
-The selection operator includes two variants: tournament selection and rank fitness selection. The user can indicate on the GUI panel if rank fitness selection is to be used---otherwise tournament selection will be used. Tournament selection works by gathering a sub-portion of the total population where the fittest genome among the sub-portion is selected thereby winning the tournament. While gathering the sub-portion, all genomes in the population have a uniform probability of being included in the tournament regardless of their respective fitness values. There is the possibility that the same genome may be included in the tournament more than once. For crossover, two tournaments of size three are run thereby giving two genomes to be crossed. For mutation, one tournament of size two is run thereby giving one genome to be mutated. Rank fitness selection works by first sorting the population in non-increasing order according to fitness and then selects a genome at random where the probability of a genome being selected is proportional to its rank fitness. With the population in sorted order, the first genome is given a rank fitness of 1, the second genome is given a rank fitness of 2, ..., and the last genome is given a rank fitness of $n$ which is the population size. The rank fitness prefix-sum for each genome is calculated in an array such that the first index value in the prefix-sum array is $1$ while the last index value in the prefix-sum array is $\frac{n(n-1)}{2}$. A uniform random number is selected in the range $\left[0,\frac{n(n-1)}{2}\right]$. The genome selected $G$ is the one in which the random number is greater than the previous prefix-sum for genome $G_{i-1}$ and less than or equal to the prefix-sum for $G_i$. Genomes with a higher fitness will have a higher rank fitness and thus will have a higher probability of being selected for either crossover or mutation. See Figure \ref{fig:rank_fitness_selection}. 
+The selection operator includes two variants: tournament selection and rank fitness selection. The user can indicate on the GUI panel if rank fitness selection is to be used---otherwise tournament selection will be used. Tournament selection works by gathering a sub-portion of the total population where the fittest genome among the sub-portion is selected thereby winning the tournament \cite{Miller95geneticalgorithms}. While gathering the sub-portion, all genomes in the population have a uniform probability of being included in the tournament regardless of their respective fitness values. There is the possibility that the same genome may be included in the tournament more than once. For crossover, two tournaments of size three are run thereby giving two genomes to be crossed. For mutation, one tournament of size two is run thereby giving one genome to be mutated. Rank fitness selection works by first sorting the population in non-increasing order according to fitness and then selects a genome at random where the probability of a genome being selected is proportional to its rank fitness. With the population in sorted order, the first genome is given a rank fitness of 1, the second genome is given a rank fitness of 2, ..., and the last genome is given a rank fitness of $n$ which is the population size. The rank fitness prefix-sum for each genome is calculated in an array such that the first index value in the prefix-sum array is $1$ while the last index value in the prefix-sum array is $\frac{n(n-1)}{2}$. A uniform random number is selected in the range $\left[0,\frac{n(n-1)}{2}\right]$. The genome selected $G$ is the one in which the random number is greater than the previous prefix-sum for genome $G_{i-1}$ and less than or equal to the prefix-sum for $G_i$. Genomes with a higher fitness will have a higher rank fitness and thus will have a higher probability of being selected for either crossover or mutation. See Figure \ref{fig:rank_fitness_selection}. 
 
 \renewcommand{\baselinestretch}{1.0}
 
@@ -169,15 +169,23 @@ END \\
 
 \todo{This section only reflects the data recorded using the old move() function. Change to reflect data collected using the new motion() function.}
 
-To construct the fitness function, real robot motion data was collected which included 1040 sample points. X-translation, y-translation, and z-rotation were recorded for the real robot. With a camera overhead, the real robot was place in the arena and was repeatedly commanded to go forward (relative from its current position) 25 centimeters. 
+To construct the fitness function, real robot motion data was collected which included 1040 sample points. X-translation, y-translation, and z-rotation were recorded for the real robot. With a camera overhead, the real robot was place in the arena and was repeatedly commanded to go forward (relative from its current position and orientation) 25 centimeters. Care was taken to avoid having the robot collide with the arena walls. Once the robot consecutively moved forward three times, the robot rotated in place by 135 degrees and was not recorded during this period of rotation.  
 
-Using the camera, the robot's position and orientation before performing and after having performed the command was recorded for each command issued. The raw position and orientation data was translated and rotated from the camera's perspective to the perspective of the robot. Note that from the perspective of the robot, it is always facing down its local positive x-axis. See Figure \ref{fig:real_robot_forward_motion}.
+Using the camera, the robot's position and orientation before and after performing the forward command was recorded for each forward command issued. The robot's position and orientation was not reset each time the robot performed a forward command. Instead, the robot was allowed to continue forward from its current position and orientation as it traveled around the arena. Thus each recorded pair of before and after states were translated and rotated to be in the same reference frame such that the robot was always at the arena origin facing down the positive x-axis before performing the forward command. See Figure \ref{fig:real_robot_raw_trans_rot} and \ref{fig:real_robot_forward_motion}. Note that from the robot's perspective, it is always facing down its local positive x-axis no matter its position or orientation as seen from some other reference point.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{../Figures/Chapter4/real_robot_raw_trans_rot.png}
+\rule{35em}{0.5pt}
+\caption[Real Robot Forward Motion Data Translated and Rotated Example]{Here you see a specific instance of how the raw real robot forward motion data was translated and rotated such that each pair of initial and resulting states have the same reference frame. The red arrows, dot, and line represent the raw initial and resulting state of the robot recorded from the overhead camera. The blue arrows, dot, and line represent the initial and resulting state translated to the origin. The green arrows, dot, and line represent the initial and resulting state rotated by the amount needed to align the initial state orientation with the positive x-axis. The dot and arrow pair represent the position and orientation of the robot after having performed the forward command.}
+\label{fig:real_robot_raw_trans_rot}
+\end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.6]{../Figures/Chapter4/real_robot_forward_motion.png}
 \rule{35em}{0.5pt}
-\caption[Real Robot Forward Motion]{Here you see the real robot forward motion from the perspective of the robot. The green dots and arrows indicate the starting state before the command was performed and the red dots and arrows indicate the ending state after the command was performed. The dots represent position and the arrows represent orientation. The broken blue lines connect the before and after states together.}
+\caption[Real Robot Forward Motion]{Here you see the collected real robot forward motion plotted from the same reference point. The green dots and arrows indicate the starting position and orientation of the real robot before the forward command was performed. The red dots and arrows indicate the ending position and orientation of the real robot after the forward command was performed. The dots represent position and the arrows represent orientation. The broken blue lines connect the before states to their corresponding resulting states.}
 \label{fig:real_robot_forward_motion}
 \end{figure}
 
@@ -298,19 +306,19 @@ The resulting samples weighted higher than others by the Fast-MCD algorithm are 
 \label{fig:real_robot_md_vs_rd}
 \end{figure}
 
-Only three out of the total six degrees of freedom were recorded for the real robot. However, in Blender there were an additional three degrees (pitch, roll, and heave) to contend with.  Thus, the simulated-robot base's x-rotation, y-rotation, and z-translation were constrained. Additionally, all wheels had there z-translation constrained. As an added precaution, penalties where added onto the robust distance by the absolute amount the simulated robot's base violated x-rotation, y-rotation, and/or z-translation. Additionally, a time penalty was added onto the robust distance by the amount the simulated robot took to evaluate greater than one second with a max penalty of 15 seconds since any given evaluation period only lasted a total of 16 seconds.
+Only three out of the total six degrees of freedom were recorded for the real robot. However, in Blender there were an additional three degrees (pitch, roll, and heave) to contend with.  Thus, the simulated-robot base's x-rotation, y-rotation, and z-translation were constrained. Additionally, all wheels had their z-translation constrained. As an added precaution, penalties where added onto the robust distance by the absolute amount the simulated robot's base violated x-rotation, y-rotation, and/or z-translation. Additionally, a time penalty was added onto the robust distance by the amount of time in seconds the simulated robot took to evaluate greater than one second with a max penalty of 15 seconds since any given evaluation period only lasted a total of 16 seconds.
 
-Once the simulated robot was run through the game engine evaluation period (using the physics parameter settings decoded from the currently being evaluated genome $G_i$'s genes), 14 pieces of data was collected by the robot monitor for use in the fitness function. Let $S=[x_t,y_t,z_t,x_r,y_r,z_r,t]$ be the starting state of the simulated robot at the beginning of the evaluation period at time $S[6]=t$ where the subscript $_t$ refers to translation and the subscript $_r$ refers to rotation. Let $S'=[x_t,y_t,z_t,x_r,y_r,z_r,t]$ be the ending state of the simulated robot at the end of the evaluation period at time $S'[6]=t$. Also, let $RD(x-translation,y-translation,z-rotation)$ be the robust distance. The fitness function and thus the fitness of $G_i$ was defined as $Fitness(S,S')=RD(S'[0]-S[0],S'[1]-S[1],S'[5]-S[5])+|S'[4]-S[4]|+|S'[3]-S[3]|+|S'[2]-S[2]|+((S'[6]-S[6])-1)=G_i$'s fitness. The range of this function is $[0,\infty)$. Since the goal of this thesis was to have the simulated robot move as the real robot, the desired output of this function was $0$ implying that three objectives were met:
+Once the simulated robot was run through the game engine evaluation period (using the physics parameter settings decoded from the currently being evaluated genome $G_i$'s genes), 14 pieces of data was collected by the robot monitor for use in the fitness function. Let $S=[x_t,y_t,z_t,x_r,y_r,z_r,t]$ be the starting state of the simulated robot at the beginning of the evaluation period at time $S[6]=t$ where the subscript $_t$ refers to translation and the subscript $_r$ refers to rotation. Let $S'=[x_t,y_t,z_t,x_r,y_r,z_r,t]$ be the ending state of the simulated robot at the end of the evaluation period at time $S'[6]=t$. Also, let $RD(x-translation,y-translation,z-rotation)$ be the robust distance. The fitness function and thus the fitness of $G_i$ was defined as $Fitness(S,S')=RD(S'[0]-S[0],S'[1]-S[1],S'[5]-S[5])+|S'[4]-S[4]|+|S'[3]-S[3]|+|S'[2]-S[2]|+((S'[6]-S[6])-1)=G_i$'s fitness. The range of this function is $[0,\infty)$. Since the goal of this thesis was to have the simulated robot move as the real robot, the desired output of this function was $0.0$ implying that three objectives were met:
 \begin{itemize}
  \item The simulated robot's x-translation, y-translation, and z-rotation after moving was 23.9934044cm, 0.0351240536cm, and -0.0189964938rad respectively.
  \item The simulated robot stopped moving after one second.
- \item The simulated robot did not fall through the floor, flip over, roll over, or launch upward.
+ \item The simulated robot did not fall through the floor, flip over, roll over, and/or launch upward.
 \end{itemize}
 Thus the goal of the GA was to minimize this function whereby lower output values were a higher fitness than higher output values.
 
 \subsubsection{Evaluation Setup}
 
-For each evaluation period (the running of the game engine), the 3D robot model's local coordinate system was axis aligned with the world coordinate system, the robot was faced forward looking down the positive x-axis, and it's local origin was placed at the world origin. See Figure \ref{fig:simu_robot_aligned}. Before each evaluation period, the physics engine parameters were set the the values decoded from the genes of the currently being evaluated genome. All evaluation periods lasted no more than 16 seconds. If the robot stopped moving before 16 seconds, then the evaluation period ended immediately. The only applied force to the robot was the wheel torque where each wheel received the same amount of applied torque for the same duration. The duration of applied torque was roughly 16 milliseconds after which no further force was applied to the robot.
+For each evaluation period (the running of the game engine), the 3D robot model's local coordinate system was axis aligned with the world coordinate system, the robot was faced forward looking down the positive x-axis, and its local origin was placed at the world origin. See Figure \ref{fig:simu_robot_aligned}. Before each evaluation period, the physics engine parameters were set to the values decoded from the genes of the currently being evaluated genome. All evaluation periods lasted no more than 16 seconds. If the robot stopped moving before 16 seconds, then the evaluation period ended immediately. The only applied force to the robot was the wheel torque where each wheel received the same amount of applied torque for the same duration. The duration of applied torque was roughly 16 milliseconds after which no further force was applied to the robot.
 
 \begin{figure}[htbp]
 \centering
@@ -330,7 +338,7 @@ Stub.
 
 \subsection[Experiment One]{Experiment one: physics engine parameter influence.}
 
-The potential Blender physics engine parameter candidates---to be tuned by the GA---were analyzed for their influence over the physics simulation. To accomplish this goal, a racquetball like environment was constructed in Blender which consisted of a ball, an enclosed arena, and an automated racket controlled via a Python script. See Figure \ref{fig:racquetball}. Note that the the ball was allowed to travel in all three dimensions and was completely physics based.
+The potential Blender physics engine parameter candidates---to be tuned by the GA---were analyzed for their influence over the physics simulation. To accomplish this goal, a racquetball like environment was constructed in Blender which consisted of a ball, an enclosed arena, and an automated racket controlled via a Python script. See Figure \ref{fig:racquetball}. Note that the ball was allowed to travel in all three dimensions and was completely physics based.
 
 \begin{figure}[htbp]
 \centering
@@ -342,7 +350,37 @@ The potential Blender physics engine parameter candidates---to be tuned by the G
 
 44 candidate parameters were selected for testing in the racquetball environment. All parameters tested were only associated with the ball. Before all of these parameters were tested for their influence, \textit{nice} values were selected for each such that the ball's behavior was visually normal. A standard was established where the ball was allowed to run for five seconds (with all parameters being set to their nice values) during which its location was recorded at roughly 60 times per second. With the standard established---with which all other runs would be compared to---a parameter was selected (from the candidate pool), its value was tweaked, the ball was run for five seconds with its location being recorded at roughly 60 times per second, and after the run was over, the tweaked parameter's value was set back to its nice value. This sequence was repeated for all 44 candidate parameters.
 
+\subsection[Experiment Two]{Experiment two: tournament selection with self-adaptation.}
+
+Very early runs of BBAutoTune attempted to tune physics parameters: gravity, sub-steps, FPS, use material physics, material friction, material elasticity, mass, form factor, velocity maximum, damping translation, damping rotation, use collision bounds, collision bound type, and torque where the search space for each parameter was its entire valid range. This proved to be problematic since some of the valid ranges are quite large especially torque with a max upper bound of $~3.40\times10^{38}$. While running the game engine, if the genome's genes decoded to relatively high physics engine parameter values, world coordinates would return the Python values ``NaN'' or ``inf''.
+
+To rectify this issue, the set of physics parameters selected for tuning was pruned and for the parameters left, their ranges were shortened to reasonable upper and lower bounds found manually. The resulting set of tunable physics parameters and their ranges for experiment two were: gravity [0.0,15.0], sub-steps [1,5], FPS [30,10000], material friction [0.0,100.0], material elasticity [0.0,1.0], mass [0.010,15.0], velocity maximum [0.0,1000.0], damping translation [0.0,1.0], damping rotation [0.0,1.0], collision bound type [TRIANGLE\_MESH,CONVEX\_HULL,CYLINDER,SPHERE], and torque [0.0,100.0]. Use material physics and use collision bounds were set to true and held constant. Form factor was set to 1.0 and was held constant. 
+
+The GA was run for 500 generations with tournament selection, elitism set to 2, crossover and mutation performed separately, and the crossover and mutation probabilities were self-adapted over time.
+
+\section{Experimental Results}
+
+Stub.
+
+\subsection[Experiment One]{Experiment one: physics engine parameter influence.}
+
 To compare the recorded tweaked-parameter ball paths with the recorded standard, four methods were utilized to give an indication as to how much influence any one candidate parameter had over the simulation. The first method was visual inspection. All 44 tweaked-parameter ball paths were plotted against the standard. See Figure \ref{fig:matphysplot} and Figure \ref{fig:logicstepsplot}. The second method was an in-house algorithm, titled the \textit{Lettier distance}, which gives the maximum euclidean distance between two discrete curves $P$ and $Q$. Informally, imagine holding a rubber band in your hands where the left hand affixes the left end of the rubber band to the first point in $P$ and the right hand affixes the right end of the rubber band to the first point in $Q$. During each iteration, you advance the left end of the rubber band to the next point in $P$ and you advance the right end of the rubber band to the next point in $Q$. If the distance grows between point $p_i\in P$ and point $q_j \in Q$, the rubber band stretches but never shrinks. If $|P|<|Q|$ then you hold the left end of the rubber band to the last point in $P$ and continue advancing to the last point in $Q$ and vice versa. Once you reach the last point in $P$ and the last point in $Q$, the resulting length of the rubber band is the max euclidean distance between $P$ and $Q$. See Figure \ref{lettierdistance}. The third method was the Fréchet distance and the fourth method was the Hausdorff distance \cite{frechet} \cite{hausdorff}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.35]{../Figures/Chapter4/material_physics_ball_plot.png}
+\rule{35em}{0.5pt}
+\caption[Physics Engine Racquetball Path Dissimilarity]{Here you see the dissimilarity of the ball paths between the tweaked, material-physics elasticity parameter and the standard (where no parameters were tweaked).}
+\label{fig:matphysplot}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.35]{../Figures/Chapter4/logic_steps_ball_plot.png}
+\rule{35em}{0.5pt}
+\caption[Physics Engine Racquetball Path Similarity]{Here you see the similarity of the ball paths between the tweaked, logic-steps max parameter and the standard (where no parameters were tweaked).}
+\label{fig:logicstepsplot}
+\end{figure}
 
 \begin{figure}[htbp]
 \begin{center}
@@ -382,37 +420,7 @@ END \\
 \label{lettierdistance}
 \end{figure}
 
-\subsection[Experiment Two]{Experiment two: tournament selection with self-adaptation.}
-
-Very early runs of BBAutoTune attempted to tune physics parameters: gravity, sub-steps, FPS, use material physics, material friction, material elasticity, mass, form factor, velocity maximum, damping translation, damping rotation, use collision bounds, collision bound type, and torque where the search space for each parameter was its entire valid range. This proved to be problematic since some of the valid ranges are quite large especially torque with a max upper bound of $~3.40\times10^{38}$. While running the game engine, if the genome's genes decoded to relatively high physics engine parameter values, world coordinates would return the Python values ``NaN'' or ``inf''.
-
-To rectify this issue, the set of physics parameters selected for tuning was pruned and for the parameters left, their ranges were shortened to reasonable upper and lower bounds found manually. The resulting set of physics parameters selected for tuning and their ranges for experiment two were: gravity [0.0,15.0], sub-steps [1,5], FPS [30,10000], material friction [0.0,100.0], material elasticity [0.0,1.0], mass [0.010,15.0], velocity maximum [0.0,1000.0], damping translation [0.0,1.0], damping rotation [0.0,1.0], collision bound type [TRIANGLE_MESH,CONVEX_HULL,CYLINDER,SPHERE], and torque [0.0,100.0]. Use material physics and use collision bounds were set to true and held constant.
-
-The GA was run for 500 generations with tournament selection, elitism set to 2, and the crossover and mutation probabilities were self-adapted over time.
-
-\section{Experimental Results}
-
-Stub.
-
-\subsection[Experiment One]{Experiment one: physics engine parameter influence.}
-
 20 parameters out of the initial 44 showed no significant influence over the 3D physics simulation in Blender. Thus, the resulting 24 parameters which did have a significant influence were targeted for tuning by the genetic algorithm. See Table \ref{tab:distances}.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.35]{../Figures/Chapter4/material_physics_ball_plot.png}
-\rule{35em}{0.5pt}
-\caption[Physics Engine Racquetball Path Dissimilarity]{Here you see the dissimilarity of the ball paths between the tweaked, material-physics elasticity parameter and the standard (where no parameters were tweaked).}
-\label{fig:matphysplot}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.35]{../Figures/Chapter4/logic_steps_ball_plot.png}
-\rule{35em}{0.5pt}
-\caption[Physics Engine Racquetball Path Similarity]{Here you see the similarity of the ball paths between the tweaked, logic-steps max parameter and the standard (where no parameters were tweaked).}
-\label{fig:logicstepsplot}
-\end{figure}
 
 \begin{table}[htbp]
 \centering
@@ -490,3 +498,7 @@ Collision Damping Frames: -32768 & 0.329232644023 & 0.329232644023 & 0.329232644
 \caption[Physics Engine Parameter Influences]{Here you see the distances between each tweaked-parameter ball path and the standard ball path per the three algorithms utilized. The highlighted tweaked parameters were determined not influential.}
 \label{tab:distances}
 \end{table}
+
+\subsection[Experiment Two]{Experiment two: tournament selection with self-adaptation.}
+
+Stub.

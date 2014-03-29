@@ -41,23 +41,24 @@
 \contentsline {figure}{\numberline {4.1}{\ignorespaces BBAutoTune GUI Panel}}{52}{figure.114}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces GA Progress Monitor}}{55}{figure.122}
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Rank Fitness Selection Algorithm}}{57}{figure.126}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Real Robot Forward Motion}}{59}{figure.128}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Real Robot Forward Motion Distributions}}{60}{figure.130}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Real Robot Forward Motion 3D Scatter Plot}}{61}{figure.131}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Real Robot Forward Motion Fast-MCD Support Samples}}{63}{figure.132}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Real Robot Forward Motion MD versus RD}}{64}{figure.133}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Simulated Robot Axis Aligned}}{66}{figure.135}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Physics Engine Parameter Influence Racquetball Environment}}{67}{figure.139}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Physics Engine Racquetball Path Dissimilarity}}{70}{figure.143}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Physics Engine Racquetball Path Similarity}}{71}{figure.144}
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Lettier Distance Algorithm}}{73}{figure.145}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Real Robot Forward Motion Data Translated and Rotated Example}}{59}{figure.128}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Real Robot Forward Motion}}{60}{figure.129}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Real Robot Forward Motion Distributions}}{61}{figure.131}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Real Robot Forward Motion 3D Scatter Plot}}{62}{figure.132}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Real Robot Forward Motion Fast-MCD Support Samples}}{64}{figure.133}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Real Robot Forward Motion MD versus RD}}{65}{figure.134}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Simulated Robot Axis Aligned}}{67}{figure.136}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Physics Engine Parameter Influence Racquetball Environment}}{68}{figure.140}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Physics Engine Racquetball Path Dissimilarity}}{71}{figure.144}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Physics Engine Racquetball Path Similarity}}{72}{figure.145}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Lettier Distance Algorithm}}{74}{figure.146}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Simulated Treads}}{76}{figure.152}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Constant Velocity Locomotion Model}}{76}{figure.153}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparative Path Plots}}{77}{figure.154}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces BlenderSim Arena}}{78}{figure.157}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces SRV-1 3D Model}}{79}{figure.159}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces BlenderSim Components}}{81}{figure.164}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Task Points}}{82}{figure.165}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Simulated Treads}}{76}{figure.153}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Constant Velocity Locomotion Model}}{76}{figure.154}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparative Path Plots}}{77}{figure.155}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces BlenderSim Arena}}{78}{figure.158}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces SRV-1 3D Model}}{79}{figure.160}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces BlenderSim Components}}{81}{figure.165}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Task Points}}{82}{figure.166}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

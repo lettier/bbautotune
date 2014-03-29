@@ -12,45 +12,45 @@ Database file #1: ./Bibliography/Bibliography.bib
 Warning--empty year in website:blender-rigidbody
 Warning--empty year in website:blender-objecttype
 Warning--empty year in website:continuousphysics
-You've used 19 entries,
+You've used 20 entries,
             2481 wiz_defined-function locations,
-            680 strings with 8393 characters,
-and the built_in function-call counts, 6461 in all, are:
-= -- 562
-> -- 290
+            688 strings with 8614 characters,
+and the built_in function-call counts, 6894 in all, are:
+= -- 598
+> -- 317
 < -- 9
-+ -- 126
-- -- 86
-* -- 481
-:= -- 998
-add.period$ -- 71
-call.type$ -- 19
-change.case$ -- 37
-chr.to.int$ -- 17
-cite$ -- 27
-duplicate$ -- 315
-empty$ -- 634
-format.name$ -- 108
-if$ -- 1394
++ -- 136
+- -- 94
+* -- 519
+:= -- 1069
+add.period$ -- 74
+call.type$ -- 20
+change.case$ -- 39
+chr.to.int$ -- 18
+cite$ -- 28
+duplicate$ -- 334
+empty$ -- 671
+format.name$ -- 117
+if$ -- 1483
 int.to.chr$ -- 3
-int.to.str$ -- 20
-missing$ -- 11
-newline$ -- 117
-num.names$ -- 42
-pop$ -- 180
+int.to.str$ -- 21
+missing$ -- 12
+newline$ -- 122
+num.names$ -- 45
+pop$ -- 187
 preamble$ -- 1
-purify$ -- 19
+purify$ -- 20
 quote$ -- 0
-skip$ -- 187
+skip$ -- 197
 stack$ -- 0
-substring$ -- 213
-swap$ -- 47
+substring$ -- 240
+swap$ -- 49
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 130
+type$ -- 137
 warning$ -- 3
-while$ -- 41
+while$ -- 45
 width$ -- 0
-write$ -- 273
+write$ -- 286
 (There were 3 warnings)
