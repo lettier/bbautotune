@@ -28,7 +28,7 @@ Blender's graphical user interface can be extended via its Python API. BBAutoTun
 
 \subsection{Physics Engine API}
 
-Blender exposes the Bullet\footnote{Bullet is the real time physics engine used by Blender. Released under the zlib licence, Bullet provides real time continuous collision detection and rigid body dynamics \cite{website:continuousphysics}.} physics engine API via its own Python API. Most if not all of the parameters to Bullet can be modified via the physics engine API during or before running the Blender game engine. There are 41 different physics engine parameters that can be set via the API.
+Blender exposes the Bullet\footnote{Bullet is the real time physics engine used by Blender. Released under the zlib license, Bullet provides real time continuous collision detection and rigid body dynamics \cite{website:continuousphysics}.} physics engine API via its own Python API. Most if not all of the parameters to Bullet can be modified via the physics engine API during or before running the Blender game engine. There are 41 different physics engine parameters that can be set via the API.
 
 \subsubsection{Parameter Set and Ranges}
 
@@ -334,7 +334,7 @@ For all experiments, BBAutoTune was run on a 64bit Linux operating system with 3
 
 \section{Experimental Designs}
 
-Stub.
+The purpose for experiment one was to determine a base set of physics parameters that have significant influences over the physics simulation. Experiments two through five involved actually tuning the physics engine and comparing the simulated versus real robot motion. Self-adaptation and tournament versus rank fitness selection were the experimental GA parameters for experiments two through five. 
 
 \subsection[Experiment One]{Experiment one: physics engine parameter influence.}
 
@@ -372,7 +372,7 @@ The set of tunable physics parameters for experiment five was the same as experi
 
 \section{Experimental Results}
 
-Stub.
+Experiment two had the highest performing genome out of experiments two through five. Experiments three through five had similar highest fitnesses. Using self-adaptation with tournament selection resulted in the highest fitness observed among experiments two through five. Comparing experiment two to three, self-adaptation was beneficial but was not beneficial when comparing experiment five to four.   
 
 \subsection[Experiment One]{Experiment one: physics engine parameter influence.}
 
@@ -515,7 +515,7 @@ Collision Damping Frames: -32768 & 0.329232644023 & 0.329232644023 & 0.329232644
 
 \subsection[Experiment Two]{Experiment two: tournament selection with self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 0.9306191001, 1.024632475, and 0.9315692954 respectively. The minimum and maximum probability for both crossover and mutation obtained over the course of the 500 generations was 0.001 and 0.999. Interestingly, as the highest, average, and lowest fitness began to converge, the crossover and mutation probability flipped causing the population to be entirely mutated resulting in essentially a randomly generated population thereby destroying the high fitness solutions found. Notice that after the probabilities flipped, the highest, average, and lowest fitness diverged. This converging and then diverging occurred twice during the 500 generation run. Up to generation 376, the highest fitness steadily declined and then afterward remained fairly stable. See Figure \ref{fig:exp2_halcm}. Table \ref{tab:exp2_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 0.9306191001, 1.024632475, and 0.9315692954 respectively. The minimum and maximum probability for both crossover and mutation obtained over the course of the 500 generations was 0.001 and 0.999. Interestingly, as the highest, average, and lowest fitness began to converge, the crossover and mutation probability flipped causing the population to be entirely mutated resulting in essentially a randomly generated population thereby destroying the high fitness solutions found. Notice that after the probabilities flipped, the highest, average, and lowest fitness diverged. This converging and then diverging occurred twice during the 500 generation run. Up to generation 376, the highest fitness steadily declined and then afterward remained fairly stable. See Figure \ref{fig:exp2_halcm}. Table \ref{tab:exp2_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
@@ -583,7 +583,7 @@ The minimum values reached for the highest, average, and lowest fitness was 0.93
 
 \subsection[Experiment Three]{Experiment three: tournament selection without self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.0827696957, 2.892412821, and 7.7702053307 respectively. Up until generation 146, the highest fitness steadily declined and then afterwards remained fairly stable. See Figure \ref{fig:exp3_halcm}. In contrast to experiment two, it would seem that the self-adaptation side effect of periodically randomizing the population helped experiment two obtain a lower highest fitness than experiment three. Table \ref{tab:exp3_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 1.0827696957, 2.892412821, and 7.7702053307 respectively. Up until generation 146, the highest fitness steadily declined and then afterwards remained fairly stable. See Figure \ref{fig:exp3_halcm}. In contrast to experiment two, it would seem that the self-adaptation side effect of periodically randomizing the population helped experiment two obtain a lower highest fitness than experiment three. Table \ref{tab:exp3_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
@@ -651,7 +651,7 @@ The minimum values reached for the highest, average, and lowest fitness was 1.08
 
 \subsection[Experiment Four]{Experiment four: rank fitness selection with self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.1309704845, 2.7714017205, and 2.5217479907 respectively. The minimum and maximum probabilities observed for crossover, during the 500 generation run, were 0.253 and 0.999 respectively. For mutation, the minimum and maximum probabilities observed were 0.001 and 0.747 respectively. From generation zero to 79, the highest fitness steadily declined and then fell more gradually afterwards for rest of the duration. The same periodic converging and then diverging seen in experiment two was observed again in experiment four. See Figure \ref{fig:exp4_halcm}. Table \ref{tab:exp4_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 1.1309704845, 2.7714017205, and 2.5217479907 respectively. The minimum and maximum probabilities observed for crossover, during the 500 generation run, were 0.253 and 0.999 respectively. For mutation, the minimum and maximum probabilities observed were 0.001 and 0.747 respectively. From generation zero to 79, the highest fitness steadily declined and then fell more gradually afterwards for rest of the duration. The same periodic converging and then diverging seen in experiment two was observed again in experiment four. See Figure \ref{fig:exp4_halcm}. Table \ref{tab:exp4_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
@@ -719,7 +719,7 @@ The minimum values reached for the highest, average, and lowest fitness was 1.13
 
 \subsection[Experiment Five]{Experiment five: rank fitness selection without self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.0638026764, 3.4974350451, and 11.6425679783 respectively. Throughout the 500 generation run, the highest fitness continued to decline reaching its lowest value at generation 469. See Figure \ref{fig:exp5_halcm}. Table \ref{tab:exp5_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 1.0638026764, 3.4974350451, and 11.6425679783 respectively. Throughout the 500 generation run, the highest fitness continued to decline reaching its lowest value at generation 469. See Figure \ref{fig:exp5_halcm}. Table \ref{tab:exp5_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
@@ -785,7 +785,9 @@ The minimum values reached for the highest, average, and lowest fitness was 1.06
 
 \newpage
 
-\section{Comparisons}
+\section{Simulated versus Real Motion}
+
+The top phenotype for experiment two had the largest robust distance from the real robot robust mean but suffered the least amount of penalty for not stopping at one second. The top phenotypes for experiments three through five had similar robust distances and stopping times over one second. See Table \ref{tab:comp_top_phenotypes}, Figure \ref{fig:simu_vs_real_line}, and Figure \ref{fig:simu_vs_real_3d}. 
 
 \begin{table}[htbp]
 \centering
@@ -812,7 +814,23 @@ The minimum values reached for the highest, average, and lowest fitness was 1.06
 \cline{1-5}
 \end{tabular}
 \egroup
-\caption[Comparison of the Top Phenotypes' Final States]{Here you see the comparison between the top phenotypes' final resting positions and orientations after moving forward per each experiment. The elapsed times indicate how long each top phenotype took before reaching its final at-rest state. The resulting genome fitnesses and the robust mean for the real robot forward motion are included for reference.}
+\caption[Comparison of the Top Phenotypes' Final States to the Real Robot Motion]{Here you see the comparison between the top phenotypes' final states (per experiment) and the robust mean of the real robot forward motion. The elapsed times indicate how long each top phenotype took before reaching its final at-rest state. The resulting genome fitnesses are included for reference.}
 \label{tab:comp_top_phenotypes}
 \end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=6in]{../Figures/Chapter4/simu_vs_real_line.png}
+\rule{35em}{0.5pt}
+\caption[Simulated versus Real Motion Line Plot]{Here you see the final states of the top phenotypes from experiments two through five compared to the real robot robust mean.}
+\label{fig:simu_vs_real_line}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=5in]{../Figures/Chapter4/simu_vs_real_3d.png}
+\rule{35em}{0.5pt}
+\caption[Simulated versus Real Motion 3D Plot]{Here you see an alternate view of the final states of the top phenotypes from experiments two through five compared to the real robot robust mean. The robust distances are indicated near each data point.}
+\label{fig:simu_vs_real_3d}
+\end{figure}
 

@@ -28,7 +28,7 @@ Blender's graphical user interface can be extended via its Python API. BBAutoTun
 
 \subsection{Physics Engine API}
 
-Blender exposes the Bullet\footnote{Bullet is the real time physics engine used by Blender. Released under the zlib licence, Bullet provides real time continuous collision detection and rigid body dynamics \cite{website:continuousphysics}.} physics engine API via its own Python API. Most if not all of the parameters to Bullet can be modified via the physics engine API during or before running the Blender game engine. There are 41 different physics engine parameters that can be set via the API.
+Blender exposes the Bullet\footnote{Bullet is the real time physics engine used by Blender. Released under the zlib license, Bullet provides real time continuous collision detection and rigid body dynamics \cite{website:continuousphysics}.} physics engine API via its own Python API. Most if not all of the parameters to Bullet can be modified via the physics engine API during or before running the Blender game engine. There are 41 different physics engine parameters that can be set via the API.
 
 \subsubsection{Parameter Set and Ranges}
 
@@ -334,7 +334,7 @@ For all experiments, BBAutoTune was run on a 64bit Linux operating system with 3
 
 \section{Experimental Designs}
 
-Stub.
+The purpose for experiment one was to determine a base set of physics parameters that have significant influences over the physics simulation. Experiments two through five involved actually tuning the physics engine and comparing the simulated versus real robot motion. Self-adaptation and tournament versus rank fitness selection were the experimental GA parameters for experiments two through five. 
 
 \subsection[Experiment One]{Experiment one: physics engine parameter influence.}
 
@@ -372,7 +372,7 @@ The set of tunable physics parameters for experiment five was the same as experi
 
 \section{Experimental Results}
 
-Stub.
+Experiment two had the highest performing genome out of experiments two through five. Experiments three through five had similar highest fitnesses. Using self-adaptation with tournament selection resulted in the highest fitness observed among experiments two through five. Comparing experiment two to three, self-adaptation was beneficial but was not beneficial when comparing experiment five to four.   
 
 \subsection[Experiment One]{Experiment one: physics engine parameter influence.}
 
@@ -785,7 +785,9 @@ The minimum values reached for the highest, average, and lowest fitness was 1.06
 
 \newpage
 
-\section{Comparisons}
+\section{Simulated versus Real Motion}
+
+The top phenotype for experiment two had the largest robust distance from the real robot robust mean but suffered the least amount of penalty for not stopping at one second. The top phenotypes for experiments three through five had similar robust distances and stopping times over one second. See Table \ref{tab:comp_top_phenotypes}, Figure \ref{fig:simu_vs_real_line}, and Figure \ref{fig:simu_vs_real_3d}. 
 
 \begin{table}[htbp]
 \centering
@@ -812,7 +814,23 @@ The minimum values reached for the highest, average, and lowest fitness was 1.06
 \cline{1-5}
 \end{tabular}
 \egroup
-\caption[Comparison of the Top Phenotypes' Final States]{Here you see the comparison of experiment two's, three's, four's, and five's top phenotype's final resting positions and orientations after moving forward. The elapsed times indicate how long the each top phenotype took before reaching its final at-rest state. The resulting genome fitnesses and the real robot forward motion robust mean are included for reference.}
+\caption[Comparison of the Top Phenotypes' Final States to the Real Robot Motion]{Here you see the comparison between the top phenotypes' final states (per experiment) and the robust mean of the real robot forward motion. The elapsed times indicate how long each top phenotype took before reaching its final at-rest state. The resulting genome fitnesses are included for reference.}
 \label{tab:comp_top_phenotypes}
 \end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=6in]{../Figures/Chapter4/simu_vs_real_line.png}
+\rule{35em}{0.5pt}
+\caption[Simulated versus Real Motion Line Plot]{Here you see the final states of the top phenotypes from experiments two through five compared to the real robot robust mean.}
+\label{fig:simu_vs_real_line}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=5in]{../Figures/Chapter4/simu_vs_real_3d.png}
+\rule{35em}{0.5pt}
+\caption[Simulated versus Real Motion 3D Plot]{Here you see an alternate view of the final states of the top phenotypes from experiments two through five compared to the real robot robust mean. The robust distances are indicated near each data point.}
+\label{fig:simu_vs_real_3d}
+\end{figure}
 
