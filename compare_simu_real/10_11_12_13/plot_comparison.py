@@ -201,6 +201,57 @@ plt.annotate(
 
 #--------------------------------------------------------------------------
 
+# Experiment five.
+
+exp5_best_initial = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ];
+exp5_best_final   = [ 24.055466055870056, 0.016411948308814317, 0.0, 0.0, -0.0, 0.0011841553496196866 ];
+
+# Plot initial x-t, y-t to final x-t, y-t.
+
+plt.plot( [ exp5_best_initial[ 0 ], exp5_best_final[ 0 ] ], [ exp5_best_initial[ 1 ], exp5_best_final[ 1 ] ], "--m", linewidth = 1 );
+
+# Plot initial x-t, y-t.
+
+plt.plot( [ exp5_best_initial[ 0 ] ], [ exp5_best_initial[ 1 ] ], "mo", linewidth = 1 );
+
+# Plot final x-y, y-t.
+
+plt.plot( [ exp5_best_final[ 0 ] ], [ exp5_best_final[ 1 ] ], "mo", linewidth = 1 );
+
+# Initial orientation.
+
+a1, b1 = rotate_point( arrow_size, 0.0, exp5_best_initial[ 5 ] );
+		
+a1 = exp5_best_initial[ 0 ] + a1;
+b1 = exp5_best_initial[ 1 ] + b1;
+
+plt.annotate( 
+
+	"", 
+	xy = ( a1, b1 ), 
+	xytext = ( exp5_best_initial[ 0 ], exp5_best_initial[ 1 ] ),
+	arrowprops = dict( facecolor = "magenta", alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
+
+);
+
+# Final orientation.
+
+a1, b1 = rotate_point( arrow_size, 0.0, exp5_best_final[ 5 ] );
+		
+a1 = exp5_best_final[ 0 ] + a1;
+b1 = exp5_best_final[ 1 ] + b1;
+
+plt.annotate( 
+
+	"", 
+	xy = ( a1, b1 ), 
+	xytext = ( exp5_best_final[ 0 ], exp5_best_final[ 1 ] ),
+	arrowprops = dict( facecolor = "magenta", alpha = 0.5, frac = 0.5, width = 2, headwidth = 6  )
+
+);
+
+#--------------------------------------------------------------------------
+
 # Plot real robot centroid.
 
 plt.plot( [ 0, real_robot_centroid[ 0 ] ], [ 0, real_robot_centroid[ 1 ] ], "--k", linewidth = 1 );

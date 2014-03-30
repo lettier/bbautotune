@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.3.9)  29 MAR 2014 23:04
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.3.9)  30 MAR 2014 04:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -605,7 +605,7 @@ Overfull \hbox (23.74068pt too wide) in paragraph at lines 3--4
 
 ]
 Chapter 3.
-<./Figures/../Figures/Chapter3/arena.png, id=749, 1927.2pt x 1057.9525pt>
+<./Figures/../Figures/Chapter3/arena.png, id=760, 1927.2pt x 1057.9525pt>
 File: ./Figures/../Figures/Chapter3/arena.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter3/arena.png>
@@ -613,7 +613,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/arena.png used on input
 line 21.
 (pdftex.def)             Requested size: 385.43318pt x 211.58675pt.
  [7]
-<./Figures/../Figures/Chapter3/ball.png, id=757, 546.04pt x 430.60875pt>
+<./Figures/../Figures/Chapter3/ball.png, id=768, 546.04pt x 430.60875pt>
 File: ./Figures/../Figures/Chapter3/ball.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter3/ball.png>
@@ -621,7 +621,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/ball.png used on input l
 ine 33.
 (pdftex.def)             Requested size: 273.01933pt x 215.30383pt.
 
-<./Figures/../Figures/Chapter3/angle.png, id=759, 583.17876pt x 462.72874pt>
+<./Figures/../Figures/Chapter3/angle.png, id=770, 583.17876pt x 462.72874pt>
 File: ./Figures/../Figures/Chapter3/angle.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter3/angle.png>
@@ -633,7 +633,7 @@ line 43.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [10]
-<./Figures/../Figures/Chapter3/paddle.png, id=785, 227.85126pt x 716.6775pt>
+<./Figures/../Figures/Chapter3/paddle.png, id=796, 227.85126pt x 716.6775pt>
 File: ./Figures/../Figures/Chapter3/paddle.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter3/paddle.png>
@@ -641,7 +641,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/paddle.png used on input
  line 59.
 (pdftex.def)             Requested size: 68.3559pt x 215.00491pt.
  [11 <./Figures/../Figures/Chapter3/paddle.png>] [12]
-<./Figures/../Figures/Chapter3/nn.png, id=799, 1189.44376pt x 776.9025pt>
+<./Figures/../Figures/Chapter3/nn.png, id=811, 1189.44376pt x 776.9025pt>
 File: ./Figures/../Figures/Chapter3/nn.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter3/nn.png>
@@ -649,7 +649,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/nn.png used on input lin
 e 79.
 (pdftex.def)             Requested size: 404.40553pt x 264.14334pt.
 
-<./Figures/../Figures/Chapter3/unit_vectors.png, id=802, 1927.2pt x 995.72pt>
+<./Figures/../Figures/Chapter3/unit_vectors.png, id=814, 1927.2pt x 995.72pt>
 File: ./Figures/../Figures/Chapter3/unit_vectors.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter3/unit_vectors.png>
@@ -657,7 +657,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/unit_vectors.png used on
  input line 89.
 (pdftex.def)             Requested size: 404.72395pt x 209.10736pt.
 
-<./Figures/../Figures/Chapter3/nn_input.png, id=803, 813.0375pt x 601.24625pt>
+<./Figures/../Figures/Chapter3/nn_input.png, id=815, 813.0375pt x 601.24625pt>
 File: ./Figures/../Figures/Chapter3/nn_input.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter3/nn_input.png>
@@ -701,7 +701,7 @@ Underfull \vbox (badness 2418) has occurred while \output is active []
 
 ]
 [22]
-<./Figures/../Figures/Chapter3/simple_fit_func.png, id=863, 1084.05pt x 602.25p
+<./Figures/../Figures/Chapter3/simple_fit_func.png, id=874, 1084.05pt x 602.25p
 t>
 File: ./Figures/../Figures/Chapter3/simple_fit_func.png Graphic file (type png)
 
@@ -713,7 +713,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/simple_fit_func.png used
 Underfull \vbox (badness 3838) has occurred while \output is active []
 
  [23 <./Figures/../Figures/Chapter3/simple_fit_func.png>]
-<./Figures/../Figures/Chapter3/roulette.png, id=872, 1607.00375pt x 764.8575pt>
+<./Figures/../Figures/Chapter3/roulette.png, id=883, 1607.00375pt x 764.8575pt>
 File: ./Figures/../Figures/Chapter3/roulette.png Graphic file (type png)
 <use ./Figures/../Figures/Chapter3/roulette.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/roulette.png used on inp
@@ -738,7 +738,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [27]
 [28] [29] [30]
-<./Figures/../Figures/Chapter3/exp1_avg_fit.png, id=916, 1327.20844pt x 746.037
+<./Figures/../Figures/Chapter3/exp1_avg_fit.png, id=927, 1327.20844pt x 746.037
 19pt>
 File: ./Figures/../Figures/Chapter3/exp1_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp1_avg_fit.png>
@@ -746,7 +746,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp1_avg_fit.png used on
  input line 638.
 (pdftex.def)             Requested size: 361.34999pt x 203.1175pt.
 
-<./Figures/../Figures/Chapter3/exp1_10_tops.png, id=917, 1099.85907pt x 618.811
+<./Figures/../Figures/Chapter3/exp1_10_tops.png, id=928, 1099.85907pt x 618.811
 87pt>
 File: ./Figures/../Figures/Chapter3/exp1_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp1_10_tops.png>
@@ -754,7 +754,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp1_10_tops.png used on
  input line 646.
 (pdftex.def)             Requested size: 361.34999pt x 203.30208pt.
 
-<./Figures/../Figures/Chapter3/exp1_10_tops_times.png, id=918, 1206.75844pt x 6
+<./Figures/../Figures/Chapter3/exp1_10_tops_times.png, id=929, 1206.75844pt x 6
 79.03688pt>
 File: ./Figures/../Figures/Chapter3/exp1_10_tops_times.png Graphic file (type p
 ng)
@@ -763,7 +763,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp1_10_tops_times.png u
 sed on input line 654.
 (pdftex.def)             Requested size: 361.34999pt x 203.32927pt.
 
-<./Figures/../Figures/Chapter3/exp2_avg_fit.png, id=921, 1191.7022pt x 707.6437
+<./Figures/../Figures/Chapter3/exp2_avg_fit.png, id=932, 1191.7022pt x 707.6437
 5pt>
 File: ./Figures/../Figures/Chapter3/exp2_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp2_avg_fit.png>
@@ -771,7 +771,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp2_avg_fit.png used on
  input line 666.
 (pdftex.def)             Requested size: 361.34999pt x 214.57309pt.
 
-<./Figures/../Figures/Chapter3/exp2_10_tops.png, id=922, 975.645pt x 548.80031p
+<./Figures/../Figures/Chapter3/exp2_10_tops.png, id=933, 975.645pt x 548.80031p
 t>
 File: ./Figures/../Figures/Chapter3/exp2_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp2_10_tops.png>
@@ -779,7 +779,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp2_10_tops.png used on
  input line 674.
 (pdftex.def)             Requested size: 361.34999pt x 203.26227pt.
 
-<./Figures/../Figures/Chapter3/exp2_10_tops_times.png, id=923, 1206.00563pt x 6
+<./Figures/../Figures/Chapter3/exp2_10_tops_times.png, id=934, 1206.00563pt x 6
 78.28406pt>
 File: ./Figures/../Figures/Chapter3/exp2_10_tops_times.png Graphic file (type p
 ng)
@@ -796,7 +796,7 @@ igures/Chapter3/exp1_10_tops.png (PNG copy)>] [33 <./Figures/../Figures/Chapter
 3/exp1_10_tops_times.png (PNG copy)> <./Figures/../Figures/Chapter3/exp2_avg_fi
 t.png (PNG copy)>] [34 <./Figures/../Figures/Chapter3/exp2_10_tops.png (PNG cop
 y)> <./Figures/../Figures/Chapter3/exp2_10_tops_times.png (PNG copy)>]
-<./Figures/../Figures/Chapter3/exp3_avg_fit.png, id=945, 1187.18532pt x 516.429
+<./Figures/../Figures/Chapter3/exp3_avg_fit.png, id=956, 1187.18532pt x 516.429
 38pt>
 File: ./Figures/../Figures/Chapter3/exp3_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp3_avg_fit.png>
@@ -804,7 +804,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_avg_fit.png used on
  input line 694.
 (pdftex.def)             Requested size: 361.34999pt x 157.19159pt.
 
-<./Figures/../Figures/Chapter3/exp3_self_adapt.png, id=948, 1188.69093pt x 538.
+<./Figures/../Figures/Chapter3/exp3_self_adapt.png, id=959, 1188.69093pt x 538.
 26094pt>
 File: ./Figures/../Figures/Chapter3/exp3_self_adapt.png Graphic file (type png)
 
@@ -813,7 +813,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_self_adapt.png used
  on input line 704.
 (pdftex.def)             Requested size: 361.34999pt x 163.62317pt.
 
-<./Figures/../Figures/Chapter3/exp3_10_tops.png, id=949, 1109.64563pt x 693.340
+<./Figures/../Figures/Chapter3/exp3_10_tops.png, id=960, 1109.64563pt x 693.340
 32pt>
 File: ./Figures/../Figures/Chapter3/exp3_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp3_10_tops.png>
@@ -821,7 +821,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_10_tops.png used on
  input line 712.
 (pdftex.def)             Requested size: 361.34999pt x 225.77727pt.
 
-<./Figures/../Figures/Chapter3/exp3_10_tops_times.png, id=950, 1186.4325pt x 72
+<./Figures/../Figures/Chapter3/exp3_10_tops_times.png, id=961, 1186.4325pt x 72
 2.7pt>
 File: ./Figures/../Figures/Chapter3/exp3_10_tops_times.png Graphic file (type p
 ng)
@@ -832,7 +832,7 @@ sed on input line 720.
  [35 <./Figures/../Figures/Chapter3/exp3_avg_fit.png (PNG copy)>] [36 <./Figure
 s/../Figures/Chapter3/exp3_self_adapt.png (PNG copy)> <./Figures/../Figures/Cha
 pter3/exp3_10_tops.png (PNG copy)>]
-<./Figures/../Figures/Chapter3/exp4_avg_fit.png, id=961, 1228.59pt x 546.54187p
+<./Figures/../Figures/Chapter3/exp4_avg_fit.png, id=972, 1228.59pt x 546.54187p
 t>
 File: ./Figures/../Figures/Chapter3/exp4_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp4_avg_fit.png>
@@ -840,7 +840,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp4_avg_fit.png used on
  input line 732.
 (pdftex.def)             Requested size: 361.34999pt x 160.74475pt.
 
-<./Figures/../Figures/Chapter3/exp4_10_tops.png, id=962, 1157.07281pt x 648.924
+<./Figures/../Figures/Chapter3/exp4_10_tops.png, id=973, 1157.07281pt x 648.924
 38pt>
 File: ./Figures/../Figures/Chapter3/exp4_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp4_10_tops.png>
@@ -848,7 +848,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp4_10_tops.png used on
  input line 740.
 (pdftex.def)             Requested size: 361.34999pt x 202.64973pt.
 
-<./Figures/../Figures/Chapter3/exp4_10_tops_times.png, id=963, 1211.27531pt x 7
+<./Figures/../Figures/Chapter3/exp4_10_tops_times.png, id=974, 1211.27531pt x 7
 35.49782pt>
 File: ./Figures/../Figures/Chapter3/exp4_10_tops_times.png Graphic file (type p
 ng)
@@ -863,7 +863,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 es/../Figures/Chapter3/exp4_avg_fit.png (PNG copy)>] [38 <./Figures/../Figures/
 Chapter3/exp4_10_tops.png (PNG copy)> <./Figures/../Figures/Chapter3/exp4_10_to
 ps_times.png (PNG copy)>]
-<./Figures/../Figures/Chapter3/exp5_avg_fit.png, id=974, 1117.17375pt x 532.991
+<./Figures/../Figures/Chapter3/exp5_avg_fit.png, id=985, 1117.17375pt x 532.991
 26pt>
 File: ./Figures/../Figures/Chapter3/exp5_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp5_avg_fit.png>
@@ -871,7 +871,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp5_avg_fit.png used on
  input line 760.
 (pdftex.def)             Requested size: 361.34999pt x 172.39056pt.
 
-<./Figures/../Figures/Chapter3/exp5_10_tops.png, id=975, 1293.33188pt x 645.913
+<./Figures/../Figures/Chapter3/exp5_10_tops.png, id=986, 1293.33188pt x 645.913
 13pt>
 File: ./Figures/../Figures/Chapter3/exp5_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp5_10_tops.png>
@@ -879,7 +879,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp5_10_tops.png used on
  input line 768.
 (pdftex.def)             Requested size: 361.34999pt x 180.4602pt.
 
-<./Figures/../Figures/Chapter3/exp5_10_tops_times.png, id=976, 1131.47719pt x 5
+<./Figures/../Figures/Chapter3/exp5_10_tops_times.png, id=987, 1131.47719pt x 5
 95.47469pt>
 File: ./Figures/../Figures/Chapter3/exp5_10_tops_times.png Graphic file (type p
 ng)
@@ -892,7 +892,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [39 <./Figures/../Figures/Chapter3/exp5_avg_fit.png (PNG copy)> <./Figures/../
 Figures/Chapter3/exp5_10_tops.png (PNG copy)>]
-<./Figures/../Figures/Chapter3/exp6_avg_fit.png, id=984, 1114.1625pt x 576.6543
+<./Figures/../Figures/Chapter3/exp6_avg_fit.png, id=995, 1114.1625pt x 576.6543
 7pt>
 File: ./Figures/../Figures/Chapter3/exp6_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp6_avg_fit.png>
@@ -900,7 +900,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp6_avg_fit.png used on
  input line 788.
 (pdftex.def)             Requested size: 361.34999pt x 187.02328pt.
 
-<./Figures/../Figures/Chapter3/exp6_10_tops.png, id=985, 999.735pt x 533.74406p
+<./Figures/../Figures/Chapter3/exp6_10_tops.png, id=996, 999.735pt x 533.74406p
 t>
 File: ./Figures/../Figures/Chapter3/exp6_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp6_10_tops.png>
@@ -908,7 +908,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp6_10_tops.png used on
  input line 795.
 (pdftex.def)             Requested size: 361.34999pt x 192.92142pt.
 
-<./Figures/../Figures/Chapter3/exp6_10_tops_times.png, id=986, 994.46532pt x 52
+<./Figures/../Figures/Chapter3/exp6_10_tops_times.png, id=997, 994.46532pt x 52
 1.69907pt>
 File: ./Figures/../Figures/Chapter3/exp6_10_tops_times.png Graphic file (type p
 ng)
@@ -923,24 +923,24 @@ Underfull \vbox (badness 2600) has occurred while \output is active []
 es/../Figures/Chapter3/exp6_avg_fit.png (PNG copy)>] [41 <./Figures/../Figures/
 Chapter3/exp6_10_tops.png (PNG copy)> <./Figures/../Figures/Chapter3/exp6_10_to
 ps_times.png (PNG copy)>]
-<./Figures/../Figures/Chapter3/exp7_avg_fit.png, id=997, 1447.65843pt x 784.430
-62pt>
+<./Figures/../Figures/Chapter3/exp7_avg_fit.png, id=1008, 1447.65843pt x 784.43
+062pt>
 File: ./Figures/../Figures/Chapter3/exp7_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp7_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp7_avg_fit.png used on
  input line 813.
 (pdftex.def)             Requested size: 361.34999pt x 195.79596pt.
 
-<./Figures/../Figures/Chapter3/exp7_10_tops.png, id=998, 1038.12843pt x 544.283
-43pt>
+<./Figures/../Figures/Chapter3/exp7_10_tops.png, id=1009, 1038.12843pt x 544.28
+343pt>
 File: ./Figures/../Figures/Chapter3/exp7_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp7_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp7_10_tops.png used on
  input line 820.
 (pdftex.def)             Requested size: 361.34999pt x 189.44731pt.
 
-<./Figures/../Figures/Chapter3/exp7_10_tops_times.png, id=999, 1123.94907pt x 5
-87.94656pt>
+<./Figures/../Figures/Chapter3/exp7_10_tops_times.png, id=1010, 1123.94907pt x 
+587.94656pt>
 File: ./Figures/../Figures/Chapter3/exp7_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp7_10_tops_times.png>
@@ -952,7 +952,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [42 <./Figures/../Figures/Chapter3/exp7_avg_fit.png (PNG copy)> <./Figures/../
 Figures/Chapter3/exp7_10_tops.png (PNG copy)>]
-<./Figures/../Figures/Chapter3/all_avg_fit.png, id=1007, 1617.04124pt x 1146.28
+<./Figures/../Figures/Chapter3/all_avg_fit.png, id=1018, 1617.04124pt x 1146.28
 25pt>
 File: ./Figures/../Figures/Chapter3/all_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/all_avg_fit.png>
@@ -960,7 +960,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/all_avg_fit.png used on
 input line 842.
 (pdftex.def)             Requested size: 361.34999pt x 256.15335pt.
 
-<./Figures/../Figures/Chapter3/all_10_tops.png, id=1009, 1602.98875pt x 1130.22
+<./Figures/../Figures/Chapter3/all_10_tops.png, id=1020, 1602.98875pt x 1130.22
 25pt>
 File: ./Figures/../Figures/Chapter3/all_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/all_10_tops.png>
@@ -968,7 +968,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/all_10_tops.png used on
 input line 854.
 (pdftex.def)             Requested size: 361.34999pt x 254.77197pt.
 
-<./Figures/../Figures/Chapter3/all_10_tops_times.png, id=1011, 1602.98875pt x 1
+<./Figures/../Figures/Chapter3/all_10_tops_times.png, id=1022, 1602.98875pt x 1
 130.2225pt>
 File: ./Figures/../Figures/Chapter3/all_10_tops_times.png Graphic file (type pn
 g)
@@ -998,7 +998,7 @@ Chapter 4.
 Underfull \vbox (badness 4156) has occurred while \output is active []
 
  [51]
-<./Figures/../Figures/Chapter4/bbautotune_gui.png, id=1061, 404.51125pt x 346.2
+<./Figures/../Figures/Chapter4/bbautotune_gui.png, id=1072, 404.51125pt x 346.2
 9375pt>
 File: ./Figures/../Figures/Chapter4/bbautotune_gui.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter4/bbautotune_gui.png>
@@ -1006,7 +1006,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/bbautotune_gui.png used
 on input line 23.
 (pdftex.def)             Requested size: 242.70862pt x 207.77785pt.
  [52 <./Figures/../Figures/Chapter4/bbautotune_gui.png>] [53]
-<./Figures/../Figures/Chapter4/ga_monitor.png, id=1077, 606.265pt x 665.48625pt
+<./Figures/../Figures/Chapter4/ga_monitor.png, id=1088, 606.265pt x 665.48625pt
 >
 File: ./Figures/../Figures/Chapter4/ga_monitor.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter4/ga_monitor.png>
@@ -1030,7 +1030,7 @@ Overfull \hbox (13.24077pt too wide) in paragraph at lines 170--171
  []
 
 [57]
-<./Figures/../Figures/Chapter4/real_robot_raw_trans_rot.png, id=1103, 740.7675p
+<./Figures/../Figures/Chapter4/real_robot_raw_trans_rot.png, id=1114, 740.7675p
 t x 609.2361pt>
 File: ./Figures/../Figures/Chapter4/real_robot_raw_trans_rot.png Graphic file (
 type png)
@@ -1040,7 +1040,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/real_robot_raw_trans_rot
 .png used on input line 178.
 (pdftex.def)             Requested size: 444.46393pt x 365.54448pt.
 
-<./Figures/../Figures/Chapter4/real_robot_forward_motion.png, id=1104, 718.3638
+<./Figures/../Figures/Chapter4/real_robot_forward_motion.png, id=1115, 718.3638
 pt x 607.068pt>
 File: ./Figures/../Figures/Chapter4/real_robot_forward_motion.png Graphic file 
 (type png)
@@ -1050,7 +1050,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/real_robot_forward_motio
 n.png used on input line 186.
 (pdftex.def)             Requested size: 431.0216pt x 364.2436pt.
 
-<./Figures/../Figures/Chapter4/real_robot_forward_dist.png, id=1108, 629.4717pt
+<./Figures/../Figures/Chapter4/real_robot_forward_dist.png, id=1119, 629.4717pt
  x 717.6411pt>
 File: ./Figures/../Figures/Chapter4/real_robot_forward_dist.png Graphic file (t
 ype png)
@@ -1059,7 +1059,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/real_robot_forward_dist.
 png used on input line 248.
 (pdftex.def)             Requested size: 377.68593pt x 430.58798pt.
 
-<./Figures/../Figures/Chapter4/real_robot_3d_scatter.png, id=1109, 875.9124pt x
+<./Figures/../Figures/Chapter4/real_robot_3d_scatter.png, id=1120, 875.9124pt x
  875.9124pt>
 File: ./Figures/../Figures/Chapter4/real_robot_3d_scatter.png Graphic file (typ
 e png)
@@ -1075,7 +1075,7 @@ Underfull \vbox (badness 2035) has occurred while \output is active []
 s/../Figures/Chapter4/real_robot_forward_motion.png>] [61 <./Figures/../Figures
 /Chapter4/real_robot_forward_dist.png>] [62 <./Figures/../Figures/Chapter4/real
 _robot_3d_scatter.png>] [63]
-<./Figures/../Figures/Chapter4/real_robot_robust_samples.png, id=1152, 875.9124
+<./Figures/../Figures/Chapter4/real_robot_robust_samples.png, id=1163, 875.9124
 pt x 875.9124pt>
 File: ./Figures/../Figures/Chapter4/real_robot_robust_samples.png Graphic file 
 (type png)
@@ -1085,7 +1085,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/real_robot_robust_sample
 s.png used on input line 295.
 (pdftex.def)             Requested size: 437.95512pt x 437.95512pt.
 
-<./Figures/../Figures/Chapter4/real_robot_md_vs_rd.png, id=1153, 677.8926pt x 8
+<./Figures/../Figures/Chapter4/real_robot_md_vs_rd.png, id=1164, 677.8926pt x 8
 44.1136pt>
 File: ./Figures/../Figures/Chapter4/real_robot_md_vs_rd.png Graphic file (type 
 png)
@@ -1107,7 +1107,7 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 313.
  [66]
-<./Figures/../Figures/Chapter4/simu_robot_aligned.png, id=1170, 523.9575pt x 41
+<./Figures/../Figures/Chapter4/simu_robot_aligned.png, id=1181, 523.9575pt x 41
 1.5375pt>
 File: ./Figures/../Figures/Chapter4/simu_robot_aligned.png Graphic file (type p
 ng)
@@ -1116,7 +1116,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/simu_robot_aligned.png u
 sed on input line 325.
 (pdftex.def)             Requested size: 261.9781pt x 205.76825pt.
  [67 <./Figures/../Figures/Chapter4/simu_robot_aligned.png>]
-<./Figures/../Figures/Chapter4/racquetball.png, id=1176, 749.80125pt x 681.5462
+<./Figures/../Figures/Chapter4/racquetball.png, id=1187, 749.80125pt x 681.5462
 5pt>
 File: ./Figures/../Figures/Chapter4/racquetball.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter4/racquetball.png>
@@ -1127,7 +1127,7 @@ input line 345.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [68 <./Figures/../Figures/Chapter4/racquetball.png>] [69]
-<./Figures/../Figures/Chapter4/material_physics_ball_plot.png, id=1192, 1130.30
+<./Figures/../Figures/Chapter4/material_physics_ball_plot.png, id=1203, 1130.30
 28pt x 1130.3028pt>
 File: ./Figures/../Figures/Chapter4/material_physics_ball_plot.png Graphic file
  (type png)
@@ -1137,7 +1137,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/material_physics_ball_pl
 ot.png used on input line 383.
 (pdftex.def)             Requested size: 395.61191pt x 395.61191pt.
 
-<./Figures/../Figures/Chapter4/logic_steps_ball_plot.png, id=1193, 1130.3028pt 
+<./Figures/../Figures/Chapter4/logic_steps_ball_plot.png, id=1204, 1130.3028pt 
 x 1130.3028pt>
 File: ./Figures/../Figures/Chapter4/logic_steps_ball_plot.png Graphic file (typ
 e png)
@@ -1160,7 +1160,7 @@ Underfull \hbox (badness 10000) detected at line 414
 Missing character: There is no Ã in font cmr8!
 Missing character: There is no © in font cmr8!
  [73] [74]
-<./Figures/../Figures/Chapter4/exp2_halcm.png, id=1221, 778.3479pt x 954.6867pt
+<./Figures/../Figures/Chapter4/exp2_halcm.png, id=1232, 778.3479pt x 954.6867pt
 >
 File: ./Figures/../Figures/Chapter4/exp2_halcm.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter4/exp2_halcm.png>
@@ -1168,7 +1168,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/exp2_halcm.png used on i
 nput line 522.
 (pdftex.def)             Requested size: 361.34999pt x 443.21094pt.
  [75] [76 <./Figures/../Figures/Chapter4/exp2_halcm.png>]
-<./Figures/../Figures/Chapter4/exp3_halcm.png, id=1234, 759.5577pt x 1028.4021p
+<./Figures/../Figures/Chapter4/exp3_halcm.png, id=1245, 759.5577pt x 1028.4021p
 t>
 File: ./Figures/../Figures/Chapter4/exp3_halcm.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter4/exp3_halcm.png>
@@ -1176,30 +1176,42 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter4/exp3_halcm.png used on i
 nput line 590.
 (pdftex.def)             Requested size: 361.34999pt x 489.265pt.
  [77] [78 <./Figures/../Figures/Chapter4/exp3_halcm.png>]
-<./Figures/../Figures/Chapter4/exp4_halcm.png, id=1246, 729.927pt x 927.2241pt>
+<./Figures/../Figures/Chapter4/exp4_halcm.png, id=1257, 729.927pt x 927.2241pt>
 File: ./Figures/../Figures/Chapter4/exp4_halcm.png Graphic file (type png)
 <use ./Figures/../Figures/Chapter4/exp4_halcm.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter4/exp4_halcm.png used on i
 nput line 658.
 (pdftex.def)             Requested size: 361.34999pt x 459.02687pt.
- [79] [80 <./Figures/../Figures/Chapter4/exp4_halcm.png>]) [81]
+ [79] [80 <./Figures/../Figures/Chapter4/exp4_halcm.png>]
+<./Figures/../Figures/Chapter4/exp5_halcm.png, id=1270, 693.792pt x 948.9051pt>
+File: ./Figures/../Figures/Chapter4/exp5_halcm.png Graphic file (type png)
+<use ./Figures/../Figures/Chapter4/exp5_halcm.png>
+Package pdftex.def Info: ./Figures/../Figures/Chapter4/exp5_halcm.png used on i
+nput line 726.
+(pdftex.def)             Requested size: 361.34999pt x 494.21538pt.
+ [81] [82 <./Figures/../Figures/Chapter4/exp5_halcm.png>]
+Overfull \hbox (0.70644pt too wide) in paragraph at lines 811--811
+ []|\OT1/cmr/m/n/8 0.930619100106| 
+ []
+
+) [83]
 \openout2 = `Chapters/Chapter5.aux'.
 
- (./Chapters/Chapter5.tex [82
+ (./Chapters/Chapter5.tex [84
 
 
 
 ]
 Chapter 5.
-<./Figures/../Figures/Chapter5/treads.png, id=1267, 1626.075pt x 364.36125pt>
+<./Figures/../Figures/Chapter5/treads.png, id=1290, 1626.075pt x 364.36125pt>
 File: ./Figures/../Figures/Chapter5/treads.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter5/treads.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter5/treads.png used on input
  line 21.
 (pdftex.def)             Requested size: 406.51776pt x 91.09009pt.
- [83]
-<./Figures/../Figures/Chapter5/const_motion_model.png, id=1276, 1577.895pt x 64
+ [85]
+<./Figures/../Figures/Chapter5/const_motion_model.png, id=1299, 1577.895pt x 64
 1.39626pt>
 File: ./Figures/../Figures/Chapter5/const_motion_model.png Graphic file (type p
 ng)
@@ -1208,7 +1220,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter5/const_motion_model.png u
 sed on input line 35.
 (pdftex.def)             Requested size: 441.80759pt x 179.58972pt.
 
-<./Figures/../Figures/Chapter5/const_motion_model_plotted.png, id=1277, 711.658
+<./Figures/../Figures/Chapter5/const_motion_model_plotted.png, id=1300, 711.658
 75pt x 534.99875pt>
 File: ./Figures/../Figures/Chapter5/const_motion_model_plotted.png Graphic file
  (type png)
@@ -1218,7 +1230,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter5/const_motion_model_plott
 ed.png used on input line 43.
 (pdftex.def)             Requested size: 391.41353pt x 294.25021pt.
 
-<./Figures/../Figures/Chapter5/map.png, id=1281, 516.9714pt x 384.7173pt>
+<./Figures/../Figures/Chapter5/map.png, id=1304, 516.9714pt x 384.7173pt>
 File: ./Figures/../Figures/Chapter5/map.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter5/map.png>
@@ -1228,9 +1240,9 @@ ne 59.
 
 Underfull \vbox (badness 6110) has occurred while \output is active []
 
- [84 <./Figures/../Figures/Chapter5/treads.png> <./Figures/../Figures/Chapter5/
-const_motion_model.png>] [85 <./Figures/../Figures/Chapter5/const_motion_model_
-plotted.png>] <./Figures/../Figures/Chapter5/srv1.png, id=1294, 645.41125pt x 5
+ [86 <./Figures/../Figures/Chapter5/treads.png> <./Figures/../Figures/Chapter5/
+const_motion_model.png>] [87 <./Figures/../Figures/Chapter5/const_motion_model_
+plotted.png>] <./Figures/../Figures/Chapter5/srv1.png, id=1318, 645.41125pt x 5
 45.03625pt>
 File: ./Figures/../Figures/Chapter5/srv1.png Graphic file (type png)
 
@@ -1238,9 +1250,9 @@ File: ./Figures/../Figures/Chapter5/srv1.png Graphic file (type png)
 Package pdftex.def Info: ./Figures/../Figures/Chapter5/srv1.png used on input l
 ine 71.
 (pdftex.def)             Requested size: 322.70483pt x 272.51746pt.
- [86 <./Figures/../Figures/Chapter5/map.png>] [87 <./Figures/../Figures/Chapter
-5/srv1.png>] [88]
-<./Figures/../Figures/Chapter5/parts.png, id=1314, 1061.9675pt x 311.1625pt>
+ [88 <./Figures/../Figures/Chapter5/map.png>] [89 <./Figures/../Figures/Chapter
+5/srv1.png>] [90]
+<./Figures/../Figures/Chapter5/parts.png, id=1337, 1061.9675pt x 311.1625pt>
 File: ./Figures/../Figures/Chapter5/parts.png Graphic file (type png)
 
 <use ./Figures/../Figures/Chapter5/parts.png>
@@ -1248,21 +1260,21 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter5/parts.png used on input
 line 106.
 (pdftex.def)             Requested size: 424.77948pt x 124.46278pt.
 
-<./Figures/../Figures/Chapter5/taskPoints.png, id=1315, 1409.265pt x 840.13875p
+<./Figures/../Figures/Chapter5/taskPoints.png, id=1338, 1409.265pt x 840.13875p
 t>
 File: ./Figures/../Figures/Chapter5/taskPoints.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter5/taskPoints.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter5/taskPoints.png used on i
 nput line 114.
 (pdftex.def)             Requested size: 450.97401pt x 268.84988pt.
-) [89 <./Figures/../Figures/Chapter5/parts.png>] [90 <./Figures/../Figures/Chap
+) [91 <./Figures/../Figures/Chapter5/parts.png>] [92 <./Figures/../Figures/Chap
 ter5/taskPoints.png>]
 \openout2 = `Chapters/Chapter6.aux'.
 
 
 (./Chapters/Chapter6.tex
 Chapter 6.
-) [91
+) [93
 
 
 
@@ -1270,7 +1282,7 @@ Chapter 6.
 (/home/lettier/SPR2014/7902/bbautotune/masters_thesis/Packages/lstlang1.sty
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 )
-[92
+[94
 
 
 ]
@@ -1278,13 +1290,7 @@ Appendix A.
 (/home/lettier/SPR2014/7902/bbautotune/masters_thesis/Packages/lstlang1.sty
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 )
-(./ProgramCode/SimPL/index.js [93]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [94]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [95]
+(./ProgramCode/SimPL/index.js [95]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [96]
@@ -1311,14 +1317,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [103]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [104])
-(./ProgramCode/SimPL/genetic_algorithm.js [105]
+ [104]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [106]
+ [105]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [107]
+ [106])
+(./ProgramCode/SimPL/genetic_algorithm.js [107]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [108]
@@ -1328,19 +1334,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [110]
-Missing character: There is no Ï in font cmtt8!
-Missing character: There is no ƒ in font cmtt8!
-Missing character: There is no Ï in font cmtt8!
-Missing character: There is no ƒ in font cmtt8!
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [111]
-Missing character: There is no Ï in font cmtt8!
-Missing character: There is no ƒ in font cmtt8!
-Missing character: There is no Ï in font cmtt8!
-Missing character: There is no ƒ in font cmtt8!
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [112]
@@ -1352,9 +1348,19 @@ Missing character: There is no ƒ in font cmtt8!
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [113]
+Missing character: There is no Ï in font cmtt8!
+Missing character: There is no ƒ in font cmtt8!
+Missing character: There is no Ï in font cmtt8!
+Missing character: There is no ƒ in font cmtt8!
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [114]
+Missing character: There is no Ï in font cmtt8!
+Missing character: There is no ƒ in font cmtt8!
+Missing character: There is no Ï in font cmtt8!
+Missing character: There is no ƒ in font cmtt8!
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [115]
@@ -1369,15 +1375,21 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [118]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [119])
-(./ProgramCode/SimPL/neural_network.js [120]
+ [119]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [121]
+ [120]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [122]))
-[123] [124
+ [121])
+(./ProgramCode/SimPL/neural_network.js [122]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [123]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [124]))
+[125] [126
 
 ] (./main.bbl
 Missing character: There is no â in font cmr10!
@@ -1392,7 +1404,7 @@ Underfull \hbox (badness 2951) in paragraph at lines 56--62
 -rithms.  [][]$\OT1/cmtt/m/n/10 http : / / www . obitko . com /
  []
 
-[125
+[127
 
 ]
 Underfull \hbox (badness 2591) in paragraph at lines 73--77
@@ -1400,9 +1412,9 @@ Underfull \hbox (badness 2591) in paragraph at lines 73--77
 /cmtt/m/n/10 http : / / www . continuousphysics . com / Bullet /
  []
 
-[126])
+[128])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
- [127]
+ [129]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
  (./main.aux (./Chapters/Chapter1.aux) (./Chapters/Chapter2.aux)
 (./Chapters/Chapter3.aux) (./Chapters/Chapter4.aux) (./Chapters/Chapter5.aux)
@@ -1410,14 +1422,14 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 132.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 132.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 5B89FF050BBEE0847987C6B17508CEA2;15090.
+(rerunfilecheck)             Checksum: 1966B4C271BF71593C401FA681F761DA;15226.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
  ) 
 Here is how much of TeX's memory you used:
- 16356 strings out of 495031
- 237403 string characters out of 6181532
- 715451 words of memory out of 5000000
- 15986 multiletter control sequences out of 15000+600000
+ 16371 strings out of 495031
+ 237753 string characters out of 6181532
+ 715630 words of memory out of 5000000
+ 15994 multiletter control sequences out of 15000+600000
  15175 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  42i,14n,42p,2066b,1855s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1444,10 +1456,10 @@ sfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 i9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on main.pdf (137 pages, 6620792 bytes).
+Output written on main.pdf (139 pages, 6762093 bytes).
 PDF statistics:
- 5213 PDF objects out of 6186 (max. 8388607)
- 4915 compressed objects within 50 object streams
- 3274 named destinations out of 3580 (max. 500000)
- 1081 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5239 PDF objects out of 6186 (max. 8388607)
+ 4937 compressed objects within 50 object streams
+ 3280 named destinations out of 3580 (max. 500000)
+ 1094 words of extra memory for PDF output out of 10000 (max. 10000000)
 

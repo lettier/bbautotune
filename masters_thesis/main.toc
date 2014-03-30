@@ -83,29 +83,30 @@
 \contentsline {subsection}{\numberline {4.5.3}Experiment Three}{77}{subsection.154}
 \contentsline {subsection}{\numberline {4.5.4}Experiment Four}{79}{subsection.157}
 \contentsline {subsection}{\numberline {4.5.5}Experiment Five}{81}{subsection.160}
-\contentsline {chapter}{\numberline {5}BlenderSim}{83}{chapter.161}
-\contentsline {section}{\numberline {5.1}Overview}{83}{section.162}
-\contentsline {section}{\numberline {5.2}HRTeam}{83}{section.163}
-\contentsline {section}{\numberline {5.3}Problems Faced}{83}{section.164}
-\contentsline {section}{\numberline {5.4}Implementation}{84}{section.168}
-\contentsline {subsection}{\numberline {5.4.1}Arena}{86}{subsection.169}
-\contentsline {subsection}{\numberline {5.4.2}Surveyor SRV-1 Blackfin 3D Models}{86}{subsection.171}
-\contentsline {subsection}{\numberline {5.4.3}Robot Servers}{86}{subsection.173}
-\contentsline {subsection}{\numberline {5.4.4}Robot Clients}{88}{subsection.174}
-\contentsline {subsection}{\numberline {5.4.5}Robot Controllers}{88}{subsection.175}
-\contentsline {subsection}{\numberline {5.4.6}Task Points Manager}{89}{subsection.176}
-\contentsline {section}{\numberline {5.5}Platform}{89}{section.179}
-\contentsline {section}{\numberline {5.6}Experimental Designs}{89}{section.180}
-\contentsline {section}{\numberline {5.7}Experimental Results}{90}{section.181}
-\contentsline {chapter}{\numberline {6}Conclusion}{91}{chapter.182}
-\contentsline {section}{\numberline {6.1}Blender and Bullet}{91}{section.183}
-\contentsline {section}{\numberline {6.2}Reality Gap}{91}{section.184}
-\contentsline {section}{\numberline {6.3}SimPL}{91}{section.185}
-\contentsline {section}{\numberline {6.4}BBAutoTune}{91}{section.186}
-\contentsline {section}{\numberline {6.5}BlenderSim}{91}{section.187}
+\contentsline {section}{\numberline {4.6}Comparisons}{83}{section.163}
+\contentsline {chapter}{\numberline {5}BlenderSim}{85}{chapter.165}
+\contentsline {section}{\numberline {5.1}Overview}{85}{section.166}
+\contentsline {section}{\numberline {5.2}HRTeam}{85}{section.167}
+\contentsline {section}{\numberline {5.3}Problems Faced}{85}{section.168}
+\contentsline {section}{\numberline {5.4}Implementation}{86}{section.172}
+\contentsline {subsection}{\numberline {5.4.1}Arena}{88}{subsection.173}
+\contentsline {subsection}{\numberline {5.4.2}Surveyor SRV-1 Blackfin 3D Models}{88}{subsection.175}
+\contentsline {subsection}{\numberline {5.4.3}Robot Servers}{88}{subsection.177}
+\contentsline {subsection}{\numberline {5.4.4}Robot Clients}{90}{subsection.178}
+\contentsline {subsection}{\numberline {5.4.5}Robot Controllers}{90}{subsection.179}
+\contentsline {subsection}{\numberline {5.4.6}Task Points Manager}{91}{subsection.180}
+\contentsline {section}{\numberline {5.5}Platform}{91}{section.183}
+\contentsline {section}{\numberline {5.6}Experimental Designs}{91}{section.184}
+\contentsline {section}{\numberline {5.7}Experimental Results}{92}{section.185}
+\contentsline {chapter}{\numberline {6}Conclusion}{93}{chapter.186}
+\contentsline {section}{\numberline {6.1}Blender and Bullet}{93}{section.187}
+\contentsline {section}{\numberline {6.2}Reality Gap}{93}{section.188}
+\contentsline {section}{\numberline {6.3}SimPL}{93}{section.189}
+\contentsline {section}{\numberline {6.4}BBAutoTune}{93}{section.190}
+\contentsline {section}{\numberline {6.5}BlenderSim}{93}{section.191}
 \vspace {2em}
-\contentsline {chapter}{\numberline {A}Software Code}{93}{appendix.188}
-\contentsline {section}{\numberline {A.1}SimPL}{93}{section.189}
-\contentsline {section}{\numberline {A.2}BBAutoTune}{123}{section.3115}
-\contentsline {section}{\numberline {A.3}BlenderSim}{123}{section.3116}
+\contentsline {chapter}{\numberline {A}Software Code}{95}{appendix.192}
+\contentsline {section}{\numberline {A.1}SimPL}{95}{section.193}
+\contentsline {section}{\numberline {A.2}BBAutoTune}{125}{section.3119}
+\contentsline {section}{\numberline {A.3}BlenderSim}{125}{section.3120}
 \vspace {2em}

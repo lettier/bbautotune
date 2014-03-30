@@ -515,13 +515,13 @@ Collision Damping Frames: -32768 & 0.329232644023 & 0.329232644023 & 0.329232644
 
 \subsection[Experiment Two]{Experiment two: tournament selection with self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 0.9306191001, 1.024632475, 0.9315692954 respectively. The minimum and maximum probability for both crossover and mutation obtained over the course of the 500 generations was 0.001 and 0.999. Interestingly, as the highest, average, and lowest fitness began to converge, the crossover and mutation probability flipped causing the population to be entirely mutated resulting in essentially a randomly generated population thereby destroying the high fitness solutions found. Notice that after the probabilities flipped, the highest, average, and lowest fitness diverged. This converging and then diverging occurred twice during the 500 generation run. Up to generation 376, the highest fitness steadily declined and then afterward remained fairly stable. See Figure \ref{fig:exp2_halcm}. Table \ref{tab:exp2_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness was 0.9306191001, 1.024632475, and 0.9315692954 respectively. The minimum and maximum probability for both crossover and mutation obtained over the course of the 500 generations was 0.001 and 0.999. Interestingly, as the highest, average, and lowest fitness began to converge, the crossover and mutation probability flipped causing the population to be entirely mutated resulting in essentially a randomly generated population thereby destroying the high fitness solutions found. Notice that after the probabilities flipped, the highest, average, and lowest fitness diverged. This converging and then diverging occurred twice during the 500 generation run. Up to generation 376, the highest fitness steadily declined and then afterward remained fairly stable. See Figure \ref{fig:exp2_halcm}. Table \ref{tab:exp2_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=5in]{../Figures/Chapter4/exp2_halcm.png}
 \rule{35em}{0.5pt}
-\caption[Experiment Two GA Metrics]{Here you see the high, average, and lowest fitness in addition to the crossover and mutation probability over the course of 500 generations. For the bottom plot, the crossover probability is shown in blue while the mutation probability is shown in green.}
+\caption[Experiment Two GA Metrics]{Here you see the highest, average, and lowest fitness in addition to the crossover and mutation probability over the course of 500 generations. For the bottom plot, the crossover probability is shown in blue while the mutation probability is shown in green.}
 \label{fig:exp2_halcm}
 \end{figure}
 
@@ -583,13 +583,13 @@ The minimum values reached for the highest, average, and lowest fitness was 0.93
 
 \subsection[Experiment Three]{Experiment three: tournament selection without self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.0827696957, 2.892412821, 7.7702053307 respectively. Up until generation 146, the highest fitness steadily declined and then afterwards remained fairly stable. See Figure \ref{fig:exp3_halcm}. In contrast to experiment two, it would seem that the self-adaptation side effect of periodically randomizing the population helped experiment two obtain a lower highest fitness than experiment three. Table \ref{tab:exp3_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness was 1.0827696957, 2.892412821, and 7.7702053307 respectively. Up until generation 146, the highest fitness steadily declined and then afterwards remained fairly stable. See Figure \ref{fig:exp3_halcm}. In contrast to experiment two, it would seem that the self-adaptation side effect of periodically randomizing the population helped experiment two obtain a lower highest fitness than experiment three. Table \ref{tab:exp3_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=5in]{../Figures/Chapter4/exp3_halcm.png}
 \rule{35em}{0.5pt}
-\caption[Experiment Three GA Metrics]{Here you see the high, average, and lowest fitness in addition to the crossover and mutation probability over the course of 500 generations. For the bottom plot, the crossover probability is shown in blue while the mutation probability is shown in green.}
+\caption[Experiment Three GA Metrics]{Here you see the highest, average, and lowest fitness in addition to the crossover and mutation probability over the course of 500 generations. For the bottom plot, the crossover probability is shown in blue while the mutation probability is shown in green.}
 \label{fig:exp3_halcm}
 \end{figure}
 
@@ -651,13 +651,13 @@ The minimum values reached for the highest, average, and lowest fitness was 1.08
 
 \subsection[Experiment Four]{Experiment four: rank fitness selection with self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.1309704845, 2.7714017205, 2.5217479907 respectively. The minimum and maximum probabilities observed for crossover, during the 500 generation run, were 0.253 and 0.999 respectively. For mutation, the minimum and maximum probabilities observed were 0.001 and 0.747 respectively. From generation zero to 79, the highest fitness steadily declined and then fell more gradually afterwards for rest of the duration. The same periodic converging and then diverging seen in experiment two was observed again in experiment four. See Figure \ref{fig:exp3_halcm}. Table \ref{tab:exp4_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness was 1.1309704845, 2.7714017205, and 2.5217479907 respectively. The minimum and maximum probabilities observed for crossover, during the 500 generation run, were 0.253 and 0.999 respectively. For mutation, the minimum and maximum probabilities observed were 0.001 and 0.747 respectively. From generation zero to 79, the highest fitness steadily declined and then fell more gradually afterwards for rest of the duration. The same periodic converging and then diverging seen in experiment two was observed again in experiment four. See Figure \ref{fig:exp4_halcm}. Table \ref{tab:exp4_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=5in]{../Figures/Chapter4/exp4_halcm.png}
 \rule{35em}{0.5pt}
-\caption[Experiment Four GA Metrics]{Here you see the high, average, and lowest fitness in addition to the crossover and mutation probability over the course of 500 generations. For the bottom plot, the crossover probability is shown in blue while the mutation probability is shown in green.}
+\caption[Experiment Four GA Metrics]{Here you see the highest, average, and lowest fitness in addition to the crossover and mutation probability over the course of 500 generations. For the bottom plot, the crossover probability is shown in blue while the mutation probability is shown in green.}
 \label{fig:exp4_halcm}
 \end{figure}
 
@@ -718,3 +718,101 @@ The minimum values reached for the highest, average, and lowest fitness was 1.13
 \newpage
 
 \subsection[Experiment Five]{Experiment five: rank fitness selection without self-adaptation.}
+
+The minimum values reached for the highest, average, and lowest fitness was 1.0638026764, 3.4974350451, and 11.6425679783 respectively. Throughout the 500 generation run, the highest fitness continued to decline reaching its lowest value at generation 469. See Figure \ref{fig:exp5_halcm}. Table \ref{tab:exp5_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=5in]{../Figures/Chapter4/exp5_halcm.png}
+\rule{35em}{0.5pt}
+\caption[Experiment Five GA Metrics]{Here you see the highest, average, and lowest fitness in addition to the crossover and mutation probability over the course of 500 generations. For the bottom plot, the crossover probability is shown in blue while the mutation probability is shown in green.}
+\label{fig:exp5_halcm}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\bgroup
+\def\arraystretch{1.1}
+\begin{tabular}{ | >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3cm} | }
+%\hline
+%\rowcolor{gray}
+\cline{2-3}
+\multicolumn{1}{c|}{}                 & \cellcolor{gray} Best         & \cellcolor{gray} Worst                \\ \hline
+\cellcolor{gray} Gravity              & 0.0$\frac{m}{s^2}$            & 12.803362098213498$\frac{m}{s^2}$     \\ \hline
+\cellcolor{gray} Sub-steps            & 3                             & 2                                     \\ \hline
+\cellcolor{gray} FPS                  & 30                            & 30                                    \\ \hline
+\cellcolor{gray} Material Friction    & 60.71902294177607             & 15.76102238218593                     \\ \hline
+\cellcolor{gray} Material Elasticity  & 0.5378313234044673            & 0.602617926833965                     \\ \hline
+\cellcolor{gray} Mass                 & 4.175314301157847             & 0.2111916960575379                    \\ \hline
+\cellcolor{gray} Velocity Max         & 660.0787581868401             & 787.7673658611162                     \\ \hline
+\cellcolor{gray} Damping Translation  & 1.0                           & 0.6703819812309364                    \\ \hline
+\cellcolor{gray} Damping Rotation     & 0.4031179325185546            & 0.10076651150002103                   \\ \hline
+\cellcolor{gray} Collision Bound Type & SPHERE                        & SPHERE                                \\ \hline
+\cellcolor{gray} Torque               & 46.465508081185064            & 49.46737364841879                     \\ \hline \hline
+\cellcolor{gray} Fitness              & 1.0638026764                  & 3257.00654843                         \\ \hline
+\end{tabular}
+\egroup
+\caption[Experiment Five Best and Worst Physics Parameters Found]{Here you see the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run for experiment five.}
+\label{tab:exp5_best_worst_params}
+\end{table}
+
+% gravity,0.0
+% sub_steps,3
+% fps,30
+% material_friction,60.71902294177607
+% material_elasticity,0.5378313234044673
+% mass,4.175314301157847
+% velocity_max,660.0787581868401
+% damping,1.0
+% rotation_damping,0.4031179325185546
+% collision_bounds_type,SPHERE
+% torque_z,46.465508081185064
+% fitness,1.06380267644
+
+% gravity,12.803362098213498
+% sub_steps,2
+% fps,30
+% material_friction,15.76102238218593
+% material_elasticity,0.602617926833965
+% mass,0.2111916960575379
+% velocity_max,787.7673658611162
+% damping,0.6703819812309364
+% rotation_damping,0.10076651150002103
+% collision_bounds_type,SPHERE
+% torque_z,49.46737364841879
+% fitness,3257.00654843
+
+\newpage
+
+\section{Comparisons}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\bgroup
+\def\arraystretch{1.1}
+\begin{tabular}{ | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{2cm} | }
+%\hline
+%\rowcolor{gray}
+\cline{2-5}
+\multicolumn{1}{c|}{} & \multicolumn{4}{c}{ \cellcolor{gray} Final States of Highest Performing Phenotypes} & \multicolumn{1}{c}{} \\
+\cline{2-5}
+\multicolumn{1}{c|}{}                                & \cellcolor{gray} Exp. Two & \cellcolor{gray} Exp. Three & \cellcolor{gray} Exp. Four & \cellcolor{gray} Exp. Five & \cellcolor{gray} Real Robot Robust Mean \\ \hline
+\cellcolor{gray} X-translation                       & 23.12349975cm    &  23.95108938cm  & 23.49144816cm   & 24.05546605cm  &  23.9934044cm  \\  \hline
+\cellcolor{gray} Y-translation                       &  0.00953689cm    &  -0.34897618cm  & -0.00286334cm   &  0.01641194cm  &   0.0351240cm  \\  \hline
+\cellcolor{gray} Z-rotation                          &  0.00203373rad   &  -0.00318596rad & -0.00428754rad  &  0.00118415rad &  -0.0189964rad \\  \hline
+\multicolumn{6}{c}{} \\
+\cline{1-5}
+\cellcolor{gray} Elapsed Time Until Coming to a Stop &  1.0333563sec    &   1.5333535sec  &  1.5333476sec   &  1.5333496sec  &  \multicolumn{1}{c}{} \\
+\cline{1-5}
+\multicolumn{6}{c}{} \\
+\cline{1-5}
+\cellcolor{gray} Resulting Genome Fitness & 0.930619100106 & 1.0827696957 & 1.1309704845 & 1.0638026764 &  \multicolumn{1}{c}{} \\
+\cline{1-5}
+\end{tabular}
+\egroup
+\caption[Comparison of the Top Phenotypes' Final States]{Here you see the comparison of experiment two's, three's, four's, and five's top phenotype's final resting positions and orientations after moving forward. The elapsed times indicate how long the each top phenotype took before reaching its final at-rest state. The resulting genome fitnesses and the real robot forward motion robust mean are included for reference.}
+\label{tab:comp_top_phenotypes}
+\end{table}
+
