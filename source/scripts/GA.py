@@ -115,13 +115,13 @@ def initialize_bbautotune_parameter_properties( ):
 		
 	);
 	
-	bpy.types.Scene.GA_USE_RANK_SELECTION = BoolProperty( 
+	bpy.types.Scene.GA_USE_RANK_FITNESS_SELECTION = BoolProperty( 
 		
-		name        = "Use Rank Selection",
-		description = "Use rank selection otherwise tournament selection will be used."
+		name        = "Use Rank Fitness Selection",
+		description = "Use rank fitness selection otherwise tournament selection will be used."
 		
 	);	
-	bpy.context.scene[ "GA_USE_RANK_SELECTION" ] = False;
+	bpy.context.scene[ "GA_USE_RANK_FITNESS_SELECTION" ] = False;
 	
 	bpy.types.Scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY = BoolProperty( 
 		
@@ -179,7 +179,7 @@ class BBAUTOTUNE_UI_START_BUTTON_OPERATOR( bpy.types.Operator ):
 			bpy.context.scene.GA_CROSSOVER_PROBABILITY,
 			bpy.context.scene.GA_MUTATION_PROBABILITY,
 			bpy.context.scene.GA_MAX_TORQUE,
-			bpy.context.scene.GA_USE_RANK_SELECTION,
+			bpy.context.scene.GA_USE_RANK_FITNESS_SELECTION,
 			bpy.context.scene.GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY,
 			bpy.context.scene.GA_USE_SELF_ADAPTATION,
 			bpy.context.scene.BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW,
@@ -214,7 +214,7 @@ class GA_UI_PANEL( bpy.types.Panel ):
 		self.layout.prop( context.scene, "GA_CROSSOVER_PROBABILITY"                       );
 		self.layout.prop( context.scene, "GA_MUTATION_PROBABILITY"                        );
 		self.layout.prop( context.scene, "GA_MAX_TORQUE"                                  );
-		self.layout.prop( context.scene, "GA_USE_RANK_SELECTION"                          );
+		self.layout.prop( context.scene, "GA_USE_RANK_FITNESS_SELECTION"                  );
 		self.layout.prop( context.scene, "GA_PERFORM_CROSSOVER_AND_MUTATION_SEQUENTIALLY" );
 		self.layout.prop( context.scene, "GA_USE_SELF_ADAPTATION"                         );
 		self.layout.prop( context.scene, "BBAUTOTUNE_OPEN_GA_MONITOR_BROWSER_WINDOW"      );
@@ -329,7 +329,7 @@ class Genetic_Algorithm( ):
 		number_of_elite                             = None,
 		crossover_probability                       = None,
 		mutation_probability                        = None,
-		use_rank_selection                          = None,
+		use_rank_fitness_selection                  = None,
 		perform_crossover_and_mutation_sequentially = None,
 		use_self_adaptation                         = None
 		
@@ -375,9 +375,9 @@ class Genetic_Algorithm( ):
 		self.total_number_of_mutations          = 0;
 		self.total_number_of_mutation_attempts  = 0;
 		
-		# Use rank selection?
+		# Use rank fitness selection?
 		
-		self.use_rank_selection = use_rank_selection or False;
+		self.use_rank_fitness_selection = use_rank_fitness_selection or False;
 		
 		# Perform crossover and mutation sequentially or separately?
 		
@@ -477,13 +477,13 @@ class Genetic_Algorithm( ):
 		
 		return self.number_of_genes_per_genome;
 	
-	def set_use_rank_selection( self, boolean = None ):
+	def set_use_rank_fitness_selection( self, boolean = None ):
 		
-		self.use_rank_selection = boolean or 0;
+		self.use_rank_fitness_selection = boolean or 0;
 		
-	def get_use_rank_selection( self ):
+	def get_use_rank_fitness_selection( self ):
 		
-		return self.use_rank_selection;
+		return self.use_rank_fitness_selection;
 	
 	def set_perform_crossover_and_mutation_sequentially( self, boolean = None ):
 		
@@ -702,7 +702,7 @@ class Genetic_Algorithm( ):
 		
 		# Assumes the population is sorted in descending order according to fitness.
 		
-		if ( not self.use_rank_selection ):
+		if ( not self.use_rank_fitness_selection ):
 			
 			tournament_size = number_of_indexes + 1;
 			
@@ -1764,7 +1764,7 @@ class BBAutoTune( ):
 		
 		self.rm  = self.mcd_fitted.location_;
 		
-		# The threshold for Chi-square with 4 degrees of freedom (x,y,z,t) and an alpha value of 0.005.
+		# The threshold for Chi-square with 3 degrees of freedom (x,y,t) and an alpha value of 0.005.
 		
 		self.genome_fitness_threshold = math.sqrt( scipy.stats.chi2.isf( 1.0 - 0.995, 3 ) );
 		
@@ -1777,7 +1777,7 @@ class BBAutoTune( ):
 		crossover_probability,
 		mutation_probability,
 		max_torque,
-		use_rank_selection,
+		use_rank_fitness_selection,
 		perform_crossover_and_mutation_sequentially,
 		use_self_adaptation,
 		open_ga_monitor_browser_window,
@@ -1804,9 +1804,11 @@ class BBAutoTune( ):
 		self.log( str( self.run_id ) );
 		
 		# Pass the file name and directory where the robot 
-		# monitor will record the robot's P and P'.
+		# monitor will record the robot's initial and final state.
 		
-		bpy.data.objects[ "robot_monitor" ].game.properties[ "shared_data_file_name" ].value = get_scripts_location( ) + "shared_data/genome_P_P'.dat";
+		self.log( "Setting the robot monitor's shared data file name." );
+		
+		bpy.data.objects[ "robot_monitor" ].game.properties[ "shared_data_file_name" ].value = get_scripts_location( ) + "shared_data/genome_I_F.dat";
 		
 		self.log( "Connecting to the database." );
 		
@@ -1818,14 +1820,14 @@ class BBAutoTune( ):
 		
 		self.start_ga_monitor( );
 		
-		self.log( "Setting the GA parameters. PS MG NE CP MP URS PCMS USA." );
+		self.log( "Setting the GA parameters. PS MG NE CP MP URFS PCMS USA." );
 		
 		self.log( str( population_size ) );
 		self.log( str( max_generations ) );
 		self.log( str( number_of_elite ) );
 		self.log( str( crossover_probability ) );
 		self.log( str( mutation_probability ) );
-		self.log( str( use_rank_selection ) );
+		self.log( str( use_rank_fitness_selection ) );
 		self.log( str( perform_crossover_and_mutation_sequentially ) );
 		self.log( str( use_self_adaptation ) );
 		
@@ -1840,7 +1842,7 @@ class BBAutoTune( ):
 		self.ga.set_number_of_elite( number_of_elite );
 		self.ga.set_crossover_probability( crossover_probability );
 		self.ga.set_mutation_probability( mutation_probability );
-		self.ga.set_use_rank_selection( use_rank_selection );
+		self.ga.set_use_rank_fitness_selection( use_rank_fitness_selection );
 		self.ga.set_perform_crossover_and_mutation_sequentially( perform_crossover_and_mutation_sequentially );
 		self.ga.set_use_self_adaptation( use_self_adaptation );
 		
@@ -1874,77 +1876,85 @@ class BBAutoTune( ):
 			
 			# Calculate current genome fitness.
 			
-			# Read in P=(x_pos,y_pos,z_pos,x_ori,y_ori,z_ori) and P'=(x_pos,y_pos,z_pos,x_ori,y_ori,z_ori)
+			# Read in I=(x_pos,y_pos,z_pos,x_ori,y_ori,z_ori,s_time) and F=(x_pos,y_pos,z_pos,x_ori,y_ori,z_ori,e_time)
 			# which was recorded by the robot monitor while the game engine was running. 
 			
 			self.log( "Game engine stopped." );
 			
-			self.log( "Getting genome P and P'." );
+			self.log( "Getting genome (I)nitial and (F)inal state." );
 			self.log( "x_pos , y_pos , z_pos , x_ori , y_ori , z_ori, s/e_tim" );
 			
-			shared_data_file = open( get_scripts_location( ) + "shared_data/genome_P_P'.dat", "r" );
+			shared_data_file = open( get_scripts_location( ) + "shared_data/genome_I_F.dat", "r" );
 			
-			P = shared_data_file.readline( ).rstrip( );
-			P = P.split( "," );
-			P[ 0 ] = float( P[ 0 ] ); # x position.
-			P[ 1 ] = float( P[ 1 ] ); # y position.
-			P[ 2 ] = float( P[ 2 ] ); # z position.
-			P[ 3 ] = float( P[ 3 ] ); # x orientation.
-			P[ 4 ] = float( P[ 4 ] ); # y orientation.
-			P[ 5 ] = float( P[ 5 ] ); # z orientation.
-			P[ 6 ] = float( P[ 6 ] ); # Start time.
+			I = shared_data_file.readline( ).rstrip( );
+			I = I.split( "," );
+			I[ 0 ] = float( I[ 0 ] ); # x position.
+			I[ 1 ] = float( I[ 1 ] ); # y position.
+			I[ 2 ] = float( I[ 2 ] ); # z position.
+			I[ 3 ] = float( I[ 3 ] ); # x orientation.
+			I[ 4 ] = float( I[ 4 ] ); # y orientation.
+			I[ 5 ] = float( I[ 5 ] ); # z orientation.
+			I[ 6 ] = float( I[ 6 ] ); # Start time.
 			
-			P_prime = shared_data_file.readline( ).rstrip( );
-			P_prime = P_prime.split( "," );
-			P_prime[ 0 ] = float( P_prime[ 0 ] ); # x' position.
-			P_prime[ 1 ] = float( P_prime[ 1 ] ); # y' position.
-			P_prime[ 2 ] = float( P_prime[ 2 ] ); # z' position.
-			P_prime[ 3 ] = float( P_prime[ 3 ] ); # x' orientation.
-			P_prime[ 4 ] = float( P_prime[ 4 ] ); # y' orientation.
-			P_prime[ 5 ] = float( P_prime[ 5 ] ); # z' orientation.
-			P_prime[ 6 ] = float( P_prime[ 6 ] ); # End time.
+			F = shared_data_file.readline( ).rstrip( );
+			F = F.split( "," );
+			F[ 0 ] = float( F[ 0 ] ); # x' position.
+			F[ 1 ] = float( F[ 1 ] ); # y' position.
+			F[ 2 ] = float( F[ 2 ] ); # z' position.
+			F[ 3 ] = float( F[ 3 ] ); # x' orientation.
+			F[ 4 ] = float( F[ 4 ] ); # y' orientation.
+			F[ 5 ] = float( F[ 5 ] ); # z' orientation.
+			F[ 6 ] = float( F[ 6 ] ); # End time.
 			
 			shared_data_file.close( );
 			
-			os.remove( get_scripts_location( ) + "shared_data/genome_P_P'.dat" );
+			os.remove( get_scripts_location( ) + "shared_data/genome_I_F.dat" );
 			
-			# Record simulated robot motion.
+			# Record simulated robot motion and its resulting fitness.
 			
-			simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srmf_" + str( self.run_id ) + ".dat", "a" );
+			simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion_with_fitness/forward/" + "srmfwf_" + str( self.run_id ) + ".dat", "a" );
 			
-			write_string  = str( P[ 0 ] ) + ",";
-			write_string += str( P[ 1 ] ) + ",";
-			write_string += str( P[ 2 ] ) + ",";
-			write_string += str( P[ 3 ] ) + ",";
-			write_string += str( P[ 4 ] ) + ",";
-			write_string += str( P[ 5 ] ) + ";";
+			write_string  = str( I[ 0 ] ) + ",";
+			write_string += str( I[ 1 ] ) + ",";
+			write_string += str( I[ 2 ] ) + ",";
+			write_string += str( I[ 3 ] ) + ",";
+			write_string += str( I[ 4 ] ) + ",";
+			write_string += str( I[ 5 ] ) + ";";
 			
-			write_string += str( P_prime[ 0 ] ) + ",";
-			write_string += str( P_prime[ 1 ] ) + ",";
-			write_string += str( P_prime[ 2 ] ) + ",";
-			write_string += str( P_prime[ 3 ] ) + ",";
-			write_string += str( P_prime[ 4 ] ) + ",";
-			write_string += str( P_prime[ 5 ] ) + "\n";
+			write_string += str( F[ 0 ] ) + ",";
+			write_string += str( F[ 1 ] ) + ",";
+			write_string += str( F[ 2 ] ) + ",";
+			write_string += str( F[ 3 ] ) + ",";
+			write_string += str( F[ 4 ] ) + ",";
+			write_string += str( F[ 5 ] ) + ";";
 			
 			simulated_robot_motion_file.write( write_string );
 			
 			simulated_robot_motion_file.close( );
 			
-			self.log( str( P ) );
+			self.log( str( I ) );
 			
-			self.log( str( P_prime ) );
+			self.log( str( F ) );
 			
 			self.log( "Calculating genome fitness." );
 			
-			current_genome_fitness = self.calculate_genome_fitness( P, P_prime );
+			current_genome_fitness = self.calculate_genome_fitness( I, F );
 			
 			self.log( "Genome fitness." );
 			
 			self.log( str( current_genome_fitness ) );
 			
-			self.ga.set_genome_fitness( self.current_genome, current_genome_fitness );				
+			self.ga.set_genome_fitness( self.current_genome, current_genome_fitness );
 			
-			# Record the genome's phenotype (the physics parameters) and its eventual fitness.
+			# Add the fitness to the last line of the simulated robot motion recorded.
+			
+			simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion_with_fitness/forward/" + "srmfwf_" + str( self.run_id ) + ".dat", "a" );
+			
+			simulated_robot_motion_file.write( str( current_genome_fitness ) + "\n" );
+			
+			simulated_robot_motion_file.close( );
+			
+			# Record the genome's phenotype (the physics parameters) and its corresponding fitness.
 			
 			physics_parameters_with_fitness_file = open( get_scripts_location( ) + "data/physics_parameters_with_fitness/" + "ppwf_" + str( self.run_id ) + ".dat", "a" );
 			
@@ -1968,7 +1978,7 @@ class BBAutoTune( ):
 				
 				# Separate recorded simulated robot motion by generation.
 			
-				simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion/forward/" + "srmf_" + str( self.run_id ) + ".dat", "a" );
+				simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion_with_fitness/forward/" + "srmf_" + str( self.run_id ) + ".dat", "a" );
 				
 				simulated_robot_motion_file.write( "\n" );
 				
@@ -2070,35 +2080,34 @@ class BBAutoTune( ):
 		
 		return md, md2;
 	
-	def calculate_genome_fitness( self, start, end ):
+	def calculate_genome_fitness( self, initial, final ):
 		
 		# Blender returns NaN for large positions/orientations for x, y, and z.
 		# If this is the case, set the fitness to some large value.
 		
-		# start/end structure:
+		# initial/final structure:
 		#   x_pos   0
 		#   y_pos   1
 		#   z_pos   2
 		#   x_rot   3
 		#   y_rot   4
 		#   z_rot   5
-		# s/e_tim   6
-		
+		# s/e_tim   6		
 		
 		fitness = 9999999999.0;
 		
-		for i in range( len( end ) ):
+		for i in range( len( final ) ):
 			
-			if ( numpy.isnan( end[ i ] ) ):
+			if ( numpy.isnan( final[ i ] ) ):
 				
 				return fitness;
 			
 		# Only 3 dof was recorded for the real robot.
 		# So assemble for the simulated robot its x' position, y' position, and z' orientation.
 		
-		end_trimmed = [ end[ 0 ], end[ 1 ], end[ 5 ] ];
+		final_trimmed = [ final[ 0 ], final[ 1 ], final[ 5 ] ];
 		
-		md, md2 = self.calculate_mahalanobis_distance( end_trimmed );
+		md, md2 = self.calculate_mahalanobis_distance( final_trimmed );
 		
 		self.log( "Genome mahalanobis distance." );
 		
@@ -2110,25 +2119,25 @@ class BBAutoTune( ):
 		
 		# Time > 1 seconds.
 		
-		elapsed_time = abs( ( ( end[ 6 ] - start[ 6 ] ) / 1000.0 ) - 1.0 );
+		elapsed_time = abs( ( ( final[ 6 ] - initial[ 6 ] ) / 1000.0 ) - 1.0 );
 		
 		self.log( "Elapsed time > 1 seconds: " + str( elapsed_time ) );
 		
 		# Rotation in x.
 		
-		rotation_x = abs( end[ 3 ] - start[ 3 ] );
+		rotation_x = abs( final[ 3 ] - initial[ 3 ] );
 		
 		self.log( "X rotation: " + str( rotation_x ) );
 		
 		# Rotation in y.
 		
-		rotation_y = abs( end[ 4 ] - start[ 4 ] );
+		rotation_y = abs( final[ 4 ] - initial[ 4 ] );
 		
 		self.log( "Y rotation: " + str( rotation_y ) );
 		
 		# Translation in z.
 		
-		translation_z = abs( end[ 2 ] - start[ 2 ] );
+		translation_z = abs( final[ 2 ] - initial[ 2 ] );
 		
 		self.log( "Z translation: " + str( translation_z ) );
 		

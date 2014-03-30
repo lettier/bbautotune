@@ -1,0 +1,67 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces SimPL Arena}}{8}{figure.36}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces SimPL Arena Ball}}{9}{figure.39}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces SimPL Angle of Incidence}}{9}{figure.40}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces SimPL Paddle}}{11}{figure.42}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces SimPL NN}}{13}{figure.45}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces SimPL NN Input Vectors}}{14}{figure.46}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces SimPL NN Input Tuple}}{15}{figure.47}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Basic GA}}{16}{figure.49}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Simplified Fitness Function}}{23}{figure.57}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Roulette Wheel Selection}}{25}{figure.58}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Self-adaptation Algorithm}}{28}{figure.61}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Experiment One Average Fitness}}{32}{figure.73}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Experiment One Top Performers}}{32}{figure.74}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Experiment One Top Performers Tournament}}{33}{figure.75}
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Experiment Two Average Fitness}}{33}{figure.77}
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Experiment Two Top Performers}}{34}{figure.78}
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Experiment Two Top Performers Tournament}}{34}{figure.79}
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Experiment Three Average Fitness}}{35}{figure.81}
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Experiment Three Self-adaptation}}{36}{figure.82}
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Experiment Three Top Performers}}{36}{figure.83}
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Experiment Three Top Performers Tournament}}{37}{figure.84}
+\contentsline {figure}{\numberline {3.22}{\ignorespaces Experiment Four Average Fitness}}{37}{figure.86}
+\contentsline {figure}{\numberline {3.23}{\ignorespaces Experiment Four Top Performers}}{38}{figure.87}
+\contentsline {figure}{\numberline {3.24}{\ignorespaces Experiment Four Top Performers Tournament}}{38}{figure.88}
+\contentsline {figure}{\numberline {3.25}{\ignorespaces Experiment Five Average Fitness}}{39}{figure.90}
+\contentsline {figure}{\numberline {3.26}{\ignorespaces Experiment Five Top Performers}}{39}{figure.91}
+\contentsline {figure}{\numberline {3.27}{\ignorespaces Experiment Five Top Performers Tournament}}{40}{figure.92}
+\contentsline {figure}{\numberline {3.28}{\ignorespaces Experiment Six Average Fitness}}{40}{figure.94}
+\contentsline {figure}{\numberline {3.29}{\ignorespaces Experiment Six Top Performers}}{41}{figure.95}
+\contentsline {figure}{\numberline {3.30}{\ignorespaces Experiment Six Top Performers Tournament}}{41}{figure.96}
+\contentsline {figure}{\numberline {3.31}{\ignorespaces Experiment Seven Average Fitness}}{42}{figure.98}
+\contentsline {figure}{\numberline {3.32}{\ignorespaces Experiment Seven Top Performers}}{42}{figure.99}
+\contentsline {figure}{\numberline {3.33}{\ignorespaces Experiment Seven Top Performers Tournament}}{43}{figure.100}
+\contentsline {figure}{\numberline {3.34}{\ignorespaces Average Fitness Composite}}{44}{figure.103}
+\contentsline {figure}{\numberline {3.35}{\ignorespaces Top Performers Composite}}{44}{figure.105}
+\contentsline {figure}{\numberline {3.36}{\ignorespaces Top Performers Tournament Composite}}{45}{figure.107}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces BBAutoTune GUI Panel}}{52}{figure.114}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces GA Progress Monitor}}{55}{figure.122}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Rank Fitness Selection Algorithm}}{57}{figure.126}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Real Robot Forward Motion Data Translated and Rotated Example}}{59}{figure.128}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Real Robot Forward Motion}}{60}{figure.129}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Real Robot Forward Motion Distributions}}{61}{figure.131}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Real Robot Forward Motion 3D Scatter Plot}}{62}{figure.132}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Real Robot Forward Motion Fast-MCD Support Samples}}{64}{figure.133}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Real Robot Forward Motion MD versus RD}}{65}{figure.134}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Simulated Robot Axis Aligned}}{67}{figure.136}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Physics Engine Parameter Influence Racquetball Environment}}{68}{figure.140}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Physics Engine Racquetball Path Dissimilarity}}{71}{figure.147}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Physics Engine Racquetball Path Similarity}}{72}{figure.148}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Lettier Distance Algorithm}}{73}{figure.149}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Experiment Two GA Metrics}}{76}{figure.152}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Experiment Three GA Metrics}}{78}{figure.155}
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Experiment Four GA Metrics}}{80}{figure.158}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Simulated Treads}}{84}{figure.165}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Constant Velocity Locomotion Model}}{84}{figure.166}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparative Path Plots}}{85}{figure.167}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces BlenderSim Arena}}{86}{figure.170}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces SRV-1 3D Model}}{87}{figure.172}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces BlenderSim Components}}{89}{figure.177}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Task Points}}{90}{figure.178}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
