@@ -881,6 +881,8 @@ class Genetic_Algorithm( ):
 
 		# One point crossover operator.
 		
+		# Only returns one crossed offspring.
+		
 		# Do we crossover?
 		
 		self.log( "Attempting crossover." );
@@ -899,9 +901,14 @@ class Genetic_Algorithm( ):
 				
 			self.log( str( parent_one_index ) + " " + str( parent_two_index ) );
 			
-			# Only returns one crossed offspring.
+			# Create a blank offspring.
 			
 			offspring = Genome( );
+			
+			offspring.genes          = [ ];			
+			offspring.fitness        = 0.0;			
+			offspring.parent_fitness = 0.0;
+			offspring.created_by     = 0;
 
 			# Determine a crossover point.
 			
@@ -915,15 +922,9 @@ class Genetic_Algorithm( ):
 			
 			self.log( "Crossover point." );
 			
-			self.log( str( crossover_point ) );
-
-			# Cross the parent's genes in the offspring.
+			self.log( str( crossover_point ) );		
 			
-			offspring.genes = [ ];
-			
-			offspring.fitness = 0.0;
-			
-			offspring.parent_fitness = 0.0;
+			# Cross the parent's genes into the offspring's genes.
 			
 			for i in range( crossover_point ):
 				
@@ -952,6 +953,12 @@ class Genetic_Algorithm( ):
 				
 				offspring.parent_fitness = parent_one_contribution + parent_two_contribution;
 				
+				self.log( "Parent fitnesses." );
+				
+				self.log( str( self.population[ parent_one_index ].fitness ) );
+				
+				self.log( str( self.population[ parent_two_index ].fitness ) );
+				
 				self.log( "Parent fitness contributions." );
 				
 				self.log( str( parent_one_contribution ) );
@@ -966,7 +973,7 @@ class Genetic_Algorithm( ):
 	
 			else:
 				
-				self.log( "Did not actually perform crossover." );
+				self.log( "Did not actually perform crossover. Offspring genes match parents." );
 
 				return 0;
 			
@@ -988,13 +995,14 @@ class Genetic_Algorithm( ):
 		
 		if ( random.uniform( 0.0, 1.0 ) <= self.mutation_probability ):
 			
-			# Create a new offspring.
+			# Create a blank offspring and fill its genes with the parent's genes.
 			
 			offspring                = Genome( );
 			offspring.genes          = [ ];
 			offspring.genes          = copy.deepcopy( self.population[ parent_index ].genes );
 			offspring.fitness        = 0.0;
 			offspring.parent_fitness = 0.0;
+			offspring.created_by     = 0;
 			
 			# Begin to mutate.
 			
@@ -1033,7 +1041,9 @@ class Genetic_Algorithm( ):
 
 				offspring.parent_fitness = self.population[ parent_index ].fitness;
 			
-				offspring.created_by = 2;		
+				offspring.created_by = 2;
+				
+				self.log( "Returning mutated offspring." );
 				
 				return offspring;
 
@@ -1108,6 +1118,10 @@ class Genetic_Algorithm( ):
 			offspring_two.parent_fitness = parent_two_contribution  + parent_one_contribution;
 			offspring_two.created_by     = offspring_two.created_by + 1;
 			
+			self.log( "Crossover complete." );
+			
+			self.log( str( offspring_one.created_by ) + " " + str( offspring_two.created_by ) ); 
+			
 		else:
 			
 			self.log( "Crossover failed." );
@@ -1123,6 +1137,8 @@ class Genetic_Algorithm( ):
 		mutated_one = False;
 		
 		for i in range( self.number_of_genes_per_genome ):
+			
+			self.log( "Attempting to mutate gene: " + str( i ) );
 
 			# Mutate this gene by sampling a value from a normal distribution where the mean
 			# is the current gene value and the standard deviation is mutation step equal to the 
@@ -1155,6 +1171,10 @@ class Genetic_Algorithm( ):
 				if ( temp_gene_value_one != offspring_one.genes[ i ] ):
 				
 					mutated_one = True;
+					
+			else:
+				
+				self.log( "Greater than mutation probability." );
 	
 		# Attempt to mutate offspring two.
 		
@@ -1163,6 +1183,8 @@ class Genetic_Algorithm( ):
 		mutated_two = False;
 		
 		for i in range( self.number_of_genes_per_genome ):
+			
+			self.log( "Attempting to mutate gene: " + str( i ) );
 
 			# Mutate this gene by sampling a value from a normal distribution where the mean
 			# is the current gene value and the standard deviation is mutation step equal to the 
@@ -1195,6 +1217,10 @@ class Genetic_Algorithm( ):
 				if ( temp_gene_value_two != offspring_two.genes[ i ] ):
 				
 					mutated_two = True;
+					
+			else:
+				
+				self.log( "Greater than mutation probability." );
 		
 		if ( mutated_one ): # If truly mutated.
 		
@@ -1202,8 +1228,8 @@ class Genetic_Algorithm( ):
 			
 			offspring_one.created_by = offspring_one.created_by + 2;
 			
-			# If this offspring was only mutated, that is, it was not crossed then get its parent fitness.
-			# It it was crossed before being mutated then offspring_one.created would equal 3.
+			# If this offspring was only mutated, that is, it was not crossed then it gets its parent fitness.
+			# If it was crossed before being mutated then offspring_one.created_by would equal 3.
 			
 			if ( offspring_one.created_by == 2 ):
 				
@@ -1215,8 +1241,8 @@ class Genetic_Algorithm( ):
 		
 			offspring_two.created_by = offspring_two.created_by + 2;
 
-			# If this offspring was only mutated, that is, it was not crossed then get its parent fitness.
-			# It it was crossed before being mutated then offspring_two.created would equal 3.
+			# If this offspring was only mutated, that is, it was not crossed then it gets its parent fitness.
+			# If it was crossed before being mutated then offspring_two.created_by would equal 3.
 			
 			if ( offspring_two.created_by == 2 ):
 				
@@ -1225,11 +1251,11 @@ class Genetic_Algorithm( ):
 				offspring_two.parent_fitness = copy.deepcopy( self.population[ parent_two_index ].fitness );
 		
 		# No parents->offspring not crossed and/or not mutated enter into the new population.
-		# Each offspring going into the new population must either crossed, mutated, or both.
+		# Each offspring going into the new population must either be crossed, mutated, or both.
 		
 		if ( ( offspring_one.created_by == 0 ) or ( offspring_two.created_by == 0 ) ):
 			
-			self.log( "No crossover and/or mutation occured." );
+			self.log( "No crossover and/or mutation occurred." );
 			
 			return 0;
 		
@@ -1978,7 +2004,7 @@ class BBAutoTune( ):
 				
 				# Separate recorded simulated robot motion by generation.
 			
-				simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion_with_fitness/forward/" + "srmf_" + str( self.run_id ) + ".dat", "a" );
+				simulated_robot_motion_file = open( get_scripts_location( ) + "data/simulated_robot_motion_with_fitness/forward/" + "srmfwf_" + str( self.run_id ) + ".dat", "a" );
 				
 				simulated_robot_motion_file.write( "\n" );
 				

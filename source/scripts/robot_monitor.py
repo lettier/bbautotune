@@ -15,9 +15,9 @@ import math;
 
 def handle_initial_and_final_states( ):
 	
-	# Initial being the simulated robot's 6dof after performing a command.
-	# Final will be updated until the robot stops moving or after 16 seconds--whatever comes first.
-	# The last Final recorded will be the Final evaluated.
+	# The initial and final state contain the simulated robot's 6dof before and after performing a command.
+	# The final state will be updated until the robot stops moving or after 16 seconds.
+	# The last final state recorded will be the final state evaluated.
 		
 	bge.logic.globalDict[ "Final" ] = { 
 		
@@ -30,7 +30,7 @@ def handle_initial_and_final_states( ):
 		
 	};
 
-	# Send to Blender debug properties.
+	# Send to the Blender debug properties.
 
 	obj[ "x'_pos" ] = "%10.6f" % bge.logic.globalDict[ "Final" ][ "x_pos" ];
 	obj[ "y'_pos" ] = "%10.6f" % bge.logic.globalDict[ "Final" ][ "y_pos" ];
@@ -38,6 +38,12 @@ def handle_initial_and_final_states( ):
 	obj[ "x'_ori" ] = "%10.6f" % bge.logic.globalDict[ "Final" ][ "x_ori" ];
 	obj[ "y'_ori" ] = "%10.6f" % bge.logic.globalDict[ "Final" ][ "y_ori" ];
 	obj[ "z'_ori" ] = "%10.6f" % bge.logic.globalDict[ "Final" ][ "z_ori" ];
+	
+	# Record the initial state and the final state to a shared data file that will be later read by the fitness function.
+	# Using these values, the fitness of the genome currently being evaluated will be calculated.
+	
+	# The shared data file name was populated by the main script before the game engine was started.
+	# The robot monitor has a game property called "shared_data_file_name".
 
 	shared_data_file_name = obj[ "shared_data_file_name" ];
 
@@ -65,26 +71,26 @@ def handle_initial_and_final_states( ):
 
 	shared_data_file.close( );
 
-# Get the controller.
+# Get the logic controller for the robot monitor.
 
 controller = bge.logic.getCurrentController( );
 
-# Get the game object that the controller is attached to.
+# Get the robot monitor objects that the logic controller is attached to.
 
 obj = controller.owner;
 
 # Initialize this script.
-# BGE scripts are stateless so save information in the global dictionary.
+# BGE scripts are stateless so save any information in the global dictionary.
 
 if ( obj[ "init" ] == False ):
 	
 	obj[ "init" ] = True;
 	
-	# Check time in milliseconds.
+	# The time in milliseconds to check if the robot has stopped. 
 	
-	bge.logic.globalDict[ "check_time" ] = 1000.0;
+	bge.logic.globalDict[ "check_time" ] = 1000.0; # Begin checking at one second.
 	
-	# Initial being the simulated robot's 6dof before performing a command.
+	# The initial state contains the simulated robot's 6dof before performing a command.
 	
 	# Blender implicitly reports positions in meters.
 	# However the real robot data was reported in centimeters.
@@ -102,7 +108,7 @@ if ( obj[ "init" ] == False ):
 		
 	};
 	
-	# Send to Blender debug properties.
+	# Send to the Blender debug properties.
 	
 	obj[ "x_pos" ] = "%10.6f" % bge.logic.globalDict[ "Initial" ][ "x_pos" ];
 	obj[ "y_pos" ] = "%10.6f" % bge.logic.globalDict[ "Initial" ][ "y_pos" ];
@@ -111,15 +117,15 @@ if ( obj[ "init" ] == False ):
 	obj[ "y_ori" ] = "%10.6f" % bge.logic.globalDict[ "Initial" ][ "y_ori" ];
 	obj[ "z_ori" ] = "%10.6f" % bge.logic.globalDict[ "Initial" ][ "z_ori" ];
 	
-	# Start time of evaluation.
+	# The start time of evaluation.
 	
 	bge.logic.globalDict[ "time_start" ] = time.time( ) * 1000.0;
 	
-# Report current running evaluation time to Blender debug properties.
+# Report current the running evaluation time to the Blender debug properties.
 
 obj[ "elapsed_time" ] = ( ( time.time( ) * 1000.0 ) - bge.logic.globalDict[ "time_start" ] );
 	
-# After one second and after every half second after that check if the robot has stopped.
+# After one second and after every half second after that, check if the robot has stopped.
 	
 if ( ( ( time.time( ) * 1000.0 ) - bge.logic.globalDict[ "time_start" ] ) >= bge.logic.globalDict[ "check_time" ] ):
 	
@@ -134,6 +140,11 @@ if ( ( ( time.time( ) * 1000.0 ) - bge.logic.globalDict[ "time_start" ] ) >= bge
 		
 	};
 	
+	# The symmetric set difference.
+	# The result will be the number of elements which are unique to each set.
+	# If the result is zero, then both sets contain no unique items between them.
+	# Thus the robot has stopped.
+	
 	still_moving = len( set( bge.logic.globalDict[ "Final" ].items( ) ) ^ set( stopped_test.items( ) ) );
 	
 	if ( still_moving != 0 ):
@@ -144,10 +155,10 @@ if ( ( ( time.time( ) * 1000.0 ) - bge.logic.globalDict[ "time_start" ] ) >= bge
 		
 		bge.logic.endGame( );
 		
-handle_initial_and_final_states( );
+handle_initial_and_final_states( ); # Report and record the initial and final states.
 
-# Stop evaluation after 16 seconds.
+# Stop the evaluation after 16 seconds.
 
-if ( ( time.time( ) * 1000.0 ) - bge.logic.globalDict[ "time_start" ] >= 16000 ):
+if ( ( time.time( ) * 1000.0 ) - bge.logic.globalDict[ "time_start" ] >= 16000.0 ):
 	
 	bge.logic.endGame( );
