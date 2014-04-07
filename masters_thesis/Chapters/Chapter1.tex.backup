@@ -2,22 +2,21 @@
 
 \label{Chapter1}
 
-\section{Blender and Bullet}
+\todo{Write this second to last.}
 
-Stub.
+\section{Genetic Algorithms}
 
-\section{Reality Gap}
-
-Stub.
+Inspired by the theory of evolutionary, genetic algorithms (GAs) attempt to solve problems that involve multidimensional state spaces \cite{ColinReeves}\cite{Beasley93anoverview}. GAs overcome problems experienced by other algorithms, such as hillclimbing, random search, or simulated annealing, by using a mixture of exploitation and exploration \cite{Beasley93anoverview}. Running in a loop, a GA generates proposed solutions to a problem, evaluates each proposed solution's value, and then capitalizes on what it learned to produce further potential solutions. Applications of GAs include numerical function optimization, image processing, combinatorial optimization, machine learning, and civil engineering \cite{Beasley93anoverview}. What problems are appropriate for GAs and why GAs work when they do are highly debated topics with no dominate answers \cite{ColinReeves}. With so many variations and parameters values possible, no two GA implementations are guaranteed to be identical, ``...the number of variations that have been suggested is enormous. Probably everybody's GA is unique!'' \cite{ColinReeves}.   
 
 \section{SimPL}
 
-Stub.
+Instead of diving right into the difficult problem targeted by the thesis, SimPL was an intermediate step to developing a genetic algorithm capable tuning a 3D physics engine. The problem for SimPL involved a neural network (NN) and an on-screen paddle and ball. With the NN controlling the movement of the paddle, the GA developed for SimPL continuously tuned the weights of the NN. With each tuning of the weights, the NN became progressively better at controlling the paddle to hit the ball consistently. This simpler but still related problem provided a tractable context to conduct the needed background research of genetic algorithms. The trials and tribulations experienced while researching the problem of SimPL eased the research conducted for the thesis problem. With the knowledge gained by solving the problem for SimPL, the thesis project was setup for success.    
 
 \section{BBAutoTune}
 
-Stub.
+The core work of the thesis was BBAutoTune. Using the SimPL GA as a base, the goal of BBAutoTune was to tune the Blender physics engine via a genetic algorithm such that the physics engine would closely model the motion of a real robot used in HRTeam experiments. With a few modifications, the SimPL GA was easily converted to handle the thesis problem. After collecting data on the motion of the real robot, BBAutoTune learned the necessary physics parameters needed to make the physics engine model the motion of the real robot.      
 
 \section{BlenderSim}
 
-Stub.
+BlenderSim was a Blender based, 3D simulator developed for HRTeam during the summer of 2013. Initially, the physics engine in Blender was used to simulate the motion of the robots used in HRTeam experiments. However the physics engine was largely unusable and no amount of parameter tweaking provided consistent and stable results. Thus the physics engine was abandoned as the motion model and a constant velocity model was used in its place. As a proof-of-concept of the thesis, BlenderSim (and specifically the physics engine itself) was revisited using the tuned parameters found by BBAutoTune. By rerunning a previously run HRTeam experiment, the motion of the simulated, physics-based robot was compared with the motion of the real robot.    
+

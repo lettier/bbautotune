@@ -4,11 +4,11 @@
 
 \section{Overview}
 
-\todo{Change to past tense in regards to what was learned by SimPL.}
+%\todo{Change to past tense in regards to what was learned by SimPL.}
 
 SimPL is an asymmetric autonomous pong clone with one paddle and one ball. SimPL is comprised of web-based technologies: HTML5, JavaScript, CSS, AJAX, MySQL, and PHP. At the time of this writing, SimPL can be viewed at http://www.lettier.com/simpl/. The paddle in SimPL is controlled by a feed-forward neural network. The neural network's weights are tuned via a genetic algorithm. 
 
-The focus for SimPL was to learn about and to cultivate a genetic algorithm capable of tuning parameters with respect to a fitness landscape thereby producing an optimum solution to a given parameter space. The genetic algorithm developed for SimPL will be used as a basis for a genetic algorithm needed to solve a harder problem of tuning a 3D physics engine. 
+The focus for SimPL was to learn about and to cultivate a genetic algorithm capable of tuning parameters with respect to a fitness landscape thereby producing an optimum solution to a given parameter space. The genetic algorithm developed for SimPL was used as the basis for the genetic algorithm needed to solve the harder problem of tuning a 3D physics engine. 
 
 \section{Implementation}
 
@@ -104,7 +104,7 @@ Input to the neural network is normalized generating three unit vectors: from th
 
 \subsection{Genetic Algorithm}
 
-\todo{Consider moving most of this to the GA chapter and only leave what was specific to SimPL.}
+%\todo{Consider moving most of this to the GA chapter and only leave what was specific to SimPL.}
 
 Instead of using back-propagation to train the weights of the neural network, a genetic algorithm is used to optimize or tune the weights of the neural network \cite{neuralnetworks}. The genetic algorithm consists of a population of genomes with each having a fitness property and an array of genes. For SimPL, the genes represent a solution of weights to be used in the neural network. Each genome is evaluated by a fitness function. As the genomes evolve over generations to produce fitter genomes, the neural network becomes increasingly accurate at outputting what the paddle should do (move up, stay still, or move down) based on the state of the ball and the paddle. 
 
@@ -916,9 +916,3 @@ See Figure \ref{fig:all_10_tops_times}.
 %\end{figure}
 
 %\subsection{Experiment one, two, three, four, five, six, and seven.}
-
-\section{Conclusion}
-
-\todo{Change the wording to reflect that it \textit{was} helpful to do SimPL since BBAutoTune was successful.}
-
-The genetic algorithm developed for SimPL should prove to be a robust basis for the genetic algorithm needed to solve a harder problem of tuning a 3D physics engine (project BBAutoTune). The principles and techniques of evolutionary algorithms learned during the SimPL project will certainly carry over to the more difficult project, BBAutoTune. And while the problem domain of SimPL and BBAutoTune are only somewhat similar, the problems faced and worked out during the development of SimPL should alleviate problems faced while developing BBAutoTune. As the results show, the genetic algorithm for SimPL performed well, producing neural network weight solutions that had the paddle keeping the ball in the arena for almost a minute. Had it not been for the round termination criteria of the ball's velocity magnitude dropping below $100$, most of the paddles (with high fitnesses) would have kept the ball in the arena indefinitely. Thus, the goal to learn about and to cultivate a genetic algorithm capable of tuning parameters with respect to a fitness landscape was certainly accomplished. 

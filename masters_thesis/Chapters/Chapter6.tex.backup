@@ -1,0 +1,23 @@
+\chapter{Conclusion}
+
+\label{Chapter6}
+
+%\todo{Write this last.}
+
+\section{Genetic Algorithms}
+
+The genetic algorithm outlined in this thesis employed a wide variety of techniques presented by previous works. Unfortunately, there is no unanimously recognized theory of genetic algorithms \cite{Beasley93anoverview}. Furthermore, there is no proven optimal set of GA parameters for any given problem being solved by a GA \cite{ColinReeves}. There are, however, a few schools of thought and generally accepted guidelines when developing a GA \cite{ColinReeves}\cite{Beasley93anoverview}. As to why GAs work, a few ideas have been presented such as John Holland's schema theorem and David Goldberg's building block hypothesis \cite{Beasley93anoverview}.         
+
+\section{SimPL}
+
+%\todo{Change the wording to reflect that it \textit{was} helpful to do SimPL since BBAutoTune was successful.}
+
+The genetic algorithm developed for SimPL proved to be a robust basis for the genetic algorithm needed to solve the harder problem of tuning a 3D physics engine (project BBAutoTune). The principles and techniques of evolutionary algorithms learned during the SimPL project certainly carried over to the more difficult project, BBAutoTune. And while the problem domain of SimPL and BBAutoTune were only somewhat similar, the problems faced and worked out during the development of SimPL alleviated problems faced while developing BBAutoTune. As the results show, the genetic algorithm for SimPL performed well, producing neural network weight solutions that had the paddle keeping the ball in the arena for almost a minute. Had it not been for the round termination criteria of the ball's velocity magnitude dropping below $100$, most of the paddles (with high fitnesses) would have kept the ball in the arena indefinitely. Thus, the goal to learn about and to cultivate a genetic algorithm capable of tuning parameters with respect to a fitness landscape was certainly accomplished. 
+
+\section{BBAutoTune}
+
+Using the real robot forward motion data, BBAutoTune was consistently able to tune the physics engine such that the reality gap between simulation and reality was extremely small. For all runs of the GA, BBAutoTune was able to find nearly optimal physics parameters in nor more than five hours. This is particularly impressive considering the state space of how many floating points numbers are representable in the range $[0.0,1.0]$ on a 64-bit platform to the power of 12---12 being the number of tunable parameters. It is even more impressive considering the many days lost trying to find reasonable parameters by hand only to abandon the physics engine altogether due to consistent instability issues. Interestingly, the physics parameters found were not necessarily intuitive nor did they coincide with their real world counterparts. For example, in experiment two, gravity was $\sim2.89\frac{m}{s^2}$ versus earth's gravitational constant $\sim9.81\frac{m}{s^2}$ and the collision bounds type was sphere versus the cylindrical shape of the robot's wheels.   
+
+\section{BlenderSim}
+
+Interpreting the plot of the simulated versus real robot motion along with the Fr{\'e}chet and Hausdorff distances, one can see that the simulated motion was very close the real robot motion. Considering the largest movement the (simulated or real) robot can make at anyone time on the discrete arena grid can make at anyone time  

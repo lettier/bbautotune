@@ -376,7 +376,7 @@ Experiment two had the highest performing genome out of experiments two through 
 
 \subsection[Experiment One]{Experiment one: physics engine parameter influence.}
 
-To compare the recorded tweaked-parameter ball paths with the recorded standard, four methods were utilized to give an indication as to how much influence any one candidate parameter had over the simulation. The first method was visual inspection. All 44 tweaked-parameter ball paths were plotted against the standard. See Figure \ref{fig:matphysplot} and Figure \ref{fig:logicstepsplot}. The second method was an in-house algorithm, titled the \textit{Lettier distance}, which gives the maximum euclidean distance between two discrete curves $P$ and $Q$. Informally, imagine holding a rubber band in your hands where the left hand affixes the left end of the rubber band to the first point in $P$ and the right hand affixes the right end of the rubber band to the first point in $Q$. During each iteration, you advance the left end of the rubber band to the next point in $P$ and you advance the right end of the rubber band to the next point in $Q$. If the distance grows between point $p_i\in P$ and point $q_j \in Q$, the rubber band stretches but never shrinks. If $|P|<|Q|$ then you hold the left end of the rubber band to the last point in $P$ and continue advancing to the last point in $Q$ and vice versa. Once you reach the last point in $P$ and the last point in $Q$, the resulting length of the rubber band is the max euclidean distance between $P$ and $Q$. See Figure \ref{lettierdistance}. The third method was the Frechet distance and the fourth method was the Hausdorff distance \cite{frechet} \cite{hausdorff}.
+To compare the recorded tweaked-parameter ball paths with the recorded standard, four methods were utilized to give an indication as to how much influence any one candidate parameter had over the simulation. The first method was visual inspection. All 44 tweaked-parameter ball paths were plotted against the standard. See Figure \ref{fig:matphysplot} and Figure \ref{fig:logicstepsplot}. The second method was an in-house algorithm, titled the \textit{Lettier distance}, which gives the maximum euclidean distance between two discrete curves $P$ and $Q$. Informally, imagine holding a rubber band in your hands where the left hand affixes the left end of the rubber band to the first point in $P$ and the right hand affixes the right end of the rubber band to the first point in $Q$. During each iteration, you advance the left end of the rubber band to the next point in $P$ and you advance the right end of the rubber band to the next point in $Q$. If the distance grows between point $p_i\in P$ and point $q_j \in Q$, the rubber band stretches but never shrinks. If $|P|<|Q|$ then you hold the left end of the rubber band to the last point in $P$ and continue advancing to the last point in $Q$ and vice versa. Once you reach the last point in $P$ and the last point in $Q$, the resulting length of the rubber band is the max euclidean distance between $P$ and $Q$. See Figure \ref{lettierdistance}. The third method was the discrete Fr\e'chet distance and the fourth method was the Hausdorff distance \cite{frechet} \cite{hausdorff}.
 
 \begin{figure}[htbp]
 \centering
@@ -441,7 +441,7 @@ END \\
 \begin{tabular}{ | l || l | l | l | }
 \hline
 \rowcolor{gray}
-Tweaked Parameter: Value & Lettier Distance & Fréchet Distance & Hausdorff Distance \\ \hline
+Tweaked Parameter: Value & Lettier Distance & Discrete Fr\e'chet Distance & Hausdorff Distance \\ \hline
 Gravity: $1.0\frac{m}{s^2}$ & 12.7741189989 & 20.948159542 & 9.86343687719 \\ \hline
 \rowcolor{cyan}
 Physics Steps Max: 1 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
@@ -515,7 +515,7 @@ Collision Damping Frames: -32768 & 0.329232644023 & 0.329232644023 & 0.329232644
 
 \subsection[Experiment Two]{Experiment two: tournament selection with self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 0.9306191001, 1.024632475, and 0.9315692954 respectively. The minimum and maximum probability for both crossover and mutation obtained over the course of the 500 generations was 0.001 and 0.999. Interestingly, as the highest, average, and lowest fitness began to converge, the crossover and mutation probability flipped causing the population to be entirely mutated resulting in essentially a randomly generated population thereby destroying the high fitness solutions found. Notice that after the probabilities flipped, the highest, average, and lowest fitness diverged. This converging and then diverging occurred twice during the 500 generation run. Up to generation 376, the highest fitness steadily declined and then afterward remained fairly stable. See Figure \ref{fig:exp2_halcm}. Table \ref{tab:exp2_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 0.9306191001, 1.024632475, and 0.9315692954 respectively. The minimum and maximum probability for both crossover and mutation obtained over the course of the 500 generations was 0.001 and 0.999. Interestingly, as the highest, average, and lowest fitness began to converge, the crossover and mutation probability flipped causing the population to be entirely mutated resulting in essentially a randomly generated population thereby destroying the high fitness solutions found. Notice that after the probabilities flipped, the highest, average, and lowest fitness diverged. This converging and then diverging occurred twice during the 500 generation run. Up to generation 376, the highest fitness steadily declined and then afterward remained fairly stable. See Figure \ref{fig:exp2_halcm}. Table \ref{tab:exp2_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
@@ -583,7 +583,7 @@ The minimum values reached for the highest, average, and lowest fitness was 0.93
 
 \subsection[Experiment Three]{Experiment three: tournament selection without self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.0827696957, 2.892412821, and 7.7702053307 respectively. Up until generation 146, the highest fitness steadily declined and then afterwards remained fairly stable. See Figure \ref{fig:exp3_halcm}. In contrast to experiment two, it would seem that the self-adaptation side effect of periodically randomizing the population helped experiment two obtain a lower highest fitness than experiment three. Table \ref{tab:exp3_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 1.0827696957, 2.892412821, and 7.7702053307 respectively. Up until generation 146, the highest fitness steadily declined and then afterwards remained fairly stable. See Figure \ref{fig:exp3_halcm}. In contrast to experiment two, it would seem that the self-adaptation side effect of periodically randomizing the population helped experiment two obtain a lower highest fitness than experiment three. Table \ref{tab:exp3_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
@@ -651,7 +651,7 @@ The minimum values reached for the highest, average, and lowest fitness was 1.08
 
 \subsection[Experiment Four]{Experiment four: rank fitness selection with self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.1309704845, 2.7714017205, and 2.5217479907 respectively. The minimum and maximum probabilities observed for crossover, during the 500 generation run, were 0.253 and 0.999 respectively. For mutation, the minimum and maximum probabilities observed were 0.001 and 0.747 respectively. From generation zero to 79, the highest fitness steadily declined and then fell more gradually afterwards for rest of the duration. The same periodic converging and then diverging seen in experiment two was observed again in experiment four. See Figure \ref{fig:exp4_halcm}. Table \ref{tab:exp4_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 1.1309704845, 2.7714017205, and 2.5217479907 respectively. The minimum and maximum probabilities observed for crossover, during the 500 generation run, were 0.253 and 0.999 respectively. For mutation, the minimum and maximum probabilities observed were 0.001 and 0.747 respectively. From generation zero to 79, the highest fitness steadily declined and then fell more gradually afterwards for rest of the duration. The same periodic converging and then diverging seen in experiment two was observed again in experiment four. See Figure \ref{fig:exp4_halcm}. Table \ref{tab:exp4_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering
@@ -719,7 +719,7 @@ The minimum values reached for the highest, average, and lowest fitness was 1.13
 
 \subsection[Experiment Five]{Experiment five: rank fitness selection without self-adaptation.}
 
-The minimum values reached for the highest, average, and lowest fitness was 1.0638026764, 3.4974350451, and 11.6425679783 respectively. Throughout the 500 generation run, the highest fitness continued to decline reaching its lowest value at generation 469. See Figure \ref{fig:exp5_halcm}. Table \ref{tab:exp5_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
+The minimum values reached for the highest, average, and lowest fitness were 1.0638026764, 3.4974350451, and 11.6425679783 respectively. Throughout the 500 generation run, the highest fitness continued to decline reaching its lowest value at generation 469. See Figure \ref{fig:exp5_halcm}. Table \ref{tab:exp5_best_worst_params} lists the best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run.
 
 \begin{figure}[htbp]
 \centering

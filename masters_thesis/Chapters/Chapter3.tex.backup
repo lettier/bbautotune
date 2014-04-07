@@ -18,7 +18,7 @@ The arena for SimPL resides in a browser window. Four transparent walls reside a
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.2]{../Figures/arena.png}
+  \includegraphics[scale=0.2]{../Figures/Chapter3/arena.png}
   \rule{35em}{0.5pt}
   \caption[SimPL Arena]{Here you see the SimPL arena containing the paddle and ball.}
   \label{fig:arena}
@@ -30,7 +30,7 @@ The ball is a physics-based dynamic object. Its starting position and starting v
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.5]{../Figures/ball.png}
+  \includegraphics[scale=0.5]{../Figures/Chapter3/ball.png}
   \rule{35em}{0.5pt}
   \caption[SimPL Arena Ball]{Here you see the ball's dynamic physics properties.}
   \label{fig:ball}
@@ -40,7 +40,7 @@ If the ball collides with the left wall, the round is over. Otherwise, if the ba
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.5]{../Figures/angle.png}
+  \includegraphics[scale=0.5]{../Figures/Chapter3/angle.png}
   \rule{35em}{0.5pt}
   \caption[SimPL Angle of Incidence]{Here you see the ball's collision angle-of-incidence $\theta_i$ and its angle-of-reflection $\theta_r$.}
   \label{fig:angle}
@@ -56,7 +56,7 @@ The paddle is a physics-based dynamic object that has a fixed velocity angle of 
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[scale=0.3]{../Figures/paddle.png}\\
+  \includegraphics[scale=0.3]{../Figures/Chapter3/paddle.png}\\
   \rule{35em}{0.5pt}
   \caption[SimPL Paddle]{Here you see the paddle's dynamic physics properties.}
   \label{fig:paddle}
@@ -76,7 +76,7 @@ The neural network is a feed-forward neural network that contains one input laye
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.34]{../Figures/nn.png}
+  \includegraphics[scale=0.34]{../Figures/Chapter3/nn.png}
   \rule{35em}{0.5pt}
   \caption[SimPL NN]{Here you see the neural network as constructed in SimPL.}
   \label{fig:nn}
@@ -86,7 +86,7 @@ Input to the neural network is normalized generating three unit vectors: from th
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.21]{../Figures/unit_vectors.png}
+  \includegraphics[scale=0.21]{../Figures/Chapter3/unit_vectors.png}
   \rule{35em}{0.5pt}
   \caption[SimPL NN Input Vectors]{Here you see the three input vectors to the neural network. Note that these vectors are normalized thereby turning them into unit vectors.}
   \label{fig:unit_vectors}
@@ -94,7 +94,7 @@ Input to the neural network is normalized generating three unit vectors: from th
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.5]{../Figures/nn_input.png}
+  \includegraphics[scale=0.5]{../Figures/Chapter3/nn_input.png}
   \rule{35em}{0.5pt}
   \caption[SimPL NN Input Tuple]{Here you see the normalized input to the neural network.}
   \label{fig:nn_input}
@@ -318,7 +318,7 @@ Going from awarding full and partial credit fitness based on two behaviors to on
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.3]{../Figures/simple_fit_func.png}
+  \includegraphics[scale=0.3]{../Figures/Chapter3/simple_fit_func.png}
   \rule{35em}{0.5pt}
   \caption[Simplified Fitness Function]{Here you see the simplified fitness function graphically where the paddle on the left is gaining fitness (as indicated by the green-hued bar) while the paddle on the right is gaining no fitness (as indicated by the purple-hued bar).}
   \label{fig:simple_fit_func}
@@ -330,7 +330,7 @@ Rank fitness is a genome's fitness according to their index in the population af
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[scale=0.25]{../Figures/roulette.png}
+  \includegraphics[scale=0.25]{../Figures/Chapter3/roulette.png}
   \rule{35em}{0.5pt}
   \caption[Roulette Wheel Selection]{Here you see roulette selection using actual fitness versus rank fitness for a population of 10 genomes. On the left, the integers are the genomes' actual fitness and the percentages are their probabilities of being selected. On the right, the integers are the genomes' rank fitness and the percentages are the genomes' probabilities of being selected. Observe that Genome 10 no longer dominates the wheel when using its rank fitness ($10$) versus using its actual fitness ($100)$.}
   \label{fig:roulette}
@@ -371,7 +371,7 @@ Fitness Credit for not Staying in the Path of the Ball               & 0.0      
 
 Experiment three involved self-adaptation of the crossover and mutation probabilities. The genetic algorithm parameters used are listed in Table \ref{tab:exp3}.
 
-As outlined in \cite{self_adapt}, the crossover and mutation probabilities self-adapt based on the crossover and mutation operators' ability to produce fitter genomes from one generation to the next. To facilitate the self-adaptation, the crossover and mutation operators' viability to produce fitter and fitter offspring needed to be tracked from one generation to another. As the operators were being evaluated on their own accord, they were not allowed to interfere with each others' offspring and thus they were not run in sequence but rather were run in parallel. With each new generation produced, elite offspring were marked accordingly as well as offspring produced by crossover and offspring produced by mutation. For those offspring that were created by crossover, their parents' weighted-mean fitness was annotated along with their offspring. Annotated meaning it was recorded in the offspring's data structure later being used to calculate the crossover operator's progress. This weighted-mean fitness was calculated based on the crossover point which determines what percentage of genes came come from parent one and what percentage of genes came from parent two. For example, let there be 41 genes per genome and let the crossover point be gene 10. Thus, offspring one received 10 genes from parent one and received 31 genes from parent two while offspring two received 10 genes from parent two and received 31 genes from parent one. Therefore, offspring one's weighted-mean parent fitness would be calculated as $\overline{PF} = \left ( PF_1 * \frac{10}{41} \right ) + \left (PF_2 * \frac{(41-10)}{41} \right)$ where $\overline{PF}$ is the weighted-mean parent fitness while offspring two's weighted-mean parent fitness would be calculated as $\overline{PF} = \left ( PF_2 * \frac{10}{41} \right ) + \left (PF_1 * \frac{(41-10)}{41} \right)$. For those offspring created via mutation, their parent fitness was whatever the fitness was of the pre-mutated genome. 
+As outlined in \cite{self_adapt}, the crossover and mutation probabilities self-adapt based on the crossover and mutation operators' ability to produce fitter genomes from one generation to the next. To facilitate the self-adaptation, the crossover and mutation operators' viability to produce fitter and fitter offspring needed to be tracked from one generation to another. As the operators were being evaluated on their own accord, they were not allowed to interfere with each others' offspring and thus they were not run in sequence but rather were run in parallel. With each new generation produced, elite offspring were marked accordingly as well as offspring produced by crossover and offspring produced by mutation. For those offspring that were created by crossover, their parents' weighted-mean fitness was annotated along with their offspring. Annotated meaning it was recorded in the offspring's data structure later being used to calculate the crossover operator's progress. This weighted-mean fitness was calculated based on the crossover point which determines what percentage of genes came from parent one and what percentage of genes came from parent two. For example, let there be 41 genes per genome and let the crossover point be gene 10. Thus, offspring one received 10 genes from parent one and received 31 genes from parent two while offspring two received 10 genes from parent two and received 31 genes from parent one. Therefore, offspring one's weighted-mean parent fitness would be calculated as $\overline{PF} = \left ( PF_1 * \frac{10}{41} \right ) + \left (PF_2 * \frac{(41-10)}{41} \right)$ where $\overline{PF}$ is the weighted-mean parent fitness while offspring two's weighted-mean parent fitness would be calculated as $\overline{PF} = \left ( PF_2 * \frac{10}{41} \right ) + \left (PF_1 * \frac{(41-10)}{41} \right)$. For those offspring created via mutation, their parent fitness was whatever the fitness was of the pre-mutated genome. 
 
 With the genomes marked as to how they were created and their parent fitness annotated, now when it came time to produce a new population, each operators' ability to produce fitter offspring could be tracked and calculated. Once a population was evaluated, all genomes created by crossover were used to calculate the average crossover progress and all genomes created by mutation were used to calculate the average mutation progress. If the crossover progress average was greater than the mutation progress average then the crossover probability would be adjusted up and the mutation probability would be adjusted down. Alternatively, if the crossover progress average was less than the mutation progress average then the crossover probability would be adjusted down and the mutation probability would be adjusted up. If the crossover progress average equaled the mutation progress average then neither were adjusted. In other words, for example, if the crossover operator produced fitter genomes greater than the mutation operator did for the last generation, then the probability of creating offspring via crossover would be increased and the probability of creating offspring via mutation would be decreased for the creation of the next generation. Adjustment of the crossover and mutation probabilities were handled by the adjustment parameter. Let the adjustment parameter be denoted as $\theta$. Here $\theta$ was self-adjusted as well, as outlined in \cite{self_adapt}. Once the probabilities were adjusted they were clamped to the range $[0.001,1.0]$. With a minimum probability of $0.001$, there would always be some crossover and/or mutation albeit not much. See Figure \ref{fig:sa}. Note that to insure a level playing field, both the crossover and mutation probabilities were set to an initial value of $0.5$ before the start of the genetic algorithm.
 
@@ -635,7 +635,7 @@ Experiment one (Figures \ref{fig:exp1_avg_fit}-\ref{fig:exp1_10_tops_times}) sho
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp1_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp1_avg_fit.png}
   \rule{35em}{0.5pt}
   \caption[Experiment One Average Fitness]{Here you see the average fitness over 100 generations for experiment one.}
   \label{fig:exp1_avg_fit}
@@ -643,7 +643,7 @@ Experiment one (Figures \ref{fig:exp1_avg_fit}-\ref{fig:exp1_10_tops_times}) sho
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp1_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp1_10_tops.png}
   \rule{35em}{0.5pt}
   \caption[Experiment One Top Performers]{Here you see the fitness of every 10th generation top performer for experiment one.}
   \label{fig:exp1_10_tops}
@@ -651,7 +651,7 @@ Experiment one (Figures \ref{fig:exp1_avg_fit}-\ref{fig:exp1_10_tops_times}) sho
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp1_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp1_10_tops_times.png}
   \rule{35em}{0.5pt}
   \caption[Experiment One Top Performers Tournament]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiment one.}
   \label{fig:exp1_10_tops_times}
@@ -663,7 +663,7 @@ Experiment two (Figures \ref{fig:exp2_avg_fit}-\ref{fig:exp2_10_tops_times}) sho
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp2_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp2_avg_fit.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Two Average Fitness]{Here you see the average fitness over 100 generations for experiment two.}
   \label{fig:exp2_avg_fit}
@@ -671,7 +671,7 @@ Experiment two (Figures \ref{fig:exp2_avg_fit}-\ref{fig:exp2_10_tops_times}) sho
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp2_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp2_10_tops.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Two Top Performers]{Here you see the fitness of every 10th generation top performer for experiment two.}
   \label{fig:exp2_10_tops}
@@ -679,7 +679,7 @@ Experiment two (Figures \ref{fig:exp2_avg_fit}-\ref{fig:exp2_10_tops_times}) sho
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp2_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp2_10_tops_times.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Two Top Performers Tournament]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiment two.}
   \label{fig:exp2_10_tops_times}
@@ -691,7 +691,7 @@ Experiment three (Figures \ref{fig:exp3_avg_fit}-\ref{fig:exp3_10_tops_times}) s
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp3_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp3_avg_fit.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Three Average Fitness]{Here you see the average fitness over 100 generations for experiment three.}
   \label{fig:exp3_avg_fit}
@@ -701,7 +701,7 @@ The crossover and mutation probabilities were both initially set to $0.5$ before
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp3_self_adapt.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp3_self_adapt.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Three Self-adaptation]{Here you see the self-adaptation of the crossover and mutation probabilities for experiment three.}
   \label{fig:exp3_self_adapt}
@@ -709,7 +709,7 @@ The crossover and mutation probabilities were both initially set to $0.5$ before
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp3_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp3_10_tops.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Three Top Performers]{Here you see the fitness of every 10th generation top performer for experiment three.}
   \label{fig:exp3_10_tops}
@@ -717,7 +717,7 @@ The crossover and mutation probabilities were both initially set to $0.5$ before
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp3_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp3_10_tops_times.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Three Top Performers Tournament]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiment three.}
   \label{fig:exp3_10_tops_times}
@@ -729,7 +729,7 @@ Experiment four (Figures \ref{fig:exp4_avg_fit}-\ref{fig:exp4_10_tops_times}) pr
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp4_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp4_avg_fit.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Four Average Fitness]{Here you see the average fitness over 100 generations for experiment four.}
   \label{fig:exp4_avg_fit}
@@ -737,7 +737,7 @@ Experiment four (Figures \ref{fig:exp4_avg_fit}-\ref{fig:exp4_10_tops_times}) pr
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp4_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp4_10_tops.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Four Top Performers]{Here you see the fitness of every 10th generation top performer for experiment four.}
   \label{fig:exp4_10_tops}
@@ -745,7 +745,7 @@ Experiment four (Figures \ref{fig:exp4_avg_fit}-\ref{fig:exp4_10_tops_times}) pr
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp4_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp4_10_tops_times.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Four Top Performers Tournament]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiment four.}
   \label{fig:exp4_10_tops_times}
@@ -757,7 +757,7 @@ Experiment five (Figures \ref{fig:exp5_avg_fit}-\ref{fig:exp5_10_tops_times}) sh
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp5_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp5_avg_fit.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Five Average Fitness]{Here you see the average fitness over 100 generations for experiment five.}
   \label{fig:exp5_avg_fit}
@@ -765,7 +765,7 @@ Experiment five (Figures \ref{fig:exp5_avg_fit}-\ref{fig:exp5_10_tops_times}) sh
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp5_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp5_10_tops.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Five Top Performers]{Here you see the fitness of every 10th generation top performer for experiment five.}
   \label{fig:exp5_10_tops}
@@ -773,7 +773,7 @@ Experiment five (Figures \ref{fig:exp5_avg_fit}-\ref{fig:exp5_10_tops_times}) sh
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp5_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp5_10_tops_times.png}
   \rule{35em}{0.5pt}
   \caption[Experiment Five Top Performers Tournament]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiment five.}
   \label{fig:exp5_10_tops_times}
@@ -785,21 +785,21 @@ Experiment six (Figures \ref{fig:exp6_avg_fit}-\ref{fig:exp6_10_tops_times}) ill
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp6_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp6_avg_fit.png}
   \caption[Experiment Six Average Fitness]{Here you see the average fitness over 100 generations for experiment six.}
   \label{fig:exp6_avg_fit}
 \end{figure}
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp6_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp6_10_tops.png}
   \caption[Experiment Six Top Performers]{Here you see the fitness of every 10th generation top performer for experiment six.}
   \label{fig:exp6_10_tops}
 \end{figure}
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp6_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp6_10_tops_times.png}
   \caption[Experiment Six Top Performers Tournament]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiment six.}
   \label{fig:exp6_10_tops_times}
 \end{figure}
@@ -810,21 +810,21 @@ Experiment seven (Figures \ref{fig:exp7_avg_fit}-\ref{fig:exp7_10_tops_times}) i
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp7_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp7_avg_fit.png}
   \caption[Experiment Seven Average Fitness]{Here you see the average fitness over 100 generations for experiment seven.}
   \label{fig:exp7_avg_fit}
 \end{figure}
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp7_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp7_10_tops.png}
   \caption[Experiment Seven Top Performers]{Here you see the fitness of every 10th generation top performer for experiment seven.}
   \label{fig:exp7_10_tops}
 \end{figure}
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/exp7_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/exp7_10_tops_times.png}
   \caption[Experiment Seven Top Performers Tournament]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiment seven.}
   \label{fig:exp7_10_tops_times}
 \end{figure}
@@ -839,7 +839,7 @@ See Figure \ref{fig:all_avg_fit}.
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/all_avg_fit.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/all_avg_fit.png}
   \rule{35em}{0.5pt}
   \caption[Average Fitness Composite]{Here you see the average fitness over 100 generations for experiments one through seven.}
   \label{fig:all_avg_fit}
@@ -851,7 +851,7 @@ See Figure \ref{fig:all_10_tops}.
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/all_10_tops.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/all_10_tops.png}
   \rule{35em}{0.5pt}
   \caption[Top Performers Composite]{Here you see the fitness of every 10th generation top performer for experiments one through seven.}
   \label{fig:all_10_tops}
@@ -863,7 +863,7 @@ See Figure \ref{fig:all_10_tops_times}.
 
 \begin{figure}[htbp]  
   \centering
-  \includegraphics[width=5in]{../Figures/all_10_tops_times.png}
+  \includegraphics[width=5in]{../Figures/Chapter3/all_10_tops_times.png}
   \rule{35em}{0.5pt}
   \caption[Top Performers Tournament Composite]{Here you see the average ball-in-play time (in seconds) of five rounds per every 10th generation top performer for experiments one through seven.}
   \label{fig:all_10_tops_times}

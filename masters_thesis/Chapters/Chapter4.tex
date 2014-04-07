@@ -167,7 +167,7 @@ END \\
 
 \subsubsection{Fitness Function}
 
-\todo{This section only reflects the data recorded using the old move() function. Change to reflect data collected using the new motion() function.}
+%\todo{This section only reflects the data recorded using the old move() function. Change to reflect data collected using the new motion() function.}
 
 To construct the fitness function, real robot motion data was collected which included 1040 sample points. X-translation, y-translation, and z-rotation were recorded for the real robot. With a camera overhead, the real robot was place in the arena and was repeatedly commanded to go forward (relative from its current position and orientation) 25 centimeters. Care was taken to avoid having the robot collide with the arena walls. Once the robot consecutively moved forward three times, the robot rotated in place by 135 degrees and was not recorded during this period of rotation.  
 
@@ -189,7 +189,7 @@ Using the camera, the robot's position and orientation before and after performi
 \label{fig:real_robot_forward_motion}
 \end{figure}
 
-Analyzing the distribution of x-translation, y-translation, and z-rotation separately, all are unimodal and nearly symmetric with only a slight skew from their respective means. See Table \ref{tab:real_robot_motion_dist} and Figure \ref{fig:real_robot_forward_dist}. When viewing the change in dimensions together, a large mass is centered around the point: 23.8644631679cm, 0.338269853117cm, and -0.00417473025048rad. See Figure \ref{fig:real_robot_3d_scatter}. Based on the variance-covariance matrix, all three dimensions vary together and are not independent from one another \todo{Citation needed?}. 
+Analyzing the distribution of x-translation, y-translation, and z-rotation separately, all are unimodal and nearly symmetric with only a slight skew from their respective means. See Table \ref{tab:real_robot_motion_dist} and Figure \ref{fig:real_robot_forward_dist}. When viewing the change in dimensions together, a large mass is centered around the point: 23.8644631679cm, 0.338269853117cm, and -0.00417473025048rad. See Figure \ref{fig:real_robot_3d_scatter}. Based on the variance-covariance matrix, all three dimensions vary together and are not independent from one another. % \todo{Citation needed?} 
 
 \begin{table}[htbp]
 \centering
@@ -376,7 +376,7 @@ Experiment two had the highest performing genome out of experiments two through 
 
 \subsection[Experiment One]{Experiment one: physics engine parameter influence.}
 
-To compare the recorded tweaked-parameter ball paths with the recorded standard, four methods were utilized to give an indication as to how much influence any one candidate parameter had over the simulation. The first method was visual inspection. All 44 tweaked-parameter ball paths were plotted against the standard. See Figure \ref{fig:matphysplot} and Figure \ref{fig:logicstepsplot}. The second method was an in-house algorithm, titled the \textit{Lettier distance}, which gives the maximum euclidean distance between two discrete curves $P$ and $Q$. Informally, imagine holding a rubber band in your hands where the left hand affixes the left end of the rubber band to the first point in $P$ and the right hand affixes the right end of the rubber band to the first point in $Q$. During each iteration, you advance the left end of the rubber band to the next point in $P$ and you advance the right end of the rubber band to the next point in $Q$. If the distance grows between point $p_i\in P$ and point $q_j \in Q$, the rubber band stretches but never shrinks. If $|P|<|Q|$ then you hold the left end of the rubber band to the last point in $P$ and continue advancing to the last point in $Q$ and vice versa. Once you reach the last point in $P$ and the last point in $Q$, the resulting length of the rubber band is the max euclidean distance between $P$ and $Q$. See Figure \ref{lettierdistance}. The third method was the Frechet distance and the fourth method was the Hausdorff distance \cite{frechet} \cite{hausdorff}.
+To compare the recorded tweaked-parameter ball paths with the recorded standard, four methods were utilized to give an indication as to how much influence any one candidate parameter had over the simulation. The first method was visual inspection. All 44 tweaked-parameter ball paths were plotted against the standard. See Figure \ref{fig:matphysplot} and Figure \ref{fig:logicstepsplot}. The second method was an in-house algorithm, titled the \textit{Lettier distance}, which gives the maximum euclidean distance between two discrete curves $P$ and $Q$. Informally, imagine holding a rubber band in your hands where the left hand affixes the left end of the rubber band to the first point in $P$ and the right hand affixes the right end of the rubber band to the first point in $Q$. During each iteration, you advance the left end of the rubber band to the next point in $P$ and you advance the right end of the rubber band to the next point in $Q$. If the distance grows between point $p_i\in P$ and point $q_j \in Q$, the rubber band stretches but never shrinks. If $|P|<|Q|$ then you hold the left end of the rubber band to the last point in $P$ and continue advancing to the last point in $Q$ and vice versa. Once you reach the last point in $P$ and the last point in $Q$, the resulting length of the rubber band is the max euclidean distance between $P$ and $Q$. See Figure \ref{lettierdistance}. The third method was the discrete Fr{\'e}chet distance and the fourth method was the Hausdorff distance \cite{frechet} \cite{hausdorff}.
 
 \begin{figure}[htbp]
 \centering
@@ -441,7 +441,7 @@ END \\
 \begin{tabular}{ | l || l | l | l | }
 \hline
 \rowcolor{gray}
-Tweaked Parameter: Value & Lettier Distance & Fréchet Distance & Hausdorff Distance \\ \hline
+Tweaked Parameter: Value & Lettier Distance & Discrete Fr{\'e}chet Distance & Hausdorff Distance \\ \hline
 Gravity: $1.0\frac{m}{s^2}$ & 12.7741189989 & 20.948159542 & 9.86343687719 \\ \hline
 \rowcolor{cyan}
 Physics Steps Max: 1 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline

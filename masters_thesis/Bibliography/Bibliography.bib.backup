@@ -1,43 +1,3 @@
-@article{Reference1,
-	Abstract = {We have developed an enhanced Littrow configuration extended cavity diode laser (ECDL) that can be tuned without changing the direction of the output beam. The output of a conventional Littrow ECDL is reflected from a plane mirror fixed parallel to the tuning diffraction grating. Using a free-space Michelson wavemeter to measure the laser wavelength, we can tune the laser over a range greater than 10 nm without any alteration of alignment.},
-	Author = {C. J. Hawthorn and K. P. Weber and R. E. Scholten},
-	Journal = {Review of Scientific Instruments},
-	Month = {December},
-	Number = {12},
-	Numpages = {3},
-	Pages = {4477--4479},
-	Title = {Littrow Configuration Tunable External Cavity Diode Laser with Fixed Direction Output Beam},
-	Volume = {72},
-	Url = {http://link.aip.org/link/?RSI/72/4477/1},
-	Year = {2001}}
-
-@article{Reference3,
-	Abstract = {Operating a laser diode in an extended cavity which provides frequency-selective feedback is a very effective method of reducing the laser's linewidth and improving its tunability. We have developed an extremely simple laser of this type, built from inexpensive commercial components with only a few minor modifications. A 780~nm laser built to this design has an output power of 80~mW, a linewidth of 350~kHz, and it has been continuously locked to a Doppler-free rubidium transition for several days.},
-	Author = {A. S. Arnold and J. S. Wilson and M. G. Boshier},
-	Journal = {Review of Scientific Instruments},
-	Month = {March},
-	Number = {3},
-	Numpages = {4},
-	Pages = {1236--1239},
-	Title = {A Simple Extended-Cavity Diode Laser},
-	Volume = {69},
-	Url = {http://link.aip.org/link/?RSI/69/1236/1},
-	Year = {1998}}
-
-@article{Reference2,
-	Abstract = {We present a review of the use of diode lasers in atomic physics with an extensive list of references. We discuss the relevant characteristics of diode lasers and explain how to purchase and use them. We also review the various techniques that have been used to control and narrow the spectral outputs of diode lasers. Finally we present a number of examples illustrating the use of diode lasers in atomic physics experiments. Review of Scientific Instruments is copyrighted by The American Institute of Physics.},
-	Author = {Carl E. Wieman and Leo Hollberg},
-	Journal = {Review of Scientific Instruments},
-	Keywords = {Diode Laser},
-	Month = {January},
-	Number = {1},
-	Numpages = {20},
-	Pages = {1--20},
-	Title = {Using Diode Lasers for Atomic Physics},
-	Volume = {62},
-	Url = {http://link.aip.org/link/?RSI/62/1/1},
-	Year = {1991}}
-%
 @article{forklift,
   author = "Juang, Jhih Ren. and Hung, Wei Han and Kang, Shih Chung",
   year = "2011",
@@ -101,7 +61,7 @@
                Eric Schneider and
                Michael Costantino and
                Susan L. Epstein},
-  title     = {HRTeam: a framework to support research on human/multi-robot
+  title     = {{HRT}eam: a framework to support research on human/multi-robot
                interaction},
   booktitle = {AAMAS},
   year      = {2013},
@@ -324,10 +284,17 @@ of pushing flat objects across a table with a robot arm can be predicted in a ph
 }
 @misc{genselect,
   author       = "Marek Obitko",
-  title        = "Selection: Introduction to Genetic Algorithms",
+  title        = "Introduction to Genetic Algorithms: Selection",
   howpublished = "\url{http://www.obitko.com/tutorials/genetic-algorithms/selection.php}",
   year         = "1998",
   url          = "http://www.obitko.com/tutorials/genetic-algorithms/selection.php"
+}
+@misc{encoding_schemes,
+  author       = "Marek Obitko",
+  title        = "Introduction to Genetic Algorithms: Encoding",
+  howpublished = "\url{http://www.obitko.com/tutorials/genetic-algorithms/encoding.php}",
+  year         = "1998",
+  url          = "http://www.obitko.com/tutorials/genetic-algorithms/encoding.php",
 }
 @ARTICLE{mahalanobis_distance,
 AUTHOR    = {Maesschalck, R. De and Jouan-Rimbaud, D. and Massart, D.L.}, 
@@ -376,4 +343,76 @@ Month     = {January}
  volume={12},
  pages={2825--2830},
  year={2011}
+}
+@article {WICS:WICS61,
+author = {Hubert, Mia and Debruyne, Michiel},
+title = {Minimum covariance determinant},
+journal = {Wiley Interdisciplinary Reviews: Computational Statistics},
+volume = {2},
+number = {1},
+publisher = {John Wiley & Sons, Inc.},
+issn = {1939-0068},
+url = {http://dx.doi.org/10.1002/wics.61},
+doi = {10.1002/wics.61},
+pages = {36--43},
+keywords = {robustness, outlier detection, multivariate location and scatter, high-breakdown},
+year = {2010},
+}
+@ARTICLE{Miller95geneticalgorithms,
+    author = {Brad L. Miller and Brad L. Miller and David E. Goldberg and David E. Goldberg},
+    title = {Genetic Algorithms, Tournament Selection, and the Effects of Noise},
+    journal = {Complex Systems},
+    year = {1995},
+    volume = {9},
+    pages = {193--212}
+}
+@incollection{ColinReeves,
+year={2003},
+isbn={978-1-4020-7263-5},
+booktitle={Handbook of Metaheuristics},
+volume={57},
+series={International Series in Operations Research \& Management Science},
+editor={Glover, Fred and Kochenberger, GaryA.},
+doi={10.1007/0-306-48056-5_3},
+title={Genetic Algorithms},
+url={http://dx.doi.org/10.1007/0-306-48056-5_3},
+publisher={Springer US},
+author={Reeves, Colin},
+pages={55-82}
+}
+@inproceedings{DBLP:conf/gem/Diaz-GomezH07,
+  author    = {Pedro A. Diaz-Gomez and
+               Dean F. Hougen},
+  title     = {Initial Population for Genetic Algorithms: A Metric Approach},
+  booktitle = {GEM},
+  year      = {2007},
+  pages     = {43-49},
+  crossref  = {DBLP:conf/gem/2007},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+@proceedings{DBLP:conf/gem/2007,
+  editor    = {Hamid R. Arabnia and
+               Jack Y. Yang and
+               Mary Qu Yang},
+  title     = {Proceedings of the 2007 International Conference on Genetic
+               and Evolutionary Methods, GEM 2007, June 25-28, 2007, Las
+               Vegas, Nevada, USA},
+  booktitle = {GEM},
+  publisher = {CSREA Press},
+  year      = {2007},
+  isbn      = {1-60132-038-8},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+@MISC{Beasley93anoverview,
+    author = {David Beasley and David R. Bull and Ralph R. Martin},
+    title = {An Overview of Genetic Algorithms: Part 1, Fundamentals},
+    year = {1993}
+}
+@misc{DanWDyer,
+  author       = "Daniel W. Dyer",
+  title        = "Practical Evolutionary Computation: Elitism",
+  howpublished = "\url{http://blog.uncommons.org/2009/02/12/practical-evolutionary-computation-elitism/}",
+  month        = "February",
+  year         = "2009",
+  note         = {Accessed Apr 6, 2014}
 }
