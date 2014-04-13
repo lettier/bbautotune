@@ -9,48 +9,47 @@ A level-1 auxiliary file: Chapters/Chapter5.aux
 A level-1 auxiliary file: Chapters/Chapter6.aux
 The style file: unsrtnat.bst
 Database file #1: ./Bibliography/Bibliography.bib
-Warning--empty year in website:blender-rigidbody
-Warning--empty year in website:blender-objecttype
 Warning--empty year in website:continuousphysics
-You've used 26 entries,
+Warning--empty year in website:blenderapi
+You've used 32 entries,
             2481 wiz_defined-function locations,
-            739 strings with 10280 characters,
-and the built_in function-call counts, 9541 in all, are:
-= -- 831
-> -- 446
-< -- 17
-+ -- 186
-- -- 131
-* -- 700
-:= -- 1472
-add.period$ -- 101
-call.type$ -- 26
-change.case$ -- 51
-chr.to.int$ -- 23
-cite$ -- 34
-duplicate$ -- 469
-empty$ -- 915
-format.name$ -- 162
-if$ -- 2085
-int.to.chr$ -- 4
-int.to.str$ -- 27
-missing$ -- 15
-newline$ -- 158
-num.names$ -- 69
-pop$ -- 251
+            793 strings with 11945 characters,
+and the built_in function-call counts, 12223 in all, are:
+= -- 1059
+> -- 596
+< -- 22
++ -- 241
+- -- 175
+* -- 905
+:= -- 1906
+add.period$ -- 129
+call.type$ -- 32
+change.case$ -- 63
+chr.to.int$ -- 30
+cite$ -- 39
+duplicate$ -- 610
+empty$ -- 1155
+format.name$ -- 216
+if$ -- 2678
+int.to.chr$ -- 3
+int.to.str$ -- 33
+missing$ -- 22
+newline$ -- 196
+num.names$ -- 91
+pop$ -- 307
 preamble$ -- 1
-purify$ -- 26
+purify$ -- 32
 quote$ -- 0
-skip$ -- 291
+skip$ -- 368
 stack$ -- 0
-substring$ -- 328
-swap$ -- 93
-text.length$ -- 4
+substring$ -- 407
+swap$ -- 122
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 179
-warning$ -- 3
-while$ -- 66
+type$ -- 218
+warning$ -- 2
+while$ -- 85
 width$ -- 0
-write$ -- 377
-(There were 3 warnings)
+write$ -- 474
+(There were 2 warnings)

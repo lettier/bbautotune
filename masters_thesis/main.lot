@@ -1,25 +1,23 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Genetic Algorithm Parameters Overview}}{21}{table.50}
-\contentsline {table}{\numberline {3.2}{\ignorespaces Experiment One GA Parameters}}{47}{table.52}
-\contentsline {table}{\numberline {3.3}{\ignorespaces Experiment Two GA Parameters}}{48}{table.56}
-\contentsline {table}{\numberline {3.4}{\ignorespaces Experiment Three GA parameters}}{49}{table.59}
-\contentsline {table}{\numberline {3.5}{\ignorespaces Experiment Four GA Parameters}}{49}{table.61}
-\contentsline {table}{\numberline {3.6}{\ignorespaces Experiment Five GA Parameters}}{50}{table.63}
-\contentsline {table}{\numberline {3.7}{\ignorespaces Experiment Six GA Parameters}}{50}{table.65}
-\contentsline {table}{\numberline {3.8}{\ignorespaces Experiment Seven GA Parameters}}{50}{table.67}
+\contentsline {table}{\numberline {3.1}{\ignorespaces Genetic Algorithm Parameters Overview}}{25}{table.60}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Experiment One GA Parameters}}{26}{table.62}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Experiment Two GA Parameters}}{28}{table.64}
+\contentsline {table}{\numberline {3.4}{\ignorespaces Experiment Three GA parameters}}{31}{table.68}
+\contentsline {table}{\numberline {3.5}{\ignorespaces Experiment Four GA Parameters}}{34}{table.71}
+\contentsline {table}{\numberline {3.6}{\ignorespaces Experiment Five GA Parameters}}{35}{table.73}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Blender Physics Parameters and Ranges}}{53}{table.114}
-\contentsline {table}{\numberline {4.2}{\ignorespaces Real Robot Forward Motion Distribution Metrics}}{58}{table.126}
-\contentsline {table}{\numberline {4.3}{\ignorespaces Physics Engine Parameter Influences}}{74}{table.146}
-\contentsline {table}{\numberline {4.4}{\ignorespaces Experiment Two Best and Worst Physics Parameters Found}}{77}{table.149}
-\contentsline {table}{\numberline {4.5}{\ignorespaces Experiment Three Best and Worst Physics Parameters Found}}{77}{table.152}
-\contentsline {table}{\numberline {4.6}{\ignorespaces Experiment Four Best and Worst Physics Parameters Found}}{79}{table.155}
-\contentsline {table}{\numberline {4.7}{\ignorespaces Experiment Five Best and Worst Physics Parameters Found}}{81}{table.158}
-\contentsline {table}{\numberline {4.8}{\ignorespaces Comparison of the Top Phenotypes' Final States to the Real Robot Motion}}{83}{table.160}
+\contentsline {table}{\numberline {4.1}{\ignorespaces Blender Physics Parameters and Ranges}}{56}{table.134}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Real Robot Forward Motion Distribution Metrics}}{63}{table.148}
+\contentsline {table}{\numberline {4.3}{\ignorespaces Physics Engine Parameter Influences}}{76}{table.167}
+\contentsline {table}{\numberline {4.4}{\ignorespaces Experiment Two Best and Worst Physics Parameters Found}}{79}{table.170}
+\contentsline {table}{\numberline {4.5}{\ignorespaces Experiment Three Best and Worst Physics Parameters Found}}{79}{table.173}
+\contentsline {table}{\numberline {4.6}{\ignorespaces Experiment Four Best and Worst Physics Parameters Found}}{81}{table.176}
+\contentsline {table}{\numberline {4.7}{\ignorespaces Experiment Five Best and Worst Physics Parameters Found}}{83}{table.179}
+\contentsline {table}{\numberline {4.8}{\ignorespaces Comparison of the Top Phenotypes' Final States to the Real Robot Motion}}{85}{table.181}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Simulated vs. Real: Discrete Fr{\'e}chet Distance}}{98}{table.184}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Simulated vs. Real: Hausdorff Distance}}{98}{table.185}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Simulated vs. Real: Discrete Fr{\'e}chet Distance}}{97}{table.204}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Simulated vs. Real: Hausdorff Distance}}{97}{table.205}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

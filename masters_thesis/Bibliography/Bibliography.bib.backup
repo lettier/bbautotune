@@ -416,3 +416,101 @@ pages={55-82}
   year         = "2009",
   note         = {Accessed Apr 6, 2014}
 }
+@ARTICLE{Whitley94agenetic,
+    author = {Darrell Whitley},
+    title = {A Genetic Algorithm Tutorial},
+    journal = {Statistics and Computing},
+    year = {1994},
+    volume = {4},
+    pages = {65--85}
+}
+@inproceedings{sklar-et-al-arms:2011,
+ title = {{Designing the HRTeam Framework: Lessons Learned from a Rough-and-Ready Human/Multi-Robot Team}},
+ author = {Elizabeth I. Sklar and A. Tuna Ozgelen and J. Pablo Munoz and Joel Gonzalez and Mark Manashirov and Susan L. Epstein and Simon Parsons},
+ booktitle = {Proceedings of the Workshop on Autonomous Robots and Multirobot Systems (ARMS) at Autonomous Agents and MultiAgent Systems (AAMAS)},
+ address = {Taipei, Taiwan},
+ month = {May},
+ year = {2011}
+}
+@inproceedings{sklar-et-al-arms:2012,
+ title = {{On Transfer from Multiagent to Multi-Robot Systems}},
+ author = {Elizabeth I. Sklar and A. Tuna Ozgelen and Eric Schneider and Michael Costantino and J. Pablo Munoz and Susan L. Epstein and Simon Parsons},
+ booktitle = {Proceedings of the Workshop on Autonomous Robots and Multirobot Systems (ARMS) at Autonomous Agents and MultiAgent Systems (AAMAS)},
+ address = {Valencia, Spain},
+ month = {June},
+ year = {2012}
+}
+@inproceedings{ozgelen-et-al-arms:2013,
+ title = {{A first step toward testing multiagent coordination mechanisms on multi-robot teams}},
+ author = {A. Tuna \"{O}zgelen and Eric Schneider and Elizabeth I. Sklar and Michael Costantino and Susan L. Epstein and Simon Parsons},
+ booktitle = {Proceedings of the Workshop on Autonomous Robots and Multirobot Systems (ARMS) at Autonomous Agents and MultiAgent Systems (AAMAS)},
+ address = {St Paul, MN, USA},
+ month = {May},
+ year = {2013}
+}
+@inproceedings{DBLP:conf/aaai/KozaR92,
+  author    = {John R. Koza and
+               James P. Rice},
+  title     = {Automatic Programming of Robots Using Genetic Programming},
+  booktitle = {AAAI},
+  year      = {1992},
+  pages     = {194-201},
+  ee        = {http://www.aaai.org/Library/AAAI/1992/aaai92-031.php},
+  crossref  = {DBLP:conf/aaai/1992},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+@proceedings{DBLP:conf/aaai/1992,
+  editor    = {William R. Swartout},
+  title     = {Proceedings of the 10th National Conference on Artificial
+               Intelligence. San Jose, CA, July 12-16, 1992},
+  booktitle = {AAAI},
+  publisher = {AAAI Press / The MIT Press},
+  year      = {1992},
+  isbn      = {0-262-51063-4},
+  ee        = {http://www.aaai.org/Conferences/AAAI/aaai92.php},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+@article{Herrera,
+year={1998},
+issn={0269-2821},
+journal={Artificial Intelligence Review},
+volume={12},
+number={4},
+doi={10.1023/A:1006504901164},
+title={Tackling Real-Coded Genetic Algorithms: Operators and Tools for Behavioural Analysis},
+url={http://dx.doi.org/10.1023/A%3A1006504901164},
+publisher={Kluwer Academic Publishers},
+keywords={genetic algorithms; real coding; continuous search spaces},
+author={Herrera, F. and Lozano, M. and Verdegay, J.L.},
+pages={265-319},
+language={English}
+}
+@incollection{Michalewicz,
+year={1997},
+isbn={978-1-4613-7811-2},
+booktitle={Fuzzy Evolutionary Computation},
+editor={Pedrycz, Witold},
+doi={10.1007/978-1-4615-6135-4_1},
+title={Evolutionary Algorithms},
+url={http://dx.doi.org/10.1007/978-1-4615-6135-4_1},
+publisher={Springer US},
+author={Michalewicz, Zbigniew and Hinterding, Robert and Michalewicz, Maciej},
+pages={3-31},
+language={English}
+}
+@misc{PythonFloat,
+  title        = "Floating Point Arithmetic: Issues and Limitations",
+  howpublished = "\url{http://docs.python.org/3.4/tutorial/floatingpoint.html}",
+  month        = "March",
+  year         = "2014",
+  note         = {Accessed Apr 11, 2014}
+}
+@book{Patterson:2013:COD:2568134,
+ author = {Patterson, David A. and Hennessy, John L.},
+ title = {Computer Organization and Design, Fifth Edition: The Hardware/Software Interface},
+ year = {2013},
+ isbn = {0124077269, 9780124077263},
+ edition = {5th},
+ publisher = {Morgan Kaufmann Publishers Inc.},
+ address = {San Francisco, CA, USA},
+} 

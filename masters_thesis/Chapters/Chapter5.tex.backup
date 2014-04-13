@@ -6,14 +6,16 @@
 
 %\todo{Add something about comparing the physics based motion to the real robot.}
 
-Over the course of three months, a Blender based simulation was developed for HRTeam\footnote{HRTeam is a human and robot multi-agent framework developed to explore human and robot teamwork interactions \cite{hrteam}.} titled BlenderSim. Initially, BlenderSim was wholly physics based but soon proved to be problematic on three fronts: time, scale, and intricacy. The problems faced by using the physics engine to model the locomotion of the robots gave way to the thesis of tuning the physics engine via a genetic algorithm. In the interim, the physics engine was abandoned and a constant linear motion model was used. 
+% Over the course of three months, a Blender based simulation was developed for HRTeam\footnote{HRTeam is a human and robot multi-agent framework developed to explore human and robot teamwork interactions \cite{hrteam}.} titled BlenderSim. Initially, BlenderSim was wholly physics based but soon proved to be problematic on three fronts: time, scale, and intricacy. The problems faced by using the physics engine to model the locomotion of the robots gave way to the thesis of tuning the physics engine via a genetic algorithm. In the interim, the physics engine was abandoned and a constant linear motion model was used.
 
-As a proof-of-concept of the thesis, BlenderSim was revisited with the physics engine being restored as the motion model---using the highest-fitness physics parameters found by BBAutoTune. Using only one robot, instead of the standard four usually used in a HRTeam experiment, the motion of the simulated, physics-based robot was compared to the real robot by re-running a previously run HRTeam experiment in BlenderSim.      
+Over the course of three months, a Blender based simulation was developed for HRTeam titled BlenderSim. Initially, BlenderSim was wholly physics based, but soon proved to be problematic on three fronts: time, scale, and intricacy. The problems faced by using the physics engine to model the locomotion of the robots gave way to the thesis of tuning the physics engine via a genetic algorithm. In the interim, the physics engine was abandoned and a constant linear motion model was used, in order to progress on the development of the BlenderSim 3D simulation environment. 
+
+As a proof of concept of the thesis, BlenderSim was revisited with the physics engine providing the motion model, using the best-fitness parameters learned by BBAutoTune. Using one robot, the motion of the simulated, physics-based robot was compared to the real robot by re-running a previously logged HRTeam experiment in BlenderSim.      
 
 %Once BBAutoTune learned the physics engine parameters, the motion of the real robot, BlenderSim was restored to being wholly physics based with the physics engine modeling the locomotion of the real robots.
 
 
-\section{Problems Faced}
+\section{Preliminary Work}
 
 Initial problems arose when the treads of the SRV-1 were recreated in the simulation. Even after numerous hours adjusting physics parameters and rigid-body configurations, the treads would consistently behave in erratic fashions. See Figure \ref{treads}.
 
@@ -21,7 +23,7 @@ Initial problems arose when the treads of the SRV-1 were recreated in the simula
 \centering
 \includegraphics[scale=0.25]{../Figures/Chapter5/treads.png}
 \rule{35em}{0.5pt}
-\caption[Simulated Treads]{Here you see the to-scale treads modeled after the physical SRV-1 robot on the left and the physics-based rigid-body tracks in motion on the right.}
+\caption[Simulated Treads]{The to-scale treads modeled after the physical SRV-1 robot on the left and the physics-based rigid-body tracks in motion on the right.}
 \label{treads}
 \end{figure}
 
@@ -29,13 +31,13 @@ Scale was problematic as the Blender/Bullet physics engine has difficulty with c
 %For instance, the wheels on the 3D SRV-1 model which are 2.11cm x 2.45cm x 2.52cm.
 As such, since the wheel dimensions of the real SRV-1 are 2.11cm x 2.45cm x 2.52cm, the to-scale 3D model of the SRV-1 was affected by this scale limitation of the physics engine.
 
-To rectify these issues, the physics engine was largely abandoned---in terms of providing the motion model---and was only kept to keep the robots from running through each other and the arena. In its place, a constant linear and angular velocity motion model was developed of which only moves the 3D robot as if it was a single point body. See Figure \ref{blendersimrun} and Figure \ref{sklarplots}. 
+To rectify these issues, the default physics engine was not used to provide a motion model---and was only kept to keep the robots from running through each other and the arena. In its place, a constant linear and angular velocity motion model was developed which only moves the 3D robot as if it were a single point body. See Figure \ref{blendersimrun} and Figure \ref{sklarplots}. 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.28]{../Figures/Chapter5/const_motion_model.png}
 \rule{35em}{0.5pt}
-\caption[Constant Velocity Locomotion Model]{Here you see the constant velocity motion model at work in BlenderSim with four robots traversing their respective paths of which consist of way-points scrapped from a previously recorded physical lab experiment.}
+\caption[Constant Velocity Locomotion Model]{The constant velocity motion model in BlenderSim with four robots traversing their respective paths which consist of way-points logged in a previously recorded physical robot experiment.}
 \label{blendersimrun}
 \end{figure}
 
@@ -43,13 +45,13 @@ To rectify these issues, the physics engine was largely abandoned---in terms of 
 \centering
 \includegraphics[scale=0.55]{../Figures/Chapter5/const_motion_model_plotted.png}
 \rule{35em}{0.5pt}
-\caption[Comparative Path Plots]{Here you see the path plots--as plotted by Dr. Elizabeth Sklar--of the BlenderSim robot, the physical robot, and the \textit{Stage} (a 2D robot simulator already in use by HRTeam)\cite{website:stage} robot plotted in comparison.}
+\caption[Comparative Path Plots]{The path plots---as plotted by Dr. Elizabeth Sklar---of the BlenderSim robot, the physical robot, and the \textit{Stage} (a 2D robot simulator already in use by HRTeam)\cite{website:stage} robot plotted in comparison.}
 \label{sklarplots}
 \end{figure}
 
-\section{Implementation}
+\section{Evaluation}
 
-For the purposes of the proof-of-concept, most of the original architecture of BlenderSim was simplified. The simulation contained one robot, one robot controller, one robot path planner, and the arena. 
+For the purposes of the proof of concept, most of the original architecture of BlenderSim was simplified. The simulation contained one robot, one robot controller, one robot path planner, and the arena. The purpose was to evaluate the efficacy of the physics parameters learned by BBAutoTune, when deployed in the simulated robot environment and measured in comparison with its physical robot counterpart.
 
 \subsection{Arena}
 
@@ -59,21 +61,13 @@ The arena is a $602cm\times538cm$ enclosure with a main hallway and six compartm
 \centering
 \includegraphics[width=6in]{../Figures/Chapter5/arena.png}
 \rule{35em}{0.5pt}
-\caption[BlenderSim Arena]{Here you see the layout and dimensions of the arena map both as it is in BlenderSim and in the real HRTeam lab. The smaller four squares in the lower left-hand corner represent the standard starting positions of the robots before any experiment. The grid shown in the plot is the same discrete grid used by HRTeam to calculate the A* generated paths of the robots. }
+\caption[BlenderSim Arena]{The layout and dimensions of the arena map both as it is in BlenderSim and in the real HRTeam lab. The smaller four squares in the lower left-hand corner represent the standard starting positions of the robots before any experiment. The grid shown in the plot is the same discrete grid used by HRTeam to calculate the A* generated paths of the robots. }
 \label{fig:arena_map}
 \end{figure}
 
-\subsection{Surveyor SRV-1 Blackfin 3D Models}
+\subsection{Surveyor SRV-1 Blackfin 3D Model}
 
-The 3D model of the Surveyor SRV-1 Blackfin is dimensionally and aesthetically representative of its real-life counterpart. The extents of the model are $17.64cm\times14.53cm\times14.33cm$ including the braille hat that rests above the body of the robot. The base and the wheels are the only physics based objects on the model with the wheels being connected to the base via a rigid body hinge joint. See Figure \ref{fig:srv1_3d_model}. Residing $1.37cm$ off the floor from their local origins in the positive z-axis, the robot's base and wheels have their z-translation fixed. The physics parameters governing the wheels are the same highest-fitness parameters found by BBAutoTune in subsection 4.5.1.   
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.5]{../Figures/Chapter5/srv1.png}
-\rule{35em}{0.5pt}
-\caption[SRV-1 3D Model]{Here you see the 3D model of the Surveyor SRV-1 Blackfin with the wheels connected to the base via rigid body hinge joints.}
-\label{fig:srv1_3d_model}
-\end{figure}
+The physics parameters governing the wheels were the same best-fitness parameters found by BBAutoTune in subsection \ref{subsec:bbautotune_exp_two}. Residing $1.37cm$ off the floor from their local origins in the positive z-axis, the robot's base and wheels had their z-translation fixed. This distance between the wheels and the floor is important since this was the same height used to the tune the physics engine parameters in BBAutoTune. Using any other height would result in different motion from the motion observed in subsection \ref{subsec:bbautotune_exp_two}.   
 
 % \subsection{Robot Servers}
 % 
@@ -91,7 +85,9 @@ The 3D model of the Surveyor SRV-1 Blackfin is dimensionally and aesthetically r
 
 \subsection{Robot Path Planner}
 
-The robot path planner was greatly simplified for the proof-of-concept. Given a HRTeam experiment log and a robot number, the path planner extracts the A* path points that the real robot was instructed to follow during the HRTeam experiment. This A* path is a path from the robot's starting position to various points of interest or task points. With the path points extracted from the log file, the robot path planner populates the robot controller's waypoint queue. 
+Given a HRTeam experiment log and a robot number, the path planner extracts the A* path points that the real robot was instructed to follow during the HRTeam experiment. This A* path is a path from the robot's starting position to various points of interest or task points. With the path points extracted from the log file, the robot path planner populates the robot controller's waypoint queue. 
+
+%The robot path planner was greatly simplified for the proof-of-concept. 
 
 \subsection{Robot Controller}
 
@@ -109,13 +105,13 @@ Using these torque versus displacement values, the robot controller linearly int
 
 %\todo{Change this to reflect when BlenderSim communicates directly with HRTeam.}
 
-The task points manager is expressed in the simulation as a large torus located above the 3D modeled arena. Once the Blender game engine is started, it hides itself. See Figure \ref{fig:blendersim_components}. At the start of the simulation, the task points manager reads the task points configurations from the task points configuration directory. Controls include keys \textit{\textbf{a}} through \textit{\textbf{e}} where each key corresponds to the five possible task point configurations. See Figure \ref{fig:task_points}. 
+HRTeam experiments have five predefined sets of ``interest points'' or task points that the robots visit as they travel around the arena \cite{ozgelen-et-al-arms:2013}. BlenderSim imitates this using its task ponts manager. At the start of the simulation, the task points manager reads the task points configurations from the task points configuration directory. Controls include keys \textit{\textbf{a}} through \textit{\textbf{e}} where each key corresponds to five possible task point configurations. See Figures \ref{fig:blendersim_components} and \ref{fig:task_points}. 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.4]{../Figures/Chapter5/parts.png}
 \rule{35em}{0.5pt}
-\caption[BlenderSim Components]{Here you see from left to right: the robot path planner, the task points manager, and the robot controller manifestations in the simulation.}
+\caption[BlenderSim Components]{From left to right: the robot path planner, the task points manager, and the robot controller manifestations in the simulation.}
 \label{fig:blendersim_components}
 \end{figure}
 
@@ -123,15 +119,13 @@ The task points manager is expressed in the simulation as a large torus located 
 \centering
 \includegraphics[scale=0.32]{../Figures/Chapter5/taskPoints.png}
 \rule{35em}{0.5pt}
-\caption[Simulated Task Points]{Here you see the red torus task points laid out in the arena.}
+\caption[Simulated Task Points]{The red torus task points laid out in the arena.}
 \label{fig:task_points}
 \end{figure}
 
 \section{Platform}
 
 BlenderSim was run on a 64bit Linux operating system with 32GB of RAM and an Intel Core i7-4770K four core processor running at 3.9GHz.
-
-\newpage
 
 \section{Experimental Design}
 
@@ -149,7 +143,7 @@ To compare the simulated versus real robot motion (using the physics engine and 
 
 \section{Experimental Result}
 
-Comparing the simulated versus real robot paths, the discrete Frechet and Hausdorff distances between them were $40.575953633cm$ and $19.1208685021cm$ respectively. Between the simulated and real robot paths, the real robot path was the most dissimilar from the waypoint path. See Table \ref{tab:simu_real_fre_dist}, \ref{tab:simu_real_hau_dist}, and Figure \ref{fig:simulated_vs_real_w_physics}.
+Comparing the simulated versus real robot paths, the discrete Fr{\'e}chet and Hausdorff distances between them were $40.575953633cm$ and $19.1208685021cm$ respectively. Between the simulated and real robot paths, the real robot path was the most dissimilar from the waypoint path. See Table \ref{tab:simu_real_fre_dist}, \ref{tab:simu_real_hau_dist}, and Figure \ref{fig:simulated_vs_real_w_physics}.
 
 \begin{table}[htbp]
 \centering
@@ -166,7 +160,7 @@ Comparing the simulated versus real robot paths, the discrete Frechet and Hausdo
 \cellcolor{gray} Waypoint        & 16.2376801625cm            & 24.0208242989cm       & 0.0cm                     \\ \hline
 \end{tabular}
 \egroup
-\caption[Simulated vs. Real: Discrete Frechet Distance]{Here you see the discrete Frechet distances between the various paths. }
+\caption[Simulated vs. Real: Discrete Fr{\'e}chet Distance]{Here you see the discrete Fr{\'e}chet distances between the various paths. }
 \label{tab:simu_real_fre_dist}
 \end{table}
 

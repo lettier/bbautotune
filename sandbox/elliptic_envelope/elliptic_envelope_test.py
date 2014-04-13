@@ -321,9 +321,9 @@ ax  = fig.gca( projection = "3d" );
 ax.grid( alpha = 1.0 );
 
 ax.set_title(  "BBAutoTune \n\n Real Robot Forward Motion Robust Support Samples", fontsize = 15 );
-ax.set_xlabel( "X-translation in Centimeters", fontsize = 15 );
-ax.set_ylabel( "Y-translation in Centimeters", fontsize = 15 );
-ax.set_zlabel( "Z-rotation in Radians",  fontsize = 15, linespacing = 10 );
+ax.set_xlabel( "X-position in Centimeters", fontsize = 15 );
+ax.set_ylabel( "Y-position in Centimeters", fontsize = 15 );
+ax.set_zlabel( "Heading in Radians",  fontsize = 15, linespacing = 10 );
 
 for i in range( len( non_robust_support_samples ) ):
 	
@@ -678,11 +678,14 @@ plt.figure( 8 );
 
 plt.grid( True );
 
+plt.xticks( numpy.arange( 0, 27, 3 ) );
+plt.yticks( numpy.arange( 0, 200, 15 ) );
+
 plt.scatter( classical_md, robust_md, color = "green", alpha = 0.5 );
 plt.title( "BBAutoTune \n\n Real Robot Forward Motion MD versus RD" );
 plt.xlabel( "Mahalanobis Distance (MD)" );
 plt.ylabel( "Robust Distance (RD)" );
-plt.plot( [ min( classical_md ), max( classical_md ) ], [ min( classical_md ), max( classical_md ) ], color = "red", alpha = 0.5 );
+#plt.plot( [ min( classical_md ), max( classical_md ) ], [ min( classical_md ), max( classical_md ) ], color = "red", alpha = 0.5 );
 
 
 # Try the elliptical envelope now with the outliers gone.

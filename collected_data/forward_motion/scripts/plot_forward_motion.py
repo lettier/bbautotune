@@ -93,7 +93,7 @@ x_p_values = [ ];
 y_p_values = [ ];
 t_p_values = [ ];
 
-visualize_translation_rotation = False;
+visualize_translation_rotation = True;
 line_i = 1;
 
 while line != "":
@@ -273,7 +273,12 @@ while line != "":
 		
 		);
 		
+		plt.title( "BBAutoTune \n\n Real Robot Forward Motion" );
+	
 		plt.axis( "equal" );
+
+		plt.xlabel( "Global X-axis in Centimeters" );
+		plt.ylabel( "Global Y-axis in Centimeters" );
 		
 		plt.grid( True );
 		
@@ -447,7 +452,7 @@ print "X'Y'T' Geometric Median: ", xyt_p_geometric_median[ 0 ], ", ", xyt_p_geom
 
 plt.figure( 1 );
 
-plt.title( "Total Original Real Robot Motion Collected (Camera Perspective)" );
+plt.title( "Total Original Real Robot Motion Collected Untranslated and Unrotated" );
 	
 plt.axis( "equal" );
 
@@ -596,7 +601,7 @@ plt.plot( [ ( x_p_mean - x_p_std ), ( x_p_mean - x_p_std ) ], [ 0.0, max_patch_h
 plt.plot( [ ( x_p_mean + x_p_std ), ( x_p_mean + x_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ x_p_median, x_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
 plt.title( "BBAutoTune \n\n Real Robot Forward Motion" );
-plt.xlabel( "X-translation in Centimeters" );
+plt.xlabel( "X-position in Centimeters" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
@@ -623,8 +628,10 @@ plt.plot( [ y_p_mean, y_p_mean ], [ 0.0, max_patch_height ], "g--", linewidth = 
 plt.plot( [ ( y_p_mean - y_p_std ), ( y_p_mean - y_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ ( y_p_mean + y_p_std ), ( y_p_mean + y_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ y_p_median, y_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
+plt.ylim( ( 0.0, 0.37 ) );
+plt.xlim( (-26.0, 26.0 ) );
 plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "Y-translation in Centimeters" );
+plt.xlabel( "Y-position in Centimeters" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
@@ -652,7 +659,7 @@ plt.plot( [ ( t_p_mean - t_p_std ), ( t_p_mean - t_p_std ) ], [ 0.0, max_patch_h
 plt.plot( [ ( t_p_mean + t_p_std ), ( t_p_mean + t_p_std ) ], [ 0.0, max_patch_height ], "c--", linewidth = 3 );
 plt.plot( [ t_p_median, t_p_median ], [ 0.0, max_patch_height ], "k--", linewidth = 3 );
 plt.title( "Real Robot Forward Motion" );
-plt.xlabel( "Z-rotation in Radians" );
+plt.xlabel( "Heading in Radians" );
 plt.ylabel( "PDF Normalized" );
 plt.grid( True );
 
@@ -700,9 +707,9 @@ plt.figure( 4 );
 
 plt.axis( "equal" );
 plt.grid( True );
-plt.title( "BBAutoTune \n\n Real Robot Forward Motion (Robot Perspective)" );
-plt.xlabel( "X-translation in Centimeters" );
-plt.ylabel( "Y-translation in Centimeters" );
+plt.title( "BBAutoTune \n\n Real Robot Forward Motion" );
+plt.xlabel( "X-position in Centimeters" );
+plt.ylabel( "Y-position in Centimeters" );
 plt.tight_layout( pad = 1.08, h_pad = 0.5 );
 
 plt.plot( [ min( x_values ), max( x_p_values ) ], [ min( y_values ), min( y_values ) ], "r-", linewidth = 2 );
@@ -793,9 +800,9 @@ ax  = fig.gca( projection = "3d" );
 ax.grid( alpha = 1.0 );
 
 ax.set_title(  "BBAutoTune \n\n Real Robot Forward Motion", fontsize = 15 );
-ax.set_xlabel( "X-translation in Centimeters",               fontsize = 15 );
-ax.set_ylabel( "Y-translation in Centimeters",               fontsize = 15 );
-ax.set_zlabel( "Z-rotation in Radians",                    fontsize = 15, linespacing = 10 );
+ax.set_xlabel( "X-position in Centimeters",               fontsize = 15 );
+ax.set_ylabel( "Y-position in Centimeters",               fontsize = 15 );
+ax.set_zlabel( "Heading in Radians",                    fontsize = 15, linespacing = 10 );
 
 colors = [ ];
 max_x  = max( x_p_values );
