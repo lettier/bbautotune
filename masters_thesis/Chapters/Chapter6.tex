@@ -20,4 +20,23 @@ Using the real robot forward motion data, BBAutoTune was consistently able to tu
 
 \section{BlenderSim}
 
-Interpreting the plot of the simulated versus real robot motion along with the Fr{\'e}chet and Hausdorff distances, one can see that the simulated motion was very close to the real robot motion. Considering the largest move the (simulated or real) robot can make at any one time on the discrete arena grid is $\sim32.52cm$\footnote{Overlaid on the robot arena is a grid spaced $23cm\times23cm$ for both the simulated and real arenas. This discrete grid is used to compute the A* paths that take the robots from their starting positions to the task points in the arena. Moving diagonally from one grid square to another requires a distance of $\sqrt{23^2cm+23^2cm}=32.526911935cm$.} and that the largest distance between the simulated and real robots paths was a Fr{\'e}chet distance of $\sim40.57cm$, the thesis was certainly demonstrated and its hypothesis was supported.  
+Interpreting the plot of the simulated versus real robot motion along with the Fr{\'e}chet and Hausdorff distances, one can see that the simulated motion was very close to the real robot motion. Considering the largest move the (simulated or real) robot can make at any one time on the discrete arena grid is $\sim32.52cm$\footnote{Overlaid on the robot arena is a grid spaced $23cm\times23cm$ for both the simulated and real arenas. This discrete grid is used to compute the A* paths that take the robots from their starting positions to the task points in the arena. Moving diagonally from one grid square to another requires a distance of $\sqrt{23^2cm+23^2cm}=32.526911935cm$.} and that the largest distance between the simulated and real robots paths was a Fr{\'e}chet distance of $\sim40.57cm$, the thesis was certainly demonstrated and its hypothesis was supported.
+
+\section{Future Work}
+
+Future work, concerning BBAutoTune and BlenderSim, could involve the following:
+% \begin{enumerate}
+%  \item modify the motion capture process so that different motion commands (other than \textit{forward} $25cm$) are given to the robot, including turning, which may provide different learned physics parameter settings;
+%  \item run new (or logged) experiments in both the physical environment and in BlenderSim, comparing performance metrics to see how similar the complete experimental runs are; and
+%  \item learn physics engine motion models for other types of robots in BBAutoTune, and try putting those into BlenderSim;
+% \end{enumerate}
+\begin{enumerate}
+ \item capture additional real-robot motion data on the SRV-1 by issuing it different commands (such as turning) instead of just forward;
+ \begin{enumerate}
+  \item take this additional motion data and in BBAutoTune, learn the physics parameters needed to simulate these different robot commands in BlenderSim;
+ \end{enumerate}
+ \item run new (or other previously logged) experiments in tandem between HRTeam and BlenderSim, making further comparisons between simulated and real robot paths; and
+ \item in BBAutoTune, learn the physics parameters necessary to simulate the motion of other robots (other than the SRV-1).
+\end{enumerate}
+
+

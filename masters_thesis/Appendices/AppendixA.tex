@@ -1,53 +1,62 @@
-\definecolor{code_green}{rgb}{0,0.6,0}
-\definecolor{code_gray}{rgb}{0.5,0.5,0.5}
-\definecolor{code_mauve}{rgb}{0.58,0,0.82}
 
-\lstset{ %
-  backgroundcolor=\color{white},      % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\ttfamily\tiny,  % the size of the fonts that are used for the code
-  breakatwhitespace=false,            % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                    % sets automatic line breaking
-  captionpos=t,                       % sets the caption-position to bottom
-  commentstyle=\color{code_green},    % comment style
-  deletekeywords={...},               % if you want to delete keywords from the given language
-  escapeinside={\%*}{*)},             % if you want to add LaTeX within your code
-  extendedchars=true,                 % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  %frame=single,                      % adds a frame around the code
-  keepspaces=true,                    % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},          % keyword style
-  language=Octave,                    % the language of the code
-  morekeywords={*,...},               % if you want to add more keywords to the set
-  numbers=left,                       % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                      % how far the line-numbers are from the code
-  numberstyle=\tiny\color{code_gray}, % the style that is used for the line-numbers
-  rulecolor=\color{black},            % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                   % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,             % underline spaces within strings only
-  showtabs=false,                     % show tabs within strings adding particular underscores
-  stepnumber=2,                       % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{code_mauve},     % string literal style
-  tabsize=2,                          % sets default tabsize to 2 spaces
-  %title=\lstname                     % show the filename of files included with \lstinputlisting; also try caption instead of title
-  xleftmargin=0.1\textwidth, 
-  xrightmargin=0.1\textwidth
-}
-
-\chapter{Source Code}
+\chapter{Physics Engine Parameters Governing Forward Motion Learned}
 
 \label{AppendixA}
 
-\section{SimPL}
+Table \ref{tab:all_pep_fm_l} lists every physics engine parameter that governed over the best-fitness forward motion learned in subsection \ref{subsec:bbautotune_exp_two}. Some of the parameters only related to the physics engine as a whole, thus affect everything in simulation, while the other parameters effected only the robot's base, the robot's wheels, or just the floor. The highlighted values indicate the 11 GA tuned/learned physics engine parameters.
 
-\lstinputlisting[caption=Index.js,linewidth=6in,language=Java]{./ProgramCode/SimPL/index.js}
-
-\lstinputlisting[caption=Genetic\_Algorithm.js,linewidth=6in,language=Java]{./ProgramCode/SimPL/genetic_algorithm.js}
-
-\lstinputlisting[caption=Neural\_Network.js,linewidth=6in,language=Java]{./ProgramCode/SimPL/neural_network.js}
-
-\section{BBAutoTune}
-
-\lstinputlisting[caption=GA.py,linewidth=6in,language=Python]{./ProgramCode/BBAutoTune/GA.py}
-
-\section{BlenderSim}
-
-\lstinputlisting[caption=Robot\_1\_Controller.py,linewidth=6in,language=Python]{./ProgramCode/BlenderSim/robot_1_controller.py}
+\begin{table}[htbp]
+\centering
+\footnotesize
+\def\arraystretch{1.1}
+\begin{tabular}{ | l || c | c | c | c | }
+\hline
+\rowcolor{gray}
+Parameter & Physics Engine     & Wheels & Base & Floor     \\ \hline
+Gravity   & \cellcolor{cyan} $2.89862416489\frac{m}{s^2}$ & N/A    & N/A  & N/A       \\ \hline
+Max Steps & 5  & N/A & N/A & N/A \\ \hline
+Sub-steps & \cellcolor{cyan} 5  & N/A & N/A & N/A \\ \hline
+FPS       & \cellcolor{cyan} 30 & N/A & N/A & N/A \\ \hline
+Linear Deactivation Threshold  & 5.0    & N/A & N/A & N/A \\ \hline
+Angular Deactivation Threshold & 5.0    & N/A & N/A & N/A \\ \hline
+Deactivation Time              & 0.5sec & N/A & N/A & N/A \\ \hline \hline
+Use Material Physics       & N/A & True            & True & True \\ \hline
+Material Friction          & N/A & \cellcolor{cyan} 59.5011814113   & 1.0  & 1.0 \\ \hline
+Material Elasticity        & N/A & \cellcolor{cyan} 0.0742521056997 & 0.0  & 0.0 \\ \hline
+Material Force             & N/A & 0.0                              & 0.0  & 0.0 \\ \hline
+Material Damping           & N/A & 0.0                              & 0.0  & 0.0 \\ \hline
+Material Distance          & N/A & 0.0                              & 0.0  & 0.0 \\ \hline
+Material Align to Normal   & N/A & False                            & False & False \\ \hline \hline
+Physics Type               & N/A & RIGID\_BODY & RIGID\_BODY  & STATIC \\ \hline
+Use Actor                  & N/A & True  & True  & False \\ \hline
+Use Ghost                  & N/A & False & False & False \\ \hline
+Use Material Force Field   & N/A & False & False & N/A \\ \hline
+Rotate From Normal         & N/A & False & False & N/A \\ \hline
+No Sleeping                & N/A & False & False & N/A \\ \hline
+Mass                       & N/A & \cellcolor{cyan} 4.33392950881  & 9.373 & N/A \\ \hline
+Radius                     & N/A & $1.4cm$     & $1cm$ & $1cm$ \\ \hline
+Form Factor                & N/A & 1.0         & 1.0   & N/A \\ \hline
+Use Anisotropic Friction   & N/A & True        & False & False \\ \hline
+Anisotropic Friction X,Y,Z & N/A & 0.0,1.0,1.0 & N/A   & N/A \\ \hline
+Velocity Minimum           & N/A & 0.0                             & 0.0 & N/A \\ \hline
+Velocity Maximum           & N/A & \cellcolor{cyan} 900.11395466   & 0.0 & N/A \\ \hline
+Damping Translation        & N/A & \cellcolor{cyan} 1.0            & 0.0 & N/A \\ \hline
+Damping Rotation           & N/A & \cellcolor{cyan} 0.691143247902 & 0.0 & N/A \\ \hline
+Lock Translation X,Y,Z     & N/A & False,False,True  & False,False,True  & N/A \\ \hline
+Lock Rotation X,Y,Z        & N/A & False,False,False & True,True,False   & N/A \\ \hline
+Use Collision Bounds       & N/A & True & True & True \\ \hline
+Collision Bounds Type      & N/A & \cellcolor{cyan} SPHERE & BOX & BOX \\ \hline
+Collision Bounds Margin    & N/A & $0.0m$ & $0.0m$ & $0.0m$ \\ \hline \hline
+Force                      & N/A & 0.0    & N/A    & N/A \\ \hline
+Torque                     & N/A & \cellcolor{cyan} 82.7271515601 & N/A & N/A \\ \hline
+Linear Velocity            & N/A & 0.0    & N/A    & N/A \\ \hline
+Angular Velocity           & N/A & 0.0    & N/A    & N/A \\ \hline
+Use Local Force            & N/A & N/A    & N/A    & N/A \\ \hline
+Use Local Torque           & N/A & True   & N/A    & N/A \\ \hline
+Use Local Linear Velocity  & N/A & N/A    & N/A    & N/A \\ \hline
+Use Local Angular Velocity & N/A & N/A    & N/A    & N/A \\ \hline
+Damping Frames             & N/A & 0      & N/A    & N/A \\ \hline
+\end{tabular}
+\caption[Physics Engine Parameters Governing Forward Motion Learned]{The physics engine parameters governing the best-fitness forward motion learned in subsection \ref{subsec:bbautotune_exp_two}. The highlighted cells indicate the GA tuned/learned values.}
+\label{tab:all_pep_fm_l}
+\end{table}

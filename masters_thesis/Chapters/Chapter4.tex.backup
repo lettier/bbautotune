@@ -20,7 +20,7 @@ BBAutoTune's implementation builds off a 3D content creation platform known as B
 
 \subsection{Surveyor SRV-1 Blackfin 3D Model}
 
-The robot used during experimentation was a 3D model of the Surveyor SRV-1 Blackfin. This model is dimensionally and aesthetically based on the real robot. The extents of the model are $17.64cm\times14.53cm\times14.33cm$ including the Braille hat that rests above the body of the robot \cite{sklar-et-al-arms:2011}. The base and the wheels are the only physics based objects on the model with the wheels being connected to the base via a rigid body hinge joint. See Figure \ref{fig:srv1_3d_model}. The robot's base was centered at the world origin and the robot was faced down the global positive x-axis. All wheel geometry origins had a global z-axis position of 0.0 and where $1.37cm$ away from the floor.   
+The robot used during experimentation was a 3D model of the Surveyor SRV-1 Blackfin. This model is dimensionally and aesthetically based on the real robot. The extents of the model are $17.64cm\times14.53cm\times14.33cm$ including the Braille hat that rests above the body of the robot \cite{sklar-et-al-arms:2011}. The base and the wheels are the only physics based objects on the model with the wheels being connected to the base via a rigid body hinge joint. See Figure \ref{fig:srv1_3d_model}. The robot's base was centered at the world origin and the robot was faced down the global positive x-axis. All wheel geometry origins had a global z-axis position of 0.0 and were placed $1.37cm$ above the floor.   
 
 \begin{figure}[htbp]
 \centering
@@ -78,16 +78,15 @@ See Table \ref{tab:physics_params_ranges} for the full 41 parameter set complete
 \hline
 \rowcolor{gray}
 Parameter        & Range                                       & Default Value \\ \hline
+
 Gravity          & [0.0$\frac{m}{s^2}$,10000.0$\frac{m}{s^2}$] & 9.8$\frac{m}{s^2}$ \\ \hline
-Mass             & [0.0,10000.0]                               & 1.0\\ \hline
-Force            & [-inf,inf]                                  & 0.0 \\ \hline
-Torque           & [-inf,inf]                                  & 0.0 \\ \hline
-Linear Velocity  & [-inf,inf]                                  & 0.0 \\ \hline
-Angular Velocity & [-inf,inf]                                  & 0.0 \\ \hline
-Apply Force Locally & [False,True] & True \\ \hline
-Apply Torque Locally & [False,True] & True \\ \hline
-Apply Linear Velocity Locally & [False,True] & True \\ \hline
-Apply Angular Velocity Locally & [False,True] & True \\ \hline
+Max Physics Steps & [1,5] & 5 \\ \hline
+Physics Sub-steps & [1,50] & 1 \\ \hline
+FPS & [1,10000] & 60 \\ \hline
+Linear Deactivation Threshold & [0.001,10000.0] & 0.8 \\ \hline
+Angular Deactivation Threshold & [0.001,10000.0] & 1.0 \\ \hline
+Deactivation Time & [0.0s,60.0s] & 2.0s \\ \hline 
+
 Use Material Physics & [False,True] & True \\ \hline
 Material Friction & [0.0,100.0] & 0.5 \\ \hline
 Material Elasticity & [0.0,1.0] & 0.0 \\ \hline
@@ -95,30 +94,36 @@ Material Force & [0.0,1.0] & 0.0 \\ \hline
 Material Damping & [0.0,1.0] & 0.0 \\ \hline
 Material Distance & [0.0,20.0] & 0.0 \\ \hline
 Material Align to Normal & [False,True] & False \\ \hline
+
+Physics Type & [NO\_COLLISION, STATIC, DYNAMIC, RIGID\_BODY, SOFT\_BODY, OCCLUDE, SENSOR, NAVMESH, CHARACTER] & STATIC \\ \hline
 Use Actor & [False,True] & True \\ \hline
 Use Ghost & [False,True] & False \\ \hline
-Physics Type & [NO\_COLLISION, STATIC, DYNAMIC, RIGID\_BODY, SOFT\_BODY, OCCLUDE, SENSOR, NAVMESH, CHARACTER] & STATIC \\ \hline
 Use Material Force Field & [False,True] & False \\ \hline
 Rotate From Normal & [False,True] & False \\ \hline
 No Sleeping & [False,True] & False \\ \hline
+Mass             & [0.0,10000.0] & 1.0\\ \hline
+Radius & [0.01m,inf] & 1m \\ \hline
 Form Factor & [0.0,1.0] & 0.4 \\ \hline
 Use Anisotropic Friction & [False,True] & False \\ \hline
 Anisotropic Friction XYZ & [0.0,1.0] & 1.0 \\ \hline
-Velocity Min/Max & [0.0,1000.0] & 0.0 \\ \hline
+Velocity Minimum/Maximum & [0.0,1000.0] & 0.0 \\ \hline
 Lock Translation XYZ  & [False,True] & False \\ \hline
 Lock Rotation XYZ & [False,True] & False \\ \hline
 Damping Translation & [0.0,1.0] & 0.025 \\ \hline
 Damping Rotation & [0.0,1.0] & 0.159 \\ \hline
 Use Collision Bounds & [False,True] & False \\ \hline
-Collision Radius & [0.01m,inf] & 1m \\ \hline
 Collision Bounds Type & [BOX, SPHERE, CYLINDER, CONE, CONVEX\_HULL, TRIANGLE\_MESH, CAPSULE] & BOX \\ \hline
 Collision Margin & [0.0m,1.0m] & 6cm \\ \hline
-Max Physics Steps & [1,5] & 5 \\ \hline
-Physics Sub-steps & [1,50] & 1 \\ \hline
-FPS & [1,10000] & 60 \\ \hline
-Linear Deactivation Threshold & [0.001,10000.0] & 0.8 \\ \hline
-Angular Deactivation Threshold & [0.001,10000.0] & 1.0 \\ \hline
-Deactivation Time & [0.0s,60.0s] & 2.0s \\ \hline
+
+Force            & [-inf,inf]                                  & 0.0 \\ \hline
+Torque           & [-inf,inf]                                  & 0.0 \\ \hline
+Linear Velocity  & [-inf,inf]                                  & 0.0 \\ \hline
+Angular Velocity & [-inf,inf]                                  & 0.0 \\ \hline
+Use Local Force            & [False,True] & True \\ \hline
+Use Local Torque           & [False,True] & True \\ \hline
+Use Local Linear Velocity  & [False,True] & True \\ \hline
+Use Local Angular Velocity & [False,True] & True \\ \hline
+Damping Frames
 \end{tabular}
 \egroup
 \caption[Blender Physics Parameters and Ranges]{The various physics parameters, their ranges, and their default values. Note that inf=340,282,346,638,528,859,811,704,183,484,516,925,440.0 in Blender.}
@@ -244,8 +249,8 @@ Analyzing the distribution of final state x-positions, y-positions, and headings
 %\rowcolor{gray}
 \cline{2-4}
 \multicolumn{1}{c|}{}                  & \cellcolor{gray} X-position & \cellcolor{gray} Y-position & \cellcolor{gray} Heading \\ \hline
-\cellcolor{gray} Max                   & 46.5183415482cm        & 19.7486813209cm       & 6.23776rad           \\ \hline
-\cellcolor{gray} Min                   & 0.0cm                  & -19.4028539247cm      & -1.148163rad         \\ \hline
+\cellcolor{gray} Maximum                  & 46.5183415482cm        & 19.7486813209cm       & 6.23776rad           \\ \hline
+\cellcolor{gray} Minimum                  & 0.0cm                  & -19.4028539247cm      & -1.148163rad         \\ \hline
 \cellcolor{gray} Mean/Centroid         & 23.8644631679cm        & 0.338269853117cm      & -0.00417473025048rad \\ \hline
 \cellcolor{gray} Mode                  & 25.0cm                 & -1.0cm                & 0.0rad               \\ \hline
 \cellcolor{gray} Variance              & 10.3960320996          & 9.46441502772         & 0.152467827567       \\ \hline
@@ -349,7 +354,7 @@ The resulting samples weighted higher than others by the Fast-MCD algorithm are 
 \label{fig:real_robot_md_vs_rd}
 \end{figure}
 
-Only three out of the total six degrees of freedom were recorded for the real robot. However, in Blender there were an additional three degrees of freedom (pitch, roll, and heave or up and down) to contend with. Thus, the simulated-robot base's x-rotation, y-rotation, and z-translation were constrained. Additionally, all wheels had their z-translation constrained. As an added precaution, penalties were added onto the robust distance by the absolute amount the simulated robot's base violated any rotation around the global x-axis, any rotation around the global y-axis, and/or any translation up or down the global z-axis. Additionally, a time penalty was added onto the robust distance by the amount of time in seconds the simulated robot took to evaluate (or rather took to come to a complete stop) greater than one second with a maximum penalty of 15 seconds since any given evaluation period only lasted a total of 16 seconds. This time penalty was necessary since it was observed that the real robot never took more than one second to come to a complete stop after moving forward. Without a time penalty, for example, a simulated robot could move just as the real robot and it would be given an erroneously high fitness even though it took 16 seconds to a complete stop. This undesirable scenario was avoided by using a time penalty.     
+Only three out of the total six degrees of freedom were recorded for the real robot. However, in Blender there were an additional three degrees of freedom (pitch, roll, and heave or up and down) to contend with. Thus, the simulated-robot base's x-rotation, y-rotation, and z-translation were constrained. Additionally, all wheels had their z-translation constrained. As an added precaution, penalties were added onto the robust distance by the absolute amount the simulated robot's base violated any rotation around the global x-axis, any rotation around the global y-axis, and/or any translation up or down the global z-axis. Additionally, a time penalty was added onto the robust distance by the amount of time in seconds the simulated robot took to evaluate (or rather took to come to a complete stop) greater than one second with a maximum penalty of 15 seconds since any given evaluation period only lasted a total of 16 seconds. This time penalty was necessary since it was observed that the real robot never took more than one second to come to a complete stop after moving forward. Without a time penalty, for example, a simulated robot could move just as the real robot and it would be given an erroneously high fitness even though it took 16 seconds to come to a complete stop. This undesirable scenario was avoided by using a time penalty.     
 
 Once the simulated robot was run through the game engine evaluation period (using the physics parameter settings decoded from the currently being evaluated genome $G_i$'s genes), 14 pieces of data was collected by the robot monitor for use in the fitness function. Let $S=[x_p,y_p,z_p,x_o,y_o,z_o,T]$ be the starting state of the simulated robot at the beginning of the evaluation period at time $S[6]=T$ where the subscript $_p$ refers to position and the subscript $_o$ refers to orientation. Let $S'=[x_p,y_p,z_p,x_o,y_o,z_o,T']$ be the ending state of the simulated robot at the end of the evaluation period at time $S'[6]=T'$. Also, let $RD(x-position,y-position,z-orientation)$ be the robust distance. The fitness of $G_i$ was defined as $Fitness(S,S')=RD(S'[0],S'[1],S'[5])+|S'[4]-S[4]|+|S'[3]-S[3]|+|S'[2]-S[2]|+((S'[6]-S[6])-1)=G_i$'s fitness. The range of this function is $[0,\infty)$. Since the goal of this thesis was to have the simulated robot move as the real robot, the desired output of this function was $0.0$ implying that three objectives were met:
 \begin{itemize}
@@ -589,10 +594,10 @@ The minimum values reached for the highest, average, and lowest fitness were 0.9
 \cellcolor{gray} Material Friction    & 59.5011814113                 & 77.8151135094                 \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.0742521056997               & 0.279061300281                \\ \hline
 \cellcolor{gray} Mass                 & 4.33392950881                 & 1.76678194417                 \\ \hline
-\cellcolor{gray} Velocity Max         & 900.11395466                  & 647.638168514                 \\ \hline
+\cellcolor{gray} Velocity Maximum        & 900.11395466                  & 647.638168514                 \\ \hline
 \cellcolor{gray} Damping Translation  & 1.0                           & 0.0                           \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.691143247902                & 0.648240602049                \\ \hline
-\cellcolor{gray} Collision Bound Type & SPHERE                        & SPHERE                        \\ \hline
+\cellcolor{gray} Collision Bounds Type & SPHERE                        & SPHERE                        \\ \hline
 \cellcolor{gray} Torque               & 82.7271515601                 & 100.0                         \\ \hline \hline
 \cellcolor{gray} Fitness              & 0.930619100106                & 28584.2244771                 \\ \hline
 \end{tabular}
@@ -657,10 +662,10 @@ The minimum values reached for the highest, average, and lowest fitness were 1.0
 \cellcolor{gray} Material Friction    & 79.87292012678728                 & 100.0                              \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.7331947746415657                & 0.6643893038716038                 \\ \hline
 \cellcolor{gray} Mass                 & 15.0                              & 12.761484385447746                 \\ \hline
-\cellcolor{gray} Velocity Max         & 0.0                               & 250.88084935511978                 \\ \hline
+\cellcolor{gray} Velocity Maximum     & 0.0                               & 250.88084935511978                 \\ \hline
 \cellcolor{gray} Damping Translation  & 1.0                               & 0.33429608723965537                \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.14340109658364997               & 0.0                                \\ \hline
-\cellcolor{gray} Collision Bound Type & TRIANGLE\_MESH                    & SPHERE                             \\ \hline
+\cellcolor{gray} Collision Bounds Type & TRIANGLE\_MESH                    & SPHERE                             \\ \hline
 \cellcolor{gray} Torque               & 47.85677413931377                 & 63.68300968863001                  \\ \hline \hline
 \cellcolor{gray} Fitness              & 1.0827696957                      & 1617.02428027                      \\ \hline
 \end{tabular}
@@ -725,10 +730,10 @@ The minimum values reached for the highest, average, and lowest fitness were 1.1
 \cellcolor{gray} Material Friction    & 61.2749944576                 & 0.0                     \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.171754015461                & 0.649745829218          \\ \hline
 \cellcolor{gray} Mass                 & 15.0                          & 0.158414320671          \\ \hline
-\cellcolor{gray} Velocity Max         & 1000.0                        & 1000.0                  \\ \hline
+\cellcolor{gray} Velocity Maximum        & 1000.0                        & 1000.0                  \\ \hline
 \cellcolor{gray} Damping Translation  & 0.0                           & 0.387362543282          \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.984539067046                & 0.687852083808          \\ \hline
-\cellcolor{gray} Collision Bound Type & SPHERE                        & CONVEX\_HULL            \\ \hline
+\cellcolor{gray} Collision Bounds Type & SPHERE                        & CONVEX\_HULL            \\ \hline
 \cellcolor{gray} Torque               & 6.70058480184                 & 75.8262976514           \\ \hline \hline
 \cellcolor{gray} Fitness              & 1.1309704845                  & 16396.2145412           \\ \hline
 \end{tabular}
@@ -793,10 +798,10 @@ The minimum values reached for the highest, average, and lowest fitness were 1.0
 \cellcolor{gray} Material Friction    & 60.71902294177607             & 15.76102238218593                     \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.5378313234044673            & 0.602617926833965                     \\ \hline
 \cellcolor{gray} Mass                 & 4.175314301157847             & 0.2111916960575379                    \\ \hline
-\cellcolor{gray} Velocity Max         & 660.0787581868401             & 787.7673658611162                     \\ \hline
+\cellcolor{gray} Velocity Maximum        & 660.0787581868401             & 787.7673658611162                     \\ \hline
 \cellcolor{gray} Damping Translation  & 1.0                           & 0.6703819812309364                    \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.4031179325185546            & 0.10076651150002103                   \\ \hline
-\cellcolor{gray} Collision Bound Type & SPHERE                        & SPHERE                                \\ \hline
+\cellcolor{gray} Collision Bounds Type & SPHERE                        & SPHERE                                \\ \hline
 \cellcolor{gray} Torque               & 46.465508081185064            & 49.46737364841879                     \\ \hline \hline
 \cellcolor{gray} Fitness              & 1.0638026764                  & 3257.00654843                         \\ \hline
 \end{tabular}

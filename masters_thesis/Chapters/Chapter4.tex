@@ -44,7 +44,7 @@ Blender's GUI can be extended via its Python API. BBAutoTune adds a custom panel
 
 \subsection{Physics Engine API}
 
-To provide the capability of authoring 3D interactive content, Blender uses a real-time physics engine known as Bullet. Blender exposes the Bullet physics engine API via its own Python API. Most, if not all, of the parameters to Bullet can be modified via the physics engine API during or before running the Blender game engine. Ignoring duplicate ways to set the same parameter and duplicate parameters per dimension, there are 41 different physics engine parameters that can be set via the API.
+To provide the capability of authoring 3D interactive content, Blender uses a real-time physics engine known as Bullet. Blender exposes the Bullet physics engine API via its own Python API. Most, if not all, of the parameters to Bullet can be modified via the physics engine API during or before running the Blender game engine. Ignoring duplicate ways to set the same parameter and duplicate parameters per dimension, there are 42 different physics engine parameters that can be set via the API.
 
 %\footnote{Bullet is the real time physics engine used by Blender. Released under the zlib license, Bullet provides real time continuous collision detection and rigid body dynamics \cite{website:continuousphysics}.}
 
@@ -78,16 +78,15 @@ See Table \ref{tab:physics_params_ranges} for the full 41 parameter set complete
 \hline
 \rowcolor{gray}
 Parameter        & Range                                       & Default Value \\ \hline
+
 Gravity          & [0.0$\frac{m}{s^2}$,10000.0$\frac{m}{s^2}$] & 9.8$\frac{m}{s^2}$ \\ \hline
-Mass             & [0.0,10000.0]                               & 1.0\\ \hline
-Force            & [-inf,inf]                                  & 0.0 \\ \hline
-Torque           & [-inf,inf]                                  & 0.0 \\ \hline
-Linear Velocity  & [-inf,inf]                                  & 0.0 \\ \hline
-Angular Velocity & [-inf,inf]                                  & 0.0 \\ \hline
-Apply Force Locally & [False,True] & True \\ \hline
-Apply Torque Locally & [False,True] & True \\ \hline
-Apply Linear Velocity Locally & [False,True] & True \\ \hline
-Apply Angular Velocity Locally & [False,True] & True \\ \hline
+Max Physics Steps & [1,5] & 5 \\ \hline
+Physics Sub-steps & [1,50] & 1 \\ \hline
+FPS & [1,10000] & 60 \\ \hline
+Linear Deactivation Threshold & [0.001,10000.0] & 0.8 \\ \hline
+Angular Deactivation Threshold & [0.001,10000.0] & 1.0 \\ \hline
+Deactivation Time & [0.0s,60.0s] & 2.0s \\ \hline 
+
 Use Material Physics & [False,True] & True \\ \hline
 Material Friction & [0.0,100.0] & 0.5 \\ \hline
 Material Elasticity & [0.0,1.0] & 0.0 \\ \hline
@@ -95,30 +94,36 @@ Material Force & [0.0,1.0] & 0.0 \\ \hline
 Material Damping & [0.0,1.0] & 0.0 \\ \hline
 Material Distance & [0.0,20.0] & 0.0 \\ \hline
 Material Align to Normal & [False,True] & False \\ \hline
+
+Physics Type & [NO\_COLLISION, STATIC, DYNAMIC, RIGID\_BODY, SOFT\_BODY, OCCLUDE, SENSOR, NAVMESH, CHARACTER] & STATIC \\ \hline
 Use Actor & [False,True] & True \\ \hline
 Use Ghost & [False,True] & False \\ \hline
-Physics Type & [NO\_COLLISION, STATIC, DYNAMIC, RIGID\_BODY, SOFT\_BODY, OCCLUDE, SENSOR, NAVMESH, CHARACTER] & STATIC \\ \hline
 Use Material Force Field & [False,True] & False \\ \hline
 Rotate From Normal & [False,True] & False \\ \hline
 No Sleeping & [False,True] & False \\ \hline
+Mass             & [0.0,10000.0] & 1.0\\ \hline
+Radius & [0.01m,inf] & 1m \\ \hline
 Form Factor & [0.0,1.0] & 0.4 \\ \hline
 Use Anisotropic Friction & [False,True] & False \\ \hline
-Anisotropic Friction XYZ & [0.0,1.0] & 1.0 \\ \hline
-Velocity Min/Max & [0.0,1000.0] & 0.0 \\ \hline
-Lock Translation XYZ  & [False,True] & False \\ \hline
-Lock Rotation XYZ & [False,True] & False \\ \hline
+Anisotropic Friction X,Y,Z & [0.0,1.0] & 1.0 \\ \hline
+Velocity Minimum/Maximum & [0.0,1000.0] & 0.0 \\ \hline
+Lock Translation X,Y,Z  & [False,True] & False \\ \hline
+Lock Rotation X,Y,Z & [False,True] & False \\ \hline
 Damping Translation & [0.0,1.0] & 0.025 \\ \hline
 Damping Rotation & [0.0,1.0] & 0.159 \\ \hline
 Use Collision Bounds & [False,True] & False \\ \hline
-Collision Radius & [0.01m,inf] & 1m \\ \hline
 Collision Bounds Type & [BOX, SPHERE, CYLINDER, CONE, CONVEX\_HULL, TRIANGLE\_MESH, CAPSULE] & BOX \\ \hline
 Collision Margin & [0.0m,1.0m] & 6cm \\ \hline
-Max Physics Steps & [1,5] & 5 \\ \hline
-Physics Sub-steps & [1,50] & 1 \\ \hline
-FPS & [1,10000] & 60 \\ \hline
-Linear Deactivation Threshold & [0.001,10000.0] & 0.8 \\ \hline
-Angular Deactivation Threshold & [0.001,10000.0] & 1.0 \\ \hline
-Deactivation Time & [0.0s,60.0s] & 2.0s \\ \hline
+
+Force            & [-inf,inf]                                  & 0.0 \\ \hline
+Torque           & [-inf,inf]                                  & 0.0 \\ \hline
+Linear Velocity  & [-inf,inf]                                  & 0.0 \\ \hline
+Angular Velocity & [-inf,inf]                                  & 0.0 \\ \hline
+Use Local Force            & [False,True]   & True \\ \hline
+Use Local Torque           & [False,True]   & True \\ \hline
+Use Local Linear Velocity  & [False,True]   & True \\ \hline
+Use Local Angular Velocity & [False,True]   & True \\ \hline
+Damping Frames             & [-32768,32767] & 0    \\ \hline
 \end{tabular}
 \egroup
 \caption[Blender Physics Parameters and Ranges]{The various physics parameters, their ranges, and their default values. Note that inf=340,282,346,638,528,859,811,704,183,484,516,925,440.0 in Blender.}
@@ -244,8 +249,8 @@ Analyzing the distribution of final state x-positions, y-positions, and headings
 %\rowcolor{gray}
 \cline{2-4}
 \multicolumn{1}{c|}{}                  & \cellcolor{gray} X-position & \cellcolor{gray} Y-position & \cellcolor{gray} Heading \\ \hline
-\cellcolor{gray} Max                   & 46.5183415482cm        & 19.7486813209cm       & 6.23776rad           \\ \hline
-\cellcolor{gray} Min                   & 0.0cm                  & -19.4028539247cm      & -1.148163rad         \\ \hline
+\cellcolor{gray} Maximum                  & 46.5183415482cm        & 19.7486813209cm       & 6.23776rad           \\ \hline
+\cellcolor{gray} Minimum                  & 0.0cm                  & -19.4028539247cm      & -1.148163rad         \\ \hline
 \cellcolor{gray} Mean/Centroid         & 23.8644631679cm        & 0.338269853117cm      & -0.00417473025048rad \\ \hline
 \cellcolor{gray} Mode                  & 25.0cm                 & -1.0cm                & 0.0rad               \\ \hline
 \cellcolor{gray} Variance              & 10.3960320996          & 9.46441502772         & 0.152467827567       \\ \hline
@@ -527,10 +532,10 @@ Use Material Force Field: True & 0.329232644023  & 0.329232644023  & 0.329232644
 Rotate From Normal: True & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 \rowcolor{cyan}
 No Sleeping: True & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
+Mass: 10000.0 & 3.57800913743  & 3.30042073543  & 3.21534852885 \\ \hline
 \rowcolor{cyan}
-Attributes Radius: 1cm & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
-Attributes Mass: 10000.0 & 3.57800913743  & 3.30042073543  & 3.21534852885 \\ \hline
-Attributes Form Factor: 0.0 & 3.55513601614  & 18.1217630973  & 3.275450812 \\ \hline
+Radius: 1cm & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
+Form Factor: 0.0 & 3.55513601614  & 18.1217630973  & 3.275450812 \\ \hline
 \rowcolor{cyan}
 Velocity Minimum: 1.0 & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 \rowcolor{cyan}
@@ -552,7 +557,7 @@ Collision Dynamic Object Settings Torque X: 30.0 & 1.67496526126  & 1.5284261910
 Collision Dynamic Object Settings LinV X: 0.0 & 19.2801183238  & 19.1535557726  & 3.3918725084 \\ \hline
 Collision Dynamic Object Settings AngV X: 30.0 & 4.69097055763 & 18.7403224372 & 3.80913153981 \\ \hline
 \rowcolor{cyan}
-Collision Damping Frames: -32768 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
+Damping Frames: -32768 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
 \end{tabular}
 \caption[Physics Engine Parameter Influences]{The distances between each tweaked-parameter ball path and the standard ball path for each of the three quantifiable measurement methods employed. The highlighted tweaked parameters were determined not to be influential.}
 \label{tab:distances}
@@ -589,10 +594,10 @@ The minimum values reached for the highest, average, and lowest fitness were 0.9
 \cellcolor{gray} Material Friction    & 59.5011814113                 & 77.8151135094                 \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.0742521056997               & 0.279061300281                \\ \hline
 \cellcolor{gray} Mass                 & 4.33392950881                 & 1.76678194417                 \\ \hline
-\cellcolor{gray} Velocity Max         & 900.11395466                  & 647.638168514                 \\ \hline
+\cellcolor{gray} Velocity Maximum        & 900.11395466                  & 647.638168514                 \\ \hline
 \cellcolor{gray} Damping Translation  & 1.0                           & 0.0                           \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.691143247902                & 0.648240602049                \\ \hline
-\cellcolor{gray} Collision Bound Type & SPHERE                        & SPHERE                        \\ \hline
+\cellcolor{gray} Collision Bounds Type & SPHERE                        & SPHERE                        \\ \hline
 \cellcolor{gray} Torque               & 82.7271515601                 & 100.0                         \\ \hline \hline
 \cellcolor{gray} Fitness              & 0.930619100106                & 28584.2244771                 \\ \hline
 \end{tabular}
@@ -657,10 +662,10 @@ The minimum values reached for the highest, average, and lowest fitness were 1.0
 \cellcolor{gray} Material Friction    & 79.87292012678728                 & 100.0                              \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.7331947746415657                & 0.6643893038716038                 \\ \hline
 \cellcolor{gray} Mass                 & 15.0                              & 12.761484385447746                 \\ \hline
-\cellcolor{gray} Velocity Max         & 0.0                               & 250.88084935511978                 \\ \hline
+\cellcolor{gray} Velocity Maximum     & 0.0                               & 250.88084935511978                 \\ \hline
 \cellcolor{gray} Damping Translation  & 1.0                               & 0.33429608723965537                \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.14340109658364997               & 0.0                                \\ \hline
-\cellcolor{gray} Collision Bound Type & TRIANGLE\_MESH                    & SPHERE                             \\ \hline
+\cellcolor{gray} Collision Bounds Type & TRIANGLE\_MESH                    & SPHERE                             \\ \hline
 \cellcolor{gray} Torque               & 47.85677413931377                 & 63.68300968863001                  \\ \hline \hline
 \cellcolor{gray} Fitness              & 1.0827696957                      & 1617.02428027                      \\ \hline
 \end{tabular}
@@ -725,10 +730,10 @@ The minimum values reached for the highest, average, and lowest fitness were 1.1
 \cellcolor{gray} Material Friction    & 61.2749944576                 & 0.0                     \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.171754015461                & 0.649745829218          \\ \hline
 \cellcolor{gray} Mass                 & 15.0                          & 0.158414320671          \\ \hline
-\cellcolor{gray} Velocity Max         & 1000.0                        & 1000.0                  \\ \hline
+\cellcolor{gray} Velocity Maximum        & 1000.0                        & 1000.0                  \\ \hline
 \cellcolor{gray} Damping Translation  & 0.0                           & 0.387362543282          \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.984539067046                & 0.687852083808          \\ \hline
-\cellcolor{gray} Collision Bound Type & SPHERE                        & CONVEX\_HULL            \\ \hline
+\cellcolor{gray} Collision Bounds Type & SPHERE                        & CONVEX\_HULL            \\ \hline
 \cellcolor{gray} Torque               & 6.70058480184                 & 75.8262976514           \\ \hline \hline
 \cellcolor{gray} Fitness              & 1.1309704845                  & 16396.2145412           \\ \hline
 \end{tabular}
@@ -793,10 +798,10 @@ The minimum values reached for the highest, average, and lowest fitness were 1.0
 \cellcolor{gray} Material Friction    & 60.71902294177607             & 15.76102238218593                     \\ \hline
 \cellcolor{gray} Material Elasticity  & 0.5378313234044673            & 0.602617926833965                     \\ \hline
 \cellcolor{gray} Mass                 & 4.175314301157847             & 0.2111916960575379                    \\ \hline
-\cellcolor{gray} Velocity Max         & 660.0787581868401             & 787.7673658611162                     \\ \hline
+\cellcolor{gray} Velocity Maximum        & 660.0787581868401             & 787.7673658611162                     \\ \hline
 \cellcolor{gray} Damping Translation  & 1.0                           & 0.6703819812309364                    \\ \hline
 \cellcolor{gray} Damping Rotation     & 0.4031179325185546            & 0.10076651150002103                   \\ \hline
-\cellcolor{gray} Collision Bound Type & SPHERE                        & SPHERE                                \\ \hline
+\cellcolor{gray} Collision Bounds Type & SPHERE                        & SPHERE                                \\ \hline
 \cellcolor{gray} Torque               & 46.465508081185064            & 49.46737364841879                     \\ \hline \hline
 \cellcolor{gray} Fitness              & 1.0638026764                  & 3257.00654843                         \\ \hline
 \end{tabular}
