@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.3.9)  15 APR 2014 14:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.3.9)  4 MAY 2014 13:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -158,7 +158,7 @@ Package: amsthm 2004/08/06 v2.20
 \thm@headsep=\skip49
 \dth@everypar=\toks26
 )
-(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
+(/usr/share/texmf/tex/latex/tools/xspace.sty
 Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
@@ -307,7 +307,7 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 (/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
 
-(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+(/usr/share/texmf/tex/latex/tools/array.sty
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \col@sep=\dimen143
 \extrarowheight=\dimen144
@@ -359,7 +359,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 (/home/lettier/SPR2014/7902/bbautotune/masters_thesis/Packages/pbox.sty
 Package: pbox 2011/12/07 v1.2 Dynamic parboxes
 
-(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+(/usr/share/texmf/tex/latex/tools/calc.sty
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count116
 \calc@Bcount=\count117
@@ -486,58 +486,91 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip59
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 32.
-
-(./main.aux (./Chapters/Chapter1.aux) (./Chapters/Chapter2.aux)
-(./Chapters/Chapter3.aux) (./Chapters/Chapter4.aux) (./Chapters/Chapter5.aux)
-(./Chapters/Chapter6.aux))
+(/usr/share/texmf/tex/latex/tools/layout.sty
+Package: layout 2000/09/25 v1.2c Show layout parameters
+\oneinch=\count130
+\cnt@paperwidth=\count131
+\cnt@paperheight=\count132
+\cnt@hoffset=\count133
+\cnt@voffset=\count134
+\cnt@textheight=\count135
+\cnt@textwidth=\count136
+\cnt@topmargin=\count137
+\cnt@oddsidemargin=\count138
+\cnt@evensidemargin=\count139
+\cnt@headheight=\count140
+\cnt@headsep=\count141
+\cnt@marginparsep=\count142
+\cnt@marginparwidth=\count143
+\cnt@marginparpush=\count144
+\cnt@footskip=\count145
+\fheight=\count146
+\ref@top=\count147
+\ref@hoffset=\count148
+\ref@voffset=\count149
+\ref@head=\count150
+\ref@body=\count151
+\ref@foot=\count152
+\ref@margin=\count153
+\ref@marginwidth=\count154
+\ref@marginpar=\count155
+\Interval=\count156
+\ExtraYPos=\count157
+\PositionX=\count158
+\PositionY=\count159
+\ArrowLength=\count160
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 34.
+ (./main.aux
+(./Chapters/Chapter1.aux) (./Chapters/Chapter2.aux) (./Chapters/Chapter3.aux)
+(./Chapters/Chapter4.aux) (./Chapters/Chapter5.aux) (./Chapters/Chapter6.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count130
+\scratchcounter=\count161
 \scratchdimen=\dimen151
 \scratchbox=\box32
-\nofMPsegments=\count131
-\nofMParguments=\count132
+\nofMPsegments=\count162
+\nofMParguments=\count163
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count133
+\MPscratchCnt=\count164
 \MPscratchDim=\dimen152
-\MPnumerator=\count134
-\makeMPintoPDFobject=\count135
+\MPnumerator=\count165
+\makeMPintoPDFobject=\count166
 \everyMPtoPDFconversion=\toks31
 )
-\c@lstlisting=\count136
+\c@lstlisting=\count167
 \AtBeginShipoutBox=\box33
-Package hyperref Info: Link coloring ON on input line 43.
+Package hyperref Info: Link coloring ON on input line 50.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count137
+\c@section@level=\count168
 )
-LaTeX Info: Redefining \ref on input line 43.
-LaTeX Info: Redefining \pageref on input line 43.
-LaTeX Info: Redefining \nameref on input line 43.
+LaTeX Info: Redefining \ref on input line 50.
+LaTeX Info: Redefining \pageref on input line 50.
+LaTeX Info: Redefining \nameref on input line 50.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
@@ -690,15 +723,16 @@ Underfull \hbox (badness 10000) detected at line 179
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [22]
-[23] [24]
-Overfull \hbox (16.27248pt too wide) in paragraph at lines 250--270
+[23]
+Overfull \hbox (16.27248pt too wide) in paragraph at lines 252--272
  [][] 
  []
 
-[25] [26
+Adding sideways figure on  right hand page
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-]
+ [24]
+[25] [26]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [27]
@@ -708,22 +742,22 @@ File: ./Figures/../Figures/Chapter3/simple_fit_func.png Graphic file (type png)
 
  <use ./Figures/../Figures/Chapter3/simple_fit_func.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/simple_fit_func.png used
- on input line 354.
+ on input line 357.
 (pdftex.def)             Requested size: 325.21751pt x 180.67639pt.
  [28] [29 <./Figures/../Figures/Chapter3/simple_fit_func.png>]
 <./Figures/../Figures/Chapter3/roulette.png, id=975, 1607.00375pt x 764.8575pt>
 File: ./Figures/../Figures/Chapter3/roulette.png Graphic file (type png)
 <use ./Figures/../Figures/Chapter3/roulette.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/roulette.png used on inp
-ut line 366.
+ut line 369.
 (pdftex.def)             Requested size: 401.74995pt x 191.2139pt.
  [30 <./Figures/../Figures/Chapter3/roulette.png>] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 423--487
+Underfull \hbox (badness 10000) in paragraph at lines 426--490
 
  []
 
 
-Underfull \hbox (badness 10000) detected at line 487
+Underfull \hbox (badness 10000) detected at line 490
 
  []
 
@@ -737,7 +771,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: ./Figures/../Figures/Chapter3/exp1_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp1_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp1_avg_fit.png used on
- input line 649.
+ input line 652.
 (pdftex.def)             Requested size: 361.34999pt x 203.1175pt.
 
 <./Figures/../Figures/Chapter3/exp1_10_tops.png, id=1020, 1099.85907pt x 618.81
@@ -745,7 +779,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp1_avg_fit.png used on
 File: ./Figures/../Figures/Chapter3/exp1_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp1_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp1_10_tops.png used on
- input line 657.
+ input line 660.
 (pdftex.def)             Requested size: 361.34999pt x 203.30208pt.
 
 <./Figures/../Figures/Chapter3/exp1_10_tops_times.png, id=1021, 1206.75844pt x 
@@ -754,7 +788,7 @@ File: ./Figures/../Figures/Chapter3/exp1_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp1_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp1_10_tops_times.png u
-sed on input line 665.
+sed on input line 668.
 (pdftex.def)             Requested size: 361.34999pt x 203.32927pt.
 
 <./Figures/../Figures/Chapter3/exp2_avg_fit.png, id=1024, 1191.7022pt x 707.643
@@ -762,7 +796,7 @@ sed on input line 665.
 File: ./Figures/../Figures/Chapter3/exp2_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp2_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp2_avg_fit.png used on
- input line 677.
+ input line 680.
 (pdftex.def)             Requested size: 361.34999pt x 214.57309pt.
 
 <./Figures/../Figures/Chapter3/exp2_10_tops.png, id=1025, 975.645pt x 548.80031
@@ -770,7 +804,7 @@ pt>
 File: ./Figures/../Figures/Chapter3/exp2_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp2_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp2_10_tops.png used on
- input line 685.
+ input line 688.
 (pdftex.def)             Requested size: 361.34999pt x 203.26227pt.
 
 <./Figures/../Figures/Chapter3/exp2_10_tops_times.png, id=1026, 1206.00563pt x 
@@ -779,7 +813,7 @@ File: ./Figures/../Figures/Chapter3/exp2_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp2_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp2_10_tops_times.png u
-sed on input line 693.
+sed on input line 696.
 (pdftex.def)             Requested size: 361.34999pt x 203.22804pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -792,7 +826,7 @@ r3/exp1_10_tops_times.png (PNG copy)>]
 File: ./Figures/../Figures/Chapter3/exp3_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp3_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_avg_fit.png used on
- input line 705.
+ input line 708.
 (pdftex.def)             Requested size: 361.34999pt x 157.19159pt.
 
 Underfull \vbox (badness 4353) has occurred while \output is active []
@@ -805,7 +839,7 @@ File: ./Figures/../Figures/Chapter3/exp3_self_adapt.png Graphic file (type png)
 
  <use ./Figures/../Figures/Chapter3/exp3_self_adapt.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_self_adapt.png used
- on input line 715.
+ on input line 718.
 (pdftex.def)             Requested size: 361.34999pt x 163.62317pt.
 
 <./Figures/../Figures/Chapter3/exp3_10_tops.png, id=1048, 1109.64563pt x 693.34
@@ -813,7 +847,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_self_adapt.png used
 File: ./Figures/../Figures/Chapter3/exp3_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp3_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_10_tops.png used on
- input line 723.
+ input line 726.
 (pdftex.def)             Requested size: 361.34999pt x 225.77727pt.
 
 <./Figures/../Figures/Chapter3/exp3_10_tops_times.png, id=1049, 1186.4325pt x 7
@@ -822,7 +856,7 @@ File: ./Figures/../Figures/Chapter3/exp3_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp3_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp3_10_tops_times.png u
-sed on input line 731.
+sed on input line 734.
 (pdftex.def)             Requested size: 361.34999pt x 220.10889pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -834,7 +868,7 @@ pt>
 File: ./Figures/../Figures/Chapter3/exp4_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp4_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp4_avg_fit.png used on
- input line 743.
+ input line 746.
 (pdftex.def)             Requested size: 361.34999pt x 160.74475pt.
 
 <./Figures/../Figures/Chapter3/exp4_10_tops.png, id=1057, 1157.07281pt x 648.92
@@ -842,7 +876,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp4_avg_fit.png used on
 File: ./Figures/../Figures/Chapter3/exp4_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp4_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp4_10_tops.png used on
- input line 751.
+ input line 754.
 (pdftex.def)             Requested size: 361.34999pt x 202.64973pt.
 
 <./Figures/../Figures/Chapter3/exp4_10_tops_times.png, id=1058, 1211.27531pt x 
@@ -851,7 +885,7 @@ File: ./Figures/../Figures/Chapter3/exp4_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp4_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp4_10_tops_times.png u
-sed on input line 759.
+sed on input line 762.
 (pdftex.def)             Requested size: 361.34999pt x 219.41653pt.
 
 [41 <./Figures/../Figures/Chapter3/exp3_self_adapt.png (PNG copy)> <./Figures/.
@@ -861,7 +895,7 @@ sed on input line 759.
 File: ./Figures/../Figures/Chapter3/exp5_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp5_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp5_avg_fit.png used on
- input line 771.
+ input line 774.
 (pdftex.def)             Requested size: 361.34999pt x 172.39056pt.
 
 <./Figures/../Figures/Chapter3/exp5_10_tops.png, id=1066, 1293.33188pt x 645.91
@@ -869,7 +903,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp5_avg_fit.png used on
 File: ./Figures/../Figures/Chapter3/exp5_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp5_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp5_10_tops.png used on
- input line 779.
+ input line 782.
 (pdftex.def)             Requested size: 361.34999pt x 180.4602pt.
 
 <./Figures/../Figures/Chapter3/exp5_10_tops_times.png, id=1067, 1131.47719pt x 
@@ -878,7 +912,7 @@ File: ./Figures/../Figures/Chapter3/exp5_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp5_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp5_10_tops_times.png u
-sed on input line 787.
+sed on input line 790.
 (pdftex.def)             Requested size: 361.34999pt x 190.16508pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -890,7 +924,7 @@ es/../Figures/Chapter3/exp4_avg_fit.png (PNG copy)>]
 File: ./Figures/../Figures/Chapter3/exp6_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp6_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp6_avg_fit.png used on
- input line 799.
+ input line 802.
 (pdftex.def)             Requested size: 361.34999pt x 187.02328pt.
  [43 <./Figures/../Figures/Chapter3/exp4_10_tops.png (PNG copy)> <./Figures/../
 Figures/Chapter3/exp4_10_tops_times.png (PNG copy)>]
@@ -899,7 +933,7 @@ pt>
 File: ./Figures/../Figures/Chapter3/exp6_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp6_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp6_10_tops.png used on
- input line 807.
+ input line 810.
 (pdftex.def)             Requested size: 361.34999pt x 192.92142pt.
 
 <./Figures/../Figures/Chapter3/exp6_10_tops_times.png, id=1080, 994.46532pt x 5
@@ -908,7 +942,7 @@ File: ./Figures/../Figures/Chapter3/exp6_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp6_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp6_10_tops_times.png u
-sed on input line 815.
+sed on input line 818.
 (pdftex.def)             Requested size: 361.34999pt x 189.56282pt.
 
 <./Figures/../Figures/Chapter3/exp7_avg_fit.png, id=1083, 1447.65843pt x 784.43
@@ -916,7 +950,7 @@ sed on input line 815.
 File: ./Figures/../Figures/Chapter3/exp7_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp7_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp7_avg_fit.png used on
- input line 828.
+ input line 831.
 (pdftex.def)             Requested size: 361.34999pt x 195.79596pt.
 
 <./Figures/../Figures/Chapter3/exp7_10_tops.png, id=1084, 1038.12843pt x 544.28
@@ -924,7 +958,7 @@ Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp7_avg_fit.png used on
 File: ./Figures/../Figures/Chapter3/exp7_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/exp7_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp7_10_tops.png used on
- input line 836.
+ input line 839.
 (pdftex.def)             Requested size: 361.34999pt x 189.44731pt.
 
 <./Figures/../Figures/Chapter3/exp7_10_tops_times.png, id=1085, 1123.94907pt x 
@@ -933,7 +967,7 @@ File: ./Figures/../Figures/Chapter3/exp7_10_tops_times.png Graphic file (type p
 ng)
  <use ./Figures/../Figures/Chapter3/exp7_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/exp7_10_tops_times.png u
-sed on input line 844.
+sed on input line 847.
 (pdftex.def)             Requested size: 361.34999pt x 189.02592pt.
 
 [44 <./Figures/../Figures/Chapter3/exp5_avg_fit.png (PNG copy)> <./Figures/../F
@@ -943,7 +977,7 @@ igures/Chapter3/exp5_10_tops.png (PNG copy)>]
 File: ./Figures/../Figures/Chapter3/all_avg_fit.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/all_avg_fit.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/all_avg_fit.png used on 
-input line 861.
+input line 864.
 (pdftex.def)             Requested size: 361.34999pt x 256.15335pt.
 
 <./Figures/../Figures/Chapter3/all_10_tops.png, id=1096, 1602.98875pt x 1130.22
@@ -951,7 +985,7 @@ input line 861.
 File: ./Figures/../Figures/Chapter3/all_10_tops.png Graphic file (type png)
  <use ./Figures/../Figures/Chapter3/all_10_tops.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/all_10_tops.png used on 
-input line 871.
+input line 874.
 (pdftex.def)             Requested size: 361.34999pt x 254.77197pt.
 
 <./Figures/../Figures/Chapter3/all_10_tops_times.png, id=1097, 1602.98875pt x 1
@@ -960,7 +994,7 @@ File: ./Figures/../Figures/Chapter3/all_10_tops_times.png Graphic file (type pn
 g)
  <use ./Figures/../Figures/Chapter3/all_10_tops_times.png>
 Package pdftex.def Info: ./Figures/../Figures/Chapter3/all_10_tops_times.png us
-ed on input line 881.
+ed on input line 884.
 (pdftex.def)             Requested size: 361.34999pt x 254.77197pt.
 ) [45 <./Figures/../Figures/Chapter3/exp5_10_tops_times.png (PNG copy)> <./Figu
 res/../Figures/Chapter3/exp6_avg_fit.png (PNG copy)>] [46 <./Figures/../Figures
@@ -1578,23 +1612,23 @@ $\OT1/cmtt/m/n/10 http : / / docs . python . org / 3 . 4 / tutorial /
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 136.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 145.
  [168]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 136.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 145.
  (./main.aux (./Chapters/Chapter1.aux) (./Chapters/Chapter2.aux)
 (./Chapters/Chapter3.aux) (./Chapters/Chapter4.aux) (./Chapters/Chapter5.aux)
 (./Chapters/Chapter6.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 136.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 136.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 145.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 145.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 3A91912832B2A1F1BDEDB6DF3285D342;14701.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 136.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 145.
  ) 
 Here is how much of TeX's memory you used:
- 19831 strings out of 495031
- 287896 string characters out of 6181532
- 721811 words of memory out of 5000000
- 16493 multiletter control sequences out of 15000+600000
+ 19907 strings out of 495031
+ 288694 string characters out of 6181532
+ 724224 words of memory out of 5000000
+ 16566 multiletter control sequences out of 15000+600000
  15359 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  42i,14n,43p,2120b,1938s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1622,7 +1656,7 @@ m/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (178 pages, 8901936 bytes).
+Output written on main.pdf (178 pages, 8880613 bytes).
 PDF statistics:
  9031 PDF objects out of 10688 (max. 8388607)
  8639 compressed objects within 87 object streams

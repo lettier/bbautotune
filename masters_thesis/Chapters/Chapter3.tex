@@ -241,12 +241,14 @@ Experiments one and two revolved around the fitness function, the selection oper
 
 For each experiment, the genetic algorithm was run for 100 generations. For each generation, the population's average fitness was recorded. Once every 10th generation, the current population's top performing genome was saved. After the run of the genetic algorithm was over, the saved top-performers were run in a tournament. This tournament consisted of running each top-performer for five rounds where for each top performer, the time in seconds they kept the ball-in-play per round was recorded. Once an every-10th-generation-top-performer was done with their five rounds, the average of their ball-in-play time per round was calculated and recorded.
 
-\begin{landscape}
+%\begin{landscape}
 %\renewcommand*\arraystretch{1.5}
-\begin{table}
+\begin{sidewaystable}
+\centering
+%\begin{table}
 %\hskip-1.7cm
 %\footnotesize
-\centering
+%\centering
     \begin{tabular}{ | >{\columncolor{lightgray}} r"c|c"c|c|c"c| } 
     \hline
     \rowcolor{lightgray} \textbf{GA Parameters $\times$ Experiment} & \textit{One} & \textit{Two} & \textit{Three} & \textit{Four} & \textit{Five} & \textit{Six \& Seven}  \\ \thickhline 
@@ -270,8 +272,9 @@ For each experiment, the genetic algorithm was run for 100 generations. For each
 \caption[Genetic Algorithm Parameters Overview]{The genetic algorithm parameters used per experiment. The highlighted cells indicate the experimental variables per experiment. Experiment six and seven are included in the table for completeness but no evolution ever took place.}
 \label{tab:exps}
 %\normalsize
-\end{table}
-\end{landscape}
+%\end{table}
+\end{sidewaystable}
+%\end{landscape}
 
 \subsection[Experiment One]{Experiment one: use of a full and partial credit granting fitness function.}
 

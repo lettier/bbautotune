@@ -1,0 +1,289 @@
+% this is cuny.sty
+%
+% adapted from brandeis.sty
+%
+%******************************** BRANDEIS.STY *******************************
+% Brandeis LaTeX thesis style option. Set up according to the rules outlined
+% by the % Brandeis graduate school for acceptable thesis format.
+%          LFBrown 30Aug87.
+%
+%      modified by R J Luoma   November 1994
+%  I (RJL) used commands from Greenwade's setspace.sty,
+%  explicitly set the margins, and changed from
+%  article to report (since I use chapters)
+%**************************** report style preamble ************************
+%
+%%    %% for LaTeX 2.09
+%  \documentstyle[setspace,brandeis]{report}
+%%
+%%    %% or for LaTeX2e
+%  \documentclass{report}
+%  \usepackage{setspace}
+%  \usepackage{brandeis}
+%%
+%  \raggedbottom           %% personal preference
+%  \begin{document}
+%
+%  \thesistitle{Title}{DocumentType}{Dept}{Advisor}{Student}{Date}
+%  \sigpagethree{Student}{Advisor}{Two}{Three}
+%  \copyrightpage{Student}{Year}
+%
+%  \pagenumbering{roman}   %% front matter numbered in roman
+%  \setcounter{page}{3}    %% NOTE: \thesisabs will add one to page
+%%          NOTE odd blank lines around body of abstract
+%  \thesisabs{Title}
+%            {Student}
+%  {
+%
+%  Body of abstract
+%
+%  }
+%
+%       %% I do not like large spaces between paragraphs
+%  \setlength{\parskip}{0.05em}
+%  \doublespacing      %% almost everything needs to be double spaced
+%  \tableofcontents
+%  \listoftables
+%  \listoffigures
+%  \newpage                %% strange KLUDGE
+%  %%    ===== body of thesis =====
+%  \pagenumbering{arabic}  %% body of thesis numbered in arabic numbers
+%  \doublespacing          %% just in case
+%  \chapter{Introduction}
+%  \thispagestyle{empty}   %% no page number on first page of Introduction ?
+%   ....(body of thesis)....
+%
+
+% using 8 x 11.5 inch paper
+%  minimum margins --
+%    Left margin    1.5 inches
+%    Right margin   1   inch
+%    Top margin     1   inch
+%    Bottom margin  1   inch
+%
+%  Top margin of the first page of each chapter  2 inches
+%   NOTE:
+%    the margin that has the page number in it will
+%    be 1.5 inches from edge of page to text
+
+%  just explicitly setting the page offsets to 0
+%  \setlength{\hoffset}{0.0in}
+%\setlength{\hoffset}{-0.275in}  % for two sides, center page
+\setlength{\voffset}{0.0in}
+
+% I am assuming that the page numbers are in the footer
+%  and that there is NO header
+% modifications will be needed if page numbers are in the header
+
+% the distance from top edge to text is
+%   1in + \voffset + \topmargin + \headheight + \headsep
+%   1in + 0 + (-.3in) + (12pt+25pt)/72.27 = 1.21 in
+\setlength{\topmargin}{-0.3in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{25pt}
+
+%  I like indented paragraphs
+\setlength{\parindent}{0.5in}
+
+% bottom of text is 1.21in + 8.10in = 9.31in from top
+%   or 11.0 - 9.31 = 1.69in  from bottom (to meet 1.5in min)
+\setlength{\textheight}{8.1in}
+
+% page number is 1.69in - 30pt/72.27 = 1.27in from bottom edge
+\setlength{\footskip}{30pt}
+
+% left margin is
+%  1 inch + \voffset + \oddsidemargin
+%   1in + 0in + 63pt/72.27  = 1.87in from left edge
+% \setlength{\oddsidemargin}{63pt}
+% \setlength{\evensidemargin}{63pt}  % should not be necessary
+% \setlength{\marginparwidth}{90pt}  % for margin notes
+
+% right margin is 1.87in + 5.3in = 7.17in from left edge
+%  OR 8.5in - 7.17in = 1.32in from right edge
+\setlength{\textwidth}{5.3in}
+
+%the six \thesistitle parameters are
+%   Dissertation title,
+%   document type,
+%   department,
+%   advisor's name,
+%   author's name,
+%   date.
+
+\newcommand{\thesistitle}[3]{
+      \newpage
+%     \singlespacing
+      \def\baselinestretch{1}
+      \thispagestyle{empty}  % no page number
+      \begin{center}
+       {\large \normalsize
+        \vspace*{.6in}
+           {\LARGE \bf #1 } \\  %% the title
+        \vspace*{.75in}
+           A Thesis \\
+        \vspace*{.1in}
+           Presented to \\
+        \vspace*{.1in}
+           The Faculty of the  \\
+        \vspace*{.1in}
+           Department of Computer and Information Science \\
+        \vspace*{.1in}
+           Brooklyn College \\
+        \vspace*{.1in}
+	   The City University of New York \\
+        \vspace*{.75in}
+           In Partial Fulfillment \\
+        \vspace*{.05in}
+           of the Requirements for the Degree\\
+        \vspace*{.05in}
+	    Master of Arts\\
+        \vspace*{.75in}
+           by\\
+        \vspace*{.1in}
+           #2\\                   %% your name
+        \vspace*{.1in}
+           #3\\                   %% Month Year
+        }
+       \end{center} 
+%       \def\baselinestretch{1.9}
+      }
+
+
+% \copyrightepage produces the the thesis copyright page. It has two arguments
+% which are the student's name and the year the thesis was completed.
+
+%\newcommand{\copyrightpage}[2]{
+%        \newpage
+%        \thispagestyle{empty}     %% page number is omitted for copyright page
+%%        \singlespacing
+%        \begin{center}
+%        \vspace*{2.5in}
+%                Copyright \copyright \ by \\
+%        \vspace*{.05in}
+%                #1 \\           %% your name
+%        \vspace*{.05in}
+%                #2              %% the year for the copyright
+%        \end{center}
+%        }
+
+
+%\thesisabs writes the abstract page. It has three parameteres.
+% 1) the thesis title,
+% 2) the student's name, and
+% 3) the body of the abstract 
+%         (which is to be no more than 350 words long).
+
+\newcommand{\thesisabs}[3]{
+        \newpage
+        \pagestyle{plain}       %% page number is needed
+%        \singlespacing
+        \begin{center}
+           \vspace*{.25in}
+             {\large \bf ABSTRACT }\\
+           \vspace*{.25in}
+             {\bf  #1 } \\  %% the title
+%           \vspace*{.25in}
+           \vspace*{.1in}
+        \end{center}
+
+        \begin{center}
+          \noindent
+%          \begin{minipage}{.85\linewidth}
+%          \raggedright
+            A dissertation presented to the Faculty of \\
+            the Graduate Center of the City University of New York, \\
+	    New York, New York
+%          \end{minipage}
+        \end{center}
+
+        \begin{center}
+            by #2      %% your name
+        \end{center}
+
+%  weirdness --
+%   an extra blank line is needed (with the version of LaTeX I am using}
+%   both before and after the body of the abstract
+%    e.g.
+% {
+%
+%  I am the body of the abstract ...
+%
+% }
+         { #3 }   %% the body of the abstract
+        }
+
+
+%   ----- KLUDGE alert --------
+%
+%\sigpagethree produces the thesis signature page.
+% It has four required parameters.
+%  the student's name
+%  the committee chair
+%  and the four other committee members
+
+%\newcommand{\sigpagethree}[6]
+\newcommand{\sigpagethree}[4]
+{
+        \newpage
+        \thispagestyle{empty}   %% no page number of signature page
+%        \singlespacing
+      \def\baselinestretch{1}
+      {\large \normalsize
+        \vspace*{.15in}
+        \begin{flushleft}
+This dissertation, directed and approved by #1's Committee, has
+been accepted and approved by the Graduate Faculty of the City University of New York
+in partial fulfillment of the requirements for the degree of \\
+        \end{flushleft}
+        \begin{center}
+           DOCTOR OF PHILOSOPHY \\
+        \end{center}
+        \vspace*{.6in}
+        \begin{flushright}
+           \begin{minipage}{2.9in}
+           \begin{flushleft}
+             \rule{2.75in}{.01in}\\
+             Dean of Arts and Sciences
+           \end{flushleft}
+           \end{minipage}
+        \end{flushright}                
+        \vspace*{1.0in}
+        \begin{flushleft}
+             Dissertation Committee\\
+             \vspace*{0.6in}
+             \rule{2.5in}{.01in}\\
+             #2, Chair\\
+             \vspace*{0.6in}
+             \rule{2.5in}{.01in}\\
+             #3\\
+             \vspace*{0.6in}
+             \rule{2.5in}{.01in}\\
+             #4\\
+%             \vspace*{0.6in}
+%             \rule{2.5in}{.01in}\\
+%             #5\\
+%             \vspace*{0.6in}
+%             \rule{2.5in}{.01in}\\
+%             #6
+        \end{flushleft}
+      }
+%      \def\baselinestretch{1.9}
+}       
+
+%%--------------- end of BRANDEIS.STY----------------------
+
+% Taken from:
+%
+%Article: 328 of local.graduate.gsa
+%Path: news.cs.brandeis.edu!binah.cc.brandeis.edu!LUOMA
+%From: luoma@binah.cc.brandeis.edu (pussycat)
+%Newsgroups: local.graduate.gsa
+%Subject: [LaTeX] brandeis.sty
+%Date: 8 Jun 1995 17:31:17 GMT
+%Organization: Brandeis University
+%Lines: 354
+%Message-ID: <3r7c55$69t@news.cs.brandeis.edu>
+%Reply-To: luoma@binah.cc.brandeis.edu
+%NNTP-Posting-Host: binah.cc.brandeis.edu
+

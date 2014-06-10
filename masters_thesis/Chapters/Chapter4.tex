@@ -76,7 +76,7 @@ See Table \ref{tab:physics_params_ranges} for the full 42 parameter set complete
 \def\arraystretch{1.1}
 \begin{tabular}{ | >{\centering\arraybackslash}m{4cm} | >{\centering\arraybackslash}m{4cm} | >{\centering\arraybackslash}m{4cm} | }
 \hline
-\rowcolor{gray}
+\rowcolor{lightgray}
 Parameter        & Range                                       & Default Value \\ \hline
 
 Gravity          & [0.0$\frac{m}{s^2}$,10000.0$\frac{m}{s^2}$] & 9.8$\frac{m}{s^2}$ \\ \hline
@@ -248,16 +248,16 @@ Analyzing the distribution of final state x-positions, y-positions, and headings
 %\hline
 %\rowcolor{gray}
 \cline{2-4}
-\multicolumn{1}{c|}{}                  & \cellcolor{gray} X-position & \cellcolor{gray} Y-position & \cellcolor{gray} Heading \\ \hline
-\cellcolor{gray} Maximum                  & 46.5183415482cm        & 19.7486813209cm       & 6.23776rad           \\ \hline
-\cellcolor{gray} Minimum                  & 0.0cm                  & -19.4028539247cm      & -1.148163rad         \\ \hline
-\cellcolor{gray} Mean/Centroid         & 23.8644631679cm        & 0.338269853117cm      & -0.00417473025048rad \\ \hline
-\cellcolor{gray} Mode                  & 25.0cm                 & -1.0cm                & 0.0rad               \\ \hline
-\cellcolor{gray} Variance              & 10.3960320996          & 9.46441502772         & 0.152467827567       \\ \hline
-\cellcolor{gray} Standard Deviation    & 3.22428784378          & 3.07642894079         & 0.390471289043       \\ \hline
-\cellcolor{gray} Covariance with X-position  & 10.4060572             & 2.3348963             & 0.0685591            \\ \hline
-\cellcolor{gray} Covariance with Y-position  & 2.3348963              & 9.47354175            & 0.08654865           \\ \hline
-\cellcolor{gray} Covariance with Heading     & 0.0685591              & 0.08654865            & 0.15261486           \\ \hline
+\multicolumn{1}{c|}{}                  & \cellcolor{lightgray} X-position & \cellcolor{lightgray} Y-position & \cellcolor{lightgray} Heading \\ \hline
+\cellcolor{lightgray} Maximum                  & 46.5183415482cm        & 19.7486813209cm       & 6.23776rad           \\ \hline
+\cellcolor{lightgray} Minimum                  & 0.0cm                  & -19.4028539247cm      & -1.148163rad         \\ \hline
+\cellcolor{lightgray} Mean/Centroid         & 23.8644631679cm        & 0.338269853117cm      & -0.00417473025048rad \\ \hline
+\cellcolor{lightgray} Mode                  & 25.0cm                 & -1.0cm                & 0.0rad               \\ \hline
+\cellcolor{lightgray} Variance              & 10.3960320996          & 9.46441502772         & 0.152467827567       \\ \hline
+\cellcolor{lightgray} Standard Deviation    & 3.22428784378          & 3.07642894079         & 0.390471289043       \\ \hline
+\cellcolor{lightgray} Covariance with X-position  & 10.4060572             & 2.3348963             & 0.0685591            \\ \hline
+\cellcolor{lightgray} Covariance with Y-position  & 2.3348963              & 9.47354175            & 0.08654865           \\ \hline
+\cellcolor{lightgray} Covariance with Heading     & 0.0685591              & 0.08654865            & 0.15261486           \\ \hline
 \end{tabular}
 \egroup
 \caption[Real Robot Forward Motion Distribution Metrics]{The distribution metrics of final state x-positions, y-positions, and headings after the real robot moved forward.}
@@ -492,53 +492,53 @@ Twenty parameters out of the initial 44 showed no significant influence over the
 \def\arraystretch{1.1}
 \begin{tabular}{ | l || l | l | l | }
 \hline
-\rowcolor{gray}
+\rowcolor{lightgray}
 Tweaked Parameter: Value & Lettier Distance & Discrete Fr{\'e}chet Distance & Hausdorff Distance \\ \hline
 Gravity: $1.0\frac{m}{s^2}$ & 12.7741189989 & 20.948159542 & 9.86343687719 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Physics Steps Max: 1 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
 Physics Sub-steps: 50 & 19.3073641073 & 17.0708640308 & 11.3180046289 \\ \hline
 Physics FPS: 1 & 218.037284056 & 211.287842927 & 205.848670021 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Logic Steps Max: 1 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Physics Deactivation Linear Threshold: 10000.0 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Physics Deactivation Angular Threshold: 10000.0 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Physics Deactivation Time: 0.0 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Occlusion Culling: False & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Occlusion Culling Resolution: 1024 & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 Material Physics: False & 18.0830473811 & 18.0830473811  & 18.0830473811 \\ \hline
 Material Physics Friction: 100.00 & 4.93924881608  & 4.94095279557  & 3.8109066203 \\ \hline
 Material Physics Elasticity: 0.0 & 17.3874844829  & 17.0233755244  & 11.3180046289 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Force Field Force: 1.00 & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Force Field Damping: 1.00 & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Force Field Distance: 20.00 & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Force Field Align to Normal: True & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 Physics Type: Dynamic & 3.55513601614  & 18.1217630973  & 3.275450812 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Use Actor: False & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 Use Ghost: True & 138.489494312  & 138.489494312  & 132.02387242 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Use Material Force Field: True & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Rotate From Normal: True & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 No Sleeping: True & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 Mass: 10000.0 & 3.57800913743  & 3.30042073543  & 3.21534852885 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Radius: 1cm & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 Form Factor: 0.0 & 3.55513601614  & 18.1217630973  & 3.275450812 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Velocity Minimum: 1.0 & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Anisotropic Friction: True & 0.329232644023  & 0.329232644023  & 0.329232644023 \\ \hline
 Velocity Maximum: 1.0 & 17.1034960114  & 17.130808295  & 16.8922077042 \\ \hline
 Damping Translation: 1.0 & 17.9729741832 & 17.9729741832 & 17.9729741832 \\ \hline
@@ -550,13 +550,13 @@ Launch Dynamic Object Settings Force X: 30.0 & 5.21169989737  & 5.21169989737  &
 Launch Dynamic Object Settings Torque X: 30.0 & 8.82943537929  & 8.70403741077  & 6.58255281735 \\ \hline
 Launch Dynamic Object Settings AngV X: 30.0 & 2.93219084728  & 2.63246279507  & 1.82341393368 \\ \hline
 Launch Dynamic Object Settings LinV X: 0.0 & 19.1625050915  & 19.1625050915  & 17.0670582483 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Launch Damping Frames: -32768 & 0.329232644023 & 0.329232644023  & 0.329232644023 \\ \hline
 Collision Dynamic Object Settings Force X: 30.0 & 5.32618850819  & 18.9696056987  & 3.80913153981 \\ \hline
 Collision Dynamic Object Settings Torque X: 30.0 & 1.67496526126  & 1.52842619107  & 1.52842619107 \\ \hline
 Collision Dynamic Object Settings LinV X: 0.0 & 19.2801183238  & 19.1535557726  & 3.3918725084 \\ \hline
 Collision Dynamic Object Settings AngV X: 30.0 & 4.69097055763 & 18.7403224372 & 3.80913153981 \\ \hline
-\rowcolor{cyan}
+\rowcolor{lightblue}
 Damping Frames: -32768 & 0.329232644023 & 0.329232644023 & 0.329232644023 \\ \hline
 \end{tabular}
 \caption[Physics Engine Parameter Influences]{The distances between each tweaked-parameter ball path and the standard ball path for each of the three quantifiable measurement methods employed. The highlighted tweaked parameters were determined not to be influential.}
@@ -587,19 +587,19 @@ The minimum values reached for the highest, average, and lowest fitness were 0.9
 %\hline
 %\rowcolor{gray}
 \cline{2-3}
-\multicolumn{1}{c|}{}                 & \cellcolor{gray} Best         & \cellcolor{gray} Worst        \\ \hline
-\cellcolor{gray} Gravity              & 2.89862416489$\frac{m}{s^2}$  & 10.1989482496$\frac{m}{s^2}$  \\ \hline
-\cellcolor{gray} Sub-steps            & 5                             & 5                             \\ \hline
-\cellcolor{gray} FPS                  & 30                            & 30                            \\ \hline
-\cellcolor{gray} Material Friction    & 59.5011814113                 & 77.8151135094                 \\ \hline
-\cellcolor{gray} Material Elasticity  & 0.0742521056997               & 0.279061300281                \\ \hline
-\cellcolor{gray} Mass                 & 4.33392950881                 & 1.76678194417                 \\ \hline
-\cellcolor{gray} Velocity Maximum        & 900.11395466                  & 647.638168514                 \\ \hline
-\cellcolor{gray} Damping Translation  & 1.0                           & 0.0                           \\ \hline
-\cellcolor{gray} Damping Rotation     & 0.691143247902                & 0.648240602049                \\ \hline
-\cellcolor{gray} Collision Bounds Type & SPHERE                        & SPHERE                        \\ \hline
-\cellcolor{gray} Torque               & 82.7271515601                 & 100.0                         \\ \hline \hline
-\cellcolor{gray} Fitness              & 0.930619100106                & 28584.2244771                 \\ \hline
+\multicolumn{1}{c|}{}                 & \cellcolor{lightgray} Best         & \cellcolor{lightgray} Worst        \\ \hline
+\cellcolor{lightgray} Gravity              & 2.89862416489$\frac{m}{s^2}$  & 10.1989482496$\frac{m}{s^2}$  \\ \hline
+\cellcolor{lightgray} Sub-steps            & 5                             & 5                             \\ \hline
+\cellcolor{lightgray} FPS                  & 30                            & 30                            \\ \hline
+\cellcolor{lightgray} Material Friction    & 59.5011814113                 & 77.8151135094                 \\ \hline
+\cellcolor{lightgray} Material Elasticity  & 0.0742521056997               & 0.279061300281                \\ \hline
+\cellcolor{lightgray} Mass                 & 4.33392950881                 & 1.76678194417                 \\ \hline
+\cellcolor{lightgray} Velocity Maximum        & 900.11395466                  & 647.638168514                 \\ \hline
+\cellcolor{lightgray} Damping Translation  & 1.0                           & 0.0                           \\ \hline
+\cellcolor{lightgray} Damping Rotation     & 0.691143247902                & 0.648240602049                \\ \hline
+\cellcolor{lightgray} Collision Bounds Type & SPHERE                        & SPHERE                        \\ \hline
+\cellcolor{lightgray} Torque               & 82.7271515601                 & 100.0                         \\ \hline \hline
+\cellcolor{lightgray} Fitness              & 0.930619100106                & 28584.2244771                 \\ \hline
 \end{tabular}
 \egroup
 \caption[Experiment Two Best and Worst Physics Parameters Found]{The best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run for experiment two.}
@@ -655,19 +655,19 @@ The minimum values reached for the highest, average, and lowest fitness were 1.0
 %\hline
 %\rowcolor{gray}
 \cline{2-3}
-\multicolumn{1}{c|}{}                 & \cellcolor{gray} Best             & \cellcolor{gray} Worst             \\ \hline
-\cellcolor{gray} Gravity              & 14.09509165745291$\frac{m}{s^2}$  & 0.8362602682788933$\frac{m}{s^2}$  \\ \hline
-\cellcolor{gray} Sub-steps            & 1                                 & 1                                  \\ \hline
-\cellcolor{gray} FPS                  & 30                                & 30                                 \\ \hline
-\cellcolor{gray} Material Friction    & 79.87292012678728                 & 100.0                              \\ \hline
-\cellcolor{gray} Material Elasticity  & 0.7331947746415657                & 0.6643893038716038                 \\ \hline
-\cellcolor{gray} Mass                 & 15.0                              & 12.761484385447746                 \\ \hline
-\cellcolor{gray} Velocity Maximum     & 0.0                               & 250.88084935511978                 \\ \hline
-\cellcolor{gray} Damping Translation  & 1.0                               & 0.33429608723965537                \\ \hline
-\cellcolor{gray} Damping Rotation     & 0.14340109658364997               & 0.0                                \\ \hline
-\cellcolor{gray} Collision Bounds Type & TRIANGLE\_MESH                    & SPHERE                             \\ \hline
-\cellcolor{gray} Torque               & 47.85677413931377                 & 63.68300968863001                  \\ \hline \hline
-\cellcolor{gray} Fitness              & 1.0827696957                      & 1617.02428027                      \\ \hline
+\multicolumn{1}{c|}{}                 & \cellcolor{lightgray} Best             & \cellcolor{lightgray} Worst             \\ \hline
+\cellcolor{lightgray} Gravity              & 14.09509165745291$\frac{m}{s^2}$  & 0.8362602682788933$\frac{m}{s^2}$  \\ \hline
+\cellcolor{lightgray} Sub-steps            & 1                                 & 1                                  \\ \hline
+\cellcolor{lightgray} FPS                  & 30                                & 30                                 \\ \hline
+\cellcolor{lightgray} Material Friction    & 79.87292012678728                 & 100.0                              \\ \hline
+\cellcolor{lightgray} Material Elasticity  & 0.7331947746415657                & 0.6643893038716038                 \\ \hline
+\cellcolor{lightgray} Mass                 & 15.0                              & 12.761484385447746                 \\ \hline
+\cellcolor{lightgray} Velocity Maximum     & 0.0                               & 250.88084935511978                 \\ \hline
+\cellcolor{lightgray} Damping Translation  & 1.0                               & 0.33429608723965537                \\ \hline
+\cellcolor{lightgray} Damping Rotation     & 0.14340109658364997               & 0.0                                \\ \hline
+\cellcolor{lightgray} Collision Bounds Type & TRIANGLE\_MESH                    & SPHERE                             \\ \hline
+\cellcolor{lightgray} Torque               & 47.85677413931377                 & 63.68300968863001                  \\ \hline \hline
+\cellcolor{lightgray} Fitness              & 1.0827696957                      & 1617.02428027                      \\ \hline
 \end{tabular}
 \egroup
 \caption[Experiment Three Best and Worst Physics Parameters Found]{The best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run for experiment three.}
@@ -723,19 +723,19 @@ The minimum values reached for the highest, average, and lowest fitness were 1.1
 %\hline
 %\rowcolor{gray}
 \cline{2-3}
-\multicolumn{1}{c|}{}                 & \cellcolor{gray} Best         & \cellcolor{gray} Worst  \\ \hline
-\cellcolor{gray} Gravity              & 13.8256917774$\frac{m}{s^2}$  & 15.0$\frac{m}{s^2}$     \\ \hline
-\cellcolor{gray} Sub-steps            & 2                             & 5                       \\ \hline
-\cellcolor{gray} FPS                  & 30                            & 30                      \\ \hline
-\cellcolor{gray} Material Friction    & 61.2749944576                 & 0.0                     \\ \hline
-\cellcolor{gray} Material Elasticity  & 0.171754015461                & 0.649745829218          \\ \hline
-\cellcolor{gray} Mass                 & 15.0                          & 0.158414320671          \\ \hline
-\cellcolor{gray} Velocity Maximum        & 1000.0                        & 1000.0                  \\ \hline
-\cellcolor{gray} Damping Translation  & 0.0                           & 0.387362543282          \\ \hline
-\cellcolor{gray} Damping Rotation     & 0.984539067046                & 0.687852083808          \\ \hline
-\cellcolor{gray} Collision Bounds Type & SPHERE                        & CONVEX\_HULL            \\ \hline
-\cellcolor{gray} Torque               & 6.70058480184                 & 75.8262976514           \\ \hline \hline
-\cellcolor{gray} Fitness              & 1.1309704845                  & 16396.2145412           \\ \hline
+\multicolumn{1}{c|}{}                 & \cellcolor{lightgray} Best         & \cellcolor{lightgray} Worst  \\ \hline
+\cellcolor{lightgray} Gravity              & 13.8256917774$\frac{m}{s^2}$  & 15.0$\frac{m}{s^2}$     \\ \hline
+\cellcolor{lightgray} Sub-steps            & 2                             & 5                       \\ \hline
+\cellcolor{lightgray} FPS                  & 30                            & 30                      \\ \hline
+\cellcolor{lightgray} Material Friction    & 61.2749944576                 & 0.0                     \\ \hline
+\cellcolor{lightgray} Material Elasticity  & 0.171754015461                & 0.649745829218          \\ \hline
+\cellcolor{lightgray} Mass                 & 15.0                          & 0.158414320671          \\ \hline
+\cellcolor{lightgray} Velocity Maximum        & 1000.0                        & 1000.0                  \\ \hline
+\cellcolor{lightgray} Damping Translation  & 0.0                           & 0.387362543282          \\ \hline
+\cellcolor{lightgray} Damping Rotation     & 0.984539067046                & 0.687852083808          \\ \hline
+\cellcolor{lightgray} Collision Bounds Type & SPHERE                        & CONVEX\_HULL            \\ \hline
+\cellcolor{lightgray} Torque               & 6.70058480184                 & 75.8262976514           \\ \hline \hline
+\cellcolor{lightgray} Fitness              & 1.1309704845                  & 16396.2145412           \\ \hline
 \end{tabular}
 \egroup
 \caption[Experiment Four Best and Worst Physics Parameters Found]{The best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run for experiment four.}
@@ -791,19 +791,19 @@ The minimum values reached for the highest, average, and lowest fitness were 1.0
 %\hline
 %\rowcolor{gray}
 \cline{2-3}
-\multicolumn{1}{c|}{}                 & \cellcolor{gray} Best         & \cellcolor{gray} Worst                \\ \hline
-\cellcolor{gray} Gravity              & 0.0$\frac{m}{s^2}$            & 12.803362098213498$\frac{m}{s^2}$     \\ \hline
-\cellcolor{gray} Sub-steps            & 3                             & 2                                     \\ \hline
-\cellcolor{gray} FPS                  & 30                            & 30                                    \\ \hline
-\cellcolor{gray} Material Friction    & 60.71902294177607             & 15.76102238218593                     \\ \hline
-\cellcolor{gray} Material Elasticity  & 0.5378313234044673            & 0.602617926833965                     \\ \hline
-\cellcolor{gray} Mass                 & 4.175314301157847             & 0.2111916960575379                    \\ \hline
-\cellcolor{gray} Velocity Maximum        & 660.0787581868401             & 787.7673658611162                     \\ \hline
-\cellcolor{gray} Damping Translation  & 1.0                           & 0.6703819812309364                    \\ \hline
-\cellcolor{gray} Damping Rotation     & 0.4031179325185546            & 0.10076651150002103                   \\ \hline
-\cellcolor{gray} Collision Bounds Type & SPHERE                        & SPHERE                                \\ \hline
-\cellcolor{gray} Torque               & 46.465508081185064            & 49.46737364841879                     \\ \hline \hline
-\cellcolor{gray} Fitness              & 1.0638026764                  & 3257.00654843                         \\ \hline
+\multicolumn{1}{c|}{}                 & \cellcolor{lightgray} Best         & \cellcolor{lightgray} Worst                \\ \hline
+\cellcolor{lightgray} Gravity              & 0.0$\frac{m}{s^2}$            & 12.803362098213498$\frac{m}{s^2}$     \\ \hline
+\cellcolor{lightgray} Sub-steps            & 3                             & 2                                     \\ \hline
+\cellcolor{lightgray} FPS                  & 30                            & 30                                    \\ \hline
+\cellcolor{lightgray} Material Friction    & 60.71902294177607             & 15.76102238218593                     \\ \hline
+\cellcolor{lightgray} Material Elasticity  & 0.5378313234044673            & 0.602617926833965                     \\ \hline
+\cellcolor{lightgray} Mass                 & 4.175314301157847             & 0.2111916960575379                    \\ \hline
+\cellcolor{lightgray} Velocity Maximum        & 660.0787581868401             & 787.7673658611162                     \\ \hline
+\cellcolor{lightgray} Damping Translation  & 1.0                           & 0.6703819812309364                    \\ \hline
+\cellcolor{lightgray} Damping Rotation     & 0.4031179325185546            & 0.10076651150002103                   \\ \hline
+\cellcolor{lightgray} Collision Bounds Type & SPHERE                        & SPHERE                                \\ \hline
+\cellcolor{lightgray} Torque               & 46.465508081185064            & 49.46737364841879                     \\ \hline \hline
+\cellcolor{lightgray} Fitness              & 1.0638026764                  & 3257.00654843                         \\ \hline
 \end{tabular}
 \egroup
 \caption[Experiment Five Best and Worst Physics Parameters Found]{The best and worst physics parameters found by the GA corresponding to the best and worst fitness observed during the 500 generation run for experiment five.}
@@ -852,19 +852,19 @@ The top phenotype for experiment two had the largest robust distance from the re
 %\hline
 %\rowcolor{gray}
 \cline{2-5}
-\multicolumn{1}{c|}{} & \multicolumn{4}{c}{ \cellcolor{gray} Final States of Highest Performing Phenotypes} & \multicolumn{1}{c}{} \\
+\multicolumn{1}{c|}{} & \multicolumn{4}{c}{ \cellcolor{lightgray} Final States of Highest Performing Phenotypes} & \multicolumn{1}{c}{} \\
 \cline{2-5}
-\multicolumn{1}{c|}{}                                & \cellcolor{gray} Exp. Two & \cellcolor{gray} Exp. Three & \cellcolor{gray} Exp. Four & \cellcolor{gray} Exp. Five & \cellcolor{gray} Real Robot Robust Mean \\ \hline
-\cellcolor{gray} X-position                       & 23.12349975cm    &  23.95108938cm  & 23.49144816cm   & 24.05546605cm  &  23.9934044cm  \\  \hline
-\cellcolor{gray} Y-position                       &  0.00953689cm    &  -0.34897618cm  & -0.00286334cm   &  0.01641194cm  &   0.0351240cm  \\  \hline
-\cellcolor{gray} Heading (Z-orientation)          &  0.00203373rad   &  -0.00318596rad & -0.00428754rad  &  0.00118415rad &  -0.0189964rad \\  \hline
+\multicolumn{1}{c|}{}                                & \cellcolor{lightgray} Exp. Two & \cellcolor{lightgray} Exp. Three & \cellcolor{lightgray} Exp. Four & \cellcolor{lightgray} Exp. Five & \cellcolor{lightgray} Real Robot Robust Mean \\ \hline
+\cellcolor{lightgray} X-position                       & 23.12349975cm    &  23.95108938cm  & 23.49144816cm   & 24.05546605cm  &  23.9934044cm  \\  \hline
+\cellcolor{lightgray} Y-position                       &  0.00953689cm    &  -0.34897618cm  & -0.00286334cm   &  0.01641194cm  &   0.0351240cm  \\  \hline
+\cellcolor{lightgray} Heading (Z-orientation)          &  0.00203373rad   &  -0.00318596rad & -0.00428754rad  &  0.00118415rad &  -0.0189964rad \\  \hline
 \multicolumn{6}{c}{} \\
 \cline{1-5}
-\cellcolor{gray} Elapsed Time Until Coming to a Stop &  1.0333563sec    &   1.5333535sec  &  1.5333476sec   &  1.5333496sec  &  \multicolumn{1}{c}{} \\
+\cellcolor{lightgray} Elapsed Time Until Coming to a Stop &  1.0333563sec    &   1.5333535sec  &  1.5333476sec   &  1.5333496sec  &  \multicolumn{1}{c}{} \\
 \cline{1-5}
 \multicolumn{6}{c}{} \\
 \cline{1-5}
-\cellcolor{gray} Resulting Genome Fitness & 0.930619100106 & 1.0827696957 & 1.1309704845 & 1.0638026764 &  \multicolumn{1}{c}{} \\
+\cellcolor{lightgray} Resulting Genome Fitness & 0.930619100106 & 1.0827696957 & 1.1309704845 & 1.0638026764 &  \multicolumn{1}{c}{} \\
 \cline{1-5}
 \end{tabular}
 \egroup
